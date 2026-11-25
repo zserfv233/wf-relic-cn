@@ -68,3 +68,9 @@
   6. 测试验证：
      - 运行 `node scripts/build-data.mjs --raw /workspace/wf-relic-cn-raw` 数据构建全部成功。
      - 运行 `npm test`，7 个测试套件，37 个用例全部通过（37 passed, 0 failed）。
+
+## 2026-11-26 00:57 AEDT（通道）
+- 阶段 3 结束：commit 6645b61，npm test 37/37；通道复核：全量遗物掉率 vs DE 表 3197/3197 一致（Meso D1 已修）；稀有度、NX 前缀已确认。
+- Mac 真实价格抓取完成：2453 键 0 失败（约 00:41–00:56），已复制回 data/prices.json 并本地提交。
+- 发现 meta 覆盖率口径 bug（build-data 重写 meta 后出现 159.3%、分类 0%）→ 阶段 4 修复。
+- 自检脚本改用 gemini-3.8-flash-low（-high 与 --effort 冲突）。
