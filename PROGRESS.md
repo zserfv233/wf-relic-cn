@@ -74,3 +74,22 @@
 - Mac 真实价格抓取完成：2453 键 0 失败（约 00:41–00:56），已复制回 data/prices.json 并本地提交。
 - 发现 meta 覆盖率口径 bug（build-data 重写 meta 后出现 159.3%、分类 0%）→ 阶段 4 修复。
 - 自检脚本改用 gemini-3.8-flash-low（-high 与 --effort 冲突）。
+
+## 2026-11-26 01:04 AEDT
+- 阶段 4 完成：
+  1. 价格覆盖率统一计算与口径修复：
+     - 在 `js/lib/prices.js` 中封装纯函数 `calculatePriceCoverage` 与 `computeCategoryStats`，供 `scripts/build-data.mjs` 和 `scripts/fetch-prices.mjs` 统一调用；
+     - 各分类应抓键数与覆盖口径明确对齐：relics 唯一样本 603、rivens 8、arcanes 340（170个×2档）、mods 1502（751个×2档），总应抓键数 2453；
+     - 真实价格覆盖统计：relics 603/603 (100.0%)、rivens 8/8 (100.0%)、arcanes 340/340 (100.0%)、mods 1490/1502 (99.2%)、全量 2441/2453 (99.5%)；
+     - 确保各分类及全量覆盖率严谨计算且数学上严格 $\le 100.0\%$；
+     - `data/meta.json` 准确同步保存 `prices.updatedAt`（取自 `data/prices.json` 的 `2026-11-25T13:56:27.424Z`）及各类别详细指标。
+  2. 前端价格展示规范与排序验证：
+     - 价格缺失（null）物品统一展示为“暂无挂单”而非 0；
+     - 遗物四档期望白金值、赋能与 Mod 各等级价格、紫卡交易价、刷取来源每次/每击杀期望白金均准确加载并支持按期望值正常排序；
+     - 页面页脚如实呈现最新“价格更新时间”、全量覆盖率及遗物/紫卡/赋能/Mod 各分类覆盖明细。
+  3. 本地静态服务器与接口可用性验证：
+     - 启动 `python3 -m http.server 8000` 并使用 `curl` 逐项验证 `index.html` 以及 `data/` 下全部 8 个 JSON 文件（`relics`, `prices`, `meta`, `arcanes`, `rivens`, `mods`, `sources`, `search-index`），全部返回 HTTP 200 OK 且响应完整，测试完毕后正常清理释放服务。
+  4. 自动化测试与版本库：
+     - 新增 `test/coverage.test.mjs` 针对真实 `data/prices.json` 断言各分类应抓数与 $\le 100.0\%$ 覆盖率；
+     - 运行 `npm test`，8 个测试套件，40 个测试用例全部通过（40 passed, 0 failed）；
+     - 本地完成 Git 提交（不加远端、不推送）。

@@ -118,10 +118,10 @@ function formatDateTime(isoStr) {
 }
 
 /**
- * 格式化白金价格展示（A1: 无价格显示“暂无价格”）
+ * 格式化白金价格展示（无价格显示“暂无挂单”）
  */
 function formatPlat(price, suffix = ' ☿') {
-  if (price === null || price === undefined) return '<span style="color: var(--text-muted); font-size: 0.85em;">暂无价格</span>';
+  if (price === null || price === undefined) return '<span style="color: var(--text-muted); font-size: 0.85em;">暂无挂单</span>';
   return `${price}${suffix}`;
 }
 
@@ -190,7 +190,20 @@ function updateFooterInfo() {
   if (!state.meta) return;
   elements.footerDataTime.textContent = formatDateTime(state.meta.builtAt);
   elements.footerPriceTime.textContent = formatDateTime(state.meta.prices?.updatedAt);
-  elements.footerPriceCoverage.textContent = `${state.meta.prices?.pricedCount || 0} 项已抓取 (${state.meta.prices?.coverage || '0.0%'})`;
+  const p = state.meta.prices || {};
+  elements.footerPriceCoverage.textContent = `${p.pricedCount || 0} / ${p.totalCount || 0} 项已抓取 (${p.coverage || '0.0%'})`;
+
+  const catsEl = document.getElementById('footer-price-categories');
+  if (catsEl && p.categories) {
+    const c = p.categories;
+    const catList = [
+      c.relics ? `遗物奖励: ${c.relics.pricedCount}/${c.relics.totalCount} (${c.relics.coverage})` : null,
+      c.rivens ? `未开紫卡: ${c.rivens.pricedCount}/${c.rivens.totalCount} (${c.rivens.coverage})` : null,
+      c.arcanes ? `赋能: ${c.arcanes.pricedCount}/${c.arcanes.totalCount} (${c.arcanes.coverage})` : null,
+      c.mods ? `掉落Mod: ${c.mods.pricedCount}/${c.mods.totalCount} (${c.mods.coverage})` : null
+    ].filter(Boolean);
+    catsEl.innerHTML = catList.map(item => `<div>• ${item}</div>`).join('');
+  }
 }
 
 /**
@@ -734,8 +747,8 @@ export function openRelicModal(relicId) {
   const rowsHtml = relic.rewards.map(rew => {
     const slug = rew.marketSlug;
     const priceData = slug ? state.prices[slug] : null;
-    const sellPrice = priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '<span style="color: var(--text-muted);">暂无</span>';
-    const buyPrice = priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '<span style="color: var(--text-muted);">暂无</span>';
+    const sellPrice = priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>';
+    const buyPrice = priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>';
 
     return `
       <tr>
@@ -766,7 +779,7 @@ export function openRelicModal(relicId) {
   const formatExp = (num) => num !== null ? `${num} ☿` : '—';
   const missingIntact = expValues.intact.missingPriceCount;
   const missingWarning = missingIntact > 0 
-    ? `<div class="dashboard-note warning-text">⚠️ 遗物中有 ${missingIntact} 个奖励物品未抓取到有效市场价格，按 0 白金计入。</div>`
+    ? `<div class="dashboard-note warning-text">⚠️ 遗物中有 ${missingIntact} 个奖励物品暂无市场挂单，按 0 白金计入。</div>`
     : '';
 
   elements.modalBodyContent.innerHTML = `
@@ -845,8 +858,8 @@ export function openItemModal(itemKey) {
   state.activeModal = { type: 'item', id: itemKey };
 
   const priceData = item.marketSlug ? state.prices[item.marketSlug] : null;
-  const sellMin = priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '暂无价格（未抓取）';
-  const buyMax = priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '暂无价格（未抓取）';
+  const sellMin = priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '暂无挂单';
+  const buyMax = priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '暂无挂单';
 
   elements.modalHeaderContent.innerHTML = `
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">

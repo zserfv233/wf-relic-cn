@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pinyin } from 'pinyin-pro';
+import { calculatePriceCoverage } from '../js/lib/prices.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -999,41 +1000,39 @@ async function build() {
   }));
   unmatchedList.sort((a, b) => a.name.localeCompare(b.name));
 
-  // 8. 生成 meta.json
-  const existingMetaPath = path.join(DATA_DIR, 'meta.json');
-  let oldPricesMeta = {
+  // 8. 生成 meta.json (使用与 fetch-prices 统一的 calculatePriceCoverage 函数)
+  let pricesMeta = {
     updatedAt: null,
     pricedCount: 0,
-    totalCount: 0,
+    totalCount: 603 + 8 + (arcanesResult.length * 2) + (modsResult.length * 2),
     coverage: '0.0%',
     categories: {
       relics: { pricedCount: 0, totalCount: 603, coverage: '0.0%' },
       rivens: { pricedCount: 0, totalCount: 8, coverage: '0.0%' },
-      arcanes: { pricedCount: 0, totalCount: arcanesResult.length, coverage: '0.0%' },
-      mods: { pricedCount: 0, totalCount: modsResult.length, coverage: '0.0%' }
+      arcanes: { pricedCount: 0, totalCount: arcanesResult.length * 2, coverage: '0.0%' },
+      mods: { pricedCount: 0, totalCount: modsResult.length * 2, coverage: '0.0%' }
     }
   };
 
-  // 仅在 prices.json 存在真实数据时计算覆盖率 (A1)
+  // 基于 data/prices.json 计算真实分类与全量覆盖率 (不得超过 100%)
   const pricesPath = path.join(DATA_DIR, 'prices.json');
   if (fs.existsSync(pricesPath)) {
     try {
       const pc = JSON.parse(fs.readFileSync(pricesPath, 'utf8'));
-      const items = pc.items || {};
-      const realKeys = Object.keys(items);
-      const pricedKeys = realKeys.filter(k => items[k]?.sellMin !== null || items[k]?.buyMax !== null);
-      oldPricesMeta.updatedAt = pc.updatedAt;
-      oldPricesMeta.pricedCount = pricedKeys.length;
-      oldPricesMeta.totalCount = 603 + 8 + arcanesResult.length + modsResult.length;
-      oldPricesMeta.coverage = oldPricesMeta.totalCount > 0 
-        ? ((oldPricesMeta.pricedCount / oldPricesMeta.totalCount) * 100).toFixed(1) + '%' 
-        : '0.0%';
-    } catch {}
+      pricesMeta = calculatePriceCoverage(pc, {
+        relics: relicsResult,
+        rivens: rivensResult,
+        arcanes: arcanesResult,
+        mods: modsResult
+      });
+    } catch (err) {
+      console.warn('[build] 计算价格覆盖率出错:', err.message);
+    }
   }
 
   const meta = {
     version: '2.0.0',
-    phase: 2,
+    phase: 4,
     builtAt: new Date().toISOString(),
     sources: {
       deDropData: REMOTE_URLS.drops_all,
@@ -1055,7 +1054,7 @@ async function build() {
       totalSources: sourcesResult.length,
       unmatchedCount: unmatchedList.length
     },
-    prices: oldPricesMeta
+    prices: pricesMeta
   };
 
   // 9. 写入所有产物文件

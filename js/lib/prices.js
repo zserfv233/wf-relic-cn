@@ -66,3 +66,111 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     fetchedAt: new Date().toISOString()
   };
 }
+
+/**
+ * 辅助：计算单个分类的覆盖统计
+ * @param {Array<string>} targetKeys 
+ * @param {Object} priceItems 
+ * @returns {Object} { pricedCount, totalCount, coverage }
+ */
+export function computeCategoryStats(targetKeys = [], priceItems = {}) {
+  const uniqueKeys = Array.from(new Set(targetKeys));
+  let priced = 0;
+  for (const k of uniqueKeys) {
+    const item = priceItems[k];
+    if (item && (item.sellMin !== null || item.buyMax !== null)) {
+      priced++;
+    }
+  }
+  const total = uniqueKeys.length;
+  // 覆盖率不得超过 100%
+  const clampedPriced = Math.min(priced, total);
+  const coverage = total > 0 ? Math.min(100, (clampedPriced / total) * 100).toFixed(1) + '%' : '0.0%';
+  return { pricedCount: clampedPriced, totalCount: total, coverage };
+}
+
+/**
+ * 统一计算价格覆盖率 (relics, rivens, arcanes, mods)
+ * @param {Object} pricesJson { updatedAt, items: {} }
+ * @param {Object} datasets 包含各类数据集 { relics, rivens, arcanes, mods } 或已抽取的 keys
+ * @returns {Object} { updatedAt, pricedCount, totalCount, coverage, categories: { relics, rivens, arcanes, mods } }
+ */
+export function calculatePriceCoverage(pricesJson = {}, datasets = {}) {
+  const priceItems = pricesJson?.items || {};
+
+  // 1. Relics: 遗物奖励里有 marketSlug 的唯一 slug
+  let relicSlugs = [];
+  if (datasets.relicSlugs) {
+    relicSlugs = Array.from(new Set(datasets.relicSlugs));
+  } else if (datasets.relics) {
+    const slugs = new Set();
+    for (const r of datasets.relics) {
+      for (const rew of r.rewards || []) {
+        if (rew.marketSlug) slugs.add(rew.marketSlug);
+      }
+    }
+    relicSlugs = Array.from(slugs);
+  }
+
+  // 2. Rivens: 8 个未开紫卡 slug
+  let rivenSlugs = [];
+  if (datasets.rivenSlugs) {
+    rivenSlugs = datasets.rivenSlugs;
+  } else if (datasets.rivens) {
+    rivenSlugs = datasets.rivens.map(r => r.slug || r.id);
+  }
+
+  // 3. Arcanes: slug@r0 与 slug@rN (N 为 maxRank, maxRank > 0 时有 2 个键)
+  let arcaneKeys = [];
+  if (datasets.arcaneKeys) {
+    arcaneKeys = datasets.arcaneKeys;
+  } else if (datasets.arcanes) {
+    for (const a of datasets.arcanes) {
+      const maxRank = a.maxRank ?? 5;
+      if (maxRank > 0) {
+        arcaneKeys.push(`${a.slug}@r0`);
+        arcaneKeys.push(`${a.slug}@r${maxRank}`);
+      } else {
+        arcaneKeys.push(a.slug);
+      }
+    }
+  }
+
+  // 4. Mods: slug@r0 与 slug@rN (N 为 maxRank, maxRank > 0 时有 2 个键)
+  let modKeys = [];
+  if (datasets.modKeys) {
+    modKeys = datasets.modKeys;
+  } else if (datasets.mods) {
+    for (const m of datasets.mods) {
+      const maxRank = m.maxRank ?? 3;
+      if (maxRank > 0) {
+        modKeys.push(`${m.slug}@r0`);
+        modKeys.push(`${m.slug}@r${maxRank}`);
+      } else {
+        modKeys.push(m.slug);
+      }
+    }
+  }
+
+  const relicsStats = computeCategoryStats(relicSlugs, priceItems);
+  const rivensStats = computeCategoryStats(rivenSlugs, priceItems);
+  const arcanesStats = computeCategoryStats(arcaneKeys, priceItems);
+  const modsStats = computeCategoryStats(modKeys, priceItems);
+
+  const totalCount = relicsStats.totalCount + rivensStats.totalCount + arcanesStats.totalCount + modsStats.totalCount;
+  const totalPriced = relicsStats.pricedCount + rivensStats.pricedCount + arcanesStats.pricedCount + modsStats.pricedCount;
+  const totalCoverage = totalCount > 0 ? Math.min(100, (totalPriced / totalCount) * 100).toFixed(1) + '%' : '0.0%';
+
+  return {
+    updatedAt: pricesJson?.updatedAt || null,
+    pricedCount: totalPriced,
+    totalCount,
+    coverage: totalCoverage,
+    categories: {
+      relics: relicsStats,
+      rivens: rivensStats,
+      arcanes: arcanesStats,
+      mods: modsStats
+    }
+  };
+}

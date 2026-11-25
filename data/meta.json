@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "phase": 2,
-  "builtAt": "2026-11-25T13:57:37.093Z",
+  "phase": 4,
+  "builtAt": "2026-11-25T14:03:43.280Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -25,28 +25,28 @@
   "prices": {
     "updatedAt": "2026-11-25T13:56:27.424Z",
     "pricedCount": 2441,
-    "totalCount": 1532,
-    "coverage": "159.3%",
+    "totalCount": 2453,
+    "coverage": "99.5%",
     "categories": {
       "relics": {
-        "pricedCount": 0,
+        "pricedCount": 603,
         "totalCount": 603,
-        "coverage": "0.0%"
+        "coverage": "100.0%"
       },
       "rivens": {
-        "pricedCount": 0,
+        "pricedCount": 8,
         "totalCount": 8,
-        "coverage": "0.0%"
+        "coverage": "100.0%"
       },
       "arcanes": {
-        "pricedCount": 0,
-        "totalCount": 170,
-        "coverage": "0.0%"
+        "pricedCount": 340,
+        "totalCount": 340,
+        "coverage": "100.0%"
       },
       "mods": {
-        "pricedCount": 0,
-        "totalCount": 751,
-        "coverage": "0.0%"
+        "pricedCount": 1490,
+        "totalCount": 1502,
+        "coverage": "99.2%"
       }
     }
   }

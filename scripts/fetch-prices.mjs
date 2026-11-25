@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { RateLimiter, fetchWithRetry } from '../js/lib/rate-limiter.js';
-import { parseOrdersTop } from '../js/lib/prices.js';
+import { parseOrdersTop, calculatePriceCoverage, computeCategoryStats } from '../js/lib/prices.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,22 +62,6 @@ export function parseArgs(rawArgs = process.argv.slice(2)) {
   }
 
   return { limit, maxAgeHours, onlyCategories, fixturePath, outPath, dryRun };
-}
-
-/**
- * 计算单个类别覆盖率
- */
-function computeCategoryStats(targetKeys, priceItems) {
-  let priced = 0;
-  for (const k of targetKeys) {
-    const item = priceItems[k];
-    if (item && (item.sellMin !== null || item.buyMax !== null)) {
-      priced++;
-    }
-  }
-  const total = targetKeys.length;
-  const coverage = total > 0 ? ((priced / total) * 100).toFixed(1) + '%' : '0.0%';
-  return { pricedCount: priced, totalCount: total, coverage };
 }
 
 async function main() {
@@ -184,6 +168,17 @@ async function main() {
   if (fixturePath) {
     console.log(`[prices] 当前为 Fixture 测试模式: ${fixturePath}`);
     if (!outPath) console.log(`[prices] 注意: Fixture 模式未指定 --out，绝不会修改 data/prices.json！`);
+  }
+
+  // 提前预加载所有类别的所有待抓键，便于准确计算各类别覆盖率
+  for (const cat of categoriesDef) {
+    if (fs.existsSync(cat.dataFile)) {
+      try {
+        const dataObj = JSON.parse(fs.readFileSync(cat.dataFile, 'utf8'));
+        const allCatTasks = cat.loadTasks(dataObj);
+        allCategoryKeys[cat.id] = allCatTasks.map(t => t.cacheKey);
+      } catch {}
+    }
   }
 
   // 逐类别处理并即时写入
@@ -296,21 +291,16 @@ async function main() {
       console.log(`[prices] [${cat.name}] 完成，已同步写入价格文件: ${outPath}`);
     }
 
-    // 更新 meta.json 中该类别与总覆盖率
+    // 更新 meta.json 中该类别与总覆盖率 (使用统一的 calculatePriceCoverage 函数)
     if (fs.existsSync(metaPath) && outPath && outPath.endsWith('prices.json')) {
       try {
         const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
-        if (!meta.prices) meta.prices = {};
-        if (!meta.prices.categories) meta.prices.categories = {};
-
-        const catStats = computeCategoryStats(allCatTasks.map(t => t.cacheKey), priceCache.items);
-        meta.prices.categories[cat.id] = catStats;
-        meta.prices.updatedAt = priceCache.updatedAt;
-
-        // 计算全量覆盖率
-        const allKeys = Object.keys(priceCache.items);
-        const pricedKeys = allKeys.filter(k => priceCache.items[k]?.sellMin !== null || priceCache.items[k]?.buyMax !== null);
-        meta.prices.pricedCount = pricedKeys.length;
+        meta.prices = calculatePriceCoverage(priceCache, {
+          relicSlugs: allCategoryKeys.relics,
+          rivenSlugs: allCategoryKeys.rivens,
+          arcaneKeys: allCategoryKeys.arcanes,
+          modKeys: allCategoryKeys.mods
+        });
 
         fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2));
       } catch (e) {
