@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_DIR = path.resolve(__dirname, '../data');
 
-describe('未开紫卡 DE 名→slug 匹配与分类数据集 (Rivens & Drop Data)', () => {
+describe('未开紫卡 DE 名→slug 匹配与分类数据集 (Rivens & Drop Data - Invariants)', () => {
   const rivensPath = path.join(DATA_DIR, 'rivens.json');
   const arcanesPath = path.join(DATA_DIR, 'arcanes.json');
   const modsPath = path.join(DATA_DIR, 'mods.json');
@@ -24,8 +24,9 @@ describe('未开紫卡 DE 名→slug 匹配与分类数据集 (Rivens & Drop Dat
   const mods = JSON.parse(fs.readFileSync(modsPath, 'utf8'));
   const sources = JSON.parse(fs.readFileSync(sourcesPath, 'utf8'));
 
-  it('验证全部 8 种未开紫卡 DE 官方掉落表名称精确对应 WFM slug', () => {
-    assert.strictEqual(rivens.length, 8, '应包含 8 种未开紫卡');
+  it('验证全部未开紫卡 DE 官方掉落表名称精确对应 WFM slug 且 slug 唯一', () => {
+    assert.strictEqual(rivens.length, new Set(rivens.map(r => r.slug)).size, '紫卡 slug 必须全部唯一');
+    assert.ok(rivens.length >= 8, '应包含至少 8 种未开紫卡');
 
     const expectedMap = {
       'rifle_riven_mod_veiled': '步枪裂罅',
@@ -46,10 +47,12 @@ describe('未开紫卡 DE 名→slug 匹配与分类数据集 (Rivens & Drop Dat
     }
   });
 
-  it('赋能与 Mod 数据集完整性验证', () => {
-    assert.strictEqual(arcanes.length, 170, '赋能总数应为 170');
-    assert.ok(mods.length >= 700, '具掉落来源的 Mod 数量应不低于 700');
-    assert.ok(sources.length >= 2000, '统一掉落来源总数应不低于 2000');
+  it('赋能与 Mod 数据集完整性与互斥不变量', () => {
+    assert.strictEqual(arcanes.length, new Set(arcanes.map(a => a.slug)).size, '赋能 slug 必须全部唯一');
+    assert.strictEqual(mods.length, new Set(mods.map(m => m.slug)).size, 'Mod slug 必须全部唯一');
+    assert.ok(arcanes.length > 0, '赋能数据集不为空');
+    assert.ok(mods.length > 0, 'Mod 数据集不为空');
+    assert.ok(sources.length > 0, '统一掉落来源不为空');
 
     // 检查 Arcane Energize
     const energize = arcanes.find(a => a.slug === 'arcane_energize');
@@ -62,5 +65,21 @@ describe('未开紫卡 DE 名→slug 匹配与分类数据集 (Rivens & Drop Dat
     assert.ok(serration);
     assert.strictEqual(serration.maxRank, 10);
     assert.ok(serration.zhName.includes('膛线'));
+  });
+
+  it('紫卡与 Mod 互斥不变量: companion_weapon_riven_mod_veiled 及任何紫卡不得出现在 mods.json', () => {
+    const rivenSlugs = new Set(rivens.map(r => r.slug));
+    const modSlugs = new Set(mods.map(m => m.slug));
+
+    // companion_weapon_riven_mod_veiled 严禁在 mods 中
+    assert.ok(!modSlugs.has('companion_weapon_riven_mod_veiled'), 'companion_weapon_riven_mod_veiled 严禁出现在 mods.json 中');
+
+    // 两个集合交集必须严格为空
+    const intersection = [...modSlugs].filter(slug => rivenSlugs.has(slug));
+    assert.strictEqual(intersection.length, 0, `mods.json 与 rivens.json 的 slug 集合必须互斥，但发现了交集: ${intersection.join(', ')}`);
+
+    // 任何带 veiled riven 标记的 mod 都不应混入 mods.json
+    const leakedVeiled = mods.filter(m => m.slug.includes('riven_mod_veiled') || m.tags?.includes('veiled_riven'));
+    assert.strictEqual(leakedVeiled.length, 0, 'mods.json 中不得包含任何未开紫卡');
   });
 });

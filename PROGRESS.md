@@ -158,3 +158,33 @@
   8. 排序使用未取整值：表格及列表排序统一使用 expectedValueRaw。
   - 自动化单测：新增 test/math_kernel_m1.test.mjs（9 个用例），npm test 10 个测试套件 54 个测试全部通过（54 passed, 0 failed）。
 
+## 2026-11-26 09:34 AEDT
+- 阶段 M2 完成（数学内核修复与测试去快照化）：
+  1. 稀疏卖单稳健取价与低置信（LOW_CONFIDENCE_MIN_SELLERS = 3）：
+     - 派生 `lowConfidence`（挂单数 < 3 或最低价缺失）与 `noBuyOrders`；
+     - 期望值函数额外输出 `expectedValueConfidentRaw`、`expectedValueConfident`、`lowConfidenceCount`、`lowConfidenceProbability`；
+     - 默认排序及推荐使用 confident 高置信值；卡片/详情同时呈现“含低置信项的值”与“仅高置信值”，并附带「低置信」标记；
+     - 买卖双向价格独立显示（卖单参考收益 / 买单参考即时出售收益），不合成单一边际数；
+     - `fetch-prices.mjs` 增加每侧样本保存与卖家去重，实现 `sellRobust`（最低 min(3, n) 单中位数），旧缓存兼容标记 `robustUnavailable: true`。
+  2. Requiem ETERNA 处理：
+     - 不存在的精炼档（exceptional/flawless/radiant）期望值返回 `null`（不记为 0），界面该档禁用并显示“不适用”；
+     - 标记 `dataConflict: true`，说明文字引用官方 DE 掉落表 8×9.5%=76% 与 Update 42 PC 更新说明 12.5% 等概率资料冲突；
+     - 遗物期望值处注明“单人单次开启”。
+  3. 赋能满级合成换算与串级回退清理：
+     - 实现 `arcaneCopiesForRank(r) = (r+1)(r+2)/2`（Rank 5 需 21 个，Rank 3 需 10 个，非法返回 null）；
+     - 计算 `perR0EquivalentSell` 与 `perR0EquivalentBuy`，展示“满级折合每个 0 级 ≈ X p（卖）/ Y p（买）”，注明独立策略及未计成本提示；
+     - 严格移除串级回退：`getItemPrice` 指定 rank 时若 `${slug}@r${rank}` 不存在直接返回 `null`，禁止回退到基础 slug。
+  4. 紫卡价格与分类互斥：
+     - 价格键扩展 subtype（`${slug}@unrevealed`）；旧缓存读取回退标记 `subtypeUnknown: true` 并在界面提示“旧缓存未区分子类型”；
+     - `mods.json` 彻底剔除 `companion_weapon_riven_mod_veiled`（条目数 773 -> 772），与 `rivens.json` 的 slug 集合保持严格互斥。
+  5. 来源 ID 格式合规化：
+     - 全量 2394 处来源 ID 严格匹配 `/^[a-z0-9]+(_[a-z0-9]+)*$/`，消除尾部下划线及连续双下划线，保证 100% 格式合规且唯一。
+  6. 测试去快照化与不变量重构（总管新增）：
+     - 全面重构 `test/coverage.test.mjs`、`test/pvp.test.mjs`、`test/vaulted.test.mjs`、`test/rivens.test.mjs`、`test/chances.test.mjs` 等套件，将写死数字替换为数据结构重算的不变量断言；
+     - 覆盖率验证满足 `pricedCount <= totalCount` 且 `rate >= COVERAGE_FLOOR (0.90)`；
+     - 在 `os.tmpdir()` 验证临时副本变动下不变量成立，真实 `data/prices.json` 严格保持只读与无变更；
+     - 算法与公式测试改用固定价格字典 fixture，解耦实时行情波动；
+     - 新增 `test/math_kernel_m2.test.mjs` 验证 M2 各项要求；
+     - 全量测试回归：`npm test` 11 个测试套件 62 个测试全部通过（62 passed, 0 failed）。
+
+

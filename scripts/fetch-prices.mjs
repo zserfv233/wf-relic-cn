@@ -110,7 +110,8 @@ async function main() {
           category: 'rivens',
           slug: r.slug,
           rank: null,
-          cacheKey: r.slug
+          subtype: 'unrevealed',
+          cacheKey: `${r.slug}@unrevealed`
         }));
       }
     },
@@ -229,7 +230,7 @@ async function main() {
       if (fixturePath && fs.existsSync(fixturePath)) {
         // 使用 fixture 数据解析
         const fixtureJson = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
-        const parsed = parseOrdersTop(fixtureJson, { targetRank: rank, slug });
+        const parsed = parseOrdersTop(fixtureJson, { targetRank: rank, slug, subtype: task.subtype });
         priceCache.items[cacheKey] = {
           ...parsed,
           fetchedAt: new Date().toISOString()
@@ -237,7 +238,10 @@ async function main() {
         successCount++;
       } else {
         // 真实网络抓取
-        const queryParam = rank !== null ? `?rank=${rank}` : '';
+        const queryParams = [];
+        if (rank !== null) queryParams.push(`rank=${rank}`);
+        if (task.subtype) queryParams.push(`subtype=${encodeURIComponent(task.subtype)}`);
+        const queryParam = queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
         const url = `${API_BASE}/orders/item/${encodeURIComponent(slug)}/top${queryParam}`;
 
         try {
@@ -256,6 +260,7 @@ async function main() {
               sellCount: 0,
               buyCount: 0,
               rank,
+              subtype: task.subtype || null,
               source: `warframe.market v2 /orders/item/${slug}/top${queryParam}`,
               fetchedAt: new Date().toISOString()
             };
@@ -263,7 +268,7 @@ async function main() {
             consecutiveFail = 0;
           } else if (res.ok) {
             const json = await res.json();
-            const parsed = parseOrdersTop(json, { targetRank: rank, slug });
+            const parsed = parseOrdersTop(json, { targetRank: rank, slug, subtype: task.subtype });
             // A2: 确保写 fetchedAt
             priceCache.items[cacheKey] = {
               ...parsed,

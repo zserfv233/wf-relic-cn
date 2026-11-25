@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "phase": 4,
-  "builtAt": "2026-11-25T22:03:45.121Z",
+  "builtAt": "2026-11-25T22:33:24.641Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -18,7 +18,7 @@
     "totalRewardItems": 607,
     "totalArcanes": 170,
     "totalRivens": 8,
-    "totalMods": 773,
+    "totalMods": 772,
     "totalSources": 2394,
     "bountySources": 299,
     "pvpSources": 45,
@@ -27,8 +27,8 @@
   "pvpSources": 45,
   "prices": {
     "updatedAt": "2026-11-25T13:56:27.424Z",
-    "pricedCount": 2441,
-    "totalCount": 2497,
+    "pricedCount": 2439,
+    "totalCount": 2495,
     "coverage": "97.8%",
     "categories": {
       "relics": {
@@ -47,8 +47,8 @@
         "coverage": "100.0%"
       },
       "mods": {
-        "pricedCount": 1490,
-        "totalCount": 1546,
+        "pricedCount": 1488,
+        "totalCount": 1544,
         "coverage": "96.4%"
       }
     }

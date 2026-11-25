@@ -1,6 +1,9 @@
 /**
- * prices.js - 订单与价格数据解析纯函数（阶段 2 扩展）
+ * prices.js - 订单与价格数据解析纯函数（阶段 2 / M2 扩展）
  */
+
+// 常量：低置信度最小卖家数（建议参数，非游戏规则）
+export const LOW_CONFIDENCE_MIN_SELLERS = 3;
 
 /**
  * 解析 Warframe.Market v2 orders/top 响应数据
@@ -9,9 +12,10 @@
  *   - onlineOnly: 默认 true, 优先在线/游戏内玩家
  *   - targetRank: 目标等级 (0 或 maxRank)，若传入则严格筛选 o.rank === targetRank 的挂单
  *   - slug: 物品 market slug
- * @returns {Object} { sellMin, buyMax, sellCount, buyCount, rank, source, fetchedAt }
+ *   - subtype: 紫卡等子类型 (如 'unrevealed')
+ * @returns {Object}
  */
-export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = null, slug = '' } = {}) {
+export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = null, slug = '', subtype = null } = {}) {
   const sellOrders = ordersData?.data?.sell ?? ordersData?.sell ?? [];
   const buyOrders = ordersData?.data?.buy ?? ordersData?.buy ?? [];
 
@@ -22,6 +26,12 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     return order.rank === targetRank;
   };
 
+  const matchesSubtype = (order) => {
+    if (!subtype) return true;
+    if (!order.subtype) return true;
+    return order.subtype === subtype;
+  };
+
   const isOnline = (order) => {
     if (!onlineOnly) return true;
     const status = order?.user?.status;
@@ -29,9 +39,9 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     return status === 'ingame' || status === 'online';
   };
 
-  // 筛选等级匹配的挂单
-  const rankFilteredSell = sellOrders.filter(matchesRank);
-  const rankFilteredBuy = buyOrders.filter(matchesRank);
+  // 筛选等级与 subtype 匹配的挂单
+  const rankFilteredSell = sellOrders.filter(matchesRank).filter(matchesSubtype);
+  const rankFilteredBuy = buyOrders.filter(matchesRank).filter(matchesSubtype);
 
   // 筛选在线挂单
   let filteredSell = rankFilteredSell.filter(isOnline);
@@ -46,21 +56,55 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
 
   const sellPrices = filteredSell
     .map(o => o.platinum)
-    .filter(p => typeof p === 'number' && !isNaN(p) && p >= 0);
+    .filter(p => typeof p === 'number' && Number.isFinite(p) && p >= 0);
 
   const buyPrices = filteredBuy
     .map(o => o.platinum)
-    .filter(p => typeof p === 'number' && !isNaN(p) && p >= 0);
+    .filter(p => typeof p === 'number' && Number.isFinite(p) && p >= 0);
+
+  const sortedSellPrices = sellPrices.slice().sort((a, b) => a - b);
+  const sortedBuyPrices = buyPrices.slice().sort((a, b) => b - a);
+
+  const sellMin = sortedSellPrices.length > 0 ? sortedSellPrices[0] : null;
+  const buyMax = sortedBuyPrices.length > 0 ? sortedBuyPrices[0] : null;
+
+  const n = sortedSellPrices.length;
+  let sellRobust = null;
+  if (n === 0) {
+    sellRobust = null;
+  } else if (n < 3) {
+    sellRobust = sellMin;
+  } else {
+    // 最低 min(3, n) 个卖单价格的中位数
+    const lowest3 = sortedSellPrices.slice(0, 3);
+    sellRobust = lowest3[1];
+  }
+
+  const uniqueSellers = new Set(filteredSell.map(o => o?.user?.ingameName || o?.user?.id).filter(Boolean)).size;
+  const uniqueBuyers = new Set(filteredBuy.map(o => o?.user?.ingameName || o?.user?.id).filter(Boolean)).size;
+
+  const perTrade = filteredSell[0]?.per_trade || filteredSell[0]?.perTrade || null;
+  const orderSubtype = subtype || filteredSell[0]?.subtype || ordersData?.subtype || null;
 
   const sourceUrl = slug 
     ? (targetRank !== null ? `warframe.market v2 /orders/item/${slug}/top?rank=${targetRank}` : `warframe.market v2 /orders/item/${slug}/top`)
     : 'warframe.market v2 /orders/item/{slug}/top';
 
   return {
-    sellMin: sellPrices.length > 0 ? Math.min(...sellPrices) : null,
-    buyMax: buyPrices.length > 0 ? Math.max(...buyPrices) : null,
-    sellCount: sellPrices.length,
-    buyCount: buyPrices.length,
+    sellMin,
+    buyMax,
+    sellCount: n,
+    buyCount: sortedBuyPrices.length,
+    sellRobust,
+    robustUnavailable: false,
+    lowConfidence: n < LOW_CONFIDENCE_MIN_SELLERS || sellMin === null,
+    noBuyOrders: sortedBuyPrices.length === 0 || buyMax === null,
+    uniqueSellers,
+    uniqueBuyers,
+    sellSamples: sortedSellPrices,
+    buySamples: sortedBuyPrices,
+    subtype: orderSubtype,
+    perTrade,
     rank: targetRank,
     source: sourceUrl,
     fetchedAt: new Date().toISOString()
@@ -71,13 +115,17 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
  * 辅助：计算单个分类的覆盖统计
  * @param {Array<string>} targetKeys 
  * @param {Object} priceItems 
+ * @param {Object} options
  * @returns {Object} { pricedCount, totalCount, coverage }
  */
-export function computeCategoryStats(targetKeys = [], priceItems = {}) {
+export function computeCategoryStats(targetKeys = [], priceItems = {}, { category = '' } = {}) {
   const uniqueKeys = Array.from(new Set(targetKeys));
   let priced = 0;
   for (const k of uniqueKeys) {
-    const item = priceItems[k];
+    let item = priceItems[k];
+    if (!item && (category === 'rivens' || k.includes('riven'))) {
+      item = priceItems[`${k}@unrevealed`] || priceItems[k];
+    }
     if (item && (item.sellMin !== null || item.buyMax !== null)) {
       priced++;
     }
@@ -153,7 +201,7 @@ export function calculatePriceCoverage(pricesJson = {}, datasets = {}) {
   }
 
   const relicsStats = computeCategoryStats(relicSlugs, priceItems);
-  const rivensStats = computeCategoryStats(rivenSlugs, priceItems);
+  const rivensStats = computeCategoryStats(rivenSlugs, priceItems, { category: 'rivens' });
   const arcanesStats = computeCategoryStats(arcaneKeys, priceItems);
   const modsStats = computeCategoryStats(modKeys, priceItems);
 

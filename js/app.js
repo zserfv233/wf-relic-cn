@@ -10,6 +10,8 @@ import {
   calculateSourceExpectedValue,
   calculateEnemyExpectedValue,
   getItemPrice,
+  getPriceEntry,
+  arcaneCopiesForRank,
   isUntradeableItem
 } from './lib/calculations.js';
 import { searchIndex } from './lib/search.js';
@@ -355,7 +357,9 @@ function renderRelicsView() {
 
   const cardsHtml = list.map(r => {
     let badgeHtml = '';
-    if (r.unlisted) {
+    if (r.dataConflict) {
+      badgeHtml = `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);" title="${escapeHtml(r.dataConflictNote || '')}">⚠️ 资料冲突</span>`;
+    } else if (r.unlisted) {
       badgeHtml = `<span class="badge badge-unlisted" title="${r.statusReason || ''}">特殊来源</span>`;
     } else if (r.conflict) {
       badgeHtml = `<span class="badge badge-conflict" title="${r.conflictNote || ''}">⚠️ 存疑</span>`;
@@ -365,10 +369,10 @@ function renderRelicsView() {
       badgeHtml = `<span class="badge badge-vaulted">已入库</span>`;
     }
 
-    const expRad = r._expValues.radiant.expectedValue;
-    const expInt = r._expValues.intact.expectedValue;
-    const expRadStr = expRad !== null ? `${expRad} ☿` : '—';
-    const expIntStr = expInt !== null ? `${expInt} ☿` : '—';
+    const radData = r._expValues.radiant;
+    const intData = r._expValues.intact;
+    const expRadStr = radData?.unsupportedRefinement ? '不适用' : (radData?.expectedValue !== null ? `${radData.expectedValue} ☿` : '—');
+    const expIntStr = intData?.unsupportedRefinement ? '不适用' : (intData?.expectedValue !== null ? `${intData.expectedValue} ☿` : '—');
 
     const rareReward = r.rewards.find(x => x.rarity === 'Rare');
     const uncRewards = r.rewards.filter(x => x.rarity === 'Uncommon');
@@ -442,6 +446,11 @@ function renderArcanesView() {
   elements.gridView.innerHTML = list.map(arc => {
     const price0 = getItemPrice(arc.slug, 0, state.prices, priceType);
     const priceMax = getItemPrice(arc.slug, arc.maxRank, state.prices, priceType);
+    const N = arcaneCopiesForRank(arc.maxRank);
+    const pMaxSell = getItemPrice(arc.slug, arc.maxRank, state.prices, 'sellMin');
+    const pMaxBuy = getItemPrice(arc.slug, arc.maxRank, state.prices, 'buyMax');
+    const perR0Sell = (N !== null && pMaxSell !== null) ? Number((pMaxSell / N).toFixed(2)) : null;
+    const perR0Buy = (N !== null && pMaxBuy !== null) ? Number((pMaxBuy / N).toFixed(2)) : null;
 
     return `
       <div class="relic-card" data-arcane-id="${arc.slug}">
@@ -463,6 +472,12 @@ function renderArcanesView() {
           <div style="display: flex; justify-content: space-between; width: 100%;">
             <span class="plat-label">满级 (Rank ${arc.maxRank}) 价格:</span>
             <span class="plat-badge" style="font-size: 0.95rem; color: var(--gold-light);">${formatPlat(priceMax)}</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--cyan-primary); margin-top: 0.2rem; width: 100%;">
+            满级折合每个 0 级 ≈ ${perR0Sell !== null ? `${perR0Sell} ☿` : '—'}（卖）/ ${perR0Buy !== null ? `${perR0Buy} ☿` : '—'}（买）
+          </div>
+          <div style="font-size: 0.7rem; color: var(--text-muted);">
+            与直接卖 0 级是两种策略，未计凑齐成本与价差
           </div>
         </div>
 
@@ -496,7 +511,9 @@ function renderRivensView() {
   elements.filterResultCount.textContent = `共 ${list.length} 种未开紫卡类型`;
 
   elements.gridView.innerHTML = list.map(riv => {
-    const price = getItemPrice(riv.slug, null, state.prices, priceType);
+    const rivenEntry = getPriceEntry(riv.slug, null, state.prices);
+    const price = rivenEntry ? rivenEntry[priceType] : null;
+    const isSubtypeUnknown = rivenEntry?.subtypeUnknown ?? false;
     const topSources = riv.dropSources.slice(0, 3);
 
     return `
@@ -515,6 +532,7 @@ function renderRivensView() {
           <span class="plat-label">市场交易价:</span>
           <span class="plat-badge">${formatPlat(price)}</span>
         </div>
+        ${isSubtypeUnknown ? `<div style="margin-bottom: 0.35rem;"><span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;" title="旧缓存未区分子类型">旧缓存未区分子类型</span></div>` : ''}
 
         <div class="rewards-preview">
           ${topSources.map(s => `
@@ -631,19 +649,23 @@ function renderSourcesView() {
     }
   }
 
-  // 3. 计算期望白金
+  // 3. 计算期望白金 (同时计算卖单与买单，分开展示)
   list.forEach(src => {
     if (src.type === 'enemy') {
-      src._exp = calculateEnemyExpectedValue(src.enemyModDropChance, src.rewards, state.prices, { priceType });
+      src._expSell = calculateEnemyExpectedValue(src.enemyModDropChance, src.rewards, state.prices, { priceType: 'sellMin' });
+      src._expBuy = calculateEnemyExpectedValue(src.enemyModDropChance, src.rewards, state.prices, { priceType: 'buyMax' });
     } else {
-      src._exp = calculateSourceExpectedValue(src.rewards, state.prices, { priceType });
+      src._expSell = calculateSourceExpectedValue(src.rewards, state.prices, { priceType: 'sellMin' });
+      src._expBuy = calculateSourceExpectedValue(src.rewards, state.prices, { priceType: 'buyMax' });
     }
   });
 
-  // 4. 排序 (使用 Raw 未取整值)
+  // 4. 排序 (默认推荐使用 confident 未取整值，若无则使用 Raw 值)
   list.sort((a, b) => {
-    const expA = a._exp?.expectedValueRaw ?? a._exp?.expectedValue ?? -1;
-    const expB = b._exp?.expectedValueRaw ?? b._exp?.expectedValue ?? -1;
+    const curA = state.currentPriceType === 'buyMax' ? a._expBuy : a._expSell;
+    const curB = state.currentPriceType === 'buyMax' ? b._expBuy : b._expSell;
+    const expA = curA?.expectedValueConfidentRaw ?? curA?.expectedValueRaw ?? -1;
+    const expB = curB?.expectedValueConfidentRaw ?? curB?.expectedValueRaw ?? -1;
     if (state.currentSourceSort === 'exp_desc') {
       if (expB !== expA) return expB - expA;
       return b.rewards.length - a.rewards.length;
@@ -663,8 +685,16 @@ function renderSourcesView() {
     const typeLabel = src.isPvp ? 'PvP' : (isEnemy ? '敌人击杀' : (src.type === 'mission' ? '星图任务' : (src.type === 'bounty' ? '平原赏金' : '特殊/密室')));
     const badgeClass = src.isPvp ? 'badge-pvp' : '';
     const badgeStyle = src.isPvp ? '' : 'background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);';
-    const expVal = src._exp.expectedValue;
-    const expStr = expVal !== null ? `${expVal} ☿` : '—';
+
+    const sellExpVal = src._expSell.expectedValue;
+    const sellExpStr = sellExpVal !== null ? `${sellExpVal} ☿` : '—';
+    const sellConfVal = src._expSell.expectedValueConfident;
+    const hasSellLowConf = src._expSell.lowConfidenceCount > 0;
+
+    const buyExpVal = src._expBuy.expectedValue;
+    const buyExpStr = buyExpVal !== null ? `${buyExpVal} ☿` : '—';
+    const buyConfVal = src._expBuy.expectedValueConfident;
+    const hasBuyLowConf = src._expBuy.lowConfidenceCount > 0;
 
     let subNote;
     if (isEnemy) {
@@ -679,12 +709,18 @@ function renderSourcesView() {
 
     let probBadge = '';
     if (src.probabilityCheck === 'over' || src.probabilityCheck === 'under') {
-      probBadge = `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.72rem; margin-top: 0.25rem;">概率和 ${src.probabilitySum}%（待核对）</span>`;
+      probBadge = `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.72rem;">概率和 ${src.probabilitySum}%（待核对）</span>`;
     }
 
     let incompleteBadge = '';
-    if (src._exp?.incomplete) {
-      incompleteBadge = `<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem; margin-top: 0.25rem;" title="存在缺价或未知掉率物品">「不完整估值」已计价概率合计 ${src._exp.pricedProbability}%</span>`;
+    const curExp = state.currentPriceType === 'buyMax' ? src._expBuy : src._expSell;
+    if (curExp?.incomplete) {
+      incompleteBadge = `<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;" title="存在缺价或低置信报价">「不完整估值」已计价概率 ${curExp.pricedProbability}%</span>`;
+    }
+
+    let lowConfBadge = '';
+    if (hasSellLowConf) {
+      lowConfBadge = `<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;" title="包含卖家数不足 3 人的稀疏卖单">「低置信」含 ${src._expSell.lowConfidenceCount} 项稀疏卖单</span>`;
     }
 
     return `
@@ -699,11 +735,21 @@ function renderSourcesView() {
           </span>
         </div>
 
-        <div class="card-expected-value">
-          <span class="plat-label">${subNote}:</span>
-          <span class="plat-badge">${expStr}</span>
+        <div class="card-expected-value" style="flex-direction: column; align-items: flex-start; gap: 0.35rem;">
+          <div style="font-size: 0.75rem; color: var(--text-muted);">${subNote}</div>
+          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <span class="plat-label">卖单参考收益:</span>
+            <span class="plat-badge" style="font-size: 0.95rem;">
+              ${sellExpStr}
+              ${hasSellLowConf && sellConfVal !== null ? `<span style="font-size: 0.75rem; color: var(--cyan-primary); margin-left: 0.3rem;" title="排除稀疏卖单后的高置信值">(高置信: ${sellConfVal} ☿)</span>` : ''}
+            </span>
+          </div>
+          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <span class="plat-label">买单即时变现:</span>
+            <span class="plat-badge" style="font-size: 0.9rem; color: var(--text-secondary);">${buyExpStr}</span>
+          </div>
         </div>
-        ${probBadge || incompleteBadge ? `<div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.4rem;">${probBadge}${incompleteBadge}</div>` : ''}
+        ${probBadge || incompleteBadge || lowConfBadge ? `<div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.4rem;">${probBadge}${incompleteBadge}${lowConfBadge}</div>` : ''}
 
         <div class="rewards-preview">
           ${src.rewards.slice(0, 3).map(r => `
@@ -742,7 +788,9 @@ export function openRelicModal(relicId) {
   const expValues = calculateAllRefinementValues(relic.rewards, state.prices, { priceType });
 
   let badgeHtml = '';
-  if (relic.unlisted) {
+  if (relic.dataConflict) {
+    badgeHtml = `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);" title="${escapeHtml(relic.dataConflictNote || '')}">⚠️ 资料冲突</span>`;
+  } else if (relic.unlisted) {
     badgeHtml = `<span class="badge badge-unlisted" title="${relic.statusReason}">特殊来源 (永不入库)</span>`;
   } else if (relic.conflict) {
     badgeHtml = `<span class="badge badge-conflict" title="${relic.conflictNote}">⚠️ 状态存疑</span>`;
@@ -764,7 +812,14 @@ export function openRelicModal(relicId) {
   `;
 
   let alertBanner = '';
-  if (relic.unlisted) {
+  if (relic.dataConflict) {
+    alertBanner = `
+      <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #f87171;">
+        <strong>资料冲突：</strong>${escapeHtml(relic.dataConflictNote || 'DE 掉落表与更新说明冲突')}。<br>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">参考来源：<a href="https://www.warframe.com/droptables" target="_blank" style="color: var(--cyan-primary);">DE 官方掉落表</a>、<a href="https://www.warframe.com/en/patch-notes/pc/42-0-0" target="_blank" style="color: var(--cyan-primary);">DE Update 42 更新说明</a>。</span>
+      </div>
+    `;
+  } else if (relic.unlisted) {
     alertBanner = `
       <div style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #d8b4fe;">
         <strong>机制说明：</strong>${relic.statusReason}。来源认定：${relic.statusSource}。
@@ -807,15 +862,19 @@ export function openRelicModal(relicId) {
         <td style="color: var(--plat-color); font-weight: 600;">
           ${sellPrice} / <span style="font-size: 0.85rem; color: var(--text-muted);">${buyPrice}</span>
         </td>
-        <td>${rew.chances.intact !== null ? `${rew.chances.intact}%` : '-'}</td>
-        <td>${rew.chances.exceptional !== null ? `${rew.chances.exceptional}%` : '-'}</td>
-        <td>${rew.chances.flawless !== null ? `${rew.chances.flawless}%` : '-'}</td>
-        <td style="font-weight: 600; color: var(--cyan-primary);">${rew.chances.radiant !== null ? `${rew.chances.radiant}%` : '-'}</td>
+        <td>${rew.chances.intact !== null ? `${rew.chances.intact}%` : '不适用'}</td>
+        <td>${rew.chances.exceptional !== null ? `${rew.chances.exceptional}%` : '不适用'}</td>
+        <td>${rew.chances.flawless !== null ? `${rew.chances.flawless}%` : '不适用'}</td>
+        <td style="font-weight: 600; color: var(--cyan-primary);">${rew.chances.radiant !== null ? `${rew.chances.radiant}%` : '不适用'}</td>
       </tr>
     `;
   }).join('');
 
-  const formatExp = (num) => num !== null ? `${num} ☿` : '—';
+  const formatExp = (expObj) => {
+    if (!expObj) return '—';
+    if (expObj.unsupportedRefinement) return '不适用';
+    return expObj.expectedValue !== null ? `${expObj.expectedValue} ☿` : '—';
+  };
   const missingIntact = expValues.intact.missingCount;
   const missingWarning = expValues.intact.incomplete 
     ? `<div class="dashboard-note warning-text">⚠️ 「不完整估值」遗物中有 ${missingIntact} 个可交易奖励暂无市场挂单，已计价概率合计 ${expValues.intact.pricedProbability}%。</div>`
@@ -854,19 +913,19 @@ export function openRelicModal(relicId) {
       <div class="dashboard-grid">
         <div class="expected-card">
           <div class="expected-level">完整 (Intact)</div>
-          <div class="expected-value-num">${formatExp(expValues.intact.expectedValue)}</div>
+          <div class="expected-value-num">${formatExp(expValues.intact)}</div>
         </div>
         <div class="expected-card">
           <div class="expected-level">优良 (Exceptional)</div>
-          <div class="expected-value-num">${formatExp(expValues.exceptional.expectedValue)}</div>
+          <div class="expected-value-num">${formatExp(expValues.exceptional)}</div>
         </div>
         <div class="expected-card">
           <div class="expected-level">无暇 (Flawless)</div>
-          <div class="expected-value-num">${formatExp(expValues.flawless.expectedValue)}</div>
+          <div class="expected-value-num">${formatExp(expValues.flawless)}</div>
         </div>
         <div class="expected-card highlight">
           <div class="expected-level">光辉 (Radiant) ★</div>
-          <div class="expected-value-num">${formatExp(expValues.radiant.expectedValue)}</div>
+          <div class="expected-value-num">${formatExp(expValues.radiant)}</div>
         </div>
       </div>
 
@@ -984,6 +1043,11 @@ export function openArcaneModal(slug) {
 
   const p0 = getItemPrice(slug, 0, state.prices, state.currentPriceType);
   const pMax = getItemPrice(slug, arc.maxRank, state.prices, state.currentPriceType);
+  const N = arcaneCopiesForRank(arc.maxRank);
+  const pMaxSell = getItemPrice(slug, arc.maxRank, state.prices, 'sellMin');
+  const pMaxBuy = getItemPrice(slug, arc.maxRank, state.prices, 'buyMax');
+  const perR0Sell = (N !== null && pMaxSell !== null) ? Number((pMaxSell / N).toFixed(2)) : null;
+  const perR0Buy = (N !== null && pMaxBuy !== null) ? Number((pMaxBuy / N).toFixed(2)) : null;
 
   const sourcesRows = arc.dropSources.map(s => {
     let compChance = `${s.chance}%`;
@@ -1023,6 +1087,10 @@ export function openArcaneModal(slug) {
         <div class="metric-val" style="color: var(--gold-light);">${formatPlat(pMax)}</div>
       </div>
     </div>
+    <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 6px; padding: 0.6rem 0.8rem; margin-top: 0.75rem; font-size: 0.82rem; color: var(--cyan-primary);">
+      <strong>满级折合每个 0 级：</strong>≈ ${perR0Sell !== null ? `${perR0Sell} ☿` : '—'}（卖）/ ${perR0Buy !== null ? `${perR0Buy} ☿` : '—'}（买）
+      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">与直接卖 0 级是两种策略，未计凑齐成本与价差。</div>
+    </div>
 
     <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1rem 0 0.5rem 0;">
       🎯 掉落来源 (${arc.dropSources.length} 处)
@@ -1057,7 +1125,9 @@ export function openRivenModal(slug) {
   window.location.hash = `riven=${encodeURIComponent(slug)}`;
   state.activeModal = { type: 'riven', id: slug };
 
-  const price = getItemPrice(slug, null, state.prices, state.currentPriceType);
+  const rivenEntry = getPriceEntry(slug, null, state.prices);
+  const price = rivenEntry ? rivenEntry[state.currentPriceType] : null;
+  const isSubtypeUnknown = rivenEntry?.subtypeUnknown ?? false;
 
   const sourcesRows = riv.dropSources.map(s => `
     <tr>
@@ -1084,6 +1154,11 @@ export function openRivenModal(slug) {
         <div class="metric-val" style="color: #c084fc;">${formatPlat(price)}</div>
       </div>
     </div>
+    ${isSubtypeUnknown ? `
+      <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 6px; padding: 0.6rem 0.8rem; margin-top: 0.75rem; font-size: 0.82rem; color: #fbbf24;">
+        ⚠️ <strong>旧缓存未区分子类型：</strong>当前价格数据尚未区分 unrevealed 等具体子类型，可能混有不同挂单。
+      </div>
+    ` : ''}
 
     <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1rem 0 0.5rem 0;">
       🎯 掉落来源 (${riv.dropSources.length} 处)
@@ -1194,9 +1269,13 @@ export function openSourceModal(sourceId) {
 
   const isEnemy = src.type === 'enemy';
   const priceType = state.currentPriceType;
-  const expData = isEnemy 
-    ? calculateEnemyExpectedValue(src.enemyModDropChance, src.rewards, state.prices, { priceType })
-    : calculateSourceExpectedValue(src.rewards, state.prices, { priceType });
+  const expSell = isEnemy 
+    ? calculateEnemyExpectedValue(src.enemyModDropChance, src.rewards, state.prices, { priceType: 'sellMin' })
+    : calculateSourceExpectedValue(src.rewards, state.prices, { priceType: 'sellMin' });
+  const expBuy = isEnemy 
+    ? calculateEnemyExpectedValue(src.enemyModDropChance, src.rewards, state.prices, { priceType: 'buyMax' })
+    : calculateSourceExpectedValue(src.rewards, state.prices, { priceType: 'buyMax' });
+  const expData = priceType === 'buyMax' ? expBuy : expSell;
 
   const rows = src.rewards.map(r => {
     const isUntrad = isUntradeableItem(r);
@@ -1273,9 +1352,21 @@ export function openSourceModal(sourceId) {
 
   elements.modalBodyContent.innerHTML = `
     <div class="expected-dashboard" style="margin-top: 0;">
-      <div class="dashboard-header">
-        <span class="dashboard-title">${modalTitle}</span>
-        <span class="expected-value-num">${expData.expectedValue !== null ? `${expData.expectedValue} ☿` : '—'}</span>
+      <div style="font-size: 0.85rem; font-weight: 600; color: var(--gold-light); margin-bottom: 0.6rem;">${modalTitle}</div>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+        <div style="flex: 1; min-width: 200px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 6px; padding: 0.6rem 0.8rem;">
+          <div style="font-size: 0.8rem; color: #34d399; font-weight: 600;">卖单参考收益</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--gold-light);">
+            ${expSell.expectedValue !== null ? `${expSell.expectedValue} ☿` : '—'}
+            ${expSell.lowConfidenceCount > 0 && expSell.expectedValueConfident !== null ? `<span style="font-size: 0.8rem; color: var(--cyan-primary); font-weight: normal; margin-left: 0.35rem;" title="排除稀疏卖单后的高置信估值">(高置信: ${expSell.expectedValueConfident} ☿)</span>` : ''}
+          </div>
+        </div>
+        <div style="flex: 1; min-width: 200px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 6px; padding: 0.6rem 0.8rem;">
+          <div style="font-size: 0.8rem; color: #60a5fa; font-weight: 600;">买单即时变现收益</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
+            ${expBuy.expectedValue !== null ? `${expBuy.expectedValue} ☿` : '—'}
+          </div>
+        </div>
       </div>
       <div style="font-size: 0.8rem; color: var(--text-muted);">
         公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
@@ -1283,6 +1374,7 @@ export function openSourceModal(sourceId) {
         ${dedupeNotice}
         ${probNotice}
         ${incompleteNotice}
+        ${expSell.lowConfidenceCount > 0 ? `<div style="margin-top: 0.25rem; color: #fbbf24;">⚠️ 卖单中包含 ${expSell.lowConfidenceCount} 项稀疏卖单（卖家数不足 3 人），高置信收益估算为 ${expSell.expectedValueConfident !== null ? `${expSell.expectedValueConfident} ☿` : '—'}。</div>` : ''}
       </div>
     </div>
 

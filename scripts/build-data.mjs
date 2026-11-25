@@ -363,14 +363,24 @@ async function build() {
   // A. 扫描 missionRewards
   const mr = dropsAll.missionRewards || {};
   const seenSourceIds = new Map();
+
+  function sanitizeSourceId(id) {
+    if (!id) return 'source';
+    return String(id)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '') || 'source';
+  }
+
   function registerUniqueSourceId(baseId) {
-    if (!seenSourceIds.has(baseId)) {
-      seenSourceIds.set(baseId, 1);
-      return baseId;
+    const cleanBase = sanitizeSourceId(baseId);
+    if (!seenSourceIds.has(cleanBase)) {
+      seenSourceIds.set(cleanBase, 1);
+      return cleanBase;
     }
-    const next = seenSourceIds.get(baseId) + 1;
-    seenSourceIds.set(baseId, next);
-    return `${baseId}_${next}`;
+    const next = seenSourceIds.get(cleanBase) + 1;
+    seenSourceIds.set(cleanBase, next);
+    return `${cleanBase}_${next}`;
   }
 
   // 严格检测上游同一段奖励列表 (名称+掉率+轮次相同) 整体重复 k 次
@@ -967,9 +977,15 @@ async function build() {
     }
   }
 
-  // 整理 Mod (只录入有掉落来源且具备 market slug 的 Mod)
+  // 整理 Mod (只录入有掉落来源且具备 market slug 的 Mod，严格排除任何未开紫卡 / 裂罅 Mod)
+  const rivenSlugSet = new Set(rivensResult.map(r => r.slug));
   for (const item of wfmBySlug.values()) {
-    if (item.tags?.includes('mod') && !item.tags?.includes('arcane_enhancement') && !item.tags?.includes('veiled_riven')) {
+    const isVeiledRiven = rivenSlugSet.has(item.slug) ||
+      item.tags?.includes('veiled_riven') ||
+      item.tags?.includes('riven') ||
+      item.tags?.includes('riven_mod') ||
+      item.slug.includes('riven_mod_veiled');
+    if (item.tags?.includes('mod') && !item.tags?.includes('arcane_enhancement') && !isVeiledRiven) {
       const dropSources = slugSourcesMap.get(item.slug);
       if (dropSources && dropSources.length > 0) {
         modsResult.push({
@@ -1220,6 +1236,12 @@ async function build() {
       });
     }
 
+    const isEterna = relicId === 'requiem_eterna';
+    const dataConflict = isEterna;
+    const dataConflictNote = isEterna
+      ? '资料冲突：DE 掉落表为 8 项×9.5%=76%，DE 更新说明为不可精炼、8 种等概率（12.5%）；本站按 DE 掉落表原值计算且不归一化'
+      : null;
+
     relicsResult.push({
       id: relicId,
       tier,
@@ -1236,6 +1258,8 @@ async function build() {
       wfcdVaulted,
       conflict,
       conflictNote,
+      dataConflict,
+      dataConflictNote,
       rewards: processedRewards
     });
   }

@@ -1,6 +1,21 @@
 /**
- * calculations.js - 期望白金值计算纯函数（阶段 M1 扩展）
+ * calculations.js - 期望白金值计算纯函数（阶段 M1 / M2 扩展）
  */
+
+// 常量：低置信度最小卖家数（建议参数，非游戏规则）
+export const LOW_CONFIDENCE_MIN_SELLERS = 3;
+
+/**
+ * 赋能满级合成所需 0 级数量
+ * 公式：N(r) = (r + 1)(r + 2) / 2
+ * 例如：Rank 5 -> 21 个，Rank 3 -> 10 个，Rank 0 -> 1 个
+ * @param {number} r 赋能最大等级 (maxRank)
+ * @returns {number|null} 若 r 非法或未知返回 null
+ */
+export function arcaneCopiesForRank(r) {
+  if (typeof r !== 'number' || !Number.isInteger(r) || r < 0) return null;
+  return ((r + 1) * (r + 2)) / 2;
+}
 
 /**
  * 判断物品是否为已确认的不可交易物（如 Forma Blueprint）
@@ -19,6 +34,77 @@ export function isUntradeableItem(item) {
 }
 
 /**
+ * 获取物品对应的价格条目及派生分析字段
+ * @param {string} slug 
+ * @param {number|null} rank 等级 (0 或 maxRank)，无等级传 null
+ * @param {Object} prices 
+ * @returns {Object|null}
+ */
+export function getPriceEntry(slug, rank = null, prices = {}) {
+  if (!slug || typeof slug !== 'string' || !prices) return null;
+
+  let key = slug;
+  let subtypeUnknown = false;
+
+  // 1. 若请求了具体等级 (rank !== null)，严禁回退到基础 slug
+  if (rank !== null && rank !== undefined) {
+    key = `${slug}@r${rank}`;
+    if (!prices[key]) {
+      return null;
+    }
+  } else {
+    // 2. 无等级请求：优先查找 @unrevealed (紫卡 subtype)，其次查找基础 slug
+    const unrevealedKey = `${slug}@unrevealed`;
+    if (prices[unrevealedKey]) {
+      key = unrevealedKey;
+    } else if (prices[slug]) {
+      key = slug;
+      if (slug.includes('riven')) {
+        subtypeUnknown = true; // 旧缓存未区分子类型回退
+      }
+    } else {
+      return null;
+    }
+  }
+
+  const rawItem = prices[key];
+  if (!rawItem || typeof rawItem !== 'object') return null;
+
+  const sellCount = typeof rawItem.sellCount === 'number' ? rawItem.sellCount : 0;
+  const buyCount = typeof rawItem.buyCount === 'number' ? rawItem.buyCount : 0;
+  const sellMin = (typeof rawItem.sellMin === 'number' && Number.isFinite(rawItem.sellMin) && rawItem.sellMin >= 0) ? rawItem.sellMin : null;
+  const buyMax = (typeof rawItem.buyMax === 'number' && Number.isFinite(rawItem.buyMax) && rawItem.buyMax >= 0) ? rawItem.buyMax : null;
+
+  // sellRobust: 最低 min(3, n) 个卖单价格的中位数（n<3 时等于现有逻辑 sellMin 但标低置信）
+  let sellRobust = null;
+  let robustUnavailable = false;
+  if (rawItem.sellRobust !== undefined) {
+    sellRobust = rawItem.sellRobust;
+  } else {
+    robustUnavailable = true;
+    sellRobust = sellMin;
+  }
+
+  // lowConfidence: sellCount < 3 (LOW_CONFIDENCE_MIN_SELLERS) 或 sellMin 为 null
+  const lowConfidence = sellCount < LOW_CONFIDENCE_MIN_SELLERS || sellMin === null;
+  const noBuyOrders = buyCount === 0 || buyMax === null;
+
+  return {
+    ...rawItem,
+    key,
+    sellMin,
+    buyMax,
+    sellCount,
+    buyCount,
+    sellRobust,
+    robustUnavailable,
+    lowConfidence,
+    noBuyOrders,
+    subtypeUnknown: rawItem.subtypeUnknown ?? subtypeUnknown
+  };
+}
+
+/**
  * 获取物品在指定精炼/等级下的有效单价
  * @param {string} slug 
  * @param {number|null} rank 等级 (0 或 maxRank)，无等级传 null
@@ -27,23 +113,12 @@ export function isUntradeableItem(item) {
  * @returns {number|null}
  */
 export function getItemPrice(slug, rank = null, prices = {}, priceType = 'sellMin') {
-  if (!slug || typeof slug !== 'string' || !prices) return null;
-
-  // 1. 优先查找 rank 键，例如 `${slug}@r0`
-  if (rank !== null && rank !== undefined) {
-    const rankKey = `${slug}@r${rank}`;
-    const p = prices[rankKey]?.[priceType];
-    if (typeof p === 'number' && Number.isFinite(p) && p >= 0) {
-      return p;
-    }
-  }
-
-  // 2. 回退到基础 slug
-  const p = prices[slug]?.[priceType];
+  const entry = getPriceEntry(slug, rank, prices);
+  if (!entry) return null;
+  const p = entry[priceType];
   if (typeof p === 'number' && Number.isFinite(p) && p >= 0) {
     return p;
   }
-
   return null;
 }
 
@@ -56,12 +131,46 @@ export function getItemPrice(slug, rank = null, prices = {}, priceType = 'sellMi
  * @param {Object} options 
  * @returns {Object}
  */
-export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin', refinement = 'intact' } = {}) {
+export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin', refinement = 'intact', minSellers = LOW_CONFIDENCE_MIN_SELLERS } = {}) {
+  // 检查该精炼档是否存在（如 Requiem ETERNA 的 exceptional/flawless/radiant 全为 null）
+  const allChancesNull = rewards.length > 0 && rewards.every(rew => {
+    const rawChance = rew.chances ? rew.chances[refinement] : rew.chance;
+    return rawChance === null || rawChance === undefined || rawChance === '';
+  });
+
+  if (allChancesNull) {
+    return {
+      expectedValue: null,
+      expectedValueRaw: null,
+      expectedValueConfident: null,
+      expectedValueConfidentRaw: null,
+      unsupportedRefinement: true,
+      notApplicable: true,
+      incomplete: false,
+      pricedProbability: 0,
+      missingProbability: 0,
+      untradeableProbability: 0,
+      lowConfidenceCount: 0,
+      lowConfidenceProbability: 0,
+      unknownChanceCount: 0,
+      pricedCount: 0,
+      confidentPricedCount: 0,
+      missingCount: 0,
+      missingPriceCount: 0,
+      untradeableCount: 0,
+      breakdown: []
+    };
+  }
+
   let totalKnown = 0;
+  let totalConfidentKnown = 0;
   let pricedCount = 0;
+  let confidentPricedCount = 0;
   let missingCount = 0;
   let untradeableCount = 0;
   let unknownChanceCount = 0;
+  let lowConfidenceCount = 0;
+  let lowConfidenceProbability = 0;
   let pricedProbability = 0;
   let missingProbability = 0;
   let untradeableProbability = 0;
@@ -115,13 +224,29 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
       continue;
     }
 
-    const price = getItemPrice(slug, 0, prices, priceType);
+    // 遗物奖励无等级，调用 rank = null
+    const entry = getPriceEntry(slug, null, prices);
+    const price = entry ? entry[priceType] : null;
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
       pricedProbability += chance;
       const contribution = (chance / 100) * quantity * price;
       totalKnown += contribution;
+
+      // 评估低置信度
+      const isLowConf = priceType === 'buyMax'
+        ? (entry.buyCount < minSellers || entry.buyMax === null)
+        : (entry.sellCount < minSellers || entry.sellMin === null);
+
+      if (isLowConf) {
+        lowConfidenceCount++;
+        lowConfidenceProbability += chance;
+      } else {
+        confidentPricedCount++;
+        totalConfidentKnown += contribution;
+      }
+
       breakdown.push({
         name,
         baseName,
@@ -131,7 +256,8 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
         chance,
         price,
         contribution: Number(contribution.toFixed(4)),
-        status: 'priced'
+        lowConfidence: isLowConf,
+        status: isLowConf ? 'lowConfidence' : 'priced'
       });
     } else {
       // 价格缺失（可能可交易但无 slug、或缓存无价/无挂单）-> 贡献 null
@@ -155,15 +281,27 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
   const expectedValueRaw = pricedCount > 0 ? totalKnown : (missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
   const expectedValue = expectedValueRaw !== null ? Number(expectedValueRaw.toFixed(2)) : null;
 
+  const expectedValueConfidentRaw = confidentPricedCount > 0
+    ? totalConfidentKnown
+    : (pricedCount === 0 && missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
+  const expectedValueConfident = expectedValueConfidentRaw !== null ? Number(expectedValueConfidentRaw.toFixed(2)) : null;
+
   return {
     expectedValue,
     expectedValueRaw,
+    expectedValueConfident,
+    expectedValueConfidentRaw,
+    lowConfidenceCount,
+    lowConfidenceProbability: Number(lowConfidenceProbability.toFixed(4)),
+    unsupportedRefinement: false,
+    notApplicable: false,
     incomplete,
     pricedProbability: Number(pricedProbability.toFixed(4)),
     missingProbability: Number(missingProbability.toFixed(4)),
     untradeableProbability: Number(untradeableProbability.toFixed(4)),
     unknownChanceCount,
     pricedCount,
+    confidentPricedCount,
     missingCount,
     missingPriceCount: missingCount, // 兼容现有测试与调用方
     untradeableCount,
@@ -174,11 +312,11 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
 /**
  * 计算四个精炼等级的全部期望白金
  */
-export function calculateAllRefinementValues(rewards = [], prices = {}, { priceType = 'sellMin' } = {}) {
+export function calculateAllRefinementValues(rewards = [], prices = {}, { priceType = 'sellMin', minSellers = LOW_CONFIDENCE_MIN_SELLERS } = {}) {
   const refinements = ['intact', 'exceptional', 'flawless', 'radiant'];
   const result = {};
   for (const ref of refinements) {
-    result[ref] = calculateExpectedValue(rewards, prices, { priceType, refinement: ref });
+    result[ref] = calculateExpectedValue(rewards, prices, { priceType, refinement: ref, minSellers });
   }
   return result;
 }
@@ -192,12 +330,16 @@ export function calculateAllRefinementValues(rewards = [], prices = {}, { priceT
  * @param {Object} options 
  * @returns {Object}
  */
-export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin' } = {}) {
+export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin', minSellers = LOW_CONFIDENCE_MIN_SELLERS } = {}) {
   let totalKnown = 0;
+  let totalConfidentKnown = 0;
   let pricedCount = 0;
+  let confidentPricedCount = 0;
   let missingCount = 0;
   let untradeableCount = 0;
   let unknownChanceCount = 0;
+  let lowConfidenceCount = 0;
+  let lowConfidenceProbability = 0;
   let pricedProbability = 0;
   let missingProbability = 0;
   let untradeableProbability = 0;
@@ -222,12 +364,35 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
     }
 
     const slug = item.slug;
-    const price = getItemPrice(slug, 0, prices, priceType);
+    let rank = null;
+    if (prices && prices[`${slug}@r0`]) {
+      rank = 0;
+    } else if (item.maxRank && item.maxRank > 0) {
+      rank = 0;
+    } else if ((item.category === 'mod' || item.category === 'arcane') && !prices[slug]) {
+      rank = 0;
+    }
+
+    const entry = getPriceEntry(slug, rank, prices);
+    const price = entry ? entry[priceType] : null;
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
       pricedProbability += chance;
-      totalKnown += (chance / 100) * quantity * price;
+      const contribution = (chance / 100) * quantity * price;
+      totalKnown += contribution;
+
+      const isLowConf = priceType === 'buyMax'
+        ? (entry.buyCount < minSellers || entry.buyMax === null)
+        : (entry.sellCount < minSellers || entry.sellMin === null);
+
+      if (isLowConf) {
+        lowConfidenceCount++;
+        lowConfidenceProbability += chance;
+      } else {
+        confidentPricedCount++;
+        totalConfidentKnown += contribution;
+      }
     } else {
       missingCount++;
       missingProbability += chance;
@@ -238,15 +403,25 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
   const expectedValueRaw = pricedCount > 0 ? totalKnown : (missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
   const expectedValue = expectedValueRaw !== null ? Number(expectedValueRaw.toFixed(2)) : null;
 
+  const expectedValueConfidentRaw = confidentPricedCount > 0
+    ? totalConfidentKnown
+    : (pricedCount === 0 && missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
+  const expectedValueConfident = expectedValueConfidentRaw !== null ? Number(expectedValueConfidentRaw.toFixed(2)) : null;
+
   return {
     expectedValue,
     expectedValueRaw,
+    expectedValueConfident,
+    expectedValueConfidentRaw,
+    lowConfidenceCount,
+    lowConfidenceProbability: Number(lowConfidenceProbability.toFixed(4)),
     incomplete,
     pricedProbability: Number(pricedProbability.toFixed(4)),
     missingProbability: Number(missingProbability.toFixed(4)),
     untradeableProbability: Number(untradeableProbability.toFixed(4)),
     unknownChanceCount,
     pricedCount,
+    confidentPricedCount,
     missingCount,
     untradeableCount,
     totalItems: rewards.length
@@ -262,16 +437,20 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
  * @param {Object} options 
  * @returns {Object}
  */
-export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], prices = {}, { priceType = 'sellMin' } = {}) {
+export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], prices = {}, { priceType = 'sellMin', minSellers = LOW_CONFIDENCE_MIN_SELLERS } = {}) {
   const modDropRate = typeof enemyModDropChance === 'number'
     ? enemyModDropChance
     : (Number.isFinite(parseFloat(enemyModDropChance)) ? parseFloat(enemyModDropChance) : 0);
 
   let subTotalKnown = 0;
+  let subTotalConfidentKnown = 0;
   let pricedCount = 0;
+  let confidentPricedCount = 0;
   let missingCount = 0;
   let untradeableCount = 0;
   let unknownChanceCount = 0;
+  let lowConfidenceCount = 0;
+  let lowConfidenceProbability = 0;
   let pricedProbability = 0;
   let missingProbability = 0;
   let untradeableProbability = 0;
@@ -296,12 +475,34 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
     }
 
     const slug = item.slug;
-    const price = getItemPrice(slug, 0, prices, priceType);
+    let rank = null;
+    if (prices && prices[`${slug}@r0`]) {
+      rank = 0;
+    } else if (item.maxRank && item.maxRank > 0) {
+      rank = 0;
+    } else if ((item.category === 'mod' || item.category === 'arcane') && !prices[slug]) {
+      rank = 0;
+    }
+    const entry = getPriceEntry(slug, rank, prices);
+    const price = entry ? entry[priceType] : null;
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
       pricedProbability += chance;
-      subTotalKnown += (chance / 100) * quantity * price;
+      const contribution = (chance / 100) * quantity * price;
+      subTotalKnown += contribution;
+
+      const isLowConf = priceType === 'buyMax'
+        ? (entry.buyCount < minSellers || entry.buyMax === null)
+        : (entry.sellCount < minSellers || entry.sellMin === null);
+
+      if (isLowConf) {
+        lowConfidenceCount++;
+        lowConfidenceProbability += chance;
+      } else {
+        confidentPricedCount++;
+        subTotalConfidentKnown += contribution;
+      }
     } else {
       missingCount++;
       missingProbability += chance;
@@ -312,9 +513,18 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
   const expectedValueRaw = pricedCount > 0 ? (modDropRate / 100) * subTotalKnown : (missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
   const expectedValue = expectedValueRaw !== null ? Number(expectedValueRaw.toFixed(4)) : null;
 
+  const expectedValueConfidentRaw = confidentPricedCount > 0
+    ? (modDropRate / 100) * subTotalConfidentKnown
+    : (pricedCount === 0 && missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
+  const expectedValueConfident = expectedValueConfidentRaw !== null ? Number(expectedValueConfidentRaw.toFixed(4)) : null;
+
   return {
     expectedValue,
     expectedValueRaw,
+    expectedValueConfident,
+    expectedValueConfidentRaw,
+    lowConfidenceCount,
+    lowConfidenceProbability: Number(lowConfidenceProbability.toFixed(4)),
     incomplete,
     pricedProbability: Number(pricedProbability.toFixed(4)),
     missingProbability: Number(missingProbability.toFixed(4)),
@@ -322,6 +532,7 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
     unknownChanceCount,
     enemyModDropChance: modDropRate,
     pricedCount,
+    confidentPricedCount,
     missingCount,
     untradeableCount,
     totalMods: mods.length

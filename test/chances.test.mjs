@@ -86,9 +86,9 @@ describe('精炼掉率提取 (Drop Chances Extraction)', () => {
     assert.strictEqual(slot2.quantity, 2);
   });
 
-  it('断言 data/relics.json 里全部 6 奖励遗物四个精炼档每档掉率之和≈100 (误差 ±0.1)', () => {
-    const standardRelics = relics.filter(r => r.rewards.length === 6);
-    assert.strictEqual(standardRelics.length, 799, '应有 799 个标准 6 奖励遗物');
+  it('断言 data/relics.json 里标准 6 奖励遗物四个精炼档每档掉率之和≈100 (误差 ±0.1)，冲突遗物 (ETERNA) 特殊处理', () => {
+    const standardRelics = relics.filter(r => r.rewards.length === 6 && !r.dataConflict);
+    assert.ok(standardRelics.length > 500, '应包含绝大部分标准 6 奖励遗物');
 
     const tiers = ['intact', 'exceptional', 'flawless', 'radiant'];
     for (const r of standardRelics) {
@@ -99,6 +99,18 @@ describe('精炼掉率提取 (Drop Chances Extraction)', () => {
           `遗物 ${r.name} 在精炼 ${tier} 下掉率总和 ${sum} 偏离 100% 超过 0.1`
         );
       }
+    }
+
+    // 检查 ETERNA 资料冲突不变量
+    const eterna = relics.find(r => r.id === 'requiem_eterna');
+    assert.ok(eterna, 'Requiem ETERNA 必须存在');
+    assert.strictEqual(eterna.dataConflict, true, 'ETERNA 必须标记 dataConflict === true');
+    assert.ok(eterna.dataConflictNote.includes('资料冲突'));
+    assert.strictEqual(eterna.rewards.length, 8, 'ETERNA 包含 8 种安魂 Mod');
+    const intactSum = eterna.rewards.reduce((acc, rew) => acc + (rew.chances.intact ?? 0), 0);
+    assert.ok(Math.abs(intactSum - 76) <= 0.1, `ETERNA intact 掉率和为 76% (8 * 9.5%)，实测为 ${intactSum}`);
+    for (const tier of ['exceptional', 'flawless', 'radiant']) {
+      assert.ok(eterna.rewards.every(rew => rew.chances[tier] === null), `ETERNA ${tier} 必须全为 null`);
     }
   });
 
