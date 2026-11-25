@@ -28,7 +28,7 @@
   - A1 修复：已删除 fixtures/prices-seed.json；data/prices.json 重置为真实空缓存 {updatedAt:null, items:{}}；--fixture 模式已严格隔离，默认绝不改写 data/prices.json（已增加自动化回归单测）；meta.json 价格覆盖率如实反映抓取状态（0.0%）；页面在无价格时正确展示“暂无价格（未抓取）”，期望值展示“—”。
   - A2 修复：真实抓取路径与解析结果确保写入 ISO 时间戳 fetchedAt，增量缓存正常生效。
   - A3 修复：新增 config/status-overrides.json，将 Requiem I/II/III/IV 状态覆盖为 "unlisted"（特殊来源：DE 掉落表未列出，按游戏机制不入库，来源标注“待确认：DE 掉落表未覆盖此来源”）。界面默认包含 unlisted，并提供开关可手动排除。
-  - B 价格脚本扩展：scripts/fetch-prices.mjs 支持独立在无 raw 数据的机器上运行；支持 --only relics,rivens,arcanes,mods（默认 all）、--limit、--max-age-hours、固定并发 1、≤3 req/s 严格限速；赋能与 Mod 支持 rank 价格区分（${slug}@r0 与 ${slug}@r{maxRank}）；按类别优先级流水抓取并分阶段即时持久化写入；meta.json 同步记录分项与全量覆盖率。
+  - B 价格脚本扩展：scripts/fetch-prices.mjs 支持独立在无 raw 数据的机器上运行；支持 --only relics,rivens,arcanes,mods（默认 all）、--limit、--max-age-hours、固定并发 1、≤3 req/s 严格限速；赋能与 Mod 支持 rank 价格区分（`${slug}@r0` 与 `${slug}@r{maxRank}`）；按类别优先级流水抓取并分阶段即时持久化写入；meta.json 同步记录分项与全量覆盖率。
   - C 新增数据集：生成 data/arcanes.json（170 个）、data/rivens.json（8 个）、data/mods.json（751 个）、data/sources.json（2061 个统一来源记录）、data/unmatched.json（657 个未匹配项）。
   - D 前端界面扩展：增加顶部分类导航（遗物 / 赋能 / 紫卡 / Mod / 刷取来源）；提供多维筛选、排序与单项反查弹窗；刷取来源支持按每次/每击杀期望白金排序（任务为掉率×价格，敌人为 Mod掉落率×物品掉率×价格）。
   - E 测试验证：npm test 运行 7 个测试套件，29 个用例全部通过（覆盖敌人/轮次期望值、rank 价格键、紫卡匹配、中文/拼音命中赋能/Mod、fixture 不写 prices.json、fetchedAt 写入、unlisted 筛选等）。
@@ -56,7 +56,7 @@
   2. "NX " 数量前缀解析与白金期望值倍率计算：
      - 构建脚本封装 `parseQuantityAndName` 解析形如 "3X Arcane Energize"、"2X Forma Blueprint"、"2X Riven Sliver" 的数量前缀与基础物品名；
      - 基础物品自动匹配 market slug（如 `arcane_energize`）；
-     - 期望白金值统一按 $\text{chance} \times \text{quantity} \times \text{单价}$ 计算，并在遗物卡片预览、遗物详情表格、物品反查与掉落来源中展示“×N”数量标签；
+     - 期望白金值统一按 chance × quantity × 单价 计算，并在遗物卡片预览、遗物详情表格、物品反查与掉落来源中展示“×N”数量标签；
      - 重跑构建后 `data/unmatched.json` 未匹配条目从 657 降至 618，自动化测试断言 `unmatched.json` 中不存在任何去除前缀后可匹配 market 的遗留条目（39 种带数量前缀赋能/矿石成功关联 market）。
   3. 稀有度显示严格遵循 DE 官方掉落表（drops_all.json）：
      - 移除根据掉率概率阈值覆盖稀有度的代码，直接使用 DE 原表 `rarity` 字段；
@@ -81,7 +81,7 @@
      - 在 `js/lib/prices.js` 中封装纯函数 `calculatePriceCoverage` 与 `computeCategoryStats`，供 `scripts/build-data.mjs` 和 `scripts/fetch-prices.mjs` 统一调用；
      - 各分类应抓键数与覆盖口径明确对齐：relics 唯一样本 603、rivens 8、arcanes 340（170个×2档）、mods 1502（751个×2档），总应抓键数 2453；
      - 真实价格覆盖统计：relics 603/603 (100.0%)、rivens 8/8 (100.0%)、arcanes 340/340 (100.0%)、mods 1490/1502 (99.2%)、全量 2441/2453 (99.5%)；
-     - 确保各分类及全量覆盖率严谨计算且数学上严格 $\le 100.0\%$；
+     - 确保各分类及全量覆盖率严谨计算且数学上严格 ≤ 100.0%；
      - `data/meta.json` 准确同步保存 `prices.updatedAt`（取自 `data/prices.json` 的 `2026-11-25T13:56:27.424Z`）及各类别详细指标。
   2. 前端价格展示规范与排序验证：
      - 价格缺失（null）物品统一展示为“暂无挂单”而非 0；
@@ -90,6 +90,18 @@
   3. 本地静态服务器与接口可用性验证：
      - 启动 `python3 -m http.server 8000` 并使用 `curl` 逐项验证 `index.html` 以及 `data/` 下全部 8 个 JSON 文件（`relics`, `prices`, `meta`, `arcanes`, `rivens`, `mods`, `sources`, `search-index`），全部返回 HTTP 200 OK 且响应完整，测试完毕后正常清理释放服务。
   4. 自动化测试与版本库：
-     - 新增 `test/coverage.test.mjs` 针对真实 `data/prices.json` 断言各分类应抓数与 $\le 100.0\%$ 覆盖率；
+     - 新增 `test/coverage.test.mjs` 针对真实 `data/prices.json` 断言各分类应抓数与 ≤ 100.0% 覆盖率；
      - 运行 `npm test`，8 个测试套件，40 个测试用例全部通过（40 passed, 0 failed）；
      - 本地完成 Git 提交（不加远端、不推送）。
+
+## 2026-11-26 01:10 AEDT
+- 阶段 5 完成：
+  1. 修复公式未渲染与 LaTeX 标记清理：
+     - 在 `index.html`（第 142 行）横幅中，将未渲染的 LaTeX 占位符替换为纯文本与 Unicode 符号公式：“任务/赏金来源每次期望白金 = Σ(掉率% × 数量 × 价格)；敌人来源每击杀期望白金 = Mod 掉落几率(enemyModDropChance%) × Σ(物品掉率% × 价格)。赋能与 Mod 默认按 0 级掉落价格计入。”；
+     - 在 `js/app.js`（来源详情弹窗）中同步更新期望值公式说明为 `Σ(几率% × 数量 × 单价)`；
+     - 在 `README.md` 与 `PROGRESS.md` 中全面清理所有 LaTeX 公式与符号，改用原生字符 `Σ`、`×`、`≥`、`≤`；
+     - 使用全仓 grep 验证（排除 node_modules 与 data）确认已无任何 LaTeX 公式关键字与反斜杠符号残留；
+  2. 保持数据原样与验证测试：
+     - 严格未修改 `data/` 目录；
+     - 运行 `npm test`，8 个测试套件，40 个用例全部通过（40 passed, 0 failed）；
+     - 完成本地 Git 提交（不加远程、不推送）。

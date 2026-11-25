@@ -1201,7 +1201,7 @@ export function openSourceModal(sourceId) {
         <span class="expected-value-num">${expData.expectedValue !== null ? `${expData.expectedValue} ☿` : '—'}</span>
       </div>
       <div style="font-size: 0.8rem; color: var(--text-muted);">
-        公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 单价)` : `Σ(几率% × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
+        公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
       </div>
     </div>
 
