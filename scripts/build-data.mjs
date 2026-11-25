@@ -10,6 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pinyin } from 'pinyin-pro';
 import { calculatePriceCoverage } from '../js/lib/prices.js';
+import { isPvpSource } from '../js/lib/sources.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -561,7 +562,13 @@ async function build() {
     walkBounty(dataObj, tbl.label);
   }
 
-  console.log(`[build] 汇总全部掉落来源记录数: ${sourcesResult.length}`);
+  // 标记每条来源的 isPvp 属性 (武形秘仪 / Conclave)
+  for (const src of sourcesResult) {
+    src.isPvp = isPvpSource(src);
+  }
+  const pvpSourcesCount = sourcesResult.filter(s => s.isPvp).length;
+
+  console.log(`[build] 汇总全部掉落来源记录数: ${sourcesResult.length} (其中 PvP 来源数: ${pvpSourcesCount})`);
 
   // 4. 构建赋能 (arcanes)、紫卡 (rivens)、Mod 数据集
   const arcanesResult = [];
@@ -1052,8 +1059,10 @@ async function build() {
       totalRivens: rivensResult.length,
       totalMods: modsResult.length,
       totalSources: sourcesResult.length,
+      pvpSources: pvpSourcesCount,
       unmatchedCount: unmatchedList.length
     },
+    pvpSources: pvpSourcesCount,
     prices: pricesMeta
   };
 

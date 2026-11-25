@@ -586,6 +586,35 @@ a:hover {
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
+.badge-pvp {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.pvp-toggle-btn {
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  color: #f87171 !important;
+  transition: all 0.2s ease;
+}
+
+.pvp-toggle-btn:hover {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: #ef4444 !important;
+}
+
+.pvp-toggle-btn.active, .pvp-toggle-btn.pvp-active {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.45);
+}
+
+.pvp-active-banner {
+  border-left-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+
 /* Expected Plat Value on Cards */
 .card-expected-value {
   margin: 0.75rem 0;

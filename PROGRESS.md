@@ -108,3 +108,26 @@
 
 ## 2026-11-26 01:13 AEDT（通道）
 - 全部阶段完成，DONE.md 已写，npm test 40/40，截图 9 张在 /workspace/wf-relic-cn-shots/。SendToAgent 工具在本执行子代理中不可用，已由最终回报交给父代理转总管。
+
+## 2026-11-26 08:08 AEDT（通道）
+- 新任务：刷取来源 PvP（Conclave/武形秘仪）标记与筛选。
+- 工作区干净，main 已与 origin/main 同步（edb50a3），已从最新 main 新建本地分支 feat/pvp-filter。不推送、不改 .github/workflows、不改 data/prices.json 价格内容。
+- 通道预统计（基于当前 data/sources.json，待构建脚本落地后再复核）：gameMode==="Conclave" 且名称含 "(Conclave)" 的来源 45 条，无其它 pvp-ish 命中。
+- 下一步：agy 在 feat/pvp-filter 实现并测试，通道复核、截图、追加 DONE.md。
+
+## 2026-11-26 08:15 AEDT
+- PvP 筛选完成：
+  1. 数据层标记（scripts/build-data.mjs & js/lib/sources.js）：
+     - 封装 `isPvpSource` 识别函数（识别 `gameMode === 'Conclave'`、名称/节点/模式中含 `(Conclave)`、独立词 `Conclave` 或 `武形秘仪`）；
+     - 构建全量 2061 处掉落来源，精准识别出 45 条 PvP 来源（挂载在土星与海王星节点下），无任何普通任务误标；
+     - 每条来源均添加 `isPvp` 布尔字段；并在 `data/meta.json` 准确记录 `pvpSources: 45`（保留原价格覆盖率口径与 prices.json 价格原样）；
+  2. 界面与交互（index.html, js/app.js, css/style.css）：
+     - 刷取来源卡片与详情弹窗中，PvP 来源显示专属红色「PvP」徽章；
+     - 来源类型筛选栏增加「⚔️ PvP」切换按钮（默认未选中，点击切换只看 PvP 来源，再次点击返回常规来源）；
+     - 默认非 PvP 视图下显示提示栏：“💡 提示：当前页面不包含 PvP 来源，可点击「PvP」按钮查看。”；进入 PvP 视图后自动更新为：“⚔️ 提示：当前仅显示 PvP（武形秘仪 / Conclave）来源，可再次点击「PvP」按钮返回常规掉落。”；
+     - 页面计数器（如“共 2016 处掉落来源”与“共 45 处掉落来源”）随筛选实时动态响应；
+  3. 测试与回归（test/pvp.test.mjs）：
+     - 新增 `test/pvp.test.mjs` 测试套件（包含全量来源 isPvp 格式与 Conclave 对应断言、45 条精准数量断言、isPvpSource 纯函数边界与负向用例断言、filterSources 纯函数默认排除与开启 PvP 断言、两次 build-data 逻辑幂等回归断言）；
+     - 运行 `npm test` 全部 9 个测试套件，45 个测试用例全部通过（45 passed, 0 failed）；
+  4. 分支与版本：
+     - 在本地分支 `feat/pvp-filter` 提交，不改远程，不推送，不修改 `.github/workflows`。

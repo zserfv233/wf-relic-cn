@@ -12,6 +12,7 @@ import {
   getItemPrice
 } from './lib/calculations.js';
 import { searchIndex } from './lib/search.js';
+import { filterSources } from './lib/sources.js';
 
 // 应用全局状态
 const state = {
@@ -43,6 +44,7 @@ const state = {
   currentSourceCat: 'all',
   currentSourceType: 'all',
   currentSourceSort: 'exp_desc',
+  sourcePvpOnly: false,
   
   // 价格基准模式
   currentPriceType: 'sellMin', // 'sellMin' | 'buyMax'
@@ -81,6 +83,9 @@ const elements = {
   unlistedToggle: document.getElementById('unlisted-toggle'),
   filterResultCount: document.getElementById('filter-result-count'),
   formulaCallout: document.getElementById('formula-callout'),
+  sourcePvpCallout: document.getElementById('source-pvp-callout'),
+  sourcePvpCalloutText: document.getElementById('source-pvp-callout-text'),
+  pvpFilterBtn: document.getElementById('pvp-filter-btn'),
   
   // Content Grid
   gridView: document.getElementById('grid-view'),
@@ -606,16 +611,23 @@ function renderModsView() {
    ========================================================================== */
 function renderSourcesView() {
   const priceType = state.currentPriceType;
-  let list = [...state.sources];
 
-  // 1. 类型过滤 (mission, enemy, bounty, transient)
-  if (state.currentSourceType !== 'all') {
-    list = list.filter(s => s.type === state.currentSourceType);
-  }
+  // 使用纯函数统一进行类型、奖励分类以及 PvP 模式过滤
+  let list = filterSources(state.sources, {
+    type: state.currentSourceType,
+    category: state.currentSourceCat,
+    pvpOnly: state.sourcePvpOnly
+  });
 
-  // 2. 奖励分类过滤 (arcane, riven, mod, relic)
-  if (state.currentSourceCat !== 'all') {
-    list = list.filter(s => s.rewards.some(r => r.category === state.currentSourceCat));
+  // 更新 PvP 提示横幅
+  if (elements.sourcePvpCallout && elements.sourcePvpCalloutText) {
+    if (state.sourcePvpOnly) {
+      elements.sourcePvpCalloutText.innerHTML = '⚔️ <strong>提示：</strong>当前仅显示 PvP（武形秘仪 / Conclave）来源，可再次点击「PvP」按钮返回常规掉落。';
+      elements.sourcePvpCallout.classList.add('pvp-active-banner');
+    } else {
+      elements.sourcePvpCalloutText.innerHTML = '💡 <strong>提示：</strong>当前页面不包含 PvP 来源，可点击「PvP」按钮查看。';
+      elements.sourcePvpCallout.classList.remove('pvp-active-banner');
+    }
   }
 
   // 3. 计算期望白金
@@ -647,7 +659,9 @@ function renderSourcesView() {
 
   elements.gridView.innerHTML = displayList.map(src => {
     const isEnemy = src.type === 'enemy';
-    const typeLabel = isEnemy ? '敌人击杀' : (src.type === 'mission' ? '星图任务' : (src.type === 'bounty' ? '平原赏金' : '特殊/密室'));
+    const typeLabel = src.isPvp ? 'PvP' : (isEnemy ? '敌人击杀' : (src.type === 'mission' ? '星图任务' : (src.type === 'bounty' ? '平原赏金' : '特殊/密室')));
+    const badgeClass = src.isPvp ? 'badge-pvp' : '';
+    const badgeStyle = src.isPvp ? '' : 'background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);';
     const expVal = src._exp.expectedValue;
     const expStr = expVal !== null ? `${expVal} ☿` : '—';
     const subNote = isEnemy 
@@ -661,7 +675,7 @@ function renderSourcesView() {
             <span class="relic-zh-name">${escapeHtml(src.nameZh || src.nameEn)}</span>
             <span class="relic-en-name">${escapeHtml(src.nameEn)}</span>
           </div>
-          <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">
+          <span class="badge ${badgeClass}" style="${badgeStyle}">
             ${typeLabel}
           </span>
         </div>
@@ -1188,6 +1202,7 @@ export function openSourceModal(sourceId) {
   elements.modalHeaderContent.innerHTML = `
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
       <h2 style="font-size: 1.3rem; color: var(--gold-light);">${escapeHtml(src.nameZh || src.nameEn)}</h2>
+      ${src.isPvp ? '<span class="badge badge-pvp">PvP</span>' : ''}
     </div>
     <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem;">
       类型: ${src.type} · ${src.planetZh ? `星球: ${src.planetZh}` : ''} ${isEnemy ? `· Mod 基础掉率: ${src.enemyModDropChance}%` : ''}
@@ -1378,14 +1393,24 @@ function setupEventListeners() {
   });
 
   // 来源类型筛选
-  elements.sourceTypeFilters.querySelectorAll('.tier-btn').forEach(btn => {
+  elements.sourceTypeFilters.querySelectorAll('.tier-btn[data-stype]').forEach(btn => {
     btn.addEventListener('click', () => {
-      elements.sourceTypeFilters.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+      elements.sourceTypeFilters.querySelectorAll('.tier-btn[data-stype]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.currentSourceType = btn.getAttribute('data-stype');
       renderCurrentView();
     });
   });
+
+  // PvP 切换按钮 (点击只看 PvP 来源，再点回到非 PvP 视图)
+  if (elements.pvpFilterBtn) {
+    elements.pvpFilterBtn.addEventListener('click', () => {
+      state.sourcePvpOnly = !state.sourcePvpOnly;
+      elements.pvpFilterBtn.classList.toggle('active', state.sourcePvpOnly);
+      elements.pvpFilterBtn.classList.toggle('pvp-active', state.sourcePvpOnly);
+      renderCurrentView();
+    });
+  }
 
   // Mod 稀有度筛选
   elements.modRarityFilters.querySelectorAll('.tier-btn').forEach(btn => {

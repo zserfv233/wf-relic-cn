@@ -123,6 +123,7 @@
           <button class="tier-btn" data-stype="enemy">敌人击杀 (Enemy)</button>
           <button class="tier-btn" data-stype="bounty">各平原赏金 (Bounty)</button>
           <button class="tier-btn" data-stype="transient">特殊/密室 (Transient)</button>
+          <button class="tier-btn pvp-toggle-btn" id="pvp-filter-btn" type="button" title="点击切换查看武形秘仪 PvP 掉落">⚔️ PvP</button>
         </div>
 
         <!-- Mod Rarity Filter -->
@@ -140,6 +141,11 @@
       <!-- Formula Notice Bar (Especially for Sources & Enemy Drops) -->
       <div id="formula-callout" class="formula-banner view-control view-sources" style="display: none;">
         <span><strong>期望白金计算公式：</strong>任务/赏金来源每次期望白金 = Σ(掉率% × 数量 × 价格)；敌人来源每击杀期望白金 = Mod 掉落几率(enemyModDropChance%) × Σ(物品掉率% × 价格)。赋能与 Mod 默认按 0 级掉落价格计入。</span>
+      </div>
+
+      <!-- Sources PvP Notice Bar -->
+      <div id="source-pvp-callout" class="formula-banner view-control view-sources" style="display: none; margin-top: 0.5rem;">
+        <span id="source-pvp-callout-text">💡 <strong>提示：</strong>当前页面不包含 PvP 来源，可点击「PvP」按钮查看。</span>
       </div>
 
       <!-- Relic Price Disclaimer Bar -->
