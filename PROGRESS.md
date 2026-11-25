@@ -204,3 +204,14 @@
 
 
 
+
+## 2026-11-26 10:08 AEDT — 通道复核（fix/math-kernel，M1–M3）
+- 当前阶段：数学内核修复完成，待总管/Codex 验收；未推送、未改 workflows、未抓价、data/prices.json 未变（git diff 6ac4946 -- data/prices.json .github 为空）。
+- 已完成：rebase 到 main 6ac4946（无冲突）；M1 bb6ccef、M2 c61ce01、M3 8625bd4；npm test 62/62。
+- 通道独立复核：indep_ev.py（raw drops_all + prices.json）与新内核一致：Nightmare A/B/C 4.0439/2.4649/5.8020，仲裁 A/B/C 0.67/0.65/0.715，Cetus L5–15 A Stage1 0.2，Cryotic Front 去重后 1.994。
+- 第 9 项：通道用两份不同变异的临时 prices 副本（复制仓库到 /workspace/wf-math-invariant-check，删 60/85 条、改价、改 sellCount，重建）跑 npm test：M2 版 2 个失败（Cryotic 1.994、ETERNA 5.89 依赖实时价）→ M3 修复后均 62/62；模拟无 raw（CI）61 pass + 1 skip。
+- 截图：/workspace/wf-relic-cn-shots/12–22（docs-shots/ 有拷贝），截图时无页面 JS 报错。
+- 自检（flash-low）：结论正常。
+- 中断记录：通道子进程 09:1x 被外部中断一次，按 PROGRESS 恢复，agy 进程未受影响。
+- 下一步：等待总管验收；汉化未开始（等总管单独安排）。
+- 阻塞/待 Codex 拍板：见 DONE.md 本轮记录。

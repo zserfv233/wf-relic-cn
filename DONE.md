@@ -65,3 +65,10 @@ Antigravity 自报结果均由通道复跑核对；其自报“Forma 在 market 
 - 截图：/workspace/wf-relic-cn-shots/10_sources_default_no_pvp.png（含「当前页面不包含 PvP 来源，可点击「PvP」按钮查看。」）；/workspace/wf-relic-cn-shots/11_sources_pvp_only.png（仅 Conclave 来源 +「当前仅显示 PvP（武形秘仪 / Conclave）来源」）。仓库 docs-shots/ 有拷贝。截图时无页面 JS 报错。
 - 价格覆盖率未被破坏：99.5%（2441/2453），updatedAt 仍为 2026-11-25T13:56:27.424Z。
 - 已知问题：无新增功能性问题。npm test 里的 build-data 回归会改 meta.json 的 builtAt，通道已把该无意义脏改动恢复，未纳入提交。
+
+## 2026-11-26 10:08 AEDT — 数学内核修复（fix/math-kernel，worktree /workspace/wf-relic-cn-math）
+- 提交（均在 main 6ac4946 之上，作者 zserfv233）：bb6ccef（M1：轮次拆分、赏金 {A,B,C} 解析 299 个来源、仲裁拆分+轮次说明、单位改名、概率和核对、缺价/未知概率 null+「不完整估值」、id 唯一、整表去重、未取整排序）；c61ce01（M2：低置信 <3 卖家、默认按高置信排序、买卖分开显示、sellRobust 抓价脚本改动未运行、ETERNA 不适用档 null+资料冲突、赋能 N=(r+1)(r+2)/2 折算、去基础 slug 回退、紫卡 @unrevealed 键、mods/rivens 互斥、测试去快照化）；8625bd4（M3：去掉残留价格依赖断言、PvP 无 raw 时 skip、变异价格核验脚本）；本记录提交。
+- 测试：npm test 62/62；变异价格副本 62/62；无 raw 61 pass + 1 skip。
+- 前后对比（卖价口径）：Nightmare 12.31（三表混算，概率和 300.03%）→ A 4.0439 / B 2.4649 / C 5.8020；仲裁 2.04 → A 0.67 / B 0.65 / C 0.715（均不完整，已计价 21/22.5/30.5%）；Lith A1 4.33/4.67/5.16/5.77 不变；Conclave Saturn Cephalon Capture A 19.52 → 含低置信 19.5176 / 高置信 2.356（19 项稀疏卖单）；赏金 0 个 → 299 个，Cetus L5–15 A Stage1 0.20（已计价 20%）；ETERNA 5.89/0/0/0 → 5.89/null/null/null + 资料冲突。
+- 截图：/workspace/wf-relic-cn-shots/12–22。
+- 已知问题与待 Codex 拍板：见通道回报。
