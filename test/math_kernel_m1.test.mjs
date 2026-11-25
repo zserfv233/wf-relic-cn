@@ -61,7 +61,22 @@ const FIXTURE_PRICES = {
   'vectis_prime_blueprint': { sellMin: 9, sellCount: 5 },
   'braton_prime_barrel': { sellMin: 2, sellCount: 5 },
   'akstiletto_prime_blueprint': { sellMin: 13, sellCount: 5 },
-  'vasto_prime_receiver': { sellMin: 8, sellCount: 5 }
+  'vasto_prime_receiver': { sellMin: 8, sellCount: 5 },
+
+  // Europa Cryotic Front (复现 Codex 审查报告去重前基准单价)
+  'vitality@r0': { sellMin: 1, sellCount: 5 },
+  'fast_deflection@r0': { sellMin: 1, sellCount: 5 },
+  'rush@r0': { sellMin: 3, sellCount: 5 },
+  'magazine_warp@r0': { sellMin: 4, sellCount: 5 },
+  'trick_mag@r0': { sellMin: 4, sellCount: 5 },
+  'pressure_point@r0': { sellMin: 2, sellCount: 5 },
+  'ammo_drum@r0': { sellMin: 1, sellCount: 5 },
+  'fast_hands@r0': { sellMin: 3, sellCount: 5 },
+  'quickdraw@r0': { sellMin: 1, sellCount: 5 },
+  'north_wind@r0': { sellMin: 2, sellCount: 5 },
+  'shocking_touch@r0': { sellMin: 1, sellCount: 5 },
+  'molten_impact@r0': { sellMin: 3, sellCount: 5 },
+  'stretch@r0': { sellMin: 2, sellCount: 5 }
 };
 
 describe('数学内核修复 (Math Kernel - Phase M1 - Invariants)', () => {
@@ -243,9 +258,13 @@ describe('数学内核修复 (Math Kernel - Phase M1 - Invariants)', () => {
     // 概率和 ≈ 100.04%
     assert.ok(Math.abs(ecf.probabilitySum - 100.04) < 0.05, `去重后概率和应约为 100.04%，实际为 ${ecf.probabilitySum}`);
 
-    // 已知价贡献 ≈ 1.994p
-    const res = calculateSourceExpectedValue(ecf.rewards, rawPrices, { priceType: 'sellMin' });
-    assert.ok(Math.abs(res.expectedValueRaw - 1.994) < 0.005, `已知价贡献应约为 1.994p，实际为 ${res.expectedValueRaw}`);
+    // 已知价贡献 ≈ 1.994p（基于测试固定 fixture 价格计算复算值）
+    const res = calculateSourceExpectedValue(ecf.rewards, FIXTURE_PRICES, { priceType: 'sellMin' });
+    assert.ok(Math.abs(res.expectedValueRaw - 1.994) < 0.005, `基于固定基准价计算已知价贡献应约为 1.994p，实际为 ${res.expectedValueRaw}`);
+
+    // 对真实数据（即使行情变动）只断言结构不变量：EV 必须为正数或 null
+    const realRes = calculateSourceExpectedValue(ecf.rewards, rawPrices, { priceType: 'sellMin' });
+    assert.ok(realRes.expectedValueRaw === null || (typeof realRes.expectedValueRaw === 'number' && realRes.expectedValueRaw > 0), '真实数据下 EV 必须为正数或 null');
   });
 
   it('8. 排序用未取整值：构造取整后相等但 Raw 不同的来源，排序顺序严格依据 Raw 值', () => {

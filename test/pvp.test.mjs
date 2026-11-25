@@ -22,7 +22,7 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
   const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
 
   // 从 raw drops_all.json 重算预期 Conclave 来源数
-  let expectedPvpCount = 45;
+  let expectedPvpCount = null;
   if (fs.existsSync(rawFile)) {
     try {
       const raw = JSON.parse(fs.readFileSync(rawFile, 'utf8'));
@@ -40,7 +40,7 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
       }
       if (rawPvpCount > 0) expectedPvpCount = rawPvpCount;
     } catch (e) {
-      console.warn('读取 drops_all.json 出错，使用默认不变量 45:', e.message);
+      console.warn('读取 drops_all.json 出错:', e.message);
     }
   }
 
@@ -63,18 +63,27 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
     }
   });
 
-  it('PvP 来源数量与从原始 DE 数据重算结果一致，且 meta.stats 保持一致', () => {
+  it('PvP 来源数量与从原始 DE 数据重算结果一致，且 meta.stats 保持一致', (t) => {
     const pvpSources = sources.filter(s => s.isPvp);
     const nonPvpSources = sources.filter(s => !s.isPvp);
 
-    assert.strictEqual(pvpSources.length, expectedPvpCount, `实际 PvP 来源数量应等于从原始数据重算的 ${expectedPvpCount}`);
-    assert.strictEqual(nonPvpSources.length, sources.length - expectedPvpCount);
+    // 核心不变量：sources 中 gameMode === 'Conclave' 的来源数 == isPvp 来源数
+    const conclaveModeSources = sources.filter(s => s.gameMode === 'Conclave');
+    assert.strictEqual(pvpSources.length, conclaveModeSources.length, 'sources 中 gameMode === Conclave 的来源数必须等于 isPvp 来源数');
     assert.strictEqual(pvpSources.length + nonPvpSources.length, sources.length);
-
-    // 检查 meta 统计
-    assert.strictEqual(meta.stats.pvpSources, expectedPvpCount);
-    assert.strictEqual(meta.pvpSources, expectedPvpCount);
+    assert.strictEqual(meta.stats.pvpSources, pvpSources.length);
+    assert.strictEqual(meta.pvpSources, pvpSources.length);
     assert.strictEqual(meta.stats.totalSources, sources.length);
+
+    if (expectedPvpCount !== null) {
+      assert.strictEqual(pvpSources.length, expectedPvpCount, `实际 PvP 来源数量应等于从原始数据重算的 ${expectedPvpCount}`);
+    } else {
+      if (t && typeof t.skip === 'function') {
+        t.skip('原始 DE 数据 drops_all.json 不存在，跳过与原始数据重算数量对比');
+      } else {
+        console.log('原始 DE 数据 drops_all.json 不存在，跳过与原始数据重算数量对比');
+      }
+    }
   });
 
   it('isPvpSource 纯函数识别逻辑健全，不误判普通星图任务', () => {
@@ -90,14 +99,16 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
   });
 
   it('前端筛选纯函数 filterSources: 默认列表排除 isPvp，PvP 模式仅包含 isPvp 来源', () => {
+    const pvpSourcesCount = sources.filter(s => s.isPvp).length;
+
     // 默认模式 (pvpOnly: false)
     const defaultList = filterSources(sources, { pvpOnly: false });
-    assert.strictEqual(defaultList.length, sources.length - expectedPvpCount);
+    assert.strictEqual(defaultList.length, sources.length - pvpSourcesCount);
     assert.ok(defaultList.every(s => s.isPvp === false), '默认列表中不能包含任何 isPvp 来源');
 
     // PvP 模式 (pvpOnly: true)
     const pvpList = filterSources(sources, { pvpOnly: true });
-    assert.strictEqual(pvpList.length, expectedPvpCount, `PvP 视图中必须正好显示 ${expectedPvpCount} 处来源`);
+    assert.strictEqual(pvpList.length, pvpSourcesCount, `PvP 视图中必须正好显示 ${pvpSourcesCount} 处来源`);
     assert.ok(pvpList.every(s => s.isPvp === true), 'PvP 列表中每一项都必须是 isPvp === true');
   });
 
@@ -119,10 +130,14 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
 
     const pvpFresh = freshSources.filter(s => s.isPvp === true);
     const nonPvpFresh = freshSources.filter(s => s.isPvp === false);
+    const conclaveFresh = freshSources.filter(s => s.gameMode === 'Conclave');
 
-    assert.strictEqual(pvpFresh.length, expectedPvpCount);
-    assert.strictEqual(nonPvpFresh.length, freshSources.length - expectedPvpCount);
-    assert.strictEqual(freshMeta.stats.pvpSources, expectedPvpCount);
-    assert.strictEqual(freshMeta.pvpSources, expectedPvpCount);
+    assert.strictEqual(pvpFresh.length, conclaveFresh.length, '重新构建后 gameMode === Conclave 数必须等于 isPvp 数');
+    assert.strictEqual(nonPvpFresh.length, freshSources.length - pvpFresh.length);
+    assert.strictEqual(freshMeta.stats.pvpSources, pvpFresh.length);
+    assert.strictEqual(freshMeta.pvpSources, pvpFresh.length);
+    if (expectedPvpCount !== null) {
+      assert.strictEqual(pvpFresh.length, expectedPvpCount);
+    }
   });
 });

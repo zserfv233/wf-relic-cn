@@ -187,4 +187,20 @@
      - 新增 `test/math_kernel_m2.test.mjs` 验证 M2 各项要求；
      - 全量测试回归：`npm test` 11 个测试套件 62 个测试全部通过（62 passed, 0 failed）。
 
+## 2026-11-26 09:48 AEDT
+- 阶段 M3 完成（价格依赖消除与变异价格不变量验证脚本）：
+  1. 消除测试对实时价格的偶合依赖：
+     - `test/math_kernel_m1.test.mjs`（第 7 项 ECF 去重测试）：将 Europa Cryotic Front 1.994p 断言迁移至固定测试基准价格常量 `FIXTURE_PRICES`；对真实行情价格只断言结构不变量（去重后 15 项、dedupedRepeats=3、概率和≈100.04%，实际 EV 仅断言有限正数或 null），彻底解决上游价格或测试副本价格变动导致的假阳性。
+     - `test/math_kernel_m2.test.mjs`（第 3 项 Requiem ETERNA 测试）：增加 `eternaFixturePrices` 测试固定价格字典，对 intact 档 5.89p 的期望计算公式断言基于 fixture 进行；真实数据断言结构不变量（intact 为有限正数或 null、其余三档及不支持精炼档严格为 null 且 unsupportedRefinement=true）。
+     - `test/pvp.test.mjs`：当原始 DE 掉落表 `/workspace/wf-relic-cn-raw/drops_all.json` 不存在时（如 CI / Actions 环境），安全跳过与 raw 重算的数值断言，并始终断言核心不变量：“sources 中 gameMode==='Conclave' 的来源数 == isPvp 来源数”及 meta 统计严格一致。
+  2. 新增可重复变异价格核验脚本：
+     - 新增 `scripts/check-invariants-with-mutated-prices.mjs`（不包含在 npm test 中，避免日常运行减速）；
+     - 脚本执行逻辑：将仓库复制至 `os.tmpdir()` 临时环境，变异 prices.json（删除 60 条价格、卖价×1.3+2、买价×0.8、sellCount 改为 1-5），透传 `--raw` 参数执行 `build-data.mjs`，运行 `node --test` 验证全量 62 个测试在变异价格环境下全部 PASS；
+     - 最终安全递归删除临时目录，返回子进程退出码，断言真实 `data/prices.json` 未受写操作。
+  3. 测试与版本验证：
+     - 执行 `npm test`：11 个套件 62 个测试全部通过；
+     - 执行 `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：62 个测试全部通过；
+     - `data/meta.json` 中仅 `builtAt` 变动已通过 `git checkout -- data/meta.json` 干净还原。
+
+
 

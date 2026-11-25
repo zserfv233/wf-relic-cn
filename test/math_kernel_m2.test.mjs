@@ -136,15 +136,33 @@ describe('数学内核修复 (Math Kernel - Phase M2)', () => {
     assert.ok(eterna.dataConflictNote.includes('资料冲突：DE 掉落表为 8 项×9.5%=76%'));
     assert.ok(eterna.dataConflictNote.includes('12.5%'));
 
-    const allValues = calculateAllRefinementValues(eterna.rewards, rawPrices, { priceType: 'sellMin' });
+    // 1. 基准 fixture 价格复算断言 (8 * 9.5% * 平均单价 ≈ 5.89p)
+    const eternaFixturePrices = {
+      lohk: { sellMin: 7, sellCount: 5 },
+      xata: { sellMin: 7, sellCount: 5 },
+      jahu: { sellMin: 8, sellCount: 5 },
+      vome: { sellMin: 8, sellCount: 5 },
+      ris: { sellMin: 8, sellCount: 5 },
+      fass: { sellMin: 8, sellCount: 5 },
+      netra: { sellMin: 8, sellCount: 5 },
+      khra: { sellMin: 8, sellCount: 5 }
+    };
+    const fixtureValues = calculateAllRefinementValues(eterna.rewards, eternaFixturePrices, { priceType: 'sellMin' });
+    assert.ok(fixtureValues.intact.expectedValueRaw > 0);
+    assert.ok(Math.abs(fixtureValues.intact.expectedValueRaw - 5.89) < 0.1, `基准价下 ETERNA intact EV 应约为 5.89p，实际为 ${fixtureValues.intact.expectedValueRaw}`);
+    assert.strictEqual(fixtureValues.intact.unsupportedRefinement, false);
 
-    // intact 有值 (8 * 9.5% * 平均单价 ≈ 5.89p)
-    assert.ok(allValues.intact.expectedValueRaw > 0);
-    assert.ok(Math.abs(allValues.intact.expectedValueRaw - 5.89) < 0.1);
+    // 2. 真实价格数据断言结构不变量：intact 为正数或 null (缺价时)，其余三档严格为 null
+    const allValues = calculateAllRefinementValues(eterna.rewards, rawPrices, { priceType: 'sellMin' });
+    assert.ok(allValues.intact.expectedValueRaw === null || (typeof allValues.intact.expectedValueRaw === 'number' && allValues.intact.expectedValueRaw > 0));
     assert.strictEqual(allValues.intact.unsupportedRefinement, false);
 
     // exceptional, flawless, radiant 全为 null，并且标记 unsupportedRefinement: true
     for (const ref of ['exceptional', 'flawless', 'radiant']) {
+      assert.strictEqual(fixtureValues[ref].expectedValue, null);
+      assert.strictEqual(fixtureValues[ref].expectedValueRaw, null);
+      assert.strictEqual(fixtureValues[ref].unsupportedRefinement, true);
+
       assert.strictEqual(allValues[ref].expectedValue, null, `ETERNA ${ref} expectedValue 必须为 null`);
       assert.strictEqual(allValues[ref].expectedValueRaw, null, `ETERNA ${ref} expectedValueRaw 必须为 null`);
       assert.strictEqual(allValues[ref].unsupportedRefinement, true, `ETERNA ${ref} unsupportedRefinement 必须为 true`);
