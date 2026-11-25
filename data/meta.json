@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "phase": 2,
-  "builtAt": "2026-11-25T13:53:41.345Z",
+  "builtAt": "2026-11-25T13:57:37.093Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -23,10 +23,10 @@
     "unmatchedCount": 618
   },
   "prices": {
-    "updatedAt": null,
-    "pricedCount": 0,
+    "updatedAt": "2026-11-25T13:56:27.424Z",
+    "pricedCount": 2441,
     "totalCount": 1532,
-    "coverage": "0.0%",
+    "coverage": "159.3%",
     "categories": {
       "relics": {
         "pricedCount": 0,
