@@ -1,0 +1,49 @@
+# DONE — wf-relic-cn（Antigravity 通道）
+
+- 状态：完成，可验收（本地提交，未推送、未配置远程）。
+- 结束时间（墨尔本）：2026-11-26 01:13 AEDT
+- 目录：/workspace/wf-relic-cn （git 分支 master，作者 zserfv233 <zserfv233@users.noreply.github.com>，最新 commit d6f2bf7 + DONE）
+- 本地预览：`cd /workspace/wf-relic-cn && python3 -m http.server 8000` → http://localhost:8000/index.html （纯静态，相对路径，可直接部署 GitHub Pages）
+- 截图：/workspace/wf-relic-cn-shots/（同时拷贝在仓库 docs-shots/）
+  01 物品搜索 · 02 可获取遗物按光辉期望值排序 · 03 遗物详情（四档掉率+价格+四档期望值）· 04 全部遗物(含已入库标记) · 05 赋能(按满级价排序) · 06 未开紫卡 · 07 Mod(0级/满级价) · 08 刷取来源按每次期望白金排序 · 09 来源详情
+- Antigravity：agy CLI，模型 gemini-3.8-flash-high，conversation_id 3962e26c-a398-4e5a-94a0-7eaa8dc46a18（阶段1–5 全部续接同一对话）；自检用 gemini-3.8-flash-low 新对话。
+
+## 测试
+- `npm test`（node --test）：40/40 通过（通道复跑，2026-11-26 01:13 AEDT）。覆盖：期望值、精炼掉率（Axi A1 Intact 稀有 2%/Radiant 10%、Meso D1 双 Forma 槽位、所有遗物每档掉率和≈100）、搜索（中/英/全拼/首字母/简称，赋能与 Mod 各一例）、入库/unlisted 筛选、价格 min/max 乱序、rank 过滤、fetchedAt、fixture 不写 data/prices.json、限速、敌人/轮次来源期望值、NX 数量前缀、覆盖率≤100%。
+- 页面无 JS 报错（playwright-core + 系统 google-chrome 截图时记录 pageerror/console error 均为空）。
+
+## 通道复核（亲自核对）
+- 遗物掉率：data/relics.json 对 DE 官方掉落表 HTML (https://www.warframe.com/droptables) 全量比对，3197 个“遗物×精炼档”全部一致（脚本 /workspace/wf-relic-cn-notes/verify/relic_vs_de.py；Requiem Eterna/I–IV 的 DE 表名大小写写法不同，不在 3197 内的 3 项为 DE 表缺项/命名差异）。阶段 1 曾发现 Meso D1 第二个 2X Forma 槽位串值，阶段 3 已修并复核。
+- 可获取遗物：DE 表任务/赏金中出现的遗物名独立统计 = 35（Lith/Meso/Neo/Axi）+ Requiem Eterna = 36，与站点一致；另 Requiem I–IV 标 unlisted（见已知问题），页面“可获取”默认共 40。
+- 掉落来源抽查：赋能 Arcane Energize 来源（Veil Proxima Erato Rot C 1.41%、Eidolon Hydrolyst(Special) 敌人表 5%，Mod 掉落几率 100）与 drops_all.json 原始一致；Saturn Cephalon Capture (Conclave) Rot A 来源期望 19.52p 用 data/prices.json 独立重算一致。
+- 价格抽查（2026-11-26 约 00:58 在 Mac 上重抓 API 原始返回，对比抓取缓存 data/prices.json）：arcane_energize@r0 最低卖7/最高买5；@r5 140/100；rifle_riven_mod_veiled 10/9；ash_prime_systems_blueprint 13/6——4 项与 API 原始订单 min(sell)/max(buy) 完全一致。
+- 未开紫卡：warframe.market v2 主站直接有 8 种 *_riven_mod_veiled 物品（tags 含 veiled_riven），无需替代来源（/v2/items 返回，见 data/ 与 wfm_items_v2.json）。
+- 通道发现并让 Antigravity 修复的问题：假价格数据（fixture 写入）、fetchedAt 缺失、Requiem 误判入库、同名奖励槽位串值、NX 数量前缀、稀有度来源、meta 覆盖率口径(159%)、公式 LaTeX 未渲染。
+
+## 数据来源
+| 用途 | 来源 | 许可/说明 |
+|---|---|---|
+| 掉落表（遗物、任务、敌人、赏金…） | DE 官方 https://www.warframe.com/droptables ，经 WFCD warframe-drop-data 解析 JSON https://drops.warframestat.us/data/all.json | DE 官方数据（“非官方工具”声明已在页面）；WFCD 为 MIT |
+| 遗物元数据/vaulted/market 映射 | WFCD warframe-items Relics.json https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Relics.json | MIT（WFCD/warframe-items） |
+| 中文名（主） | WFCD warframe-items i18n zh https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/i18n/zh.json （按 uniqueName） | 同上；每个名字记录 zhSource=wfcd_i18n |
+| 中文名（补充） | warframe.market /v2/items 的 i18n['zh-hans'].name（zhSource=warframe_market；WFCD 对 Prime 部件只有“枪管/握柄”等通用词时采用） | warframe.market 公开 API |
+| 价格 | warframe.market 公开 API v2 GET /v2/orders/item/{slug}/top（带 ?rank=N 取 0 级/满级），≤3 req/s，UA 标明个人非商业 | 仅代表抓取时刻；每条记录含 source/fetchedAt |
+| 拼音 | pinyin-pro（构建期预计算） https://github.com/zh-lx/pinyin-pro | MIT |
+| 参考 | https://github.com/Mersal108/relic-signal（MIT），声明见 THIRD_PARTY_NOTICES.md | 通道未逐行核对是否有代码被拷贝，Antigravity 称仅参考思路 |
+
+## 价格覆盖率（data/meta.json，价格抓取时间 2026-11-25T13:56Z = 2026-11-26 00:56 AEDT / 悉尼时间 同）
+- 总 2441/2453 键 = 99.5%：遗物奖励 603/603，未开紫卡 8/8，赋能 340/340（170 个×0级+满级），Mod 1490/1502（751×2；12 个键 market 无挂单，页面显示“暂无挂单”）。
+- 不含：Forma 等不可交易物（按 0 计并提示）。
+
+## 已知问题
+1. box 访问 api.warframe.market 被 Cloudflare 403（curl、含浏览器 UA 均 403，2026-11-25）。价格由用户 Mac（可 200）运行 scripts/fetch-prices.mjs 抓取，再复制回 data/prices.json。GitHub Actions 工作流（.github/workflows/update-data.yml）里的 fetch-prices 在 GitHub 托管 runner 上是否会被 Cloudflare 拦截未验证；未启用推送。→ 需总管/Codex 决策：长期价格更新方式（Mac 定时 / Actions / 其他）。
+2. Requiem I–IV：DE 掉落表无此来源、WFCD 标 vaulted，现按 config/status-overrides.json 设为 unlisted（“特殊来源：DE 掉落表未列出”），source 字段写“待确认”，没有可引用的官方 URL。
+3. 入库状态冲突 2 个（Axi C13、Requiem Eterna：DE 表有掉落而 WFCD vaulted=true），以 DE 表为准并在页面标黄。入库判定=“是否出现在 DE 掉落表当前任务/赏金奖励中”，是推断，不是 DE 官方 vaulted 清单。
+4. 掉落来源（节点、敌人、赏金）中文名大多没有（用英文原名+“轮次/敌人”前缀），中文名来源仅覆盖物品名。
+5. 来源期望值口径：任务/赏金每次 = Σ(掉率×数量×价格)；敌人每击杀 = Mod 掉落几率×Σ(物品掉率×价格)；掉落物价格取 0 级最低卖价；用最低卖价会偏乐观（挂单价≠成交价）。Conclave 来源因个别 Mod（如 Soaring Strike 最低卖价 300p）排在期望榜前列，需人工判断。
+6. 价格只取 /top 返回的各 5 条最低卖/最高买订单，未区分在线状态；Mod 未区分是否被 Mod 最大等级以外的 rank 订单；价格随时间变化，需定期重抓。
+7. 未做：赋能“钢铁之路/Zariman/Duviri”按活动归类的专门页（目前按 DE 表的来源名/类型筛选，轮次 A/B/C 有显示）；紫卡仅 8 类未开紫卡价格，不含已开紫卡。
+8. unmatched.json 618 项为 DE 表中无 market 对应物（资源、Endo、Credits 等），未逐条人工核对。
+
+## 通道复核备注
+Antigravity 自报结果均由通道复跑核对；其自报“Forma 在 market 不可交易”“relic-signal 仅参考思路”等说法未独立验证，已在上面标注。自检记录见 PROGRESS.md。
