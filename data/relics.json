@@ -101130,19 +101130,19 @@
           "rarity": "Rare"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+          "place": "Hallowed Flame Mission Caches [Rot B]",
           "rotation": "B",
           "chance": 11.06,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+          "place": "Hallowed Flame Endurance Caches [Rot B]",
           "rotation": "B",
           "chance": 11.06,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+          "place": "The Descendia: Uncommon Rewards (Steel Path)",
           "rotation": null,
           "chance": 7.14,
           "rarity": "Rare"
@@ -184694,109 +184694,340 @@
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+          "place": "Level 30 - 50 Cetus Bounty [Rot C] (Stage 1)",
+          "rotation": "C",
+          "stage": "Stage 1",
+          "chance": 27.59,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 30 - 50 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "C",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 17.39,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 30 - 50 Cetus Bounty [Rot C] (Stage 4 of 5)",
+          "rotation": "C",
+          "stage": "Stage 4 of 5",
+          "chance": 17.02,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 6.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 4.73,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot A] (Final Stage)",
+          "rotation": "A",
+          "stage": "Final Stage",
+          "chance": 7.14,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "B",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 6.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot B] (Stage 4 of 5)",
+          "rotation": "B",
+          "stage": "Stage 4 of 5",
+          "chance": 4.73,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot B] (Final Stage)",
+          "rotation": "B",
+          "stage": "Final Stage",
+          "chance": 7.14,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "C",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 6.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot C] (Stage 4 of 5)",
+          "rotation": "C",
+          "stage": "Stage 4 of 5",
+          "chance": 4.73,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cetus Bounty [Rot C] (Final Stage)",
+          "rotation": "C",
+          "stage": "Final Stage",
+          "chance": 7.14,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 6.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 4.73,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot A] (Final Stage)",
+          "rotation": "A",
+          "stage": "Final Stage",
+          "chance": 7.14,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "B",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 6.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot B] (Stage 4 of 5)",
+          "rotation": "B",
+          "stage": "Stage 4 of 5",
+          "chance": 4.73,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot B] (Final Stage)",
+          "rotation": "B",
+          "stage": "Final Stage",
+          "chance": 7.14,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "C",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 6.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot C] (Stage 4 of 5)",
+          "rotation": "C",
+          "stage": "Stage 4 of 5",
+          "chance": 4.73,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cetus Bounty [Rot C] (Final Stage)",
+          "rotation": "C",
+          "stage": "Final Stage",
+          "chance": 7.14,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 15 - 25 Plague Star [Rot A] (Stage 1)",
+          "rotation": "A",
+          "stage": "Stage 1",
+          "chance": 23.86,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 15 - 25 Plague Star [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 12.28,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 15 - 25 Plague Star [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 8.86,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 1)",
+          "rotation": "C",
+          "stage": "Stage 1",
+          "chance": 33.33,
+          "rarity": "Common"
+        },
+        {
+          "place": "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "C",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 20,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 4 of 5)",
+          "rotation": "C",
+          "stage": "Stage 4 of 5",
+          "chance": 16.67,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 1)",
+          "rotation": "A",
+          "stage": "Stage 1",
+          "chance": 9.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 5.71,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 4.44,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 1)",
+          "rotation": "A",
+          "stage": "Stage 1",
+          "chance": 9.09,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 5.71,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 4.44,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Hallowed Flame Mission Caches [Rot A]",
           "rotation": "A",
           "chance": 15.18,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+          "place": "Hallowed Flame Mission Caches [Rot A]",
           "rotation": "A",
           "chance": 7.37,
           "rarity": "Rare"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+          "place": "Hallowed Flame Mission Caches [Rot B]",
           "rotation": "B",
           "chance": 12.65,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+          "place": "Hallowed Flame Mission Caches [Rot B]",
           "rotation": "B",
           "chance": 12.65,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+          "place": "Hallowed Flame Mission Caches [Rot C]",
           "rotation": "C",
           "chance": 15.18,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+          "place": "Hallowed Flame Mission Caches [Rot C]",
           "rotation": "C",
           "chance": 15.18,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+          "place": "Hallowed Flame Endurance Caches [Rot A]",
           "rotation": "A",
           "chance": 15.18,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+          "place": "Hallowed Flame Endurance Caches [Rot A]",
           "rotation": "A",
           "chance": 15.18,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+          "place": "Hallowed Flame Endurance Caches [Rot B]",
           "rotation": "B",
           "chance": 12.65,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+          "place": "Hallowed Flame Endurance Caches [Rot B]",
           "rotation": "B",
           "chance": 12.65,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+          "place": "Hallowed Flame Endurance Caches [Rot C]",
           "rotation": "C",
           "chance": 12.65,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+          "place": "Hallowed Flame Endurance Caches [Rot C]",
           "rotation": "C",
           "chance": 12.65,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+          "place": "The Icebind: Crested Frozen Chests [Rot B]",
           "rotation": "B",
           "chance": 69,
           "rarity": "Common"
         },
         {
-          "place": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+          "place": "The Icebind: Crested Frozen Chests [Rot B]",
           "rotation": "B",
           "chance": 30,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+          "place": "The Icebind: Crested Frozen Chests [Rot B]",
           "rotation": "B",
           "chance": 1,
           "rarity": "Rare"
         },
         {
-          "place": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+          "place": "The Icebind: Frozen Chests [Rot B]",
           "rotation": "B",
           "chance": 65,
           "rarity": "Common"
         },
         {
-          "place": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+          "place": "The Icebind: Frozen Chests [Rot B]",
           "rotation": "B",
           "chance": 30,
           "rarity": "Uncommon"
         },
         {
-          "place": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+          "place": "The Icebind: Frozen Chests [Rot B]",
           "rotation": "B",
           "chance": 5,
           "rarity": "Rare"
@@ -184923,6 +185154,230 @@
           "rotation": null,
           "chance": 9.52,
           "rarity": "Rare"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 1)",
+          "rotation": "A",
+          "stage": "Stage 1",
+          "chance": 55.56,
+          "rarity": "Common"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 26.67,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 26.67,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 17.54,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 17.54,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 17.54,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Final Stage)",
+          "rotation": "A",
+          "stage": "Final Stage",
+          "chance": 25.64,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Final Stage)",
+          "rotation": "A",
+          "stage": "Final Stage",
+          "chance": 25.64,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 1)",
+          "rotation": "B",
+          "stage": "Stage 1",
+          "chance": 53.33,
+          "rarity": "Common"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "B",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 25.81,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "B",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 25.81,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 4 of 5)",
+          "rotation": "B",
+          "stage": "Stage 4 of 5",
+          "chance": 17.02,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 4 of 5)",
+          "rotation": "B",
+          "stage": "Stage 4 of 5",
+          "chance": 17.02,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 4 of 5)",
+          "rotation": "B",
+          "stage": "Stage 4 of 5",
+          "chance": 17.02,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Final Stage)",
+          "rotation": "B",
+          "stage": "Final Stage",
+          "chance": 25,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot B] (Final Stage)",
+          "rotation": "B",
+          "stage": "Final Stage",
+          "chance": 25,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Stage 1)",
+          "rotation": "C",
+          "stage": "Stage 1",
+          "chance": 55.56,
+          "rarity": "Common"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "C",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 26.32,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "C",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 26.32,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Stage 4 of 5)",
+          "rotation": "C",
+          "stage": "Stage 4 of 5",
+          "chance": 17.24,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Stage 4 of 5)",
+          "rotation": "C",
+          "stage": "Stage 4 of 5",
+          "chance": 17.24,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Stage 4 of 5)",
+          "rotation": "C",
+          "stage": "Stage 4 of 5",
+          "chance": 17.24,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Final Stage)",
+          "rotation": "C",
+          "stage": "Final Stage",
+          "chance": 25,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 25 - 30 Cambion Drift Bounty [Rot C] (Final Stage)",
+          "rotation": "C",
+          "stage": "Final Stage",
+          "chance": 25,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 1)",
+          "rotation": "A",
+          "stage": "Stage 1",
+          "chance": 45.45,
+          "rarity": "Common"
+        },
+        {
+          "place": "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 28.57,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 22.22,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 1)",
+          "rotation": "A",
+          "stage": "Stage 1",
+          "chance": 45.45,
+          "rarity": "Common"
+        },
+        {
+          "place": "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+          "rotation": "A",
+          "stage": "Stage 2, Stage 3 of 4, and Stage 3 of 5",
+          "chance": 28.57,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+          "rotation": "A",
+          "stage": "Stage 4 of 5",
+          "chance": 22.22,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level  60 - 65 Zariman Bounty [Rot C] (Final stage)",
+          "rotation": "C",
+          "stage": "Final stage",
+          "chance": 20.34,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Level  65 - 70 Entrati Lab Bounty [Rot C] (Final stage)",
+          "rotation": "C",
+          "stage": "Final stage",
+          "chance": 20.34,
+          "rarity": "Uncommon"
         }
       ]
     },

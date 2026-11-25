@@ -44,13 +44,13 @@
       "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
       "Höllvania - Hell-Scrub: Techrot (Survival) [Rot B]",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards"
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 1)"
     ]
   },
   {
     "name": "100000X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+      "The Icebind: Crested Frozen Chests [Rot B]"
     ]
   },
   {
@@ -74,15 +74,42 @@
     ]
   },
   {
+    "name": "100X Cryotic",
+    "samplePlaces": [
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 1)",
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 4 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 1)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
     "name": "100X Kuva",
     "samplePlaces": [
-      "Kuva Fortress - Tamu (Disruption) [Rot A]"
+      "Kuva Fortress - Tamu (Disruption) [Rot A]",
+      "Level 30 - 50 Cetus Bounty [Rot C] (Stage 1)",
+      "Level 30 - 50 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Cetus Bounty [Rot C] (Stage 4 of 5)",
+      "Level 15 - 25 Plague Star [Rot A] (Stage 1)"
+    ]
+  },
+  {
+    "name": "100X Oxium",
+    "samplePlaces": [
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 1)",
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 1)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
     ]
   },
   {
     "name": "100X Plastids",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 1)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 4 of 5)",
+      "Hallowed Flame Mission Caches [Rot B]"
     ]
   },
   {
@@ -135,7 +162,7 @@
   {
     "name": "10X Corrupted Holokey",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
@@ -150,7 +177,8 @@
     "samplePlaces": [
       "Höllvania - Exterminate: Scaldra (Exterminate)",
       "Höllvania - Exterminate: Techrot (Exterminate)",
-      "Höllvania - Antivirus Bounty (Exterminate)"
+      "Höllvania - Antivirus Bounty (Exterminate)",
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -257,13 +285,14 @@
     "samplePlaces": [
       "Höllvania - Exterminate: Scaldra (Exterminate)",
       "Höllvania - Exterminate: Techrot (Exterminate)",
-      "Höllvania - Antivirus Bounty (Exterminate)"
+      "Höllvania - Antivirus Bounty (Exterminate)",
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
     "name": "10X Void Traces",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Extended Granum Void"
+      "Extended Granum Void [Rot A]"
     ]
   },
   {
@@ -276,9 +305,9 @@
   {
     "name": "11X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+      "Nokko: Critter Liberation Rewards [Rot A]",
+      "Nokko: Corporate Restructuring Rewards [Rot A]",
+      "Nokko: Weed The Gardens Rewards [Rot A]"
     ]
   },
   {
@@ -304,32 +333,32 @@
   {
     "name": "125X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+      "Hallowed Flame Mission Caches [Rot A]",
+      "Hallowed Flame Mission Caches [Rot A]"
     ]
   },
   {
     "name": "12X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+      "Nokko: Critter Liberation Rewards [Rot A]",
+      "Nokko: Corporate Restructuring Rewards [Rot A]",
+      "Nokko: Weed The Gardens Rewards [Rot A]"
     ]
   },
   {
     "name": "13X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+      "Nokko: Critter Liberation Rewards [Rot A]",
+      "Nokko: Corporate Restructuring Rewards [Rot A]",
+      "Nokko: Weed The Gardens Rewards [Rot A]"
     ]
   },
   {
     "name": "14X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+      "Nokko: Critter Liberation Rewards [Rot A]",
+      "Nokko: Corporate Restructuring Rewards [Rot A]",
+      "Nokko: Weed The Gardens Rewards [Rot A]"
     ]
   },
   {
@@ -340,6 +369,13 @@
       "Enemy: Techrot Volatile Galliflex",
       "Enemy: Techrot Matmas",
       "Enemy: Techrot Scaart"
+    ]
+  },
+  {
+    "name": "15,000 Credits",
+    "samplePlaces": [
+      "Level  50 - 55 Zariman Bounty [Rot C] (Final stage)",
+      "Level  55 - 60 Entrati Lab Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -355,7 +391,10 @@
   {
     "name": "1500 Endo",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Arbitrations"
+      "Level  60 - 65 Zariman Bounty [Rot C] (Final stage)",
+      "Level  65 - 70 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  65 - 70 WF1999 Bounty [Rot C] (Final stage)",
+      "Arbitrations [Rot C]"
     ]
   },
   {
@@ -380,8 +419,8 @@
   {
     "name": "150X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Endurance Caches [Rot A]",
+      "Hallowed Flame Endurance Caches [Rot A]"
     ]
   },
   {
@@ -399,11 +438,35 @@
   {
     "name": "15X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+      "Nokko: Critter Liberation Rewards [Rot A]",
+      "Nokko: Corporate Restructuring Rewards [Rot A]",
+      "Nokko: Weed The Gardens Rewards [Rot A]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot A]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot A]"
+    ]
+  },
+  {
+    "name": "15X Ganglion",
+    "samplePlaces": [
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 1)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "15X Gorgaricus Spore",
+    "samplePlaces": [
+      "Level 10 - 30 Orb Vallis Bounty [Rot C] (Stage 1)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "15X Grokdrul",
+    "samplePlaces": [
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 1)",
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 4 of 5)"
     ]
   },
   {
@@ -413,9 +476,33 @@
     ]
   },
   {
+    "name": "15X Iradite",
+    "samplePlaces": [
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 1)",
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "15X Lucent Teroglobe",
+    "samplePlaces": [
+      "Level 5 - 15 Cambion Drift Bounty [Rot C] (Stage 1)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "15X Maphica",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Common Rewards (Steel Path)"
+      "The Descendia: Common Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "15X Mytocardia Spore",
+    "samplePlaces": [
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 1)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 4 of 5)"
     ]
   },
   {
@@ -429,9 +516,47 @@
     ]
   },
   {
+    "name": "15X Nistlepod",
+    "samplePlaces": [
+      "Level 5 - 15 Cetus Bounty [Rot C] (Stage 1)",
+      "Level 5 - 15 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "15X Pustulite",
+    "samplePlaces": [
+      "Level 5 - 15 Cambion Drift Bounty [Rot B] (Stage 1)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "15X Stela",
+    "samplePlaces": [
+      "Level  95 - 100 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  115 - 120 Entrati Lab Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "15X Thermal Sludge",
+    "samplePlaces": [
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 1)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "15X Thrax Plasm",
+    "samplePlaces": [
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)",
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "15X Void Traces",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+      "Nightmare Granum Void [Rot A]"
     ]
   },
   {
@@ -453,76 +578,82 @@
   {
     "name": "16X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot A]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot A]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "16X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+      "Duviri Murmur Invasion Rewards [Rot B]"
     ]
   },
   {
     "name": "17500X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+      "The Icebind: Crested Frozen Chests [Rot B]"
     ]
   },
   {
     "name": "1750X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Icebind: Frozen Chests [Rot B]"
     ]
   },
   {
     "name": "175X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+      "Hallowed Flame Mission Caches [Rot B]",
+      "Hallowed Flame Mission Caches [Rot B]"
     ]
   },
   {
     "name": "17X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot A]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot A]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "17X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+      "Duviri Murmur Invasion Rewards [Rot B]"
+    ]
+  },
+  {
+    "name": "1800 Endo",
+    "samplePlaces": [
+      "Level  75 - 80 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
     "name": "18X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot A]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot A]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "18X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+      "Duviri Murmur Invasion Rewards [Rot B]"
     ]
   },
   {
     "name": "19X Fergolyte",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot A]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot A]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "19X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+      "Duviri Murmur Invasion Rewards [Rot B]"
     ]
   },
   {
@@ -558,9 +689,11 @@
   {
     "name": "2000 Endo",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)",
+      "Level  75 - 80 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Nokko: Critter Liberation Rewards [Rot C]",
+      "Nokko: Corporate Restructuring Rewards [Rot C]",
+      "Nokko: Weed The Gardens Rewards [Rot C]"
     ]
   },
   {
@@ -571,6 +704,16 @@
       "Earth - Ogal Cluster (Extra) (Skirmish)",
       "Earth - Korm's Belt (Extra) (Skirmish)",
       "Earth - Bendar Cluster (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "200X Cryotic",
+    "samplePlaces": [
+      "Level 10 - 30 Cetus Bounty [Rot B] (Stage 1)",
+      "Level 10 - 30 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot B] (Stage 4 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 1)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
     ]
   },
   {
@@ -587,8 +730,36 @@
     "name": "200X Kuva",
     "samplePlaces": [
       "Kuva Fortress - Tamu (Disruption) [Rot B]",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 1)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 4 of 5)",
+      "Hallowed Flame Endurance Caches [Rot B]"
+    ]
+  },
+  {
+    "name": "200X Nano Spores",
+    "samplePlaces": [
+      "Level 10 - 30 Orb Vallis Bounty [Rot C] (Stage 1)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "200X Oxium",
+    "samplePlaces": [
+      "Level 10 - 30 Cetus Bounty [Rot A] (Stage 1)",
+      "Level 10 - 30 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 1)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
+    "name": "200X Plastids",
+    "samplePlaces": [
+      "Level 5 - 15 Cetus Bounty [Rot C] (Stage 1)",
+      "Level 5 - 15 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot C] (Stage 4 of 5)"
     ]
   },
   {
@@ -604,81 +775,95 @@
   {
     "name": "200X Vosfor",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Icebind: Frozen Chests [Rot A]"
+    ]
+  },
+  {
+    "name": "20X Efervon Sample",
+    "samplePlaces": [
+      "Level  55 - 60 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
     "name": "20X Gorgaricus Spore",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+      "Nokko: Weed The Gardens Rewards [Rot B]"
+    ]
+  },
+  {
+    "name": "20X Höllvanian Pitchweave Fragment",
+    "samplePlaces": [
+      "Level  55 - 60 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
     "name": "20X Mytocardia Spore",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards"
+      "Nokko: Critter Liberation Rewards [Rot B]"
     ]
   },
   {
     "name": "20X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot B]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot B]"
     ]
   },
   {
     "name": "20X Temporal Dust",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+      "Duviri Murmur Invasion Rewards [Rot A]"
     ]
   },
   {
     "name": "20X Thermal Sludge",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards"
+      "Nokko: Corporate Restructuring Rewards [Rot B]"
     ]
   },
   {
     "name": "2100 Endo",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Faceoff: Single Squad",
-      "Transient (密室与特殊掉落) - Faceoff: Single Squad (Steel Path)",
-      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad",
-      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Steel Path)"
+      "Level  75 - 80 WF1999 Bounty [Rot C] (Final stage)",
+      "Faceoff: Single Squad [Rot A]",
+      "Faceoff: Single Squad (Steel Path) [Rot A]",
+      "Faceoff: Squad VS Squad [Rot A]",
+      "Faceoff: Squad VS Squad (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "21X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot B]"
     ]
   },
   {
     "name": "225X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+      "Hallowed Flame Mission Caches [Rot C]",
+      "Hallowed Flame Mission Caches [Rot C]"
     ]
   },
   {
     "name": "22X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot B]"
     ]
   },
   {
     "name": "23X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot B]"
     ]
   },
   {
     "name": "2400 Endo",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Faceoff: Single Squad",
-      "Transient (密室与特殊掉落) - Faceoff: Single Squad (Steel Path)",
-      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad",
-      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Steel Path)"
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)",
+      "Faceoff: Single Squad [Rot B]",
+      "Faceoff: Single Squad (Steel Path) [Rot B]",
+      "Faceoff: Squad VS Squad [Rot B]",
+      "Faceoff: Squad VS Squad (Steel Path) [Rot B]"
     ]
   },
   {
@@ -693,7 +878,7 @@
   {
     "name": "24X Scuttler Husk",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot B]"
     ]
   },
   {
@@ -726,8 +911,8 @@
   {
     "name": "250X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Endurance Caches [Rot C]",
+      "Hallowed Flame Endurance Caches [Rot C]"
     ]
   },
   {
@@ -765,29 +950,98 @@
     "name": "25X Steel Essence",
     "samplePlaces": [
       "Duviri - Endless: Tier 9 (Hard) (Hard)",
-      "Transient (密室与特殊掉落) - The Descendia: Steel Essence Rewards (Steel Path)"
+      "The Descendia: Steel Essence Rewards (Steel Path)"
     ]
   },
   {
     "name": "25X Temporal Dust",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
+    ]
+  },
+  {
+    "name": "2700 Endo",
+    "samplePlaces": [
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
     "name": "2X 10,000 Credits Cache",
     "samplePlaces": [
       "Neptune - Laomedeia (Disruption) [Rot A]",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot B]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot B]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot B]"
+    ]
+  },
+  {
+    "name": "2X 3,000 Credits Cache",
+    "samplePlaces": [
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Final Stage)"
+    ]
+  },
+  {
+    "name": "2X Advances Debt-Bond",
+    "samplePlaces": [
+      "Level 30 - 50 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
     ]
   },
   {
     "name": "2X Argon Crystal",
     "samplePlaces": [
       "Deimos - Formido (Caches) (Caches) [Rot C]",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Endurance Caches [Rot C]"
+    ]
+  },
+  {
+    "name": "2X Cetus Wisp",
+    "samplePlaces": [
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "2X Control Module",
+    "samplePlaces": [
+      "Level 10 - 30 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot A] (Final Stage)"
+    ]
+  },
+  {
+    "name": "2X Detonite Injector",
+    "samplePlaces": [
+      "Level 30 - 50 Orb Vallis Bounty [Rot B] (Stage 1)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "2X Familial Debt-Bond",
+    "samplePlaces": [
+      "Level 40 - 60 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 60 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 40 - 60 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "2X Fieldron",
+    "samplePlaces": [
+      "Level 30 - 50 Orb Vallis Bounty [Rot A] (Stage 1)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot A] (Stage 4 of 5)"
     ]
   },
   {
@@ -801,19 +1055,50 @@
     ]
   },
   {
+    "name": "2X Medical Debt-Bond",
+    "samplePlaces": [
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "2X Morphics",
     "samplePlaces": [
       "Mercury - Terminus (Caches) (Caches) [Rot C]",
       "Mercury - Neruda (Caches) (Caches) [Rot C]",
       "Venus - Ishtar (Caches) (Caches) [Rot C]",
-      "Mars - Gradivus (Caches) (Caches) [Rot C]"
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "2X Mutagen Mass",
+    "samplePlaces": [
+      "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 1)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Orb Vallis Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "2X Narmer Isoplast",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 4 of 5)"
     ]
   },
   {
     "name": "2X Neural Sensors",
     "samplePlaces": [
       "Deimos - Formido (Caches) (Caches) [Rot C]",
-      "Kuva Fortress - Dakata (Caches) (Caches) [Rot C]"
+      "Kuva Fortress - Dakata (Caches) (Caches) [Rot C]",
+      "Level 10 - 30 Cetus Bounty [Rot B] (Stage 4 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot B] (Final Stage)"
     ]
   },
   {
@@ -827,6 +1112,26 @@
     ]
   },
   {
+    "name": "2X Orokin Animus Matrix",
+    "samplePlaces": [
+      "Level 30 - 40 Isolation Vault [Rot A] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot B] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot C] (Final Stage)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Stage 4 of 5)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Final Stage)"
+    ]
+  },
+  {
+    "name": "2X Orokin Ballistics Matrix",
+    "samplePlaces": [
+      "Level 30 - 40 Isolation Vault [Rot A] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot B] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot C] (Final Stage)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "2X Orokin Cell",
     "samplePlaces": [
       "Jupiter - Adrastea (Caches) (Caches) [Rot C]",
@@ -837,9 +1142,19 @@
     ]
   },
   {
+    "name": "2X Orokin Orientation Matrix",
+    "samplePlaces": [
+      "Level 30 - 40 Isolation Vault [Rot A] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot B] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot C] (Final Stage)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Stage 1)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
     "name": "2X Pherliac Pods",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Endurance Caches [Rot A]"
     ]
   },
   {
@@ -853,18 +1168,38 @@
     ]
   },
   {
+    "name": "2X Shelter Debt-Bond",
+    "samplePlaces": [
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "2X Training Debt-Bond",
+    "samplePlaces": [
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "3 Day Affinity Booster",
     "samplePlaces": [
       "Duviri - Endless: Tier 6 (Hard) (Hard)",
       "Duviri - Endless: Tier 7 (Hard)",
-      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Descendia: Uncommon Rewards (Steel Path)",
+      "The Icebind: Frozen Chests [Rot A]"
     ]
   },
   {
     "name": "3 Day Credit Booster",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Icebind: Frozen Chests [Rot A]"
     ]
   },
   {
@@ -872,13 +1207,13 @@
     "samplePlaces": [
       "Duviri - Endless: Tier 6 (Hard) (Hard)",
       "Duviri - Endless: Tier 7 (Hard)",
-      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)"
+      "The Descendia: Uncommon Rewards (Steel Path)"
     ]
   },
   {
     "name": "3 Day Resource Booster",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Icebind: Frozen Chests [Rot A]"
     ]
   },
   {
@@ -886,8 +1221,8 @@
     "samplePlaces": [
       "Duviri - Endless: Tier 6 (Hard) (Hard)",
       "Duviri - Endless: Tier 7 (Hard)",
-      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Descendia: Uncommon Rewards (Steel Path)",
+      "The Icebind: Frozen Chests [Rot A]"
     ]
   },
   {
@@ -898,6 +1233,13 @@
       "Earth - Cervantes (Caches) (Caches) [Rot B]",
       "Uranus - Ophelia (Survival) [Rot A]",
       "Uranus - Ophelia (Survival) [Rot A]"
+    ]
+  },
+  {
+    "name": "30,000 Credits",
+    "samplePlaces": [
+      "Level  50 - 55 Zariman Bounty [Rot C] (Final stage)",
+      "Level  55 - 60 Entrati Lab Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -914,13 +1256,36 @@
     "name": "3000 Endo",
     "samplePlaces": [
       "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]",
-      "Uranus - Brutus (Ascension)"
+      "Uranus - Brutus (Ascension)",
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)",
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)",
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "300X Circuits",
+    "samplePlaces": [
+      "Level 10 - 30 Cetus Bounty [Rot C] (Stage 1)",
+      "Level 10 - 30 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot C] (Stage 4 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Stage 1)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
     ]
   },
   {
     "name": "300X Ferrite",
     "samplePlaces": [
       "Earth - Cervantes (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "300X Kuva",
+    "samplePlaces": [
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Stage 4 of 5)"
     ]
   },
   {
@@ -941,6 +1306,14 @@
       "Saturn - Pallene (Caches) (Caches) [Rot B]",
       "Saturn - Calypso (Caches) (Caches) [Rot B]",
       "Uranus - Desdemona (Caches) (Caches) [Rot A]"
+    ]
+  },
+  {
+    "name": "300X Rubedo",
+    "samplePlaces": [
+      "Level 20 - 40 Orb Vallis Bounty [Rot C] (Stage 1)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot C] (Stage 4 of 5)"
     ]
   },
   {
@@ -965,6 +1338,12 @@
     ]
   },
   {
+    "name": "30X Höllvanian Pitchweave Fragment",
+    "samplePlaces": [
+      "Level  65 - 70 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "30X Kovnik",
     "samplePlaces": [
       "Duviri - Endless: Tier 1 (Normal)",
@@ -981,7 +1360,7 @@
   {
     "name": "30X Vosfor",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Winner)"
+      "Faceoff: Squad VS Squad (Winner)"
     ]
   },
   {
@@ -992,17 +1371,24 @@
     ]
   },
   {
+    "name": "3300 Endo",
+    "samplePlaces": [
+      "Level  95 - 100 WF1999 Bounty [Rot C] (Final stage)",
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "3500 Endo",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot B]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot B]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot B]"
     ]
   },
   {
     "name": "3500X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Icebind: Frozen Chests [Rot B]"
     ]
   },
   {
@@ -1032,20 +1418,30 @@
     ]
   },
   {
+    "name": "3X 1,500 Credits Cache",
+    "samplePlaces": [
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 1)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot B] (Stage 1)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
     "name": "3X 10,000 Credits Cache",
     "samplePlaces": [
       "Neptune - Laomedeia (Disruption) [Rot B]",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot C]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot C]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "3X 5,000 Credits Cache",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+      "Nokko: Critter Liberation Rewards [Rot C]",
+      "Nokko: Corporate Restructuring Rewards [Rot C]",
+      "Nokko: Weed The Gardens Rewards [Rot C]"
     ]
   },
   {
@@ -1062,6 +1458,12 @@
     ]
   },
   {
+    "name": "3X Calda Toroid",
+    "samplePlaces": [
+      "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)"
+    ]
+  },
+  {
     "name": "3X Cetus Wisp",
     "samplePlaces": [
       "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
@@ -1071,8 +1473,15 @@
   {
     "name": "3X Corrupted Holokey",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "3X Entrati Lanthorn",
+    "samplePlaces": [
+      "Level  60 - 65 Zariman Bounty [Rot C] (Final stage)",
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1102,9 +1511,58 @@
     ]
   },
   {
+    "name": "3X Narmer Isoplast",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Final Stage)",
+      "Level 50 - 70 Cetus Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "3X Nightmare Tatters",
     "samplePlaces": [
       "Venus - Vesper Relay (Follie's Hunt) [Rot C]"
+    ]
+  },
+  {
+    "name": "3X Orokin Animus Matrix",
+    "samplePlaces": [
+      "Level 40 - 50 Isolation Vault [Rot A] (Final Stage)",
+      "Level 40 - 50 Isolation Vault [Rot B] (Final Stage)",
+      "Level 40 - 50 Isolation Vault [Rot C] (Final Stage)",
+      "Level 40 - 50 Arcana Isolation Vault [Rot A] (Stage 4 of 5)",
+      "Level 40 - 50 Arcana Isolation Vault [Rot A] (Final Stage)"
+    ]
+  },
+  {
+    "name": "3X Orokin Ballistics Matrix",
+    "samplePlaces": [
+      "Level 40 - 50 Isolation Vault [Rot A] (Final Stage)",
+      "Level 40 - 50 Isolation Vault [Rot B] (Final Stage)",
+      "Level 40 - 50 Isolation Vault [Rot C] (Final Stage)",
+      "Level 40 - 50 Arcana Isolation Vault [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 50 Arcana Isolation Vault [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "3X Orokin Orientation Matrix",
+    "samplePlaces": [
+      "Level 40 - 50 Isolation Vault [Rot A] (Final Stage)",
+      "Level 40 - 50 Isolation Vault [Rot B] (Final Stage)",
+      "Level 40 - 50 Isolation Vault [Rot C] (Final Stage)",
+      "Level 40 - 50 Arcana Isolation Vault [Rot A] (Stage 1)",
+      "Level 40 - 50 Arcana Isolation Vault [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
+    "name": "3X Repeller Systems",
+    "samplePlaces": [
+      "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)",
+      "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)",
+      "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)",
+      "Level 50 - 60 PROFIT-TAKER - PHASE 4 [Rot C] (Final Stage)"
     ]
   },
   {
@@ -1120,15 +1578,43 @@
   {
     "name": "3X Saggen Pearl",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Full Experience"
+      "Duviri Full Experience"
+    ]
+  },
+  {
+    "name": "3X Scintillant",
+    "samplePlaces": [
+      "Level 30 - 40 Isolation Vault [Rot A] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot B] (Final Stage)",
+      "Level 30 - 40 Isolation Vault [Rot C] (Final Stage)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Stage 4 of 5)",
+      "Level 30 - 40 Arcana Isolation Vault [Rot A] (Final Stage)"
+    ]
+  },
+  {
+    "name": "3X Sola Toroid",
+    "samplePlaces": [
+      "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)"
+    ]
+  },
+  {
+    "name": "3X Techrot Chitin",
+    "samplePlaces": [
+      "Level  65 - 70 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "3X Vega Toroid",
+    "samplePlaces": [
+      "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)"
     ]
   },
   {
     "name": "3X Vitus Essence",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Arbitrations",
-      "Transient (密室与特殊掉落) - Arbitrations",
-      "Transient (密室与特殊掉落) - Arbitrations"
+      "Arbitrations [Rot A]",
+      "Arbitrations [Rot B]",
+      "Arbitrations [Rot C]"
     ]
   },
   {
@@ -1154,10 +1640,11 @@
   {
     "name": "4000 Endo",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)",
-      "Sortie (突击任务)"
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)",
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)",
+      "Level  95 - 100 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  115 - 120 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot C]"
     ]
   },
   {
@@ -1201,6 +1688,13 @@
     ]
   },
   {
+    "name": "4200 Endo",
+    "samplePlaces": [
+      "Level  95 - 100 WF1999 Bounty [Rot C] (Final stage)",
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "450 Endo",
     "samplePlaces": [
       "Earth - Saya's Visions (Shrine Defense)",
@@ -1213,13 +1707,49 @@
   {
     "name": "4X Corrupted Holokey",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "4X Nightmare Tatters",
     "samplePlaces": [
       "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot C]"
+    ]
+  },
+  {
+    "name": "4X Orokin Animus Matrix",
+    "samplePlaces": [
+      "Level 50 - 60 Isolation Vault [Rot A] (Final Stage)",
+      "Level 50 - 60 Isolation Vault [Rot B] (Final Stage)",
+      "Level 50 - 60 Isolation Vault [Rot C] (Final Stage)",
+      "Level 50 - 60 Arcana Isolation Vault [Rot A] (Stage 4 of 5)",
+      "Level 50 - 60 Arcana Isolation Vault [Rot A] (Final Stage)"
+    ]
+  },
+  {
+    "name": "4X Orokin Ballistics Matrix",
+    "samplePlaces": [
+      "Level 50 - 60 Isolation Vault [Rot A] (Final Stage)",
+      "Level 50 - 60 Isolation Vault [Rot B] (Final Stage)",
+      "Level 50 - 60 Isolation Vault [Rot C] (Final Stage)",
+      "Level 50 - 60 Arcana Isolation Vault [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 60 Arcana Isolation Vault [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "4X Orokin Orientation Matrix",
+    "samplePlaces": [
+      "Level 50 - 60 Isolation Vault [Rot A] (Final Stage)",
+      "Level 50 - 60 Isolation Vault [Rot B] (Final Stage)",
+      "Level 50 - 60 Isolation Vault [Rot C] (Final Stage)",
+      "Level 50 - 60 Arcana Isolation Vault [Rot A] (Stage 1)",
+      "Level 50 - 60 Arcana Isolation Vault [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
+    "name": "4X Techrot Motherboard",
+    "samplePlaces": [
+      "Level  75 - 80 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1297,6 +1827,18 @@
     ]
   },
   {
+    "name": "50X Efervon Sample",
+    "samplePlaces": [
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "50X Höllvanian Pitchweave Fragment",
+    "samplePlaces": [
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "50X Saggen Pearl",
     "samplePlaces": [
       "Duviri - Endless: Tier 1 (Normal)",
@@ -1306,7 +1848,7 @@
   {
     "name": "50X Vosfor",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Steel Path Winner)"
+      "Faceoff: Squad VS Squad (Steel Path Winner)"
     ]
   },
   {
@@ -1318,7 +1860,7 @@
   {
     "name": "5X Aggristone",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Full Experience"
+      "Duviri Full Experience"
     ]
   },
   {
@@ -1332,9 +1874,36 @@
     ]
   },
   {
+    "name": "5X Atmo Systems",
+    "samplePlaces": [
+      "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)",
+      "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)",
+      "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)",
+      "Level 50 - 60 PROFIT-TAKER - PHASE 4 [Rot C] (Final Stage)"
+    ]
+  },
+  {
+    "name": "5X Breath Of The Eidolon",
+    "samplePlaces": [
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 1)",
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Stage 1)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
     "name": "5X Corrupted Holokey",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)"
+      "Void Storm (Saturn)"
+    ]
+  },
+  {
+    "name": "5X Fass Residue",
+    "samplePlaces": [
+      "Level 30 - 40 Cambion Drift Bounty [Rot A] (Stage 1)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot A] (Stage 4 of 5)"
     ]
   },
   {
@@ -1345,6 +1914,23 @@
       "Earth - Ogal Cluster (Extra) (Skirmish)",
       "Earth - Korm's Belt (Extra) (Skirmish)",
       "Earth - Bendar Cluster (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "5X Gorgaricus Spore",
+    "samplePlaces": [
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 1)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "5X Gyromag Systems",
+    "samplePlaces": [
+      "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)",
+      "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)",
+      "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)",
+      "Level 50 - 60 PROFIT-TAKER - PHASE 4 [Rot C] (Final Stage)"
     ]
   },
   {
@@ -1372,15 +1958,55 @@
     ]
   },
   {
+    "name": "5X Mytocardia Spore",
+    "samplePlaces": [
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 1)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "5X Saggen Pearl",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Circuit"
+      "Duviri Circuit"
+    ]
+  },
+  {
+    "name": "5X Tepa Nodule",
+    "samplePlaces": [
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "5X Thermal Sludge",
+    "samplePlaces": [
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 1)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
     ]
   },
   {
     "name": "5X Void Traces",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Granum Void"
+      "Granum Void [Rot A]"
+    ]
+  },
+  {
+    "name": "5X Voidgel Orb",
+    "samplePlaces": [
+      "Level  60 - 65 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "5X Vome Residue",
+    "samplePlaces": [
+      "Level 30 - 40 Cambion Drift Bounty [Rot B] (Stage 1)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot B] (Stage 4 of 5)"
     ]
   },
   {
@@ -1490,7 +2116,13 @@
   {
     "name": "6X Corrupted Holokey",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "6X Experimental Arc-Relay",
+    "samplePlaces": [
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1505,6 +2137,12 @@
     "samplePlaces": [
       "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
       "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "6X Techrot Chitin",
+    "samplePlaces": [
+      "Level  95 - 100 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1527,14 +2165,18 @@
   {
     "name": "750 Endo",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 25 - 30 Cambion Drift Bounty [Rot A] (Final Stage)",
+      "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 4 of 5)",
+      "Level 25 - 30 Cambion Drift Bounty [Rot B] (Final Stage)"
     ]
   },
   {
     "name": "7500X Kuva",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+      "The Icebind: Crested Frozen Chests [Rot B]",
+      "The Icebind: Frozen Chests [Rot B]"
     ]
   },
   {
@@ -1556,15 +2198,25 @@
     ]
   },
   {
+    "name": "750X Kuva",
+    "samplePlaces": [
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 1)",
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 1)",
+      "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
     "name": "75X Ignia",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Common Rewards (Steel Path)"
+      "The Descendia: Common Rewards (Steel Path)"
     ]
   },
   {
     "name": "7X Aggristone",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Circuit"
+      "Duviri Circuit"
     ]
   },
   {
@@ -1580,8 +2232,14 @@
   {
     "name": "8X Enigma Gyrum",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
+    ]
+  },
+  {
+    "name": "8X Techrot Motherboard",
+    "samplePlaces": [
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1595,6 +2253,12 @@
     ]
   },
   {
+    "name": "Aeolak Blueprint",
+    "samplePlaces": [
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "Affinity Booster",
     "samplePlaces": [
       "Sortie (突击任务)"
@@ -1604,6 +2268,12 @@
     "name": "Akbronco Blueprint",
     "samplePlaces": [
       "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Alternox Blueprint",
+    "samplePlaces": [
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1657,24 +2327,24 @@
   {
     "name": "Amber Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+      "Deep Archimedea Silver Rewards",
+      "Deep Archimedea Gold Rewards",
+      "Temporal Archimedea Silver Rewards",
+      "Temporal Archimedea Gold Rewards",
+      "The Descendia: Rare Rewards (Steel Path)"
     ]
   },
   {
     "name": "Amp Arcane Adapter",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)"
+      "The Descendia: Uncommon Rewards (Steel Path)"
     ]
   },
   {
     "name": "Ancient Protector Specter Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Mission Caches [Rot A]",
+      "Hallowed Flame Endurance Caches [Rot A]"
     ]
   },
   {
@@ -1686,48 +2356,48 @@
   {
     "name": "Arbucep Barrel Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+      "Nokko: Corporate Restructuring Rewards [Rot B]",
+      "Nokko: Corporate Restructuring Rewards [Rot C]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot B]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "Arbucep Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+      "Nokko: Critter Liberation Rewards [Rot C]",
+      "Nokko: Corporate Restructuring Rewards [Rot C]",
+      "Nokko: Weed The Gardens Rewards [Rot C]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot C]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "Arbucep Receiver Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards [Rot B]",
+      "Nokko: Critter Liberation Rewards [Rot C]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot B]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "Arbucep Stock Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Weed The Gardens Rewards [Rot B]",
+      "Nokko: Weed The Gardens Rewards [Rot C]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot B]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "Archgun Arcane Adapter",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+      "Nokko: Critter Liberation Rewards [Rot C]",
+      "Nokko: Corporate Restructuring Rewards [Rot C]",
+      "Nokko: Weed The Gardens Rewards [Rot C]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot C]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot C]"
     ]
   },
   {
@@ -1787,56 +2457,57 @@
     "name": "Axi A21 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi A22 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi C12 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi C13 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi D6 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi P10 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi S21 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Level 50 - 60 PROFIT-TAKER - PHASE 4 [Rot C] (Final Stage)",
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi V14 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
@@ -1852,11 +2523,11 @@
   {
     "name": "Azure Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+      "Deep Archimedea Silver Rewards",
+      "Deep Archimedea Gold Rewards",
+      "Temporal Archimedea Silver Rewards",
+      "Temporal Archimedea Gold Rewards",
+      "The Descendia: Rare Rewards (Steel Path)"
     ]
   },
   {
@@ -1869,6 +2540,19 @@
     "name": "Ballistica Blueprint",
     "samplePlaces": [
       "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Bellow Voca",
+    "samplePlaces": [
+      "Level  75 - 80 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  95 - 100 Entrati Lab Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Big Bytes Pizza",
+    "samplePlaces": [
+      "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1886,8 +2570,8 @@
   {
     "name": "Boot",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Mission Caches [Rot A]",
+      "Hallowed Flame Endurance Caches [Rot A]"
     ]
   },
   {
@@ -1915,16 +2599,68 @@
     ]
   },
   {
+    "name": "Caliban Chassis Blueprint",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Final Stage)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Caliban Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot C] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot C] (Final Stage)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Caliban Systems Blueprint",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "Cantare Blueprint",
     "samplePlaces": [
       "Uranus - Brutus (Ascension)"
     ]
   },
   {
+    "name": "Cetus Wisp",
+    "samplePlaces": [
+      "Level 20 - 40 Cetus Bounty [Rot A] (Stage 1)",
+      "Level 20 - 40 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 30 - 50 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Cetus Bounty [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "Charger Specter Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Mission Caches [Rot A]",
+      "Hallowed Flame Endurance Caches [Rot A]"
+    ]
+  },
+  {
+    "name": "Cheddar Crowns Cereal",
+    "samplePlaces": [
+      "Level  95 - 100 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Chuggin' Along Sixpack",
+    "samplePlaces": [
+      "Level  75 - 80 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -1954,15 +2690,15 @@
   {
     "name": "Clem Clone Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Mission Caches [Rot B]",
+      "Hallowed Flame Endurance Caches [Rot B]"
     ]
   },
   {
     "name": "Connla Sprout",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Full Experience",
-      "Transient (密室与特殊掉落) - Duviri Circuit"
+      "Duviri Full Experience",
+      "Duviri Circuit"
     ]
   },
   {
@@ -1994,11 +2730,11 @@
   {
     "name": "Crimson Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+      "Deep Archimedea Silver Rewards",
+      "Deep Archimedea Gold Rewards",
+      "Temporal Archimedea Silver Rewards",
+      "Temporal Archimedea Gold Rewards",
+      "The Descendia: Rare Rewards (Steel Path)"
     ]
   },
   {
@@ -2011,6 +2747,24 @@
     "name": "Cyath Blueprint",
     "samplePlaces": [
       "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Cyte-09 Chassis Blueprint",
+    "samplePlaces": [
+      "Level  55 - 60 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Cyte-09 Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level  65 - 70 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Cyte-09 Systems Blueprint",
+    "samplePlaces": [
+      "Level  75 - 80 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -2046,8 +2800,8 @@
   {
     "name": "Day Of The Dead Sigil",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Mission Caches [Rot C]",
+      "Hallowed Flame Endurance Caches [Rot C]"
     ]
   },
   {
@@ -2071,7 +2825,7 @@
   {
     "name": "Dracroot",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Circuit"
+      "Duviri Circuit"
     ]
   },
   {
@@ -2089,14 +2843,20 @@
   {
     "name": "Earth Resource Bundle",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Earth)"
+      "Void Storm (Earth)"
+    ]
+  },
+  {
+    "name": "Echo Voca",
+    "samplePlaces": [
+      "Level  115 - 120 Entrati Lab Bounty [Rot C] (Final stage)"
     ]
   },
   {
     "name": "Eevani",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Full Experience",
-      "Transient (密室与特殊掉落) - Duviri Circuit"
+      "Duviri Full Experience",
+      "Duviri Circuit"
     ]
   },
   {
@@ -2138,8 +2898,8 @@
   {
     "name": "Elemental Vice",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+      "Temporal Archimedea Silver Rewards",
+      "Temporal Archimedea Gold Rewards"
     ]
   },
   {
@@ -2163,7 +2923,17 @@
   {
     "name": "Emerald Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+      "Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Encrypted Journal Fragment",
+    "samplePlaces": [
+      "Level 15 - 25 Ghoul Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 15 - 25 Ghoul Bounty [Rot A] (Stage 4 of 5)",
+      "Level 15 - 25 Ghoul Bounty [Rot A] (Final Stage)",
+      "Level 40 - 50 Ghoul Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 50 Ghoul Bounty [Rot A] (Stage 4 of 5)"
     ]
   },
   {
@@ -2285,7 +3055,7 @@
   {
     "name": "Exemplar Granum Crown Decoration",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Extended Granum Void"
+      "Extended Granum Void [Rot A]"
     ]
   },
   {
@@ -2308,6 +3078,12 @@
       "Duviri - Endless: Tier 1 (Hard) (Hard)",
       "Duviri - Endless: Tier 3 (Hard) (Hard)",
       "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "Experimental Arc-Relay",
+    "samplePlaces": [
+      "Level  55 - 60 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -2358,7 +3134,7 @@
     "name": "Forma",
     "samplePlaces": [
       "Earth - Cervantes (Caches) (Caches) [Rot C]",
-      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+      "The Icebind: Frozen Chests [Rot A]",
       "Sortie (突击任务)"
     ]
   },
@@ -2375,7 +3151,7 @@
   {
     "name": "Forma Bundle",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+      "The Icebind: Crested Frozen Chests [Rot A]"
     ]
   },
   {
@@ -2452,6 +3228,66 @@
     ]
   },
   {
+    "name": "Gara Chassis Blueprint",
+    "samplePlaces": [
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Cetus Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Gara Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level 20 - 40 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 20 - 40 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 20 - 40 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Cetus Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Gara Systems Blueprint",
+    "samplePlaces": [
+      "Level 10 - 30 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 10 - 30 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Cetus Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Garuda Chassis Blueprint",
+    "samplePlaces": [
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Garuda Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Garuda Systems Blueprint",
+    "samplePlaces": [
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot A] (Final Stage)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 10 - 30 Orb Vallis Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "Gauss Chassis Blueprint",
     "samplePlaces": [
       "Sedna - Kappa (Disruption) [Rot C]"
@@ -2478,7 +3314,84 @@
   {
     "name": "Granum Crown Decoration",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Granum Void"
+      "Granum Void [Rot A]"
+    ]
+  },
+  {
+    "name": "Gravimag",
+    "samplePlaces": [
+      "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (First Completion)"
+    ]
+  },
+  {
+    "name": "Greater Madurai Lens",
+    "samplePlaces": [
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)",
+      "Level  75 - 80 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  75 - 80 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Greater Naramon Lens",
+    "samplePlaces": [
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)",
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)",
+      "Level  115 - 120 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)",
+      "Level  95 - 100 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Greater Unairu Lens",
+    "samplePlaces": [
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)",
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)",
+      "Level  95 - 100 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  115 - 120 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Greater Vazarin Lens",
+    "samplePlaces": [
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)",
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)",
+      "Level  95 - 100 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)",
+      "Level  95 - 100 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Greater Zenurik Lens",
+    "samplePlaces": [
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)",
+      "Level  75 - 80 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  75 - 80 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Gyre Blueprint",
+    "samplePlaces": [
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)",
+      "Level  110 - 115 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Gyre Chassis Blueprint",
+    "samplePlaces": [
+      "Level  60 - 65 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Gyre Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level  50 - 55 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Gyre Systems Blueprint",
+    "samplePlaces": [
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -2512,6 +3425,12 @@
       "Earth - Mantle (Capture)",
       "Earth - Cervantes (Caches) (Caches) [Rot C]",
       "Earth - Cervantes (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "Hespar Blueprint",
+    "samplePlaces": [
+      "Level  90 - 95 Zariman Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -2670,8 +3589,8 @@
   {
     "name": "Kavat Genetic Code",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Mission Caches [Rot C]",
+      "Hallowed Flame Endurance Caches [Rot C]"
     ]
   },
   {
@@ -2721,6 +3640,15 @@
     ]
   },
   {
+    "name": "Korumm Blueprint",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot C] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot C] (Final Stage)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot C] (Stage 4 of 5)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot C] (Final Stage)"
+    ]
+  },
+  {
     "name": "Koumei Blueprint",
     "samplePlaces": [
       "Earth - Saya's Visions (Shrine Defense)"
@@ -2747,8 +3675,8 @@
   {
     "name": "Kovnik",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Full Experience",
-      "Transient (密室与特殊掉落) - Duviri Circuit"
+      "Duviri Full Experience",
+      "Duviri Circuit"
     ]
   },
   {
@@ -2773,8 +3701,8 @@
     "name": "Kubrow Egg",
     "samplePlaces": [
       "Earth - Cervantes (Caches) (Caches) [Rot B]",
-      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Mission Caches [Rot C]",
+      "Hallowed Flame Endurance Caches [Rot C]"
     ]
   },
   {
@@ -2937,56 +3865,59 @@
     "name": "Lith A13 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)",
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
     ]
   },
   {
     "name": "Lith C15 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)",
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
     ]
   },
   {
     "name": "Lith G14 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
     ]
   },
   {
     "name": "Lith L8 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)",
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
     ]
   },
   {
     "name": "Lith S18 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
     ]
   },
   {
     "name": "Lith S19 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
     ]
   },
   {
     "name": "Lith V11 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Earth)",
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Void Storm (Earth)",
+      "Void Storm (Venus)"
     ]
   },
   {
@@ -3053,72 +3984,74 @@
   {
     "name": "Melee Arcane Adapter",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)"
+      "Deep Archimedea Silver Rewards",
+      "Deep Archimedea Gold Rewards",
+      "The Descendia: Uncommon Rewards (Steel Path)"
     ]
   },
   {
     "name": "Meso A12 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "Meso C11 Relic (Radiant)",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "Meso D8 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)",
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "Meso D9 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "Meso K9 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "Meso V13 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "Meso V17 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
     "name": "Meso Y2 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)",
+      "Void Storm (Saturn)",
+      "Void Storm (Neptune)"
     ]
   },
   {
@@ -3164,6 +4097,12 @@
     ]
   },
   {
+    "name": "Mood Crystal",
+    "samplePlaces": [
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "Morphics",
     "samplePlaces": [
       "Mercury - Terminus (Caches) (Caches) [Rot C]",
@@ -3176,13 +4115,13 @@
   {
     "name": "Mortuus Shoulder Guard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+      "Nightmare Granum Void [Rot C]"
     ]
   },
   {
     "name": "Mutagen Mass",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+      "Hallowed Flame Endurance Caches [Rot B]"
     ]
   },
   {
@@ -3217,6 +4156,16 @@
     ]
   },
   {
+    "name": "Narmer Isoplast",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 1)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 1)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)"
+    ]
+  },
+  {
     "name": "Nekros Chassis Blueprint",
     "samplePlaces": [
       "Deimos - Magnacidium (Assassination)"
@@ -3238,55 +4187,66 @@
     "name": "Neo A16 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Level 50 - 60 PROFIT-TAKER - PHASE 4 [Rot C] (Final Stage)",
+      "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo C10 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo C11 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo C7 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)",
+      "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo K10 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo V13 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo Y2 Relic (Radiant)",
     "samplePlaces": [
       "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Nepheri Blueprint",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot B] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot B] (Final Stage)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot B] (Stage 4 of 5)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot B] (Final Stage)"
     ]
   },
   {
     "name": "Neptune Resource Bundle",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+      "Void Storm (Neptune)"
     ]
   },
   {
@@ -3346,38 +4306,38 @@
   {
     "name": "Nokko Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+      "Nokko: Critter Liberation Rewards [Rot C]",
+      "Nokko: Corporate Restructuring Rewards [Rot C]",
+      "Nokko: Weed The Gardens Rewards [Rot C]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot C]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "Nokko Chassis Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)"
+      "Nokko: Critter Liberation Rewards [Rot B]",
+      "Nokko: Critter Liberation Rewards [Rot C]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot B]",
+      "Nokko: Critter Liberation Rewards (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "Nokko Neuroptics Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+      "Nokko: Weed The Gardens Rewards [Rot B]",
+      "Nokko: Weed The Gardens Rewards [Rot C]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot B]",
+      "Nokko: Weed The Gardens Rewards (Steel Path) [Rot C]"
     ]
   },
   {
     "name": "Nokko Systems Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
-      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+      "Nokko: Corporate Restructuring Rewards [Rot B]",
+      "Nokko: Corporate Restructuring Rewards [Rot C]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot B]",
+      "Nokko: Corporate Restructuring (Steel Path) [Rot C]"
     ]
   },
   {
@@ -3411,19 +4371,19 @@
   {
     "name": "Nyx Chassis Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Phorid Assassination"
+      "Phorid Assassination"
     ]
   },
   {
     "name": "Nyx Neuroptics Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Phorid Assassination"
+      "Phorid Assassination"
     ]
   },
   {
     "name": "Nyx Systems Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Phorid Assassination"
+      "Phorid Assassination"
     ]
   },
   {
@@ -3481,19 +4441,25 @@
   {
     "name": "Omni Forma",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards",
-      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+      "Temporal Archimedea Gold Rewards",
+      "Temporal Archimedea Legendary Rewards",
+      "The Icebind: Crested Frozen Chests [Rot A]"
     ]
   },
   {
     "name": "Omni Forma Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Arbitrations",
-      "Transient (密室与特殊掉落) - Arbitrations",
-      "Transient (密室与特殊掉落) - Arbitrations",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+      "Arbitrations [Rot A]",
+      "Arbitrations [Rot B]",
+      "Arbitrations [Rot C]",
+      "Temporal Archimedea Silver Rewards",
+      "The Descendia: Rare Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "On-Lyne Cd",
+    "samplePlaces": [
+      "Level  65 - 70 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -3511,35 +4477,35 @@
   {
     "name": "Oraxia Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Oraxia Chassis Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Oraxia Neuroptics Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Oraxia Systems Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Orokin Catalyst Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)",
+      "The Descendia: Rare Rewards (Steel Path)",
       "Sortie (突击任务)"
     ]
   },
@@ -3556,7 +4522,7 @@
   {
     "name": "Orokin Reactor Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)",
+      "The Descendia: Rare Rewards (Steel Path)",
       "Sortie (突击任务)"
     ]
   },
@@ -3592,7 +4558,7 @@
   {
     "name": "Pluto Resource Bundle",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+      "Void Storm (Pluto)"
     ]
   },
   {
@@ -3626,19 +4592,54 @@
   {
     "name": "Protea Chassis Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Extended Granum Void"
+      "Extended Granum Void [Rot C]"
     ]
   },
   {
     "name": "Protea Neuroptics Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Granum Void"
+      "Granum Void [Rot C]"
     ]
   },
   {
     "name": "Protea Systems Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+      "Nightmare Granum Void [Rot C]"
+    ]
+  },
+  {
+    "name": "Qorvex Chassis Blueprint",
+    "samplePlaces": [
+      "Level  65 - 70 Entrati Lab Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Qorvex Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level  55 - 60 Entrati Lab Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Qorvex Systems Blueprint",
+    "samplePlaces": [
+      "Level  75 - 80 Entrati Lab Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Quartakk Blueprint",
+    "samplePlaces": [
+      "Level 40 - 50 Ghoul Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 50 Ghoul Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 50 Ghoul Bounty [Rot A] (Final Stage)"
+    ]
+  },
+  {
+    "name": "Quassus Blueprint",
+    "samplePlaces": [
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Final Stage)",
+      "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 100 - 100 Cambion Drift Bounty [Rot A] (Final Stage)"
     ]
   },
   {
@@ -3655,6 +4656,12 @@
       "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot A]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Reconifex Blueprint",
+    "samplePlaces": [
+      "Level  95 - 100 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -3717,6 +4724,36 @@
     ]
   },
   {
+    "name": "Revenant Chassis Blueprint",
+    "samplePlaces": [
+      "Level 30 - 50 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 30 - 50 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 30 - 50 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 50 Cetus Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Revenant Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level 40 - 60 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Stage 4 of 5)",
+      "Level 40 - 60 Cetus Bounty [Rot B] (Final Stage)",
+      "Level 40 - 60 Cetus Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Revenant Systems Blueprint",
+    "samplePlaces": [
+      "Level 20 - 40 Cetus Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 20 - 40 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 20 - 40 Cetus Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 20 - 40 Cetus Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "Rhino Chassis Blueprint",
     "samplePlaces": [
       "Venus - Fossa (Assassination)"
@@ -3755,7 +4792,7 @@
   {
     "name": "Riven Transmuter",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+      "The Icebind: Crested Frozen Chests [Rot A]"
     ]
   },
   {
@@ -3852,7 +4889,7 @@
   {
     "name": "Saturn Resource Bundle",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Saturn)"
+      "Void Storm (Saturn)"
     ]
   },
   {
@@ -3862,24 +4899,34 @@
     ]
   },
   {
+    "name": "Scintillant",
+    "samplePlaces": [
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot A] (Final Stage)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot B] (Stage 4 of 5)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot B] (Final Stage)",
+      "Level 5 - 15 Cambion Drift Bounty [Rot C] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "Scyotid Barrel Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Scyotid Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Scyotid Gauntlet Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
@@ -3925,31 +4972,33 @@
   {
     "name": "Sevagoth Chassis Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Neptune)",
+      "Void Storm (Pluto)",
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Sevagoth Neuroptics Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Neptune)",
+      "Void Storm (Pluto)",
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Sevagoth Systems Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Neptune)",
-      "Transient (密室与特殊掉落) - Void Storm (Pluto)",
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Neptune)",
+      "Void Storm (Pluto)",
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Shrill Voca",
     "samplePlaces": [
-      "Deimos - Armatus (Disruption) [Rot A]"
+      "Deimos - Armatus (Disruption) [Rot A]",
+      "Level  55 - 60 Entrati Lab Bounty [Rot C] (Final stage)",
+      "Level  65 - 70 Entrati Lab Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -3996,35 +5045,43 @@
   {
     "name": "Spinnerex Blade Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Spinnerex Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Spinnerex Handle Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Spinnerex String Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
-      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+      "Duviri Murmur Invasion Rewards [Rot A]",
+      "Duviri Murmur Invasion Rewards (Steel Path) [Rot A]"
     ]
   },
   {
     "name": "Steflos Blueprint",
     "samplePlaces": [
       "Mars - Tyana Pass (Defense) [Rot A]"
+    ]
+  },
+  {
+    "name": "Stubba Blueprint",
+    "samplePlaces": [
+      "Level 15 - 25 Ghoul Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 15 - 25 Ghoul Bounty [Rot A] (Stage 4 of 5)",
+      "Level 15 - 25 Ghoul Bounty [Rot A] (Final Stage)"
     ]
   },
   {
@@ -4044,52 +5101,58 @@
   {
     "name": "Tauforged Amber Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Legendary Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+      "Deep Archimedea Silver Rewards",
+      "Deep Archimedea Gold Rewards",
+      "Deep Archimedea Legendary Rewards",
+      "Temporal Archimedea Silver Rewards",
+      "Temporal Archimedea Gold Rewards"
     ]
   },
   {
     "name": "Tauforged Azure Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Legendary Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+      "Deep Archimedea Silver Rewards",
+      "Deep Archimedea Gold Rewards",
+      "Deep Archimedea Legendary Rewards",
+      "Temporal Archimedea Silver Rewards",
+      "Temporal Archimedea Gold Rewards"
     ]
   },
   {
     "name": "Tauforged Crimson Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Deep Archimedea Legendary Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+      "Deep Archimedea Silver Rewards",
+      "Deep Archimedea Gold Rewards",
+      "Deep Archimedea Legendary Rewards",
+      "Temporal Archimedea Silver Rewards",
+      "Temporal Archimedea Gold Rewards"
     ]
   },
   {
     "name": "Tauforged Emerald Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards"
+      "Temporal Archimedea Gold Rewards",
+      "Temporal Archimedea Legendary Rewards"
     ]
   },
   {
     "name": "Tauforged Topaz Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards"
+      "Temporal Archimedea Gold Rewards",
+      "Temporal Archimedea Legendary Rewards"
     ]
   },
   {
     "name": "Tauforged Violet Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
-      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards"
+      "Temporal Archimedea Gold Rewards",
+      "Temporal Archimedea Legendary Rewards"
+    ]
+  },
+  {
+    "name": "Techrot Motherboard",
+    "samplePlaces": [
+      "Level  65 - 70 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -4135,9 +5198,23 @@
     ]
   },
   {
+    "name": "The Countessa Comic",
+    "samplePlaces": [
+      "Level  55 - 60 WF1999 Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
     "name": "Topaz Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+      "Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Training Debt-Bond",
+    "samplePlaces": [
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Stage 4 of 5)",
+      "Level 5 - 15 Orb Vallis Bounty [Rot C] (Final Stage)"
     ]
   },
   {
@@ -4177,19 +5254,19 @@
   {
     "name": "Uriel Chassis Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
     "name": "Uriel Neuroptics Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
     "name": "Uriel Systems Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
@@ -4265,19 +5342,28 @@
   {
     "name": "Veil Resource Bundle",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+      "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Veiled Riven Cipher",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+      "The Icebind: Crested Frozen Chests [Rot A]"
     ]
   },
   {
     "name": "Venus Resource Bundle",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+      "Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Verdilac Blueprint",
+    "samplePlaces": [
+      "Level 50 - 70 Cetus Bounty [Rot A] (Stage 4 of 5)",
+      "Level 50 - 70 Cetus Bounty [Rot A] (Final Stage)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot A] (Stage 4 of 5)",
+      "Level 50 - 70 Orb Vallis Bounty [Rot A] (Final Stage)"
     ]
   },
   {
@@ -4288,6 +5374,12 @@
       "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vesper 77 Blueprint",
+    "samplePlaces": [
+      "Level  85 - 90 WF1999 Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -4433,37 +5525,37 @@
   {
     "name": "Vinquibus Barrel Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
     "name": "Vinquibus Blade Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
     "name": "Vinquibus Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
     "name": "Vinquibus Receiver Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
     "name": "Vinquibus Stock Blueprint",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+      "The Descendia: Roathe"
     ]
   },
   {
     "name": "Violet Archon Shard",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+      "Temporal Archimedea Gold Rewards"
     ]
   },
   {
@@ -4474,6 +5566,24 @@
       "Zariman - Tuvul Commons (Void Cascade) [Rot A]",
       "Zariman - Oro Works (Void Armageddon) [Rot A]",
       "Zariman - The Greenway (Mobile Defense)"
+    ]
+  },
+  {
+    "name": "Voidplume Crest",
+    "samplePlaces": [
+      "Level  70 - 75 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Voidplume Down",
+    "samplePlaces": [
+      "Level  50 - 55 Zariman Bounty [Rot C] (Final stage)"
+    ]
+  },
+  {
+    "name": "Voidplume Vane",
+    "samplePlaces": [
+      "Level  60 - 65 Zariman Bounty [Rot C] (Final stage)"
     ]
   },
   {
@@ -4547,15 +5657,45 @@
     ]
   },
   {
+    "name": "Xaku Chassis Blueprint",
+    "samplePlaces": [
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 40 - 60 Cambion Drift Bounty [Rot A] (Final Stage)",
+      "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 100 - 100 Cambion Drift Bounty [Rot A] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Xaku Neuroptics Blueprint",
+    "samplePlaces": [
+      "Level 15 - 25 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 15 - 25 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 15 - 25 Cambion Drift Bounty [Rot A] (Final Stage)",
+      "Level 15 - 25 Cambion Drift Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 15 - 25 Cambion Drift Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
+    "name": "Xaku Systems Blueprint",
+    "samplePlaces": [
+      "Level 30 - 40 Cambion Drift Bounty [Rot A] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot A] (Final Stage)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot B] (Stage 2, Stage 3 of 4, and Stage 3 of 5)",
+      "Level 30 - 40 Cambion Drift Bounty [Rot B] (Stage 4 of 5)"
+    ]
+  },
+  {
     "name": "Yao Shrub",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Duviri Circuit"
+      "Duviri Circuit"
     ]
   },
   {
     "name": "Zenith Granum Crown Decoration",
     "samplePlaces": [
-      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+      "Nightmare Granum Void [Rot A]"
     ]
   },
   {

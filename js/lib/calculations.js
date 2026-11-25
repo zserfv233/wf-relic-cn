@@ -1,6 +1,22 @@
 /**
- * calculations.js - 期望白金值计算纯函数（阶段 2 扩展）
+ * calculations.js - 期望白金值计算纯函数（阶段 M1 扩展）
  */
+
+/**
+ * 判断物品是否为已确认的不可交易物（如 Forma Blueprint）
+ * @param {Object} item 
+ * @returns {boolean}
+ */
+export function isUntradeableItem(item) {
+  if (!item || typeof item !== 'object') return false;
+  if (item.untradeable === true) return true;
+  const slug = item.marketSlug ?? item.slug;
+  if (slug === null || slug === undefined) {
+    const name = item.baseName || item.itemName || item.name || '';
+    if (name.includes('Forma Blueprint')) return true;
+  }
+  return false;
+}
 
 /**
  * 获取物品在指定精炼/等级下的有效单价
@@ -11,19 +27,21 @@
  * @returns {number|null}
  */
 export function getItemPrice(slug, rank = null, prices = {}, priceType = 'sellMin') {
-  if (!slug || !prices) return null;
+  if (!slug || typeof slug !== 'string' || !prices) return null;
 
   // 1. 优先查找 rank 键，例如 `${slug}@r0`
   if (rank !== null && rank !== undefined) {
     const rankKey = `${slug}@r${rank}`;
-    if (prices[rankKey] && typeof prices[rankKey][priceType] === 'number') {
-      return prices[rankKey][priceType];
+    const p = prices[rankKey]?.[priceType];
+    if (typeof p === 'number' && Number.isFinite(p) && p >= 0) {
+      return p;
     }
   }
 
   // 2. 回退到基础 slug
-  if (prices[slug] && typeof prices[slug][priceType] === 'number') {
-    return prices[slug][priceType];
+  const p = prices[slug]?.[priceType];
+  if (typeof p === 'number' && Number.isFinite(p) && p >= 0) {
+    return p;
   }
 
   return null;
@@ -31,61 +49,124 @@ export function getItemPrice(slug, rank = null, prices = {}, priceType = 'sellMi
 
 /**
  * 计算单个精炼等级的遗物期望白金值
- * 期望值 = Σ(单项掉率% / 100 * 价格)
- * 若遗物中全部物品均无价格，返回 expectedValue: null
+ * 期望值 = Σ(单项掉率% / 100 * quantity * 价格)
+ * 若遗物中全部物品均无已知价格，返回 expectedValue: null
  * @param {Array} rewards 
  * @param {Object} prices 
  * @param {Object} options 
- * @returns {Object} { expectedValue, missingPriceCount, pricedCount, breakdown }
+ * @returns {Object}
  */
 export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin', refinement = 'intact' } = {}) {
-  let total = 0;
-  let missingPriceCount = 0;
+  let totalKnown = 0;
   let pricedCount = 0;
+  let missingCount = 0;
+  let untradeableCount = 0;
+  let unknownChanceCount = 0;
+  let pricedProbability = 0;
+  let missingProbability = 0;
+  let untradeableProbability = 0;
   const breakdown = [];
 
   for (const rew of rewards) {
-    const chance = rew.chances ? (rew.chances[refinement] ?? 0) : (rew.chance ?? 0);
-    const quantity = rew.quantity || 1;
+    const rawChance = rew.chances ? rew.chances[refinement] : rew.chance;
+    const name = rew.name || rew.itemName || '';
+    const baseName = rew.baseName || name;
+    const zhName = rew.zhName || rew.itemZh || name;
+    const rarity = rew.rarity;
+    const quantity = (typeof rew.quantity === 'number' && Number.isFinite(rew.quantity) && rew.quantity > 0)
+      ? rew.quantity
+      : 1;
+
+    // 概率缺失或非法 -> unknownChance，贡献 null
+    if (rawChance === null || rawChance === undefined || rawChance === '' || !Number.isFinite(Number(rawChance))) {
+      unknownChanceCount++;
+      breakdown.push({
+        name,
+        baseName,
+        quantity,
+        zhName,
+        rarity,
+        chance: null,
+        price: null,
+        contribution: null,
+        status: 'unknownChance'
+      });
+      continue;
+    }
+
+    const chance = Number(rawChance);
     const slug = rew.marketSlug || rew.slug;
+
+    // 已确认不可交易 (如 Forma Blueprint) -> 明确记 0，归类 'untradeable'
+    if (isUntradeableItem(rew)) {
+      untradeableCount++;
+      untradeableProbability += chance;
+      breakdown.push({
+        name,
+        baseName,
+        quantity,
+        zhName,
+        rarity,
+        chance,
+        price: 0,
+        contribution: 0,
+        status: 'untradeable'
+      });
+      continue;
+    }
+
     const price = getItemPrice(slug, 0, prices, priceType);
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
+      pricedProbability += chance;
       const contribution = (chance / 100) * quantity * price;
-      total += contribution;
+      totalKnown += contribution;
       breakdown.push({
-        name: rew.name || rew.itemName,
-        baseName: rew.baseName,
+        name,
+        baseName,
         quantity,
-        zhName: rew.zhName || rew.itemZh || rew.name,
-        rarity: rew.rarity,
+        zhName,
+        rarity,
         chance,
         price,
-        contribution: Number(contribution.toFixed(4))
+        contribution: Number(contribution.toFixed(4)),
+        status: 'priced'
       });
     } else {
-      missingPriceCount++;
+      // 价格缺失（可能可交易但无 slug、或缓存无价/无挂单）-> 贡献 null
+      missingCount++;
+      missingProbability += chance;
       breakdown.push({
-        name: rew.name || rew.itemName,
-        baseName: rew.baseName,
+        name,
+        baseName,
         quantity,
-        zhName: rew.zhName || rew.itemZh || rew.name,
-        rarity: rew.rarity,
+        zhName,
+        rarity,
         chance,
         price: null,
-        contribution: 0
+        contribution: null,
+        status: 'missing'
       });
     }
   }
 
-  // 全部无价时返回 null，前端显示 "—"
-  const expectedValue = pricedCount > 0 ? Number(total.toFixed(2)) : null;
+  const incomplete = (missingCount > 0 || unknownChanceCount > 0);
+  const expectedValueRaw = pricedCount > 0 ? totalKnown : (missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
+  const expectedValue = expectedValueRaw !== null ? Number(expectedValueRaw.toFixed(2)) : null;
 
   return {
     expectedValue,
-    missingPriceCount,
+    expectedValueRaw,
+    incomplete,
+    pricedProbability: Number(pricedProbability.toFixed(4)),
+    missingProbability: Number(missingProbability.toFixed(4)),
+    untradeableProbability: Number(untradeableProbability.toFixed(4)),
+    unknownChanceCount,
     pricedCount,
+    missingCount,
+    missingPriceCount: missingCount, // 兼容现有测试与调用方
+    untradeableCount,
     breakdown
   };
 }
@@ -104,78 +185,145 @@ export function calculateAllRefinementValues(rewards = [], prices = {}, { priceT
 
 /**
  * 任务/轮次/赏金来源期望白金计算
- * 每次期望白金 = Σ (物品掉率% / 100 * 价格)
+ * 每次期望白金 = Σ (物品掉率% / 100 * quantity * 价格)
  * 赋能/Mod 默认使用 0 级掉落价格
  * @param {Array} rewards 来源内的奖励列表 [{ itemName, slug, chance, category }]
  * @param {Object} prices 
  * @param {Object} options 
- * @returns {Object} { expectedValue, pricedCount, missingCount, totalItems }
+ * @returns {Object}
  */
 export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin' } = {}) {
-  let total = 0;
+  let totalKnown = 0;
   let pricedCount = 0;
   let missingCount = 0;
+  let untradeableCount = 0;
+  let unknownChanceCount = 0;
+  let pricedProbability = 0;
+  let missingProbability = 0;
+  let untradeableProbability = 0;
 
   for (const item of rewards) {
-    const chance = typeof item.chance === 'number' ? item.chance : parseFloat(item.chance || 0);
-    const quantity = item.quantity || 1;
+    const rawChance = item.chance;
+
+    if (rawChance === null || rawChance === undefined || rawChance === '' || !Number.isFinite(Number(rawChance))) {
+      unknownChanceCount++;
+      continue;
+    }
+
+    const chance = Number(rawChance);
+    const quantity = (typeof item.quantity === 'number' && Number.isFinite(item.quantity) && item.quantity > 0)
+      ? item.quantity
+      : 1;
+
+    if (isUntradeableItem(item)) {
+      untradeableCount++;
+      untradeableProbability += chance;
+      continue;
+    }
+
     const slug = item.slug;
-    // 赋能/Mod 掉落均为 0 级
     const price = getItemPrice(slug, 0, prices, priceType);
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
-      total += (chance / 100) * quantity * price;
+      pricedProbability += chance;
+      totalKnown += (chance / 100) * quantity * price;
     } else {
       missingCount++;
+      missingProbability += chance;
     }
   }
 
+  const incomplete = (missingCount > 0 || unknownChanceCount > 0);
+  const expectedValueRaw = pricedCount > 0 ? totalKnown : (missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
+  const expectedValue = expectedValueRaw !== null ? Number(expectedValueRaw.toFixed(2)) : null;
+
   return {
-    expectedValue: pricedCount > 0 ? Number(total.toFixed(2)) : null,
+    expectedValue,
+    expectedValueRaw,
+    incomplete,
+    pricedProbability: Number(pricedProbability.toFixed(4)),
+    missingProbability: Number(missingProbability.toFixed(4)),
+    untradeableProbability: Number(untradeableProbability.toFixed(4)),
+    unknownChanceCount,
     pricedCount,
     missingCount,
+    untradeableCount,
     totalItems: rewards.length
   };
 }
 
 /**
  * 敌人击杀来源期望白金计算
- * DE 官方公式: 每击杀期望白金 = Mod 掉落几率(enemyModDropChance%) × Σ 物品几率(chance%) × 价格
+ * DE 官方公式: 每击杀期望白金 = Mod 掉落几率(enemyModDropChance%) × Σ (物品几率% / 100 * quantity * 价格)
  * @param {number|string} enemyModDropChance 例如 3.0 或 "100.00"
  * @param {Array} mods 敌人掉落 mod 列表 [{ modName, slug, chance }]
  * @param {Object} prices 
  * @param {Object} options 
- * @returns {Object} { expectedValue, compositeChance, pricedCount, missingCount }
+ * @returns {Object}
  */
 export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], prices = {}, { priceType = 'sellMin' } = {}) {
-  const modDropRate = typeof enemyModDropChance === 'number' ? enemyModDropChance : parseFloat(enemyModDropChance || 0);
-  let subTotal = 0;
+  const modDropRate = typeof enemyModDropChance === 'number'
+    ? enemyModDropChance
+    : (Number.isFinite(parseFloat(enemyModDropChance)) ? parseFloat(enemyModDropChance) : 0);
+
+  let subTotalKnown = 0;
   let pricedCount = 0;
   let missingCount = 0;
+  let untradeableCount = 0;
+  let unknownChanceCount = 0;
+  let pricedProbability = 0;
+  let missingProbability = 0;
+  let untradeableProbability = 0;
 
   for (const item of mods) {
-    const chance = typeof item.chance === 'number' ? item.chance : parseFloat(item.chance || 0);
-    const quantity = item.quantity || 1;
+    const rawChance = item.chance;
+
+    if (rawChance === null || rawChance === undefined || rawChance === '' || !Number.isFinite(Number(rawChance))) {
+      unknownChanceCount++;
+      continue;
+    }
+
+    const chance = Number(rawChance);
+    const quantity = (typeof item.quantity === 'number' && Number.isFinite(item.quantity) && item.quantity > 0)
+      ? item.quantity
+      : 1;
+
+    if (isUntradeableItem(item)) {
+      untradeableCount++;
+      untradeableProbability += chance;
+      continue;
+    }
+
     const slug = item.slug;
     const price = getItemPrice(slug, 0, prices, priceType);
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
-      // chance 为百分比
-      subTotal += (chance / 100) * quantity * price;
+      pricedProbability += chance;
+      subTotalKnown += (chance / 100) * quantity * price;
     } else {
       missingCount++;
+      missingProbability += chance;
     }
   }
 
-  const expectedValue = pricedCount > 0 ? Number(((modDropRate / 100) * subTotal).toFixed(4)) : null;
+  const incomplete = (missingCount > 0 || unknownChanceCount > 0);
+  const expectedValueRaw = pricedCount > 0 ? (modDropRate / 100) * subTotalKnown : (missingCount === 0 && unknownChanceCount === 0 && untradeableCount > 0 ? 0 : null);
+  const expectedValue = expectedValueRaw !== null ? Number(expectedValueRaw.toFixed(4)) : null;
 
   return {
     expectedValue,
+    expectedValueRaw,
+    incomplete,
+    pricedProbability: Number(pricedProbability.toFixed(4)),
+    missingProbability: Number(missingProbability.toFixed(4)),
+    untradeableProbability: Number(untradeableProbability.toFixed(4)),
+    unknownChanceCount,
     enemyModDropChance: modDropRate,
     pricedCount,
     missingCount,
+    untradeableCount,
     totalMods: mods.length
   };
 }

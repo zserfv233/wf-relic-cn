@@ -139,3 +139,22 @@
 结论: 正常
 理由：新任务（PvP 标记与筛选）于 08:08 启动并在 08:15 顺利完成代码提交（859d3e2），08:18 通道复核通过且 45/45 测试全部 PASS；当前时间 08:18，距上次提交仅 3 分钟，无 30 分钟停滞、同一问题反复卡阻或认证异常。
 建议：当前轮次开发与复核均已就绪，按通道计划完成本段进度与 DONE.md 的收尾记录即可。
+
+## 2026-11-26 08:27 AEDT（通道）— 数学内核修复（fix/math-kernel）
+- 依据：Codex 审查报告 /workspace/review_wf_math/codex_review.md（通道已通读）。
+- worktree：/workspace/wf-relic-cn-math，分支 fix/math-kernel（基于 feat/pvp-filter ca753c8）。主目录 /workspace/wf-relic-cn 不碰。npm ci 已在 worktree 内安装。
+- 改前基线（通道用当前内核独立跑，/workspace/wf-relic-cn-notes/before_table.json）：Nightmare 12.31p（概率和 300.03%）、仲裁 2.04p、Lith A1 4.33/4.67/5.16/5.77p、ETERNA 5.89/0/0/0p、Conclave Saturn Cephalon Capture Rot A 19.52p、bounty 来源 0 条、来源 2061 条但唯一 id 仅 1956。
+- 计划：阶段 M1（项 1、2、7、8：轮次/赏金/仲裁/改名/概率和/null/去重/唯一 id/未取整排序），阶段 M2（项 3–6：稳健价/低置信、ETERNA、赋能换算与去回退、紫卡 subtype 与去重）。
+
+## 2026-11-26 09:05 AEDT
+- 阶段 M1 完成（数学内核修复）：
+  1. 轮次保留与独立拆分：transientRewards 等特殊表拆分为独立轮次来源（带 `_a`/`_b`/`_c` 等后缀），Nightmare Mode Rewards 拆为 A/B/C 三个独立来源，卖价口径下复算 EV 分别为 A≈4.0439p、B≈2.4649p、C≈5.802p，单测覆盖。
+  2. 赏金解析：六类赏金（cetusBountyRewards、solarisBountyRewards、deimosRewards、zarimanRewards、entratiLabRewards、hexRewards）按 `(bountyLevel, rotation, stage)` 分组生成 299 个 type='bounty' 独立来源，验证 Cetus 首项 `Level 5 - 15 Cetus Bounty` 轮次 A Stage 1 Redirection 掉率为 20%。
+  3. 仲裁单独处理：Arbitrations 拆分为 A/B/C 三个来源，卖价 EV 分别为 A=0.67p、B=0.65p、C=0.715p，标注 rotationPattern 提示（仲裁为 AABBCCCC…，不套用 AABC；常规无限任务标注常见 AABC 仅供参考）。
+  4. 期望单位文案更新：前端与横幅将“单次通关期望”规范为四种精准单位：「单人单次开启期望」（遗物）、「单阶段单次发奖期望」（赏金）、「单轮次单次发奖期望（抽一次 X 轮奖励表）」（轮次任务）、「每击杀期望」（敌人）。
+  5. 概率和核对：计算各来源 probabilitySum 并标记 probabilityCheck（>100.15% 标 'over'，<99.85% 标 'under'，其余 'ok'，不自动归一化），前端对 over/under 给予明示提示。
+  6. 缺价与未知概率处理：null 贡献不记 0，增加 expectedValueRaw、incomplete、pricedProbability、missingProbability、untradeableProbability 及各类计数；Forma Blueprint 确认为不可交易记 0 并归类 untradeable；前端展示「不完整估值」徽章及已计价概率合计。
+  7. 来源 ID 唯一与重复表去重：全局保证 2394 处来源 id 唯一（两个 Jackal 分别分配 enemy_jackal 与 enemy_jackal_2）；精确去重同一段奖励列表整体重复 k 次的表（Europa Cryotic Front 45 项去重至 15 项，标记 dedupedRepeats: 3）。
+  8. 排序使用未取整值：表格及列表排序统一使用 expectedValueRaw。
+  - 自动化单测：新增 test/math_kernel_m1.test.mjs（9 个用例），npm test 10 个测试套件 54 个测试全部通过（54 passed, 0 failed）。
+

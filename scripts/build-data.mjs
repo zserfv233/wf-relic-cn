@@ -362,6 +362,52 @@ async function build() {
 
   // A. 扫描 missionRewards
   const mr = dropsAll.missionRewards || {};
+  const seenSourceIds = new Map();
+  function registerUniqueSourceId(baseId) {
+    if (!seenSourceIds.has(baseId)) {
+      seenSourceIds.set(baseId, 1);
+      return baseId;
+    }
+    const next = seenSourceIds.get(baseId) + 1;
+    seenSourceIds.set(baseId, next);
+    return `${baseId}_${next}`;
+  }
+
+  // 严格检测上游同一段奖励列表 (名称+掉率+轮次相同) 整体重复 k 次
+  function findExactRepeats(list) {
+    if (!Array.isArray(list)) return null;
+    const n = list.length;
+    if (n <= 1) return null;
+    for (let m = 2; m <= Math.floor(n / 2); m++) {
+      if (n % m !== 0) continue;
+      const k = n / m;
+      let match = true;
+      for (let i = 0; i < m; i++) {
+        const base = list[i];
+        for (let t = 1; t < k; t++) {
+          const other = list[t * m + i];
+          const nameA = base.itemName || base.modName;
+          const nameB = other.itemName || other.modName;
+          if (nameA !== nameB || base.chance !== other.chance || (base.rotation || null) !== (other.rotation || null)) {
+            match = false;
+            break;
+          }
+        }
+        if (!match) break;
+      }
+      if (match) {
+        return { k, m, singleBlock: list.slice(0, m) };
+      }
+    }
+    return null;
+  }
+
+  const ENDLESS_GAME_MODES = new Set([
+    'Survival', 'Defense', 'Interception', 'Excavation',
+    'Defection', 'Infested Salvage', 'Sanctuary Onslaught',
+    'Alchemy', 'Void Flood', 'Void Cascade', 'Void Armageddon', 'The Circuit'
+  ]);
+
   for (const [planet, nodes] of Object.entries(mr)) {
     const planetZh = PLANET_ZH_MAP[planet] || planet;
     for (const [node, nodeData] of Object.entries(nodes || {})) {
@@ -369,8 +415,20 @@ async function build() {
       const modeZh = GAMEMODE_ZH_MAP[gameMode] || gameMode;
       const rews = nodeData.rewards;
 
-      const processRewardList = (rewardList, rotation = null) => {
-        const sourceId = `mission_${planet.toLowerCase()}_${node.toLowerCase()}${rotation ? `_${rotation.toLowerCase()}` : ''}`;
+      const processRewardList = (rawRewardList, rotation = null) => {
+        let rewardList = rawRewardList;
+        let dedupedRepeats = null;
+        let dedupeNote = null;
+
+        const repeats = findExactRepeats(rawRewardList);
+        if (repeats) {
+          rewardList = repeats.singleBlock;
+          dedupedRepeats = repeats.k;
+          dedupeNote = `上游数据包含 ${repeats.k} 份完全相同的奖励列表 (${repeats.m} 项)，已去重为 1 份`;
+        }
+
+        const baseSourceId = `mission_${planet.toLowerCase()}_${node.toLowerCase()}${rotation ? `_${rotation.toLowerCase()}` : ''}`.replace(/[^a-z0-9_]+/g, '_');
+        const sourceId = registerUniqueSourceId(baseSourceId);
         const nameEn = `${planet} - ${node} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`;
         const nameZh = `${planetZh} - ${node} (${modeZh})${rotation ? ` [轮次 ${rotation}]` : ''}`;
         
@@ -400,12 +458,13 @@ async function build() {
             itemZh,
             slug,
             category,
-            chance: r.chance,
-            rarity: r.rarity || 'Common'
+            chance: r.chance ?? null,
+            rarity: r.rarity || 'Common',
+            rotation: rotation || null
           });
         }
 
-        sourcesResult.push({
+        const srcObj = {
           id: sourceId,
           type: 'mission',
           nameEn,
@@ -417,7 +476,17 @@ async function build() {
           gameModeZh: modeZh,
           rotation,
           rewards: processedRewards
-        });
+        };
+
+        if (rotation && ENDLESS_GAME_MODES.has(gameMode)) {
+          srcObj.rotationPattern = '常见 AABC（仅供参考，未做聚合）';
+        }
+        if (dedupedRepeats) {
+          srcObj.dedupedRepeats = dedupedRepeats;
+          srcObj.dedupeNote = dedupeNote;
+        }
+
+        sourcesResult.push(srcObj);
       };
 
       if (Array.isArray(rews)) {
@@ -436,13 +505,26 @@ async function build() {
   for (const em of dropsAll.enemyModTables || []) {
     const enemyName = em.enemyName || 'Unknown Enemy';
     const rawDropChance = em.enemyModDropChance || em.ememyModDropChance || 0;
-    const dropChanceNum = typeof rawDropChance === 'number' ? rawDropChance : parseFloat(rawDropChance || 0);
-    const sourceId = `enemy_${enemyName.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`;
+    const dropChanceNum = typeof rawDropChance === 'number'
+      ? rawDropChance
+      : (Number.isFinite(parseFloat(rawDropChance)) ? parseFloat(rawDropChance) : 0);
+    const baseSourceId = `enemy_${enemyName.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`.replace(/^_+|_+$/g, '');
+    const sourceId = registerUniqueSourceId(baseSourceId);
     const nameEn = `Enemy: ${enemyName}`;
     const nameZh = `敌人: ${enemyName}`;
 
+    let modsList = em.mods || [];
+    let dedupedRepeats = null;
+    let dedupeNote = null;
+    const repeats = findExactRepeats(modsList);
+    if (repeats) {
+      modsList = repeats.singleBlock;
+      dedupedRepeats = repeats.k;
+      dedupeNote = `上游数据包含 ${repeats.k} 份完全相同的奖励列表 (${repeats.m} 项)，已去重为 1 份`;
+    }
+
     const processedMods = [];
-    for (const m of em.mods || []) {
+    for (const m of modsList) {
       const matched = matchMarketItem(m.modName);
       const { quantity, baseName } = parseQuantityAndName(m.modName);
       let itemZh = baseName;
@@ -464,12 +546,12 @@ async function build() {
         itemZh,
         slug,
         category,
-        chance: m.chance,
+        chance: m.chance ?? null,
         rarity: m.rarity || 'Common'
       });
     }
 
-    sourcesResult.push({
+    const srcObj = {
       id: sourceId,
       type: 'enemy',
       nameEn,
@@ -477,45 +559,157 @@ async function build() {
       enemyName,
       enemyModDropChance: dropChanceNum,
       rewards: processedMods
-    });
+    };
+
+    if (dedupedRepeats) {
+      srcObj.dedupedRepeats = dedupedRepeats;
+      srcObj.dedupeNote = dedupeNote;
+    }
+
+    sourcesResult.push(srcObj);
   }
 
-  // C. 扫描其他赏金与特殊任务表
-  const otherTables = [
-    { key: 'cetusBountyRewards', type: 'bounty', label: 'Cetus Bounty (希图斯赏金)' },
-    { key: 'solarisBountyRewards', type: 'bounty', label: 'Solaris Bounty (福尔图娜赏金)' },
-    { key: 'deimosRewards', type: 'bounty', label: 'Deimos Bounty (火卫二赏金)' },
-    { key: 'zarimanRewards', type: 'bounty', label: 'Zariman (扎里曼任务)' },
-    { key: 'entratiLabRewards', type: 'bounty', label: 'Entrati Lab (阿尔布雷希特实验室)' },
-    { key: 'hexRewards', type: 'bounty', label: 'Hex (霍瓦尼亚 1999)' },
-    { key: 'transientRewards', type: 'transient', label: 'Transient (密室与特殊掉落)' },
-    { key: 'sortieRewards', type: 'sortie', label: 'Sortie (突击任务)' }
+  // C. 扫描六类赏金 (cetusBountyRewards, solarisBountyRewards, deimosRewards, zarimanRewards, entratiLabRewards, hexRewards)
+  const bountyTableDefs = [
+    { key: 'cetusBountyRewards', label: 'Cetus Bounty (希图斯赏金)' },
+    { key: 'solarisBountyRewards', label: 'Solaris Bounty (福尔图娜赏金)' },
+    { key: 'deimosRewards', label: 'Deimos Bounty (火卫二赏金)' },
+    { key: 'zarimanRewards', label: 'Zariman (扎里曼任务)' },
+    { key: 'entratiLabRewards', label: 'Entrati Lab (阿尔布雷希特实验室)' },
+    { key: 'hexRewards', label: 'Hex (霍瓦尼亚 1999)' }
   ];
 
-  for (const tbl of otherTables) {
-    const dataObj = dropsAll[tbl.key];
-    if (!dataObj) continue;
+  for (const tbl of bountyTableDefs) {
+    const list = dropsAll[tbl.key];
+    if (!Array.isArray(list)) continue;
 
-    function walkBounty(obj, prefixEn) {
-      if (!obj) return;
-      if (Array.isArray(obj)) {
-        const sourceId = `source_${tbl.type}_${prefixEn.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`;
-        const processed = [];
-        for (const item of obj) {
-          if (!item || typeof item !== 'object') continue;
-          
-          // 如果该对象包含子 rewards 列表 (例如 transientRewards 中的 Arbitrations / Derelict Vault / Kuva Siphon)
-          if (item.rewards && Array.isArray(item.rewards)) {
-            const subLabel = item.objectiveName ? `${prefixEn} - ${item.objectiveName}` : prefixEn;
-            walkBounty(item.rewards, subLabel);
-            continue;
+    for (const bounty of list) {
+      const bountyLevel = bounty.bountyLevel || 'Unknown Bounty';
+      const cleanLevel = bountyLevel.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+
+      for (const rot of ['A', 'B', 'C']) {
+        const rotRewards = bounty.rewards?.[rot];
+        if (!Array.isArray(rotRewards) || rotRewards.length === 0) continue;
+
+        // 按 stage 分组保持原顺序
+        const stageMap = new Map();
+        for (const item of rotRewards) {
+          const stage = item.stage || 'Stage 1';
+          if (!stageMap.has(stage)) stageMap.set(stage, []);
+          stageMap.get(stage).push(item);
+        }
+
+        for (const [stage, stageItems] of stageMap.entries()) {
+          const cleanStage = stage.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+          const baseSourceId = `source_bounty_${cleanLevel}_${rot.toLowerCase()}_${cleanStage}`;
+          const sourceId = registerUniqueSourceId(baseSourceId);
+
+          const nameEn = `${bountyLevel} [Rot ${rot}] (${stage})`;
+          const nameZh = `${bountyLevel} [轮次 ${rot}] (${stage})`;
+
+          let itemsToProcess = stageItems;
+          let dedupedRepeats = null;
+          let dedupeNote = null;
+          const repeats = findExactRepeats(stageItems);
+          if (repeats) {
+            itemsToProcess = repeats.singleBlock;
+            dedupedRepeats = repeats.k;
+            dedupeNote = `上游数据包含 ${repeats.k} 份完全相同的奖励列表 (${repeats.m} 项)，已去重为 1 份`;
           }
 
+          const processed = [];
+          for (const item of itemsToProcess) {
+            const itemName = item.itemName || item.modName;
+            if (!itemName) continue;
+
+            checkRelicItem(itemName);
+            addDirectDrop(itemName, { place: nameEn, rotation: rot, stage, chance: item.chance, rarity: item.rarity });
+
+            const matched = matchMarketItem(itemName);
+            const { quantity, baseName } = parseQuantityAndName(itemName);
+            let itemZh = baseName;
+            let slug = null;
+            let category = 'other';
+
+            if (matched) {
+              slug = matched.slug;
+              category = matched.category;
+              itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+            } else {
+              recordUnmatched(itemName, nameEn);
+            }
+
+            processed.push({
+              itemName,
+              baseName,
+              quantity,
+              itemZh,
+              slug,
+              category,
+              chance: item.chance ?? null,
+              rarity: item.rarity || 'Common',
+              stage,
+              rotation: rot
+            });
+          }
+
+          if (processed.length > 0) {
+            const srcObj = {
+              id: sourceId,
+              type: 'bounty',
+              nameEn,
+              nameZh,
+              bountyLevel,
+              rotation: rot,
+              stage,
+              rewards: processed
+            };
+            if (dedupedRepeats) {
+              srcObj.dedupedRepeats = dedupedRepeats;
+              srcObj.dedupeNote = dedupeNote;
+            }
+            sourcesResult.push(srcObj);
+          }
+        }
+      }
+    }
+  }
+
+  // D. 扫描 transientRewards (特殊掉落/密室/仲裁/噩梦)
+  for (const tr of dropsAll.transientRewards || []) {
+    const objectiveName = tr.objectiveName || 'Transient Reward';
+    const cleanObj = objectiveName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+    const rawRewards = Array.isArray(tr.rewards) ? tr.rewards : [];
+    if (rawRewards.length === 0) continue;
+
+    const rots = Array.from(new Set(rawRewards.map(r => r.rotation).filter(Boolean)));
+
+    if (rots.length > 0) {
+      // 按 rotation 拆成独立来源
+      for (const rot of rots) {
+        const rotRewards = rawRewards.filter(r => r.rotation === rot);
+        const baseSourceId = `source_transient_${cleanObj}_${rot.toLowerCase()}`;
+        const sourceId = registerUniqueSourceId(baseSourceId);
+        const nameEn = `${objectiveName} [Rot ${rot}]`;
+        const nameZh = `${objectiveName} [轮次 ${rot}]`;
+
+        let itemsToProcess = rotRewards;
+        let dedupedRepeats = null;
+        let dedupeNote = null;
+        const repeats = findExactRepeats(rotRewards);
+        if (repeats) {
+          itemsToProcess = repeats.singleBlock;
+          dedupedRepeats = repeats.k;
+          dedupeNote = `上游数据包含 ${repeats.k} 份完全相同的奖励列表 (${repeats.m} 项)，已去重为 1 份`;
+        }
+
+        const processed = [];
+        for (const item of itemsToProcess) {
           const itemName = item.itemName || item.modName;
           if (!itemName) continue;
 
           checkRelicItem(itemName);
-          addDirectDrop(itemName, { place: prefixEn, rotation: item.rotation || null, chance: item.chance, rarity: item.rarity });
+          addDirectDrop(itemName, { place: nameEn, rotation: rot, chance: item.chance, rarity: item.rarity });
 
           const matched = matchMarketItem(itemName);
           const { quantity, baseName } = parseQuantityAndName(itemName);
@@ -528,7 +722,7 @@ async function build() {
             category = matched.category;
             itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
           } else {
-            recordUnmatched(itemName, prefixEn);
+            recordUnmatched(itemName, nameEn);
           }
 
           processed.push({
@@ -538,28 +732,170 @@ async function build() {
             itemZh,
             slug,
             category,
-            chance: item.chance,
-            rarity: item.rarity || 'Common'
+            chance: item.chance ?? null,
+            rarity: item.rarity || 'Common',
+            rotation: rot,
+            stage: item.stage || null
           });
         }
 
         if (processed.length > 0) {
-          sourcesResult.push({
+          const srcObj = {
             id: sourceId,
-            type: tbl.type,
-            nameEn: prefixEn,
-            nameZh: prefixEn,
+            type: 'transient',
+            nameEn,
+            nameZh,
+            rotation: rot,
             rewards: processed
-          });
-        }
-      } else if (typeof obj === 'object') {
-        for (const [k, v] of Object.entries(obj)) {
-          walkBounty(v, `${prefixEn} - ${k}`);
+          };
+
+          if (objectiveName === 'Arbitrations') {
+            srcObj.rotationPattern = '仲裁轮次通常为 AABBCCCC…（不套用 AABC）';
+          }
+          if (dedupedRepeats) {
+            srcObj.dedupedRepeats = dedupedRepeats;
+            srcObj.dedupeNote = dedupeNote;
+          }
+          sourcesResult.push(srcObj);
         }
       }
+    } else {
+      // 无轮次来源 (例如 Derelict Vault)
+      const baseSourceId = `source_transient_${cleanObj}`;
+      const sourceId = registerUniqueSourceId(baseSourceId);
+      const nameEn = objectiveName;
+      const nameZh = objectiveName;
+
+      let itemsToProcess = rawRewards;
+      let dedupedRepeats = null;
+      let dedupeNote = null;
+      const repeats = findExactRepeats(rawRewards);
+      if (repeats) {
+        itemsToProcess = repeats.singleBlock;
+        dedupedRepeats = repeats.k;
+        dedupeNote = `上游数据包含 ${repeats.k} 份完全相同的奖励列表 (${repeats.m} 项)，已去重为 1 份`;
+      }
+
+      const processed = [];
+      for (const item of itemsToProcess) {
+        const itemName = item.itemName || item.modName;
+        if (!itemName) continue;
+
+        checkRelicItem(itemName);
+        addDirectDrop(itemName, { place: nameEn, rotation: null, chance: item.chance, rarity: item.rarity });
+
+        const matched = matchMarketItem(itemName);
+        const { quantity, baseName } = parseQuantityAndName(itemName);
+        let itemZh = baseName;
+        let slug = null;
+        let category = 'other';
+
+        if (matched) {
+          slug = matched.slug;
+          category = matched.category;
+          itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+        } else {
+          recordUnmatched(itemName, nameEn);
+        }
+
+        processed.push({
+          itemName,
+          baseName,
+          quantity,
+          itemZh,
+          slug,
+          category,
+          chance: item.chance ?? null,
+          rarity: item.rarity || 'Common',
+          rotation: null,
+          stage: item.stage || null
+        });
+      }
+
+      if (processed.length > 0) {
+        const srcObj = {
+          id: sourceId,
+          type: 'transient',
+          nameEn,
+          nameZh,
+          rewards: processed
+        };
+        if (dedupedRepeats) {
+          srcObj.dedupedRepeats = dedupedRepeats;
+          srcObj.dedupeNote = dedupeNote;
+        }
+        sourcesResult.push(srcObj);
+      }
+    }
+  }
+
+  // E. 扫描 sortieRewards (突击任务)
+  if (Array.isArray(dropsAll.sortieRewards) && dropsAll.sortieRewards.length > 0) {
+    const baseSourceId = 'source_sortie_sortie';
+    const sourceId = registerUniqueSourceId(baseSourceId);
+    const nameEn = 'Sortie (突击任务)';
+    const nameZh = 'Sortie (突击任务)';
+
+    const processed = [];
+    for (const item of dropsAll.sortieRewards) {
+      const itemName = item.itemName || item.modName;
+      if (!itemName) continue;
+
+      checkRelicItem(itemName);
+      addDirectDrop(itemName, { place: nameEn, rotation: null, chance: item.chance, rarity: item.rarity });
+
+      const matched = matchMarketItem(itemName);
+      const { quantity, baseName } = parseQuantityAndName(itemName);
+      let itemZh = baseName;
+      let slug = null;
+      let category = 'other';
+
+      if (matched) {
+        slug = matched.slug;
+        category = matched.category;
+        itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+      } else {
+        recordUnmatched(itemName, nameEn);
+      }
+
+      processed.push({
+        itemName,
+        baseName,
+        quantity,
+        itemZh,
+        slug,
+        category,
+        chance: item.chance ?? null,
+        rarity: item.rarity || 'Common'
+      });
     }
 
-    walkBounty(dataObj, tbl.label);
+    if (processed.length > 0) {
+      sourcesResult.push({
+        id: sourceId,
+        type: 'sortie',
+        nameEn,
+        nameZh,
+        rewards: processed
+      });
+    }
+  }
+
+  // 概率和核对 (probabilitySum 与 probabilityCheck: 'over' | 'under' | 'ok')
+  // 敌人来源用其内表概率和
+  for (const src of sourcesResult) {
+    const sum = Number((src.rewards || []).reduce((acc, r) => {
+      const c = typeof r.chance === 'number' ? r.chance : (parseFloat(r.chance) || 0);
+      return acc + c;
+    }, 0).toFixed(4));
+    src.probabilitySum = sum;
+    if (sum > 100.15) {
+      src.probabilityCheck = 'over';
+    } else if (sum < 99.85) {
+      src.probabilityCheck = 'under';
+    } else {
+      src.probabilityCheck = 'ok';
+    }
   }
 
   // 标记每条来源的 isPvp 属性 (武形秘仪 / Conclave)
@@ -587,6 +923,8 @@ async function build() {
           nameEn: src.nameEn,
           nameZh: src.nameZh,
           rotation: src.rotation || null,
+          stage: src.stage || r.stage || null,
+          bountyLevel: src.bountyLevel || null,
           chance: r.chance,
           quantity: r.quantity || 1,
           rarity: r.rarity,
@@ -1059,6 +1397,7 @@ async function build() {
       totalRivens: rivensResult.length,
       totalMods: modsResult.length,
       totalSources: sourcesResult.length,
+      bountySources: sourcesResult.filter(s => s.type === 'bounty').length,
       pvpSources: pvpSourcesCount,
       unmatchedCount: unmatchedList.length
     },

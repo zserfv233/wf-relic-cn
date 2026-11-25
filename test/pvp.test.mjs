@@ -22,7 +22,7 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter)', () => {
   const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
 
   it('构建产物中，名称含 (Conclave) 或 gameMode===Conclave 的来源全部 isPvp===true，其它全部 isPvp===false', () => {
-    assert.strictEqual(sources.length, 2061, '来源总数应为 2061');
+    assert.strictEqual(sources.length, 2394, '来源总数应为 2394 (包含新增赏金 299 条与拆分轮次)');
 
     for (const src of sources) {
       assert.strictEqual(typeof src.isPvp, 'boolean', `来源 ${src.id} 的 isPvp 必须是布尔值`);
@@ -45,13 +45,13 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter)', () => {
     const nonPvpSources = sources.filter(s => !s.isPvp);
 
     assert.strictEqual(pvpSources.length, 45, '实际 PvP 来源数量应正好为 45');
-    assert.strictEqual(nonPvpSources.length, 2016, '非 PvP 来源数量应为 2016');
-    assert.strictEqual(pvpSources.length + nonPvpSources.length, 2061);
+    assert.strictEqual(nonPvpSources.length, 2349, '非 PvP 来源数量应为 2349');
+    assert.strictEqual(pvpSources.length + nonPvpSources.length, 2394);
 
     // 检查 meta 统计
     assert.strictEqual(meta.stats.pvpSources, 45, 'meta.stats.pvpSources 必须为 45');
     assert.strictEqual(meta.pvpSources, 45, 'meta.pvpSources 必须为 45');
-    assert.strictEqual(meta.stats.totalSources, 2061);
+    assert.strictEqual(meta.stats.totalSources, 2394);
   });
 
   it('isPvpSource 纯函数识别逻辑健全，不误判普通星图任务', () => {
@@ -74,7 +74,7 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter)', () => {
   it('前端筛选纯函数 filterSources: 默认列表排除 isPvp，PvP 模式仅包含 isPvp 来源', () => {
     // 默认模式 (pvpOnly: false)
     const defaultList = filterSources(sources, { pvpOnly: false });
-    assert.strictEqual(defaultList.length, 2016, '默认视图应正好显示 2016 处非 PvP 来源');
+    assert.strictEqual(defaultList.length, 2349, '默认视图应正好显示 2349 处非 PvP 来源');
     assert.ok(defaultList.every(s => s.isPvp === false), '默认列表中不能包含任何 isPvp 来源');
 
     // PvP 模式 (pvpOnly: true)
@@ -106,13 +106,13 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter)', () => {
     const nonPvpFresh = freshSources.filter(s => s.isPvp === false);
 
     assert.strictEqual(pvpFresh.length, 45, '再次构建后 PvP 数量仍严格等于 45');
-    assert.strictEqual(nonPvpFresh.length, 2016, '再次构建后非 PvP 数量仍严格等于 2016');
+    assert.strictEqual(nonPvpFresh.length, 2349, '再次构建后非 PvP 数量仍严格等于 2349');
     assert.strictEqual(freshMeta.stats.pvpSources, 45, '再次构建后 meta.stats.pvpSources 仍为 45');
     assert.strictEqual(freshMeta.pvpSources, 45, '再次构建后 meta.pvpSources 仍为 45');
 
     // 验证 price 覆盖率未受损
     assert.strictEqual(freshMeta.prices.pricedCount, 2441);
-    assert.strictEqual(freshMeta.prices.totalCount, 2453);
-    assert.strictEqual(freshMeta.prices.coverage, '99.5%');
+    assert.strictEqual(freshMeta.prices.totalCount, 2497);
+    assert.strictEqual(freshMeta.prices.coverage, '97.8%');
   });
 });

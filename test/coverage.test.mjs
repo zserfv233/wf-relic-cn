@@ -55,16 +55,16 @@ describe('价格覆盖率与统计口径 (Price Coverage & Meta - Phase 4)', () 
     assert.strictEqual(coverage.categories.arcanes.coverage, '100.0%');
 
     // 4. Mod (mods)
-    assert.strictEqual(coverage.categories.mods.totalCount, 1502, 'mods 应抓数必须为 1502 (751个*2档)');
-    assert.ok(coverage.categories.mods.pricedCount <= 1502, 'mods 有价格数不得超过应抓数');
+    assert.strictEqual(coverage.categories.mods.totalCount, 1546, 'mods 应抓数必须为 1546 (773个*2档)');
+    assert.ok(coverage.categories.mods.pricedCount <= 1546, 'mods 有价格数不得超过应抓数');
     assert.ok(parseFloat(coverage.categories.mods.coverage) <= 100.0, 'mods 覆盖率不得超过 100%');
-    assert.strictEqual(coverage.categories.mods.coverage, '99.2%');
+    assert.strictEqual(coverage.categories.mods.coverage, '96.4%');
 
     // 5. 全量汇总
-    assert.strictEqual(coverage.totalCount, 2453, '总应抓键数必须为 2453 (603 + 8 + 340 + 1502)');
-    assert.ok(coverage.pricedCount <= 2453, '总抓取数不得超过总键数');
+    assert.strictEqual(coverage.totalCount, 2497, '总应抓键数必须为 2497 (603 + 8 + 340 + 1546)');
+    assert.ok(coverage.pricedCount <= 2497, '总抓取数不得超过总键数');
     assert.ok(parseFloat(coverage.coverage) <= 100.0, '全量覆盖率不得超过 100%');
-    assert.strictEqual(coverage.coverage, '99.5%');
+    assert.strictEqual(coverage.coverage, '97.8%');
 
     // 6. prices.updatedAt
     assert.strictEqual(coverage.updatedAt, pricesData.updatedAt, 'meta 中 prices.updatedAt 必须取自 prices.json 的 updatedAt');
@@ -74,15 +74,15 @@ describe('价格覆盖率与统计口径 (Price Coverage & Meta - Phase 4)', () 
     const metaPrices = metaData.prices;
     assert.ok(metaPrices, 'meta.json 中必须包含 prices 字段');
     assert.strictEqual(metaPrices.updatedAt, pricesData.updatedAt);
-    assert.strictEqual(metaPrices.totalCount, 2453);
+    assert.strictEqual(metaPrices.totalCount, 2497);
     assert.strictEqual(metaPrices.pricedCount, 2441);
-    assert.strictEqual(metaPrices.coverage, '99.5%');
+    assert.strictEqual(metaPrices.coverage, '97.8%');
 
     const cats = metaPrices.categories;
     assert.ok(cats, 'meta.json 必须包含 categories 段');
     assert.strictEqual(cats.relics.totalCount, 603);
     assert.strictEqual(cats.arcanes.totalCount, 340);
-    assert.strictEqual(cats.mods.totalCount, 1502);
+    assert.strictEqual(cats.mods.totalCount, 1546);
     assert.strictEqual(cats.rivens.totalCount, 8);
 
     assert.ok(parseFloat(cats.relics.coverage) <= 100.0);

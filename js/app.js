@@ -9,7 +9,8 @@ import {
   calculateAllRefinementValues,
   calculateSourceExpectedValue,
   calculateEnemyExpectedValue,
-  getItemPrice
+  getItemPrice,
+  isUntradeableItem
 } from './lib/calculations.js';
 import { searchIndex } from './lib/search.js';
 import { filterSources } from './lib/sources.js';
@@ -327,7 +328,7 @@ function renderRelicsView() {
     r._expValues = calculateAllRefinementValues(r.rewards, state.prices, { priceType });
   });
 
-  // 4. 排序
+  // 4. 排序 (使用 Raw 未取整值)
   list.sort((a, b) => {
     const valA = a._expValues;
     const valB = b._expValues;
@@ -335,8 +336,8 @@ function renderRelicsView() {
       return a.name.localeCompare(b.name, undefined, { numeric: true });
     }
     const key = state.currentRelicSort.replace('_desc', '');
-    const aNum = valA[key]?.expectedValue ?? -1;
-    const bNum = valB[key]?.expectedValue ?? -1;
+    const aNum = valA[key]?.expectedValueRaw ?? valA[key]?.expectedValue ?? -1;
+    const bNum = valB[key]?.expectedValueRaw ?? valB[key]?.expectedValue ?? -1;
     return bNum - aNum;
   });
 
@@ -383,7 +384,7 @@ function renderRelicsView() {
         </div>
 
         <div class="card-expected-value">
-          <span class="plat-label">期望白金 (光辉 / 完整):</span>
+          <span class="plat-label">单人单次开启期望 (光辉 / 完整):</span>
           <span class="plat-badge">
             ${expRadStr} / ${expIntStr}
           </span>
@@ -639,10 +640,10 @@ function renderSourcesView() {
     }
   });
 
-  // 4. 排序
+  // 4. 排序 (使用 Raw 未取整值)
   list.sort((a, b) => {
-    const expA = a._exp?.expectedValue ?? -1;
-    const expB = b._exp?.expectedValue ?? -1;
+    const expA = a._exp?.expectedValueRaw ?? a._exp?.expectedValue ?? -1;
+    const expB = b._exp?.expectedValueRaw ?? b._exp?.expectedValue ?? -1;
     if (state.currentSourceSort === 'exp_desc') {
       if (expB !== expA) return expB - expA;
       return b.rewards.length - a.rewards.length;
@@ -664,9 +665,27 @@ function renderSourcesView() {
     const badgeStyle = src.isPvp ? '' : 'background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);';
     const expVal = src._exp.expectedValue;
     const expStr = expVal !== null ? `${expVal} ☿` : '—';
-    const subNote = isEnemy 
-      ? `Mod 掉率: ${src.enemyModDropChance}% · 每击杀期望` 
-      : `${src.rotation ? `轮次 ${src.rotation} · ` : ''}单次通关期望`;
+
+    let subNote;
+    if (isEnemy) {
+      subNote = `Mod 掉率: ${src.enemyModDropChance}% · 每击杀期望`;
+    } else if (src.type === 'bounty') {
+      subNote = '单阶段单次发奖期望';
+    } else if (src.rotation) {
+      subNote = `单轮次单次发奖期望（抽一次 ${src.rotation} 轮奖励表）`;
+    } else {
+      subNote = '单次发奖期望';
+    }
+
+    let probBadge = '';
+    if (src.probabilityCheck === 'over' || src.probabilityCheck === 'under') {
+      probBadge = `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.72rem; margin-top: 0.25rem;">概率和 ${src.probabilitySum}%（待核对）</span>`;
+    }
+
+    let incompleteBadge = '';
+    if (src._exp?.incomplete) {
+      incompleteBadge = `<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem; margin-top: 0.25rem;" title="存在缺价或未知掉率物品">「不完整估值」已计价概率合计 ${src._exp.pricedProbability}%</span>`;
+    }
 
     return `
       <div class="relic-card" data-source-id="${src.id}">
@@ -684,12 +703,13 @@ function renderSourcesView() {
           <span class="plat-label">${subNote}:</span>
           <span class="plat-badge">${expStr}</span>
         </div>
+        ${probBadge || incompleteBadge ? `<div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.4rem;">${probBadge}${incompleteBadge}</div>` : ''}
 
         <div class="rewards-preview">
           ${src.rewards.slice(0, 3).map(r => `
             <div class="reward-preview-item">
               <span class="reward-name" title="${escapeHtml(r.itemZh || r.itemName)}">• ${escapeHtml(r.itemZh || r.itemName)}</span>
-              <span style="color: var(--cyan-primary);">${r.chance}%</span>
+              <span style="color: var(--cyan-primary);">${r.chance !== null && r.chance !== undefined ? `${r.chance}%` : '-'}</span>
             </div>
           `).join('')}
         </div>
@@ -760,9 +780,14 @@ export function openRelicModal(relicId) {
 
   const rowsHtml = relic.rewards.map(rew => {
     const slug = rew.marketSlug;
+    const isUntrad = isUntradeableItem(rew);
     const priceData = slug ? state.prices[slug] : null;
-    const sellPrice = priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>';
-    const buyPrice = priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>';
+    const sellPrice = isUntrad 
+      ? '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>'
+      : (priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>');
+    const buyPrice = isUntrad 
+      ? '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>'
+      : (priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>');
 
     return `
       <tr>
@@ -791,9 +816,9 @@ export function openRelicModal(relicId) {
   }).join('');
 
   const formatExp = (num) => num !== null ? `${num} ☿` : '—';
-  const missingIntact = expValues.intact.missingPriceCount;
-  const missingWarning = missingIntact > 0 
-    ? `<div class="dashboard-note warning-text">⚠️ 遗物中有 ${missingIntact} 个奖励物品暂无市场挂单，按 0 白金计入。</div>`
+  const missingIntact = expValues.intact.missingCount;
+  const missingWarning = expValues.intact.incomplete 
+    ? `<div class="dashboard-note warning-text">⚠️ 「不完整估值」遗物中有 ${missingIntact} 个可交易奖励暂无市场挂单，已计价概率合计 ${expValues.intact.pricedProbability}%。</div>`
     : '';
 
   elements.modalBodyContent.innerHTML = `
@@ -820,7 +845,7 @@ export function openRelicModal(relicId) {
 
     <div class="expected-dashboard">
       <div class="dashboard-header">
-        <span class="dashboard-title">四个精炼等级期望白金值 (Σ 掉率 × 价格)</span>
+        <span class="dashboard-title">四个精炼等级单人单次开启期望 (Σ 掉率 × 价格)</span>
         <span style="font-size: 0.85rem; color: var(--text-secondary);">
           当前基准：<strong style="color: var(--cyan-primary);">${priceType === 'sellMin' ? '最低卖价' : '最高收购价'}</strong>
         </span>
@@ -1174,16 +1199,26 @@ export function openSourceModal(sourceId) {
     : calculateSourceExpectedValue(src.rewards, state.prices, { priceType });
 
   const rows = src.rewards.map(r => {
-    const price = getItemPrice(r.slug, 0, state.prices, priceType);
+    const isUntrad = isUntradeableItem(r);
+    const price = isUntrad ? 0 : getItemPrice(r.slug, 0, state.prices, priceType);
     const q = r.quantity || 1;
     let contrib = '—';
-    if (price !== null && typeof price === 'number') {
-      if (isEnemy) {
-        contrib = `${(((src.enemyModDropChance / 100) * (r.chance / 100) * q * price)).toFixed(4)} ☿`;
-      } else {
-        contrib = `${(((r.chance / 100) * q * price)).toFixed(4)} ☿`;
+    const isUnknownChance = r.chance === null || r.chance === undefined || !Number.isFinite(Number(r.chance));
+    if (!isUnknownChance) {
+      if (isUntrad) {
+        contrib = '0.0000 ☿';
+      } else if (price !== null && typeof price === 'number') {
+        if (isEnemy) {
+          contrib = `${(((src.enemyModDropChance / 100) * (r.chance / 100) * q * price)).toFixed(4)} ☿`;
+        } else {
+          contrib = `${(((r.chance / 100) * q * price)).toFixed(4)} ☿`;
+        }
       }
     }
+
+    const priceDisplay = isUntrad 
+      ? '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>' 
+      : formatPlat(price);
 
     return `
       <tr>
@@ -1192,8 +1227,8 @@ export function openSourceModal(sourceId) {
           <div style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(r.itemName)}</div>
         </td>
         <td><span class="rarity-pill rarity-${r.rarity}">${r.rarity}</span></td>
-        <td>${r.chance}%</td>
-        <td style="color: var(--plat-color);">${formatPlat(price)}</td>
+        <td>${!isUnknownChance ? `${r.chance}%` : '- (未知)'}</td>
+        <td style="color: var(--plat-color);">${priceDisplay}</td>
         <td style="font-weight: 600; color: var(--gold-light);">${contrib}</td>
       </tr>
     `;
@@ -1209,14 +1244,45 @@ export function openSourceModal(sourceId) {
     </div>
   `;
 
+  let modalTitle;
+  if (isEnemy) {
+    modalTitle = '每击杀期望';
+  } else if (src.type === 'bounty') {
+    modalTitle = '单阶段单次发奖期望';
+  } else if (src.rotation) {
+    modalTitle = `单轮次单次发奖期望（抽一次 ${src.rotation} 轮奖励表）`;
+  } else {
+    modalTitle = '单次发奖期望';
+  }
+
+  const probNotice = (src.probabilityCheck === 'over' || src.probabilityCheck === 'under')
+    ? `<div style="margin-top: 0.35rem; color: #f87171; font-size: 0.8rem;">⚠️ 概率和 ${src.probabilitySum}%（待核对）</div>`
+    : '';
+
+  const incompleteNotice = expData.incomplete
+    ? `<div style="margin-top: 0.35rem; color: #fbbf24; font-size: 0.8rem;">⚠️ 「不完整估值」已计价概率合计 ${expData.pricedProbability}%${expData.unknownChanceCount > 0 ? ` · 存在 ${expData.unknownChanceCount} 项未知掉率` : ''}${expData.missingCount > 0 ? ` · 存在 ${expData.missingCount} 项缺价物品` : ''}</div>`
+    : '';
+
+  const rotationPatternNotice = src.rotationPattern
+    ? `<div style="margin-top: 0.25rem; color: var(--gold-light);">💡 轮次规律：${escapeHtml(src.rotationPattern)}</div>`
+    : '';
+
+  const dedupeNotice = src.dedupeNote
+    ? `<div style="margin-top: 0.25rem; color: var(--cyan-primary);">ℹ️ 去重说明：${escapeHtml(src.dedupeNote)}</div>`
+    : '';
+
   elements.modalBodyContent.innerHTML = `
     <div class="expected-dashboard" style="margin-top: 0;">
       <div class="dashboard-header">
-        <span class="dashboard-title">${isEnemy ? '每击杀期望白金' : '每次通关期望白金'}</span>
+        <span class="dashboard-title">${modalTitle}</span>
         <span class="expected-value-num">${expData.expectedValue !== null ? `${expData.expectedValue} ☿` : '—'}</span>
       </div>
       <div style="font-size: 0.8rem; color: var(--text-muted);">
         公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
+        ${rotationPatternNotice}
+        ${dedupeNotice}
+        ${probNotice}
+        ${incompleteNotice}
       </div>
     </div>
 
