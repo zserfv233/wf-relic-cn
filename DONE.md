@@ -47,3 +47,21 @@
 
 ## 通道复核备注
 Antigravity 自报结果均由通道复跑核对；其自报“Forma 在 market 不可交易”“relic-signal 仅参考思路”等说法未独立验证，已在上面标注。自检记录见 PROGRESS.md。
+
+---
+
+## 本轮：PvP（武形秘仪 / Conclave）筛选 — 2026-11-26 08:18 AEDT
+
+- 分支：`feat/pvp-filter`（从最新 main `edb50a3` 切出，未推送、未改 `.github/workflows`、未改 `data/prices.json` 价格内容）
+- 功能 commit：`859d3e2` feat: mark Conclave sources as PvP and filter them off the default sources view
+  作者 zserfv233 <zserfv233@users.noreply.github.com>
+- 测试：`npm test` **45/45 通过**（通道复跑，2026-11-26 08:18 AEDT）。新增 test/pvp.test.mjs：Conclave 全标 isPvp、其余为 false、数量 45、默认筛选排除 PvP、PvP 模式仅含 PvP、再次 build-data 后标记仍在。
+- 标记数量与抽查（通道独立统计）：
+  - data/sources.json 共 2061 条，全部有 isPvp 字段；isPvp=true **45** 条，false 2016 条。
+  - 识别规则落地在 scripts/build-data.mjs + js/lib/sources.js（isPvpSource），不是只改生成 json。
+  - 漏标 0 / 误标 0（对名称/节点/gameMode 含 Conclave 或武形秘仪 的交叉检查）。
+  - 与 DE 掉落表 missionRewards 原始对照：15 个 gameMode=Conclave 的节点（土星 14 + 海王星 1）× 轮次 A/B/C = 45，一致。
+  - 页面默认「共 2016 处」；点 PvP 后「共 45 处」，卡片有「PvP」徽章。
+- 截图：/workspace/wf-relic-cn-shots/10_sources_default_no_pvp.png（含「当前页面不包含 PvP 来源，可点击「PvP」按钮查看。」）；/workspace/wf-relic-cn-shots/11_sources_pvp_only.png（仅 Conclave 来源 +「当前仅显示 PvP（武形秘仪 / Conclave）来源」）。仓库 docs-shots/ 有拷贝。截图时无页面 JS 报错。
+- 价格覆盖率未被破坏：99.5%（2441/2453），updatedAt 仍为 2026-11-25T13:56:27.424Z。
+- 已知问题：无新增功能性问题。npm test 里的 build-data 回归会改 meta.json 的 builtAt，通道已把该无意义脏改动恢复，未纳入提交。
