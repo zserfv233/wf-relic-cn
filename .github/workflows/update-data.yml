@@ -1,0 +1,56 @@
+name: Daily Warframe Data Update
+
+on:
+  schedule:
+    # 每日 UTC 02:00 自动执行一次
+    - cron: '0 2 * * *'
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download raw data and build data
+        # 从官方与开源源重新拉取原始数据并生成 data/ 下产物
+        run: node scripts/build-data.mjs --download
+
+      - name: Fetch market prices
+        # 在 GitHub Actions 环境中拉取公开 warframe.market API v2 价格（需遵循 <=3 req/s 限速）
+        run: node scripts/fetch-prices.mjs --max-age-hours 12
+
+      - name: Run unit test verification
+        # 确保生成的新数据能完全通过所有单元测试
+        run: npm test
+
+      # 注意：为了防止未经审查的数据变动直接污染主分支，
+      # 本工作流仅将更新后的 data/ 产物打包上传为 GitHub Actions Artifact。
+      # 若未来需要自动将产物 commit & push 到仓库主分支或 gh-pages 分支，
+      # 请人工决策后取消下方代码注释，并配置具备 write 权限的 GITHUB_TOKEN。
+      #
+      # - name: Commit and push changes
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+      #     git add data/
+      #     git commit -m "chore(data): auto update relic & price data [skip ci]" || exit 0
+      #     git push origin main
+
+      - name: Upload updated data artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wf-relic-data-updated
+          path: data/
+          retention-days: 14

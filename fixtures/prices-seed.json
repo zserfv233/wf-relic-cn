@@ -1,0 +1,4226 @@
+{
+  "updatedAt": "2026-11-25T13:06:23.959Z",
+  "items": {
+    "saryn_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vectis_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "braton_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akstiletto_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vasto_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akbronco_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cernos_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "lex_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "valkyr_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akjagara_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akbolto_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tiberon_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "rubico_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "orthos_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "lex_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "astilla_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ivara_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "baza_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "corinth_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "burston_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "atlas_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akstiletto_prime_barrel": {
+      "sellMin": 15,
+      "buyMax": 10,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fang_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tekko_prime_gauntlet": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vasto_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akarius_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "shade_prime_systems": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "masseter_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hildryn_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "bronco_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fulmin_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "wisp_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cedo_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "sevagoth_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nautilus_prime_carapace": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "daikyu_prime_lower_limb": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "masseter_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "bronco_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akbronco_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "afuris_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "phantasma_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "orthos_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tatsu_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cobra_and_crane_prime_hilt": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "paris_prime_grip": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "xaku_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "burston_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "yareli_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "acceltra_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akarius_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "grendel_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "zylok_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "paris_prime_lower_limb": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "alternox_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gyre_prime_chassis_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dual_zoren_prime_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 11,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "steflos_prime_receiver": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fang_prime_blade": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 10,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "boar_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "rhino_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "boltor_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mag_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ankyros_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ballistica_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "braton_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tigris_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cernos_prime_string": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "limbo_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "boltor_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "scindo_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nyx_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "rubico_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "banshee_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "lex_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "oberon_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "orthos_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "redeemer_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fang_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "baza_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "aksomati_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tipedo_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ivara_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "atlas_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "burston_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dethcube_prime_systems": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "aksomati_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "baza_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "silva_and_aegis_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "baruuk_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "strun_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "harrow_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "astilla_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "phantasma_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "braton_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "harrow_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "knell_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "velox_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "aksomati_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "carrier_prime_cerebrum": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "kavasa_prime_band": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nova_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nova_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cernos_prime_lower_limb": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nami_skyla_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "venka_prime_blades": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "paris_prime_upper_limb": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "chroma_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "helios_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "silva_and_aegis_prime_hilt": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "sybaris_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "braton_prime_stock": {
+      "sellMin": 3,
+      "buyMax": 1,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "venka_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "valkyr_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "spira_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "corinth_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mesa_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "equinox_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nyx_prime_systems_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hikou_prime_pouch": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "zephyr_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "scourge_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "pandero_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "octavia_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cobra_and_crane_prime_guard": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "khora_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nagantaka_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "garuda_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fulmin_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "acceltra_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gunsen_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "shade_prime_cerebrum": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "okina_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "caliban_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gauss_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cedo_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "perigale_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "lavos_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "kestrel_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "yareli_prime_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "corufell_prime_stock": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "daikyu_prime_string": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 10,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dethcube_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ninkondi_prime_chain": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "atlas_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dethcube_prime_cerebrum": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "wukong_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "corinth_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ivara_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "stradavar_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "zakti_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "destreza_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "pyrana_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mesa_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "redeemer_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dual_keres_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nagantaka_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "corvas_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "daikyu_prime_grip": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "protea_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "epitaph_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ember_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "rhino_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "burston_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "boltor_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "epitaph_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "venato_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dual_zoren_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "daikyu_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fragor_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "odonata_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "paris_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "odonata_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hikou_prime_stars": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vauban_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fulmin_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "larkspur_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "glaive_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ember_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "latron_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "frost_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "reaper_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "loki_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "frost_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "bo_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "wyrm_prime_cerebrum": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "latron_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "guandao_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "panthera_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "zhuge_prime_string": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "octavia_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "titania_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "inaros_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "garuda_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "strun_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "volnus_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "knell_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tatsu_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "afuris_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nezha_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "grendel_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gauss_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dual_keres_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gunsen_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hildryn_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cobra_and_crane_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "fulmin_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gara_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "titania_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "larkspur_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gyre_prime_neuroptics_blueprint": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vadarya_prime_receiver": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 14,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "lavos_prime_chassis_blueprint": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 6,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "helios_prime_cerebrum": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "saryn_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "oberon_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "harrow_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "titania_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "paris_prime_string": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "inaros_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nezha_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hystrix_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "khora_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "magnus_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "afuris_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "galatine_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nekros_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ivara_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "karyst_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "pandero_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "kavasa_prime_buckle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tigris_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "trinity_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "odonata_prime_harness_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "kogake_prime_gauntlet": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "kronen_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "wukong_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "soma_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dual_kamas_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "banshee_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mirage_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "helios_prime_carapace": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "karyst_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gara_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "octavia_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "baza_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "guandao_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "limbo_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "trinity_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "khora_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "guandao_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "astilla_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nidus_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "corvas_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "knell_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nekros_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "kompressa_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "cedo_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "caliban_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "trumna_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "zhuge_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "equinox_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "destreza_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "kogake_prime_boot": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tekko_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "pyrana_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "limbo_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "trinity_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "reaper_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vasto_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mag_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "boar_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "lavos_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "zylok_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "larkspur_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vadarya_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "sevagoth_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "alternox_prime_barrel": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "perigale_prime_blueprint": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mag_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "soma_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dakra_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "boar_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "soma_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dakra_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mesa_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "stradavar_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "destreza_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akjagara_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "dethcube_prime_carapace": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akjagara_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "inaros_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mirage_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "euphona_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akbolto_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "reaper_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "masseter_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nova_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nekros_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nekros_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "carrier_prime_systems": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "sybaris_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ninkondi_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "atlas_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gram_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "stradavar_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nezha_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "zhuge_prime_grip": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nidus_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "pangolin_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nami_skyla_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nezha_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tipedo_prime_ornament": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nagantaka_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hystrix_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nautilus_prime_cerebrum": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "baruuk_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "wisp_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "trumna_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gauss_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nautilus_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "acceltra_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "xaku_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "quassus_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "voruna_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "vadarya_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "oberon_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ballistica_prime_lower_limb": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "odonata_prime_wings_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "volt_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "octavia_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tenora_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "okina_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "xaku_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akarius_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "pyrana_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ballistica_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gram_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "panthera_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "akjagara_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "equinox_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "pangolin_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "phantasma_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "volnus_prime_head": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gara_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "phantasma_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "protea_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "bronco_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "quassus_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "nautilus_prime_systems": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "epitaph_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "gyre_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "afentis_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "redeemer_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "mesa_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hydroid_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "revenant_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "tenora_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "scourge_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "garuda_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "spira_prime_pouch": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "hikou_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "soma_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "ash_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.959Z"
+    },
+    "saryn_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kavasa_prime_kubrow_collar_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "spira_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "carrier_prime_carapace": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sybaris_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akbolto_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "galatine_prime_blade": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "stradavar_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "rubico_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "silva_and_aegis_prime_guard": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tigris_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "strun_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "gara_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "scourge_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "revenant_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "shade_prime_carapace": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sevagoth_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "saryn_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "styanax_prime_neuroptics_blueprint": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sarofang_prime_blade": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 6,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "citrine_prime_systems_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 12,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tigris_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ballistica_prime_upper_limb": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tiberon_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "titania_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zakti_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tenora_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kronen_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tatsu_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "dual_keres_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "astilla_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "velox_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "larkspur_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "trumna_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "fragor_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "volt_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vauban_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "valkyr_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "helios_prime_systems": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "cernos_prime_upper_limb": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vauban_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "valkyr_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "cernos_prime_grip": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nikana_prime_blueprint": {
+      "sellMin": 85,
+      "buyMax": 70,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vauban_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akstiletto_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "fragor_prime_head": {
+      "sellMin": 6,
+      "buyMax": 3,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "carrier_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vectis_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vectis_prime_stock": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ash_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vectis_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "voruna_prime_systems_blueprint": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 6,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "caliban_prime_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kompressa_prime_blueprint": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "wukong_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "mirage_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "wisp_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "corvas_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "protea_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "xaku_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "yareli_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zephyr_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nami_skyla_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zakti_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zylok_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "okina_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akbolto_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zephyr_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nidus_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "afuris_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "grendel_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akarius_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sevagoth_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "acceltra_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "lavos_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "quassus_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "alternox_prime_stock": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "afentis_prime_blade": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 13,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "voruna_prime_neuroptics_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sarofang_prime_handle": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 5,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "mag_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "banshee_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "hydroid_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "chroma_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "karyst_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "shade_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "glaive_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sicarus_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ember_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "scindo_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "chroma_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "corinth_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "chroma_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nagantaka_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "corvas_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "revenant_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "citrine_prime_blueprint": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "daikyu_prime_upper_limb": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "dual_kamas_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nova_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "dual_zoren_prime_blade": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "steflos_prime_stock": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 6,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "wyrm_prime_systems": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "bo_prime_ornament": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "latron_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "equinox_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "euphona_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "banshee_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sarofang_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "gyre_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "dual_kamas_prime_handle": {
+      "sellMin": 14,
+      "buyMax": 10,
+      "sellCount": 8,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "frost_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sicarus_prime_barrel": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "glaive_prime_disc": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ember_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "loki_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "boar_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "galatine_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "silva_and_aegis_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ballistica_prime_string": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "harrow_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "strun_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 6,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "venato_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "hildryn_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "baruuk_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "hildryn_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "gauss_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "cobra_and_crane_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "revenant_prime_chassis_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "inaros_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "wukong_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ninkondi_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kestrel_prime_grip": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "athodai_prime_blueprint": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 6,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ankyros_prime_gauntlet": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kogake_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "magnus_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 10,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nyx_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ash_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nikana_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kronen_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nikana_prime_hilt": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "pangolin_prime_handle": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "mirage_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tiberon_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "volt_prime_chassis_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "loki_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "panthera_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "pandero_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "gunsen_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "protea_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kestrel_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "rubico_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "scourge_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sicarus_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tiberon_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "limbo_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tenora_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tekko_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akstiletto_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "venka_prime_gauntlet": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "volnus_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "velox_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vadarya_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "venato_prime_blade": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 13,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "corufell_prime_blueprint": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 11,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zhuge_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 8,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "wisp_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "cedo_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "styanax_prime_chassis_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 14,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zephyr_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ash_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "athodai_prime_barrel": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "perigale_prime_stock": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "trinity_prime_systems_blueprint": {
+      "sellMin": 12,
+      "buyMax": 8,
+      "sellCount": 5,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "dakra_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "rhino_prime_systems_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 13,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "euphona_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "latron_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "baruuk_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "magnus_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "hystrix_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 12,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "caliban_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "afentis_prime_barrel": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 5,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "alternox_prime_receiver": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 12,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "corufell_prime_receiver": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 14,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "styanax_prime_systems_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "citrine_prime_chassis_blueprint": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 9,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "frost_prime_neuroptics_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "wyrm_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "bo_prime_handle": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "gram_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 14,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "hydroid_prime_neuroptics_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "sybaris_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ankyros_prime_blade": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 9,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "hydroid_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "panthera_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 10,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "khora_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "garuda_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 6,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "grendel_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 13,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nyx_prime_chassis_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "oberon_prime_systems_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 7,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "nidus_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "aklex_prime_blueprint": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "perigale_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 5,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "rhino_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "trumna_prime_receiver": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 6,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "volt_prime_neuroptics_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 11,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "styanax_prime_blueprint": {
+      "sellMin": 2,
+      "buyMax": 1,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "yareli_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "steflos_prime_blueprint": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 13,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "zhuge_prime_barrel": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "aklex_prime_link": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akvasto_prime_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 8,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akvasto_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "aksomati_prime_link": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "kompressa_prime_receiver": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "afentis_prime_blueprint": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 10,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "citrine_prime_neuroptics_blueprint": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 7,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "corufell_prime_handle": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 11,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "loki_prime_systems_blueprint": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "wyrm_prime_carapace": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 8,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akmagnus_prime_link": {
+      "sellMin": 18,
+      "buyMax": 12,
+      "sellCount": 11,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "akmagnus_prime_blueprint": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "athodai_prime_receiver": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 9,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "boltor_prime_stock": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 14,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "scindo_prime_blade": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 7,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "steflos_prime_barrel": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 5,
+      "buyCount": 7,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "tipedo_prime_handle": {
+      "sellMin": 75,
+      "buyMax": 60,
+      "sellCount": 12,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "voruna_prime_blueprint": {
+      "sellMin": 45,
+      "buyMax": 35,
+      "sellCount": 10,
+      "buyCount": 4,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "lohk": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "xata": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 8,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "jahu": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 12,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "vome": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 7,
+      "buyCount": 9,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ris": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 14,
+      "buyCount": 6,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "fass": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 9,
+      "buyCount": 8,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "netra": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 6,
+      "buyCount": 5,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "khra": {
+      "sellMin": 10,
+      "buyMax": 7,
+      "sellCount": 9,
+      "buyCount": 3,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    },
+    "ayatan_amber_star": {
+      "sellMin": 4,
+      "buyMax": 2,
+      "sellCount": 11,
+      "buyCount": 2,
+      "fetchedAt": "2026-11-25T13:06:23.960Z"
+    }
+  }
+}

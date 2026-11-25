@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "builtAt": "2026-11-25T13:14:03.365Z",
+  "sources": {
+    "deDropData": "https://drops.warframestat.us/data/all.json",
+    "deDropTableOfficial": "https://www.warframe.com/droptables",
+    "wfcdItemsRelics": "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Relics.json",
+    "wfcdItemsZh": "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/i18n/zh.json",
+    "wfmApi": "https://api.warframe.market/v2"
+  },
+  "stats": {
+    "totalRelics": 800,
+    "obtainableRelics": 36,
+    "vaultedRelics": 764,
+    "conflictRelics": 2,
+    "totalRewardItems": 608
+  },
+  "prices": {
+    "updatedAt": "2026-11-25T13:06:23.959Z",
+    "pricedCount": 603,
+    "totalCount": 603,
+    "coverage": "100.0%"
+  }
+}

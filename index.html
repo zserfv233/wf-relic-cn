@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warframe 遗物与掉落查询 | 纯静态全中文</title>
+  <meta name="description" content="Warframe 遗物与掉落查询工具，提供全中文界面、即时拼音搜索、四档精炼期望白金计算、官方掉落表实时入库状态核对。">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☿</text></svg>">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-top">
+        <div class="site-title">
+          <span class="logo-icon">☿</span>
+          <span>Warframe 遗物与掉落查询</span>
+        </div>
+        <div class="stats-bar" id="stats-bar">
+          <div class="stat-pill">遗物总数: <strong id="stat-total-relics">-</strong></div>
+          <div class="stat-pill">可获取: <strong id="stat-obtainable">-</strong></div>
+          <div class="stat-pill">已入库: <strong id="stat-vaulted">-</strong></div>
+          <div class="stat-pill">价格覆盖: <strong id="stat-price-coverage">-</strong></div>
+        </div>
+      </div>
+
+      <!-- Top Search Box -->
+      <div class="search-wrapper">
+        <div class="search-input-container">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            id="search-input" 
+            class="search-input" 
+            placeholder="搜索遗物或物品（支持中文、英文、拼音全拼如 shiren、首字母如 sr、英文缩写如 aps / tpsb）..." 
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button id="search-clear-btn" class="search-clear-btn" title="清空搜索">✕</button>
+        </div>
+        <div id="search-dropdown" class="search-dropdown"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Toolbar Controls -->
+    <div class="toolbar">
+      <div class="toolbar-row">
+        <!-- Mode Tabs -->
+        <div class="tab-group" id="mode-tabs">
+          <button class="tab-btn active" data-mode="obtainable">可获取（现存掉落）</button>
+          <button class="tab-btn" data-mode="all">全部遗物（含已入库）</button>
+        </div>
+
+        <!-- Price Mode Switcher -->
+        <div class="options-group">
+          <label class="toggle-switch" title="切换期望白金计算所用的价格来源">
+            <span id="price-mode-label">计算基准: 最低卖价</span>
+            <span class="switch-label">
+              <input type="checkbox" id="price-mode-toggle" class="switch-input">
+              <span class="switch-slider"></span>
+            </span>
+          </label>
+
+          <!-- Sort Select -->
+          <select id="sort-select" class="select-control" title="排序规则">
+            <option value="radiant_desc">期望白金: 光辉 (高到低)</option>
+            <option value="intact_desc">期望白金: 完整 (高到低)</option>
+            <option value="exceptional_desc">期望白金: 优良 (高到低)</option>
+            <option value="flawless_desc">期望白金: 无暇 (高到低)</option>
+            <option value="name_asc">名称: A-Z 顺序</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tier Filters -->
+      <div class="toolbar-row">
+        <div class="tier-group" id="tier-filters">
+          <button class="tier-btn active" data-tier="all">全部纪元</button>
+          <button class="tier-btn" data-tier="Lith">古纪 Lith</button>
+          <button class="tier-btn" data-tier="Meso">前纪 Meso</button>
+          <button class="tier-btn" data-tier="Neo">中纪 Neo</button>
+          <button class="tier-btn" data-tier="Axi">后纪 Axi</button>
+          <button class="tier-btn" data-tier="Requiem">安魂 Requiem</button>
+          <button class="tier-btn" data-tier="Vanguard">先锋 Vanguard</button>
+        </div>
+        <div id="filter-result-count" class="stat-pill">正在加载数据...</div>
+      </div>
+    </div>
+
+    <!-- Relic Cards Grid -->
+    <div id="relic-grid" class="relic-grid">
+      <div class="empty-state">
+        <h3>正在加载数据...</h3>
+        <p>正在读取遗物掉落表与市场价格，请稍候。</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Detail Modal -->
+  <div id="detail-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div id="modal-header-content"></div>
+        <button id="modal-close-btn" class="modal-close-btn" aria-label="关闭窗口">×</button>
+      </div>
+      <div id="modal-body-content" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Footer / About Section -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>数据源说明与链接</h4>
+          <ul class="footer-links">
+            <li>• <a href="https://www.warframe.com/droptables" target="_blank" rel="noopener">DE 官方掉落表 (Official Drop Tables)</a></li>
+            <li>• <a href="https://drops.warframestat.us/data/all.json" target="_blank" rel="noopener">WFCD warframe-drop-data 解析库</a></li>
+            <li>• <a href="https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Relics.json" target="_blank" rel="noopener">WFCD warframe-items Relics.json</a></li>
+            <li>• <a href="https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/i18n/zh.json" target="_blank" rel="noopener">WFCD warframe-items zh.json 国际化库</a></li>
+            <li>• <a href="https://warframe.market/" target="_blank" rel="noopener">Warframe.Market API v2 实时交易价格</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>数据与更新信息</h4>
+          <p>• 数据构建时间: <span id="footer-data-time">-</span></p>
+          <p>• 价格更新时间: <span id="footer-price-time">-</span></p>
+          <p>• 物品价格覆盖率: <span id="footer-price-coverage">-</span></p>
+          <p>• 遗物入库主判定: 根据 DE 官方最新任务/赏金掉落表直接检索；与 WFCD 标记冲突时已详细注明。</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>开源许可与声明</h4>
+          <p>• 本站为玩家社区非商业独立工具，与 Digital Extremes Ltd. 无任何官方附属关系。</p>
+          <p>• 拼音预计算索引使用 <a href="https://github.com/zh-lx/pinyin-pro" target="_blank" rel="noopener">pinyin-pro</a> (MIT License)。</p>
+          <p>• 架构设计与掉率算法参考了开源项目 <a href="https://github.com/Mersal108/relic-signal" target="_blank" rel="noopener">relic-signal</a> (MIT License)，详见 <a href="./THIRD_PARTY_NOTICES.md" target="_blank">THIRD_PARTY_NOTICES.md</a>。</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 wf-relic-cn 纯静态 Warframe 遗物与掉落查询平台 · 页面全中文 · 原生 ES Modules 驱动</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

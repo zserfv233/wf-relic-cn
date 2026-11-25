@@ -1,0 +1,54 @@
+{
+  "description": "乱序订单测试 Fixture：验证 parseOrdersTop 正确提取最低卖价和最高买价，并优先在线玩家",
+  "data": {
+    "sell": [
+      {
+        "platinum": 45,
+        "quantity": 1,
+        "user": { "status": "online", "ingameName": "Player_A" }
+      },
+      {
+        "platinum": 18,
+        "quantity": 2,
+        "user": { "status": "ingame", "ingameName": "Player_B" }
+      },
+      {
+        "platinum": 12,
+        "quantity": 1,
+        "user": { "status": "offline", "ingameName": "Player_Offline" }
+      },
+      {
+        "platinum": 25,
+        "quantity": 1,
+        "user": { "status": "online", "ingameName": "Player_C" }
+      },
+      {
+        "platinum": 20,
+        "quantity": 3,
+        "user": { "status": "ingame", "ingameName": "Player_D" }
+      }
+    ],
+    "buy": [
+      {
+        "platinum": 5,
+        "quantity": 1,
+        "user": { "status": "online", "ingameName": "Buyer_1" }
+      },
+      {
+        "platinum": 15,
+        "quantity": 1,
+        "user": { "status": "ingame", "ingameName": "Buyer_2" }
+      },
+      {
+        "platinum": 20,
+        "quantity": 1,
+        "user": { "status": "offline", "ingameName": "Buyer_Offline" }
+      },
+      {
+        "platinum": 12,
+        "quantity": 2,
+        "user": { "status": "online", "ingameName": "Buyer_3" }
+      }
+    ]
+  }
+}

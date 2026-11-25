@@ -1,0 +1,15 @@
+{
+  "name": "wf-relic-cn",
+  "version": "1.0.0",
+  "description": "Warframe 遗物与掉落查询（纯静态全中文 Web 应用）",
+  "type": "module",
+  "scripts": {
+    "build:data": "node scripts/build-data.mjs --raw /workspace/wf-relic-cn-raw",
+    "fetch:prices": "node scripts/fetch-prices.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "pinyin-pro": "^3.29.5"
+  },
+  "license": "MIT"
+}
