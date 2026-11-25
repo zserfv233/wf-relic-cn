@@ -1,6 +1,7 @@
 {
-  "version": "1.0.0",
-  "builtAt": "2026-11-25T13:14:03.365Z",
+  "version": "2.0.0",
+  "phase": 2,
+  "builtAt": "2026-11-25T13:39:52.024Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -10,15 +11,43 @@
   },
   "stats": {
     "totalRelics": 800,
-    "obtainableRelics": 36,
-    "vaultedRelics": 764,
+    "obtainableRelics": 40,
+    "vaultedRelics": 760,
+    "unlistedRelics": 4,
     "conflictRelics": 2,
-    "totalRewardItems": 608
+    "totalRewardItems": 608,
+    "totalArcanes": 170,
+    "totalRivens": 8,
+    "totalMods": 751,
+    "totalSources": 2061,
+    "unmatchedCount": 657
   },
   "prices": {
-    "updatedAt": "2026-11-25T13:06:23.959Z",
-    "pricedCount": 603,
-    "totalCount": 603,
-    "coverage": "100.0%"
+    "updatedAt": null,
+    "pricedCount": 0,
+    "totalCount": 1532,
+    "coverage": "0.0%",
+    "categories": {
+      "relics": {
+        "pricedCount": 0,
+        "totalCount": 603,
+        "coverage": "0.0%"
+      },
+      "rivens": {
+        "pricedCount": 0,
+        "totalCount": 8,
+        "coverage": "0.0%"
+      },
+      "arcanes": {
+        "pricedCount": 0,
+        "totalCount": 170,
+        "coverage": "0.0%"
+      },
+      "mods": {
+        "pricedCount": 0,
+        "totalCount": 751,
+        "coverage": "0.0%"
+      }
+    }
   }
 }

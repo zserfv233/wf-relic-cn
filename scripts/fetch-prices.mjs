@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * scripts/fetch-prices.mjs
- * 从 warframe.market 公开 API v2 获取遗物奖励物品当前价格
- * Node 18+ 原生 ESM fetch，零依赖
+ * 从 warframe.market 公开 API v2 抓取遗物奖励、未开紫卡、赋能与 Mod 价格
+ * Node 18+ 原生 ESM fetch，零依赖，支持独立机器运行
  */
 
 import fs from 'node:fs';
@@ -22,181 +22,315 @@ const USER_AGENT = 'wf-relic-cn (personal, non-commercial)';
 /**
  * 解析命令行参数
  */
-function parseArgs() {
-  const args = process.argv.slice(2);
+export function parseArgs(rawArgs = process.argv.slice(2)) {
   let limit = Infinity;
   let maxAgeHours = 24;
-  let onlyRelics = true;
+  let onlyCategories = ['relics', 'rivens', 'arcanes', 'mods'];
   let fixturePath = null;
+  let outPath = null;
   let dryRun = false;
 
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--limit' && args[i + 1]) {
-      limit = parseInt(args[i + 1], 10);
+  for (let i = 0; i < rawArgs.length; i++) {
+    if (rawArgs[i] === '--limit' && rawArgs[i + 1]) {
+      limit = parseInt(rawArgs[i + 1], 10);
       i++;
-    } else if (args[i] === '--max-age-hours' && args[i + 1]) {
-      maxAgeHours = parseFloat(args[i + 1]);
+    } else if (rawArgs[i] === '--max-age-hours' && rawArgs[i + 1]) {
+      maxAgeHours = parseFloat(rawArgs[i + 1]);
       i++;
-    } else if (args[i] === '--fixture' && args[i + 1]) {
-      fixturePath = path.resolve(args[i + 1]);
+    } else if (rawArgs[i] === '--only' && rawArgs[i + 1]) {
+      onlyCategories = rawArgs[i + 1].split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
       i++;
-    } else if (args[i] === '--dry-run') {
+    } else if (rawArgs[i] === '--fixture' && rawArgs[i + 1]) {
+      fixturePath = path.resolve(rawArgs[i + 1]);
+      i++;
+    } else if (rawArgs[i] === '--out' && rawArgs[i + 1]) {
+      outPath = path.resolve(rawArgs[i + 1]);
+      i++;
+    } else if (rawArgs[i] === '--dry-run') {
       dryRun = true;
     }
   }
 
-  return { limit, maxAgeHours, onlyRelics, fixturePath, dryRun };
-}
-
-async function main() {
-  const { limit, maxAgeHours, fixturePath, dryRun } = parseArgs();
-
-  const relicsDataPath = path.join(DATA_DIR, 'relics.json');
-  const pricesPath = path.join(DATA_DIR, 'prices.json');
-  const metaPath = path.join(DATA_DIR, 'meta.json');
-
-  if (!fs.existsSync(relicsDataPath)) {
-    throw new Error('未找到 data/relics.json，请先运行 node scripts/build-data.mjs 生成基础数据！');
-  }
-
-  const { relics, items } = JSON.parse(fs.readFileSync(relicsDataPath, 'utf8'));
-
-  // 收集所有遗物奖励的唯一 market slug
-  const slugsToFetch = new Set();
-  for (const r of relics) {
-    for (const rew of r.rewards || []) {
-      if (rew.marketSlug) {
-        slugsToFetch.add(rew.marketSlug);
-      }
+  // A1: fixture 模式默认绝不能改写 data/prices.json！
+  // 仅当用户显式传入 --out <path> 时才允许写入目标文件
+  if (!outPath) {
+    if (fixturePath) {
+      outPath = null; // fixture 模式下不写入正式 prices.json
+    } else {
+      outPath = path.join(DATA_DIR, 'prices.json');
     }
   }
 
-  console.log(`[prices] 遗物奖励中包含的唯一 market slug 总数: ${slugsToFetch.size}`);
+  return { limit, maxAgeHours, onlyCategories, fixturePath, outPath, dryRun };
+}
+
+/**
+ * 计算单个类别覆盖率
+ */
+function computeCategoryStats(targetKeys, priceItems) {
+  let priced = 0;
+  for (const k of targetKeys) {
+    const item = priceItems[k];
+    if (item && (item.sellMin !== null || item.buyMax !== null)) {
+      priced++;
+    }
+  }
+  const total = targetKeys.length;
+  const coverage = total > 0 ? ((priced / total) * 100).toFixed(1) + '%' : '0.0%';
+  return { pricedCount: priced, totalCount: total, coverage };
+}
+
+async function main() {
+  const { limit, maxAgeHours, onlyCategories, fixturePath, outPath, dryRun } = parseArgs();
+
+  const pricesDefaultPath = path.join(DATA_DIR, 'prices.json');
+  const metaPath = path.join(DATA_DIR, 'meta.json');
 
   // 读取现有 prices.json 缓存
   let priceCache = { updatedAt: null, items: {} };
-  if (fs.existsSync(pricesPath)) {
+  const readPath = outPath || pricesDefaultPath;
+  if (fs.existsSync(readPath)) {
     try {
-      priceCache = JSON.parse(fs.readFileSync(pricesPath, 'utf8'));
+      priceCache = JSON.parse(fs.readFileSync(readPath, 'utf8'));
       if (!priceCache.items) priceCache.items = {};
     } catch {}
   }
 
-  const now = Date.now();
-  const maxAgeMs = maxAgeHours * 60 * 60 * 1000;
-
-  // 筛选需要更新的 slug
-  const queue = [];
-  for (const slug of slugsToFetch) {
-    const cached = priceCache.items[slug];
-    if (cached && cached.fetchedAt) {
-      const fetchedTime = new Date(cached.fetchedAt).getTime();
-      if (now - fetchedTime < maxAgeMs) {
-        continue; // 24小时内抓取过，跳过
+  // 1. 抓取优先级类别定义：遗物奖励 → 未开紫卡 → 赋能 → 掉落 Mod
+  const categoriesDef = [
+    {
+      id: 'relics',
+      name: '遗物奖励',
+      dataFile: path.join(DATA_DIR, 'relics.json'),
+      loadTasks: (data) => {
+        const slugs = new Set();
+        for (const r of data.relics || []) {
+          for (const rew of r.rewards || []) {
+            if (rew.marketSlug) slugs.add(rew.marketSlug);
+          }
+        }
+        return Array.from(slugs).map(slug => ({
+          category: 'relics',
+          slug,
+          rank: null,
+          cacheKey: slug
+        }));
+      }
+    },
+    {
+      id: 'rivens',
+      name: '未开紫卡',
+      dataFile: path.join(DATA_DIR, 'rivens.json'),
+      loadTasks: (data) => {
+        return (data || []).map(r => ({
+          category: 'rivens',
+          slug: r.slug,
+          rank: null,
+          cacheKey: r.slug
+        }));
+      }
+    },
+    {
+      id: 'arcanes',
+      name: '赋能',
+      dataFile: path.join(DATA_DIR, 'arcanes.json'),
+      loadTasks: (data) => {
+        const tasks = [];
+        for (const arc of data || []) {
+          const maxRank = arc.maxRank ?? 5;
+          if (maxRank > 0) {
+            tasks.push({ category: 'arcanes', slug: arc.slug, rank: 0, cacheKey: `${arc.slug}@r0` });
+            tasks.push({ category: 'arcanes', slug: arc.slug, rank: maxRank, cacheKey: `${arc.slug}@r${maxRank}` });
+          } else {
+            tasks.push({ category: 'arcanes', slug: arc.slug, rank: null, cacheKey: arc.slug });
+          }
+        }
+        return tasks;
+      }
+    },
+    {
+      id: 'mods',
+      name: 'Mod',
+      dataFile: path.join(DATA_DIR, 'mods.json'),
+      loadTasks: (data) => {
+        const tasks = [];
+        for (const m of data || []) {
+          const maxRank = m.maxRank ?? 3;
+          if (maxRank > 0) {
+            tasks.push({ category: 'mods', slug: m.slug, rank: 0, cacheKey: `${m.slug}@r0` });
+            tasks.push({ category: 'mods', slug: m.slug, rank: maxRank, cacheKey: `${m.slug}@r${maxRank}` });
+          } else {
+            tasks.push({ category: 'mods', slug: m.slug, rank: null, cacheKey: m.slug });
+          }
+        }
+        return tasks;
       }
     }
-    queue.push(slug);
-    if (queue.length >= limit) break;
+  ];
+
+  const now = Date.now();
+  const maxAgeMs = maxAgeHours * 60 * 60 * 1000;
+  let remainingLimit = limit;
+  const rateLimiter = new RateLimiter(350);
+
+  const allCategoryKeys = {
+    relics: [],
+    rivens: [],
+    arcanes: [],
+    mods: []
+  };
+
+  console.log(`[prices] 启动抓取流程 (并发固定: 1, 限速: ≤3 req/s, 缓存有效期: ${maxAgeHours}h)`);
+  if (fixturePath) {
+    console.log(`[prices] 当前为 Fixture 测试模式: ${fixturePath}`);
+    if (!outPath) console.log(`[prices] 注意: Fixture 模式未指定 --out，绝不会修改 data/prices.json！`);
   }
 
-  console.log(`[prices] 待抓取更新数量 (跳过 ${maxAgeHours} 小时内已抓取项): ${queue.length}`);
-
-  if (dryRun) {
-    console.log(`[prices] --dry-run 模式，显示前 10 个待抓取 slug:`, queue.slice(0, 10));
-    return;
-  }
-
-  // 若提供了 fixture，用于离线模拟测试
-  if (fixturePath && fs.existsSync(fixturePath)) {
-    console.log(`[prices] 使用离线 Fixture 模拟测试: ${fixturePath}`);
-    const fixtureData = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
-    const parsed = parseOrdersTop(fixtureData);
-
-    for (const slug of queue) {
-      priceCache.items[slug] = {
-        ...parsed,
-        fetchedAt: new Date().toISOString()
-      };
+  // 逐类别处理并即时写入
+  for (const cat of categoriesDef) {
+    if (!onlyCategories.includes(cat.id)) continue;
+    if (!fs.existsSync(cat.dataFile)) {
+      console.warn(`[prices] 缺少数据文件 ${cat.dataFile}，跳过类别 ${cat.name}`);
+      continue;
     }
-  } else if (queue.length > 0) {
-    // 实例化限速器（严格 ≤ 3 req/s，间隔 350ms）
-    const rateLimiter = new RateLimiter(350);
+
+    const dataObj = JSON.parse(fs.readFileSync(cat.dataFile, 'utf8'));
+    const allCatTasks = cat.loadTasks(dataObj);
+    allCategoryKeys[cat.id] = allCatTasks.map(t => t.cacheKey);
+
+    // 过滤出需要更新的任务
+    const pendingTasks = [];
+    for (const task of allCatTasks) {
+      const cached = priceCache.items[task.cacheKey];
+      if (cached && cached.fetchedAt) {
+        const fetchedTime = new Date(cached.fetchedAt).getTime();
+        if (now - fetchedTime < maxAgeMs) {
+          continue; // 在有效期内，跳过
+        }
+      }
+      pendingTasks.push(task);
+      if (pendingTasks.length >= remainingLimit) break;
+    }
+
+    console.log(`\n==================================================`);
+    console.log(`[prices] 类别【${cat.name} (${cat.id})】: 总键数 ${allCatTasks.length}, 待抓取更新数: ${pendingTasks.length}`);
+    console.log(`==================================================`);
+
+    if (dryRun) {
+      console.log(`[prices] --dry-run 预览待抓取键 (前 5 项):`, pendingTasks.slice(0, 5).map(t => t.cacheKey));
+      remainingLimit -= pendingTasks.length;
+      continue;
+    }
+
     let successCount = 0;
     let failCount = 0;
 
-    for (let i = 0; i < queue.length; i++) {
-      const slug = queue[i];
-      const url = `${API_BASE}/orders/item/${encodeURIComponent(slug)}/top`;
+    for (let i = 0; i < pendingTasks.length; i++) {
+      const task = pendingTasks[i];
+      const { slug, rank, cacheKey } = task;
 
-      try {
-        const res = await fetchWithRetry(url, {
-          headers: { 'User-Agent': USER_AGENT }
-        }, {
-          maxRetries: 3,
-          baseDelayMs: 1000,
-          rateLimiter
-        });
+      if (fixturePath && fs.existsSync(fixturePath)) {
+        // 使用 fixture 数据解析
+        const fixtureJson = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
+        const parsed = parseOrdersTop(fixtureJson, { targetRank: rank, slug });
+        priceCache.items[cacheKey] = {
+          ...parsed,
+          fetchedAt: new Date().toISOString()
+        };
+        successCount++;
+      } else {
+        // 真实网络抓取
+        const queryParam = rank !== null ? `?rank=${rank}` : '';
+        const url = `${API_BASE}/orders/item/${encodeURIComponent(slug)}/top${queryParam}`;
 
-        if (res.status === 404) {
-          // 该物品在 market 上暂无挂单或不存在
-          priceCache.items[slug] = {
-            sellMin: null,
-            buyMax: null,
-            sellCount: 0,
-            buyCount: 0,
-            fetchedAt: new Date().toISOString()
-          };
-          successCount++;
-        } else if (res.ok) {
-          const json = await res.json();
-          const parsed = parseOrdersTop(json);
-          priceCache.items[slug] = parsed;
-          successCount++;
-        } else {
-          console.warn(`[prices] [${i + 1}/${queue.length}] 请求 ${slug} 失败 (HTTP ${res.status})`);
+        try {
+          const res = await fetchWithRetry(url, {
+            headers: { 'User-Agent': USER_AGENT }
+          }, {
+            maxRetries: 3,
+            baseDelayMs: 1000,
+            rateLimiter
+          });
+
+          if (res.status === 404) {
+            priceCache.items[cacheKey] = {
+              sellMin: null,
+              buyMax: null,
+              sellCount: 0,
+              buyCount: 0,
+              rank,
+              source: `warframe.market v2 /orders/item/${slug}/top${queryParam}`,
+              fetchedAt: new Date().toISOString()
+            };
+            successCount++;
+          } else if (res.ok) {
+            const json = await res.json();
+            const parsed = parseOrdersTop(json, { targetRank: rank, slug });
+            // A2: 确保写 fetchedAt
+            priceCache.items[cacheKey] = {
+              ...parsed,
+              fetchedAt: new Date().toISOString()
+            };
+            successCount++;
+          } else {
+            console.warn(`[prices] [${i + 1}/${pendingTasks.length}] 请求 ${cacheKey} 失败 (HTTP ${res.status})`);
+            failCount++;
+          }
+        } catch (err) {
+          console.warn(`[prices] [${i + 1}/${pendingTasks.length}] 抓取 ${cacheKey} 异常: ${err.message}`);
           failCount++;
         }
-      } catch (err) {
-        console.warn(`[prices] [${i + 1}/${queue.length}] 抓取 ${slug} 异常:`, err.message);
-        failCount++;
       }
 
-      if ((i + 1) % 50 === 0 || i === queue.length - 1) {
-        console.log(`[prices] 进度: ${i + 1}/${queue.length} (成功: ${successCount}, 失败: ${failCount})`);
+      if ((i + 1) % 25 === 0 || i === pendingTasks.length - 1) {
+        console.log(`[prices] [${cat.name}] 进度: ${i + 1}/${pendingTasks.length} (成功: ${successCount}, 失败: ${failCount})`);
       }
+    }
+
+    remainingLimit -= pendingTasks.length;
+
+    // 每完成一个类别就写一次 data/prices.json（中途中断也不丢）
+    priceCache.updatedAt = new Date().toISOString();
+    if (outPath) {
+      fs.writeFileSync(outPath, JSON.stringify(priceCache, null, 2));
+      console.log(`[prices] [${cat.name}] 完成，已同步写入价格文件: ${outPath}`);
+    }
+
+    // 更新 meta.json 中该类别与总覆盖率
+    if (fs.existsSync(metaPath) && outPath && outPath.endsWith('prices.json')) {
+      try {
+        const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+        if (!meta.prices) meta.prices = {};
+        if (!meta.prices.categories) meta.prices.categories = {};
+
+        const catStats = computeCategoryStats(allCatTasks.map(t => t.cacheKey), priceCache.items);
+        meta.prices.categories[cat.id] = catStats;
+        meta.prices.updatedAt = priceCache.updatedAt;
+
+        // 计算全量覆盖率
+        const allKeys = Object.keys(priceCache.items);
+        const pricedKeys = allKeys.filter(k => priceCache.items[k]?.sellMin !== null || priceCache.items[k]?.buyMax !== null);
+        meta.prices.pricedCount = pricedKeys.length;
+
+        fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2));
+      } catch (e) {
+        console.warn(`[prices] 更新 meta.json 失败:`, e.message);
+      }
+    }
+
+    if (remainingLimit <= 0) {
+      console.log(`[prices] 达到 --limit 限制，停止后续类别抓取。`);
+      break;
     }
   }
 
-  priceCache.updatedAt = new Date().toISOString();
-  fs.writeFileSync(pricesPath, JSON.stringify(priceCache, null, 2));
-  console.log(`[prices] 价格数据已写入 ${pricesPath}`);
-
-  // 计算覆盖率并写入 data/meta.json
-  const totalSlugsCount = slugsToFetch.size;
-  let pricedCount = 0;
-  for (const slug of slugsToFetch) {
-    const item = priceCache.items[slug];
-    if (item && (item.sellMin !== null || item.buyMax !== null)) {
-      pricedCount++;
-    }
-  }
-
-  const coveragePercent = totalSlugsCount > 0 ? ((pricedCount / totalSlugsCount) * 100).toFixed(1) + '%' : '0.0%';
-
-  if (fs.existsSync(metaPath)) {
-    const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
-    meta.prices = {
-      updatedAt: priceCache.updatedAt,
-      pricedCount,
-      totalCount: totalSlugsCount,
-      coverage: coveragePercent
-    };
-    fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2));
-    console.log(`[prices] 元数据 meta.json 已更新: 价格覆盖率 ${pricedCount}/${totalSlugsCount} (${coveragePercent})`);
-  }
+  console.log(`\n[prices] 价格处理任务全部结束！`);
 }
 
-main().catch(err => {
-  console.error('[prices] 执行失败:', err);
-  process.exit(1);
-});
+// 仅在直接执行时调用 main
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  main().catch(err => {
+    console.error('[prices] 执行失败:', err);
+    process.exit(1);
+  });
+}

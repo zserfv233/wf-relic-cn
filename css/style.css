@@ -30,6 +30,8 @@
   --badge-obtainable-bg: rgba(16, 185, 129, 0.15);
   --badge-vaulted: #64748b;
   --badge-vaulted-bg: rgba(100, 116, 139, 0.2);
+  --badge-unlisted: #a855f7;
+  --badge-unlisted-bg: rgba(168, 85, 247, 0.15);
   --badge-conflict: #f59e0b;
   --badge-conflict-bg: rgba(245, 158, 11, 0.15);
   
@@ -135,6 +137,52 @@ a:hover {
 .stat-pill strong {
   color: var(--text-primary);
   margin-left: 0.25rem;
+}
+
+/* Main Navigation */
+.main-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-tab-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.nav-tab-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-focus);
+}
+
+.nav-tab-btn.active {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--border-focus);
+  color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+/* Formula Callout Banner */
+.formula-banner {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: #bae6fd;
+  line-height: 1.6;
 }
 
 /* Search Box */
@@ -258,6 +306,36 @@ a:hover {
   background: rgba(212, 175, 55, 0.15);
   color: var(--gold-light);
   border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.tag-arcane {
+  background: rgba(234, 179, 8, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.tag-mod {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.tag-riven {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.tag-source {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-unlisted {
+  background: var(--badge-unlisted-bg);
+  color: var(--badge-unlisted);
+  border: 1px solid rgba(168, 85, 247, 0.3);
 }
 
 /* Controls Toolbar */

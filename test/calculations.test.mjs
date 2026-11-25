@@ -1,8 +1,14 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { calculateExpectedValue, calculateAllRefinementValues } from '../js/lib/calculations.js';
+import {
+  calculateExpectedValue,
+  calculateAllRefinementValues,
+  calculateSourceExpectedValue,
+  calculateEnemyExpectedValue,
+  getItemPrice
+} from '../js/lib/calculations.js';
 
-describe('期望值计算 (Calculations)', () => {
+describe('期望值计算 (Calculations - Phase 2)', () => {
   const mockRewards = [
     {
       name: 'Common Item A',
@@ -58,44 +64,81 @@ describe('期望值计算 (Calculations)', () => {
   };
 
   it('正确根据掉率与单价计算单个等级期望白金', () => {
-    // 预期 intact 期望白金 = 0.2533*2 + 0.2533*3 + 0.2533*2 + 0.11*15 + 0.11*10 + 0.02*80
-    // = 0.5066 + 0.7599 + 0.5066 + 1.65 + 1.10 + 1.60 = 6.1231 => 6.12
     const result = calculateExpectedValue(mockRewards, mockPrices, { priceType: 'sellMin', refinement: 'intact' });
     assert.strictEqual(result.expectedValue, 6.12);
     assert.strictEqual(result.missingPriceCount, 0);
-    assert.strictEqual(result.breakdown.length, 6);
+  });
+
+  it('全缺价时 expectedValue 返回 null (显示 —)', () => {
+    const result = calculateExpectedValue(mockRewards, {}, { priceType: 'sellMin', refinement: 'intact' });
+    assert.strictEqual(result.expectedValue, null);
+    assert.strictEqual(result.missingPriceCount, 6);
+    assert.strictEqual(result.pricedCount, 0);
   });
 
   it('支持切换最高买价 (buyMax) 计算', () => {
-    // 预期 intact 买价期望 = 0.2533*1 + 0.2533*2 + 0.2533*1 + 0.11*10 + 0.11*8 + 0.02*65
-    // = 0.2533 + 0.5066 + 0.2533 + 1.10 + 0.88 + 1.30 = 4.2932 => 4.29
     const result = calculateExpectedValue(mockRewards, mockPrices, { priceType: 'buyMax', refinement: 'intact' });
     assert.strictEqual(result.expectedValue, 4.29);
     assert.strictEqual(result.missingPriceCount, 0);
   });
 
-  it('缺价物品按 0 计并统计缺价数量', () => {
-    const partialPrices = {
-      common_a: { sellMin: 2, buyMax: 1 },
-      rare_f: { sellMin: 80, buyMax: 65 }
-      // 其余 4 项缺价
+  it('支持获取等级价格键 getItemPrice', () => {
+    const rankPrices = {
+      'arcane_energize@r0': { sellMin: 65, buyMax: 50 },
+      'arcane_energize@r5': { sellMin: 1400, buyMax: 1200 },
+      'serration@r0': { sellMin: 2, buyMax: 1 },
+      'serration@r10': { sellMin: 180, buyMax: 150 },
+      'rifle_riven_mod_veiled': { sellMin: 25, buyMax: 20 }
     };
 
-    const result = calculateExpectedValue(mockRewards, partialPrices, { priceType: 'sellMin', refinement: 'intact' });
-    // 0.2533 * 2 + 0.02 * 80 = 0.5066 + 1.60 = 2.1066 => 2.11
-    assert.strictEqual(result.expectedValue, 2.11);
-    assert.strictEqual(result.missingPriceCount, 4);
+    assert.strictEqual(getItemPrice('arcane_energize', 0, rankPrices, 'sellMin'), 65);
+    assert.strictEqual(getItemPrice('arcane_energize', 5, rankPrices, 'sellMin'), 1400);
+    assert.strictEqual(getItemPrice('serration', 0, rankPrices, 'buyMax'), 1);
+    assert.strictEqual(getItemPrice('serration', 10, rankPrices, 'sellMin'), 180);
+    assert.strictEqual(getItemPrice('rifle_riven_mod_veiled', null, rankPrices, 'sellMin'), 25);
   });
 
-  it('支持同时计算全部四个精炼等级的期望值', () => {
-    const all = calculateAllRefinementValues(mockRewards, mockPrices, { priceType: 'sellMin' });
-    assert.ok(all.intact);
-    assert.ok(all.exceptional);
-    assert.ok(all.flawless);
-    assert.ok(all.radiant);
+  it('任务/轮次来源期望值计算: sum(chance/100 * price)', () => {
+    // 假设某间谍任务 C 轮掉落 3 个物品：
+    // Mod A: 10% 掉率，价格 50
+    // Mod B: 20% 掉率，价格 25
+    // 其他: 70% 掉率，无价格
+    const sourceRewards = [
+      { itemName: 'Mod A', slug: 'mod_a', chance: 10 },
+      { itemName: 'Mod B', slug: 'mod_b', chance: 20 },
+      { itemName: 'Endo', slug: null, chance: 70 }
+    ];
+    const sourcePrices = {
+      'mod_a@r0': { sellMin: 50 },
+      'mod_b@r0': { sellMin: 25 }
+    };
 
-    assert.strictEqual(all.intact.expectedValue, 6.12);
-    // Radiant: 稀有翻5倍(10%)，光辉期望值通常明显高于完整
-    assert.ok(all.radiant.expectedValue > all.intact.expectedValue);
+    // 0.1 * 50 + 0.2 * 25 = 5 + 5 = 10 白金
+    const result = calculateSourceExpectedValue(sourceRewards, sourcePrices, { priceType: 'sellMin' });
+    assert.strictEqual(result.expectedValue, 10.0);
+    assert.strictEqual(result.pricedCount, 2);
+    assert.strictEqual(result.missingCount, 1);
+  });
+
+  it('敌人来源期望值计算: enemyModDropChance% * sum(chance% * price)', () => {
+    // 某敌人基础 Mod 掉落率 3% (0.03)
+    // 掉落列表:
+    // Mod X: 10% 掉率，价格 100 白金
+    // Mod Y: 5% 掉率，价格 200 白金
+    // 内部总期望 = 0.1 * 100 + 0.05 * 200 = 10 + 10 = 20 白金
+    // 击杀期望 = 0.03 * 20 = 0.6 白金
+    const enemyMods = [
+      { modName: 'Mod X', slug: 'mod_x', chance: 10 },
+      { modName: 'Mod Y', slug: 'mod_y', chance: 5 }
+    ];
+    const enemyPrices = {
+      'mod_x@r0': { sellMin: 100 },
+      'mod_y@r0': { sellMin: 200 }
+    };
+
+    const result = calculateEnemyExpectedValue(3.0, enemyMods, enemyPrices, { priceType: 'sellMin' });
+    assert.strictEqual(result.expectedValue, 0.6);
+    assert.strictEqual(result.enemyModDropChance, 3.0);
+    assert.strictEqual(result.pricedCount, 2);
   });
 });

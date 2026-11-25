@@ -1,0 +1,4838 @@
+[
+  {
+    "name": "1,500 Credits Cache",
+    "samplePlaces": [
+      "Mercury - Suisei (Spy) [Rot A]",
+      "Mercury - Suisei (Spy) [Rot A]",
+      "Venus - Vesper (Spy) [Rot A]",
+      "Venus - Vesper (Spy) [Rot A]",
+      "Venus - Unda (Spy) [Rot A]"
+    ]
+  },
+  {
+    "name": "10,000 Credits Cache",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]",
+      "Uranus - Portia (Caches) (Caches) [Rot A]",
+      "Neptune - Thalassa (Caches) (Caches) [Rot A]",
+      "Neptune - Halimede (Caches) (Caches) [Rot A]",
+      "Pluto - Charon (Caches) (Caches) [Rot A]"
+    ]
+  },
+  {
+    "name": "10,000 Höllars Cache",
+    "samplePlaces": [
+      "Höllvania - Exterminate: Scaldra (Exterminate)",
+      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Antivirus Bounty (Exterminate)"
+    ]
+  },
+  {
+    "name": "100 Endo",
+    "samplePlaces": [
+      "Mercury - Apollodorus (Survival) [Rot A]",
+      "Mercury - Lares (Defense) [Rot B]",
+      "Mercury - Suisei (Spy) [Rot A]",
+      "Mercury - Suisei (Spy) [Rot A]",
+      "Venus - Bifrost Echo (Skirmish)"
+    ]
+  },
+  {
+    "name": "1000 Endo",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
+      "Höllvania - Hell-Scrub: Techrot (Survival) [Rot B]",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards"
+    ]
+  },
+  {
+    "name": "100000X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+    ]
+  },
+  {
+    "name": "1000X Nano Spores",
+    "samplePlaces": [
+      "Eris - Candiru (Caches) (Caches) [Rot A]",
+      "Eris - Lepis (Caches) (Caches) [Rot A]",
+      "Eris - Psoro (Caches) (Caches) [Rot A]",
+      "Eris - Viver (Caches) (Caches) [Rot A]",
+      "Eris - Naeglar (Caches) (Caches) [Rot A]"
+    ]
+  },
+  {
+    "name": "100X Circuits",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "100X Kuva",
+    "samplePlaces": [
+      "Kuva Fortress - Tamu (Disruption) [Rot A]"
+    ]
+  },
+  {
+    "name": "100X Plastids",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+    ]
+  },
+  {
+    "name": "100X Rubedo",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Alloy Plate",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Charc Electroplax",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Circuits",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Condroc Wing",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Coprite Alloy",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Corrupted Holokey",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "10X Cryotic",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Esher Devar",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Experimental Arc-Relay",
+    "samplePlaces": [
+      "Höllvania - Exterminate: Scaldra (Exterminate)",
+      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Antivirus Bounty (Exterminate)"
+    ]
+  },
+  {
+    "name": "10X Fish Scales",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Goopolla Spleen",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Grokdrul",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Hexenon",
+    "samplePlaces": [
+      "Jupiter - Ganymede (Disruption) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Iradite",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Khut-Khut Venom Sac",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Kuaka Spinal Claw",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Maprico",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Mawfish Bones",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Nistlepod",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Plastids",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Pyrotic Alloy",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Rubedo",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Salvage",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Tear Azurite",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "10X Techrot Chitin",
+    "samplePlaces": [
+      "Höllvania - Exterminate: Scaldra (Exterminate)",
+      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Antivirus Bounty (Exterminate)"
+    ]
+  },
+  {
+    "name": "10X Void Traces",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Extended Granum Void"
+    ]
+  },
+  {
+    "name": "10X Yogwun Stomach",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "11X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+    ]
+  },
+  {
+    "name": "1200 Endo",
+    "samplePlaces": [
+      "Deimos - Persto (Survival) [Rot C]",
+      "Deimos - Cambire (Alchemy) [Rot C]",
+      "Deimos - Munio (Defense) [Rot C]",
+      "Deimos - Armatus (Disruption) [Rot C]",
+      "Veil Proxima - Flexa (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "120X Plastids",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "125X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+    ]
+  },
+  {
+    "name": "12X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+    ]
+  },
+  {
+    "name": "13X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+    ]
+  },
+  {
+    "name": "14X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+    ]
+  },
+  {
+    "name": "15 Endo",
+    "samplePlaces": [
+      "Enemy: Techrot Skuzzi",
+      "Enemy: Techrot Galliflex",
+      "Enemy: Techrot Volatile Galliflex",
+      "Enemy: Techrot Matmas",
+      "Enemy: Techrot Scaart"
+    ]
+  },
+  {
+    "name": "150 Endo",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Bifrost Echo (Caches) (Caches) [Rot A]",
+      "Venus - Bifrost Echo (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "1500 Endo",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Arbitrations"
+    ]
+  },
+  {
+    "name": "150X Agnovidisc",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "150X Entrati Obols",
+    "samplePlaces": [
+      "Deimos - Effervo (Assassination)",
+      "Deimos - Nex (Exterminate)",
+      "Deimos - Persto (Survival) [Rot A]",
+      "Deimos - Cambire (Alchemy) [Rot A]",
+      "Deimos - Munio (Defense) [Rot A]"
+    ]
+  },
+  {
+    "name": "150X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "150X Rubedo",
+    "samplePlaces": [
+      "Earth - Cervantes (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "15X Atramentum",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot B]"
+    ]
+  },
+  {
+    "name": "15X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+    ]
+  },
+  {
+    "name": "15X Hexenon",
+    "samplePlaces": [
+      "Jupiter - Ganymede (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "15X Maphica",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Common Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "15X Necracoil",
+    "samplePlaces": [
+      "Deimos - Effervo (Assassination)",
+      "Deimos - Nex (Exterminate)",
+      "Deimos - Persto (Survival) [Rot A]",
+      "Deimos - Cambire (Alchemy) [Rot A]",
+      "Deimos - Munio (Defense) [Rot A]"
+    ]
+  },
+  {
+    "name": "15X Void Traces",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+    ]
+  },
+  {
+    "name": "160 Endo",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "1600 Endo",
+    "samplePlaces": [
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]",
+      "Höllvania - Hell-Scrub: Techrot (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "16X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "16X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+    ]
+  },
+  {
+    "name": "17500X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+    ]
+  },
+  {
+    "name": "1750X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "175X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+    ]
+  },
+  {
+    "name": "17X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "17X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+    ]
+  },
+  {
+    "name": "18X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "18X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+    ]
+  },
+  {
+    "name": "19X Fergolyte",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "19X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+    ]
+  },
+  {
+    "name": "2,000 Credits Cache",
+    "samplePlaces": [
+      "Mercury - Apollodorus (Survival) [Rot A]",
+      "Venus - V Prime (Survival) [Rot A]",
+      "Venus - Malva (Survival) [Rot A]",
+      "Venus - Malva (Survival) [Rot A]",
+      "Venus - Malva (Survival) [Rot A]"
+    ]
+  },
+  {
+    "name": "2,500 Credits Cache",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot A]",
+      "Mercury - Neruda (Caches) (Caches) [Rot A]",
+      "Venus - Ishtar (Caches) (Caches) [Rot A]",
+      "Earth - Cervantes (Caches) (Caches) [Rot A]",
+      "Mars - Gradivus (Caches) (Caches) [Rot A]"
+    ]
+  },
+  {
+    "name": "200 Endo",
+    "samplePlaces": [
+      "Mercury - Lares (Defense) [Rot C]",
+      "Venus - Tessera (Defense) [Rot C]",
+      "Earth - Lith (Defense) [Rot C]",
+      "Earth - Cervantes (Caches) (Caches) [Rot C]",
+      "Earth - Cervantes (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "2000 Endo",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+    ]
+  },
+  {
+    "name": "200X Carbides",
+    "samplePlaces": [
+      "Earth - Sover Strait (Extra) (Skirmish)",
+      "Earth - Iota Temple (Extra) (Skirmish)",
+      "Earth - Ogal Cluster (Extra) (Skirmish)",
+      "Earth - Korm's Belt (Extra) (Skirmish)",
+      "Earth - Bendar Cluster (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "200X Cubic Diodes",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Extra) (Skirmish)",
+      "Venus - Beacon Shield Ring (Extra) (Skirmish)",
+      "Venus - Orvin-Haarc (Extra) (Skirmish)",
+      "Venus - Vesper Strait (Extra) (Skirmish)",
+      "Venus - Luckless Expanse (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "200X Kuva",
+    "samplePlaces": [
+      "Kuva Fortress - Tamu (Disruption) [Rot B]",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "200X Titanium",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Extra) (Skirmish)",
+      "Venus - Beacon Shield Ring (Extra) (Skirmish)",
+      "Venus - Orvin-Haarc (Extra) (Skirmish)",
+      "Venus - Vesper Strait (Extra) (Skirmish)",
+      "Venus - Luckless Expanse (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "200X Vosfor",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "20X Gorgaricus Spore",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+    ]
+  },
+  {
+    "name": "20X Mytocardia Spore",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards"
+    ]
+  },
+  {
+    "name": "20X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "20X Temporal Dust",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards"
+    ]
+  },
+  {
+    "name": "20X Thermal Sludge",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards"
+    ]
+  },
+  {
+    "name": "2100 Endo",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Faceoff: Single Squad",
+      "Transient (密室与特殊掉落) - Faceoff: Single Squad (Steel Path)",
+      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad",
+      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Steel Path)"
+    ]
+  },
+  {
+    "name": "21X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "225X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches"
+    ]
+  },
+  {
+    "name": "22X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "23X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "2400 Endo",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Faceoff: Single Squad",
+      "Transient (密室与特殊掉落) - Faceoff: Single Squad (Steel Path)",
+      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad",
+      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Steel Path)"
+    ]
+  },
+  {
+    "name": "240X Polymer Bundle",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot B]",
+      "Mercury - Neruda (Caches) (Caches) [Rot B]",
+      "Venus - Ishtar (Caches) (Caches) [Rot B]",
+      "Mars - Gradivus (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "24X Scuttler Husk",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "250 Endo",
+    "samplePlaces": [
+      "Uranus - Caelus (Interception) [Rot A]",
+      "Uranus - Caelus (Interception) [Rot A]",
+      "Uranus - Caelus (Interception) [Rot B]",
+      "Uranus - Caelus (Interception) [Rot B]",
+      "Neptune - Yursa (Defection) [Rot A]"
+    ]
+  },
+  {
+    "name": "2500 Endo",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "250X Aggristone",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "250X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "250X Oxium",
+    "samplePlaces": [
+      "Uranus - Desdemona (Caches) (Caches) [Rot C]",
+      "Uranus - Prospero (Caches) (Caches) [Rot C]",
+      "Uranus - Setebos (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "250X Saggen Pearl",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "25X Atramentum",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot B]"
+    ]
+  },
+  {
+    "name": "25X Servoris",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "25X Steel Essence",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 9 (Hard) (Hard)",
+      "Transient (密室与特殊掉落) - The Descendia: Steel Essence Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "25X Temporal Dust",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "2X 10,000 Credits Cache",
+    "samplePlaces": [
+      "Neptune - Laomedeia (Disruption) [Rot A]",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "2X Argon Crystal",
+    "samplePlaces": [
+      "Deimos - Formido (Caches) (Caches) [Rot C]",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "2X Gallium",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "2X Morphics",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "2X Neural Sensors",
+    "samplePlaces": [
+      "Deimos - Formido (Caches) (Caches) [Rot C]",
+      "Kuva Fortress - Dakata (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "2X Neurodes",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "2X Orokin Cell",
+    "samplePlaces": [
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot C]",
+      "Saturn - Pallene (Caches) (Caches) [Rot C]",
+      "Saturn - Calypso (Caches) (Caches) [Rot C]",
+      "Uranus - Portia (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "2X Pherliac Pods",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "2X Riven Sliver",
+    "samplePlaces": [
+      "Earth - Sover Strait (Skirmish)",
+      "Earth - Iota Temple (Skirmish)",
+      "Earth - Ogal Cluster (Skirmish)",
+      "Earth - Korm's Belt (Skirmish)",
+      "Earth - Bendar Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "3 Day Affinity Booster",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Hard) (Hard)",
+      "Duviri - Endless: Tier 7 (Hard)",
+      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "3 Day Credit Booster",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "3 Day Mod Drop Chance Booster",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Hard) (Hard)",
+      "Duviri - Endless: Tier 7 (Hard)",
+      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3 Day Resource Booster",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "3 Day Resource Drop Chance Booster",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Hard) (Hard)",
+      "Duviri - Endless: Tier 7 (Hard)",
+      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "3,000 Credits Cache",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Earth - Cervantes (Caches) (Caches) [Rot B]",
+      "Earth - Cervantes (Caches) (Caches) [Rot B]",
+      "Uranus - Ophelia (Survival) [Rot A]",
+      "Uranus - Ophelia (Survival) [Rot A]"
+    ]
+  },
+  {
+    "name": "300 Endo",
+    "samplePlaces": [
+      "Jupiter - Io (Defense) [Rot C]",
+      "Saturn - Helene (Defense) [Rot C]",
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Mordo Cluster (Caches) (Caches)",
+      "Saturn - Kasio's Rest (Skirmish)"
+    ]
+  },
+  {
+    "name": "3000 Endo",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]",
+      "Uranus - Brutus (Ascension)"
+    ]
+  },
+  {
+    "name": "300X Ferrite",
+    "samplePlaces": [
+      "Earth - Cervantes (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "300X Plastids",
+    "samplePlaces": [
+      "Jupiter - Adrastea (Caches) (Caches) [Rot B]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot B]",
+      "Saturn - Pallene (Caches) (Caches) [Rot B]",
+      "Saturn - Calypso (Caches) (Caches) [Rot B]",
+      "Uranus - Portia (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "300X Polymer Bundle",
+    "samplePlaces": [
+      "Jupiter - Adrastea (Caches) (Caches) [Rot B]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot B]",
+      "Saturn - Pallene (Caches) (Caches) [Rot B]",
+      "Saturn - Calypso (Caches) (Caches) [Rot B]",
+      "Uranus - Desdemona (Caches) (Caches) [Rot A]"
+    ]
+  },
+  {
+    "name": "30X Connla Sprout",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "30X Dracroot",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "30X Eevani",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "30X Kovnik",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "30X Ueymag",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "30X Vosfor",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Winner)"
+    ]
+  },
+  {
+    "name": "30X Yao Shrub",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "3500 Endo",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3500X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "350X Kuva",
+    "samplePlaces": [
+      "Kuva Fortress - Tamu (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "350X Plastids",
+    "samplePlaces": [
+      "Eris - Candiru (Caches) (Caches) [Rot B]",
+      "Eris - Lepis (Caches) (Caches) [Rot B]",
+      "Eris - Psoro (Caches) (Caches) [Rot B]",
+      "Eris - Viver (Caches) (Caches) [Rot B]",
+      "Eris - Naeglar (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "350X Rubedo",
+    "samplePlaces": [
+      "Jupiter - Adrastea (Caches) (Caches) [Rot B]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot B]",
+      "Saturn - Pallene (Caches) (Caches) [Rot B]",
+      "Saturn - Calypso (Caches) (Caches) [Rot B]",
+      "Ceres - Thon (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "3X 10,000 Credits Cache",
+    "samplePlaces": [
+      "Neptune - Laomedeia (Disruption) [Rot B]",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X 5,000 Credits Cache",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Acceleration",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Aegis",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Agility",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Arachne",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Avenger",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Awakening",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Circumvent",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Arcane Concentration",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Arcane Consequence",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Deflection",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Eruption",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Expertise",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Arcane Fury",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Guardian",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Healing",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Ice",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Momentum",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Nullifier",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Persistence",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Arcane Phantasm",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Precision",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Pulse",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Rage",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Resistance",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Strike",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Tempo",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Trickery",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Ultimatum",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Velocity",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Victory",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Arcane Warmth",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
+    ]
+  },
+  {
+    "name": "3X Auroxium Alloy",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "3X Breath Of The Eidolon",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "3X Cetus Wisp",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "3X Corrupted Holokey",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "3X Gallium",
+    "samplePlaces": [
+      "Uranus - Desdemona (Caches) (Caches) [Rot C]",
+      "Uranus - Prospero (Caches) (Caches) [Rot C]",
+      "Uranus - Setebos (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "3X Lua Thrax Plasm",
+    "samplePlaces": [
+      "Lua - Yuvarium (Extra) (Survival) [Rot A]",
+      "Lua - Yuvarium (Extra) (Survival) [Rot B]",
+      "Lua - Yuvarium (Extra) (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "3X Melee Careen",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Mutagen Sample",
+    "samplePlaces": [
+      "Eris - Candiru (Caches) (Caches) [Rot B]",
+      "Eris - Lepis (Caches) (Caches) [Rot B]",
+      "Eris - Psoro (Caches) (Caches) [Rot B]",
+      "Eris - Viver (Caches) (Caches) [Rot B]",
+      "Eris - Naeglar (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "3X Nightmare Tatters",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot C]"
+    ]
+  },
+  {
+    "name": "3X Primary Bulwark",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Primary Debilitate",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Primary Overcharge",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Riven Sliver",
+    "samplePlaces": [
+      "Veil Proxima - Flexa (Skirmish)",
+      "Veil Proxima - H-2 Cloud (Skirmish)",
+      "Veil Proxima - R-9 Cloud (Skirmish)",
+      "Veil Proxima - Nsu Grid (Skirmish)",
+      "Veil Proxima - Calabash (Skirmish)"
+    ]
+  },
+  {
+    "name": "3X Saggen Pearl",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Full Experience"
+    ]
+  },
+  {
+    "name": "3X Secondary Irradiate",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "3X Vitus Essence",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Arbitrations",
+      "Transient (密室与特殊掉落) - Arbitrations",
+      "Transient (密室与特殊掉落) - Arbitrations"
+    ]
+  },
+  {
+    "name": "4,000 Credits Cache",
+    "samplePlaces": [
+      "Jupiter - Carpo (Caches) (Caches) [Rot A]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot A]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot A]",
+      "Sedna - Nakki (Arena)",
+      "Lua - Plato (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "400 Endo",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot B]",
+      "Mercury - Terminus (Caches) (Caches) [Rot B]",
+      "Mercury - Terminus (Caches) (Caches) [Rot B]",
+      "Mercury - Terminus (Caches) (Caches) [Rot B]",
+      "Mercury - Terminus (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "4000 Endo",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)",
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "400X Alloy Plate",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "400X Circuits",
+    "samplePlaces": [
+      "Uranus - Portia (Caches) (Caches) [Rot B]",
+      "Neptune - Thalassa (Caches) (Caches) [Rot B]",
+      "Neptune - Halimede (Caches) (Caches) [Rot B]",
+      "Pluto - Charon (Caches) (Caches) [Rot B]",
+      "Pluto - Cypress (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "400X Ferrite",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "400X Rubedo",
+    "samplePlaces": [
+      "Uranus - Portia (Caches) (Caches) [Rot B]",
+      "Neptune - Thalassa (Caches) (Caches) [Rot B]",
+      "Neptune - Halimede (Caches) (Caches) [Rot B]",
+      "Pluto - Charon (Caches) (Caches) [Rot B]",
+      "Pluto - Cypress (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "450 Endo",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)",
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Mordo Cluster (Caches) (Caches)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Kasio's Rest (Caches) (Caches)"
+    ]
+  },
+  {
+    "name": "4X Corrupted Holokey",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "4X Nightmare Tatters",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot C]"
+    ]
+  },
+  {
+    "name": "5,000 Credits Cache",
+    "samplePlaces": [
+      "Jupiter - Adrastea (Caches) (Caches) [Rot A]",
+      "Saturn - Pallene (Caches) (Caches) [Rot A]",
+      "Saturn - Calypso (Caches) (Caches) [Rot A]",
+      "Uranus - Desdemona (Caches) (Caches) [Rot B]",
+      "Uranus - Desdemona (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "50 Endo",
+    "samplePlaces": [
+      "Jupiter - Amalthea (Spy) [Rot B]",
+      "Saturn - Dione (Spy) [Rot B]",
+      "Saturn - Aegaeon (Spy) [Rot B]",
+      "Ceres - Bode (Spy) [Rot B]",
+      "Europa - Valac (Spy) [Rot B]"
+    ]
+  },
+  {
+    "name": "50,000 Credits Cache",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "500 Endo",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)",
+      "Höllvania - Exterminate: Scaldra (Exterminate)",
+      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Antivirus Bounty (Exterminate)"
+    ]
+  },
+  {
+    "name": "500X Kuva",
+    "samplePlaces": [
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "500X Nano Spores",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "500X Polymer Bundle",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "50X Aggristone",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "50X Saggen Pearl",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Normal)",
+      "Duviri - Endless: Tier 3 (Normal)"
+    ]
+  },
+  {
+    "name": "50X Vosfor",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Faceoff: Squad VS Squad (Steel Path Winner)"
+    ]
+  },
+  {
+    "name": "5X 10,000 Credits Cache",
+    "samplePlaces": [
+      "Neptune - Laomedeia (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "5X Aggristone",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Full Experience"
+    ]
+  },
+  {
+    "name": "5X Asterite",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Extra) (Skirmish)",
+      "Venus - Beacon Shield Ring (Extra) (Skirmish)",
+      "Venus - Orvin-Haarc (Extra) (Skirmish)",
+      "Venus - Vesper Strait (Extra) (Skirmish)",
+      "Venus - Luckless Expanse (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "5X Corrupted Holokey",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)"
+    ]
+  },
+  {
+    "name": "5X Gallos Rods",
+    "samplePlaces": [
+      "Earth - Sover Strait (Extra) (Skirmish)",
+      "Earth - Iota Temple (Extra) (Skirmish)",
+      "Earth - Ogal Cluster (Extra) (Skirmish)",
+      "Earth - Korm's Belt (Extra) (Skirmish)",
+      "Earth - Bendar Cluster (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "5X Hexenon",
+    "samplePlaces": [
+      "Jupiter - Ganymede (Disruption) [Rot A]"
+    ]
+  },
+  {
+    "name": "5X Isos",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Extra) (Skirmish)",
+      "Venus - Beacon Shield Ring (Extra) (Skirmish)",
+      "Venus - Orvin-Haarc (Extra) (Skirmish)",
+      "Venus - Vesper Strait (Extra) (Skirmish)",
+      "Venus - Luckless Expanse (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "5X Lua Thrax Plasm",
+    "samplePlaces": [
+      "Lua - Circulus (Extra) (Survival) [Rot A]",
+      "Lua - Circulus (Extra) (Survival) [Rot B]",
+      "Lua - Circulus (Extra) (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "5X Saggen Pearl",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Circuit"
+    ]
+  },
+  {
+    "name": "5X Void Traces",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Granum Void"
+    ]
+  },
+  {
+    "name": "600 Endo",
+    "samplePlaces": [
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot C]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "6000 Endo",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "6000X Kuva",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)",
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "600X Cryotic",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "600X Salvage",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "60X Connla Sprout",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "60X Dracroot",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "60X Eevani",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "60X Kovnik",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "60X Laudavi",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "60X Ueymag",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "60X Yao Shrub",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "6X Corrupted Holokey",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "6X Fersteel Alloy",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "6X Marquise Veridos",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "6X Mortus Horn",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "6X Tralok Eyes",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
+      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "7,500 Credits Cache",
+    "samplePlaces": [
+      "Deimos - Persto (Survival) [Rot B]",
+      "Deimos - Cambire (Alchemy) [Rot B]",
+      "Deimos - Munio (Defense) [Rot B]",
+      "Zariman - Everview Arc (Void Flood) [Rot B]",
+      "Zariman - Tuvul Commons (Void Cascade) [Rot B]"
+    ]
+  },
+  {
+    "name": "750 Endo",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+    ]
+  },
+  {
+    "name": "7500X Kuva",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests"
+    ]
+  },
+  {
+    "name": "750X Alloy Plate",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot B]",
+      "Mercury - Neruda (Caches) (Caches) [Rot B]",
+      "Venus - Ishtar (Caches) (Caches) [Rot B]",
+      "Mars - Gradivus (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "750X Circuits",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot B]",
+      "Mercury - Neruda (Caches) (Caches) [Rot B]",
+      "Venus - Ishtar (Caches) (Caches) [Rot B]",
+      "Mars - Gradivus (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "75X Ignia",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Common Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "7X Aggristone",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Circuit"
+    ]
+  },
+  {
+    "name": "80 Endo",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Venus - Romula (Defense) [Rot C]",
+      "Venus - Romula (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "8X Enigma Gyrum",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "900 Endo",
+    "samplePlaces": [
+      "Deimos - Effervo (Assassination)",
+      "Deimos - Nex (Exterminate)",
+      "Deimos - Armatus (Disruption) [Rot B]",
+      "Zariman - Halako Perimeter (Exterminate)",
+      "Zariman - The Greenway (Mobile Defense)"
+    ]
+  },
+  {
+    "name": "Affinity Booster",
+    "samplePlaces": [
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Akbronco Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Amalgam Argonak Metal Auger",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Assassination)"
+    ]
+  },
+  {
+    "name": "Amalgam Daikyu Target Acquired",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Assassination)"
+    ]
+  },
+  {
+    "name": "Amalgam Furax Body Count",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Assassination)"
+    ]
+  },
+  {
+    "name": "Amalgam Javlok Magazine Warp",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Assassination)"
+    ]
+  },
+  {
+    "name": "Amalgam Ripkas True Steel",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Assassination)"
+    ]
+  },
+  {
+    "name": "Amanata Blade Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Amanata Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Amanata Handle Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Amber Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Amp Arcane Adapter",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Ancient Protector Specter Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Ankyros Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Arbucep Barrel Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+    ]
+  },
+  {
+    "name": "Arbucep Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+    ]
+  },
+  {
+    "name": "Arbucep Receiver Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Arbucep Stock Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Archgun Arcane Adapter",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+    ]
+  },
+  {
+    "name": "Argon Crystal",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ascaris Prime",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot B]"
+    ]
+  },
+  {
+    "name": "Ash Chassis Blueprint",
+    "samplePlaces": [
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot A]",
+      "Pluto - Fenton's Field (Skirmish) [Rot A]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Ash Neuroptics Blueprint",
+    "samplePlaces": [
+      "Neptune - Arva Vector (Skirmish) [Rot A]",
+      "Neptune - Nu-Gua Mines (Skirmish)",
+      "Neptune - Enkidu Ice Drifts (Skirmish) [Rot A]",
+      "Neptune - Sovereign Grasp (Skirmish)"
+    ]
+  },
+  {
+    "name": "Ash Systems Blueprint",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Luckless Expanse (Skirmish) [Rot A]",
+      "Venus - Falling Glory (Skirmish) [Rot A]"
+    ]
+  },
+  {
+    "name": "Aucrux Capacitors",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Extra) (Skirmish)",
+      "Venus - Beacon Shield Ring (Extra) (Skirmish)",
+      "Venus - Orvin-Haarc (Extra) (Skirmish)",
+      "Venus - Vesper Strait (Extra) (Skirmish)",
+      "Venus - Luckless Expanse (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "Axi A21 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Axi A22 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Axi C12 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Axi C13 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Axi D6 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Axi P10 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Axi S21 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Axi V14 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Aya",
+    "samplePlaces": [
+      "Void - Teshub (Exterminate)",
+      "Void - Hepit (Capture)",
+      "Void - Taranis (Defense) [Rot A]",
+      "Void - Taranis (Defense) [Rot B]",
+      "Void - Taranis (Defense) [Rot B]"
+    ]
+  },
+  {
+    "name": "Azure Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Balla Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ballistica Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Boar Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Boltor Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Boot",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Bountiful Seed",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Breath Of The Eidolon",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot A]"
+    ]
+  },
+  {
+    "name": "Bronco Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Burston Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Cantare Blueprint",
+    "samplePlaces": [
+      "Uranus - Brutus (Ascension)"
+    ]
+  },
+  {
+    "name": "Charger Specter Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Citrine Blueprint",
+    "samplePlaces": [
+      "Mars - Tyana Pass (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Citrine Chassis Blueprint",
+    "samplePlaces": [
+      "Mars - Tyana Pass (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Citrine Neuroptics Blueprint",
+    "samplePlaces": [
+      "Mars - Tyana Pass (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Citrine Systems Blueprint",
+    "samplePlaces": [
+      "Mars - Tyana Pass (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Clem Clone Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Connla Sprout",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Full Experience",
+      "Transient (密室与特殊掉落) - Duviri Circuit"
+    ]
+  },
+  {
+    "name": "Control Module",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "Corufell Blueprint",
+    "samplePlaces": [
+      "Mars - Tyana Pass (Defense) [Rot A]"
+    ]
+  },
+  {
+    "name": "Cosmic Specter Blueprint",
+    "samplePlaces": [
+      "Saturn - Anthe (Rescue) [Rot C]",
+      "Uranus - Mab (Rescue) [Rot C]",
+      "Uranus - Caliban (Rescue) [Rot C]",
+      "Neptune - Triton (Rescue) [Rot C]",
+      "Pluto - Regna (Rescue) [Rot C]"
+    ]
+  },
+  {
+    "name": "Crimson Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Cronus Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Cyath Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Dante Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Dante Chassis Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Dante Neuroptics Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Dante Systems Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Datum",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Day Of The Dead Sigil",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Defender Insignia",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Dehtat Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Detonite Ampule",
+    "samplePlaces": [
+      "Earth - Cervantes (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "Dracroot",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Circuit"
+    ]
+  },
+  {
+    "name": "Dual Skana Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Dual Zoren Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Earth Resource Bundle",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Earth)"
+    ]
+  },
+  {
+    "name": "Eevani",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Full Experience",
+      "Transient (密室与特殊掉落) - Duviri Circuit"
+    ]
+  },
+  {
+    "name": "Ekwana Ii Jai Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ekwana Ii Ruhang Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ekwana Jai Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ekwana Jai Ii Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ekwana Ruhang Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ekwana Ruhang Ii Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Elemental Vice",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Ember Chassis Blueprint",
+    "samplePlaces": [
+      "Saturn - Tethys (Assassination)"
+    ]
+  },
+  {
+    "name": "Ember Neuroptics Blueprint",
+    "samplePlaces": [
+      "Saturn - Tethys (Assassination)"
+    ]
+  },
+  {
+    "name": "Ember Systems Blueprint",
+    "samplePlaces": [
+      "Saturn - Tethys (Assassination)"
+    ]
+  },
+  {
+    "name": "Emerald Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Enkaus Barrel Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Enkaus Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Enkaus Receiver Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Enkaus Stock Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Entrati Lanthorn",
+    "samplePlaces": [
+      "Deimos - Persto (Survival) [Rot B]",
+      "Deimos - Cambire (Alchemy) [Rot B]",
+      "Deimos - Munio (Defense) [Rot B]",
+      "Zariman - Everview Arc (Void Flood) [Rot B]",
+      "Zariman - Halako Perimeter (Exterminate)"
+    ]
+  },
+  {
+    "name": "Equinox Day Aspect Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot A]"
+    ]
+  },
+  {
+    "name": "Equinox Day Chassis Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot A]"
+    ]
+  },
+  {
+    "name": "Equinox Day Neuroptics Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot A]"
+    ]
+  },
+  {
+    "name": "Equinox Day Systems Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot A]"
+    ]
+  },
+  {
+    "name": "Equinox Night Aspect Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot B]"
+    ]
+  },
+  {
+    "name": "Equinox Night Chassis Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot B]"
+    ]
+  },
+  {
+    "name": "Equinox Night Neuroptics Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot B]"
+    ]
+  },
+  {
+    "name": "Equinox Night Systems Blueprint",
+    "samplePlaces": [
+      "Uranus - Titania (Assassination) [Rot B]"
+    ]
+  },
+  {
+    "name": "Evensong Blueprint",
+    "samplePlaces": [
+      "Uranus - Brutus (Ascension)"
+    ]
+  },
+  {
+    "name": "Excalibur Chassis Blueprint",
+    "samplePlaces": [
+      "Mars - War (Assassination)"
+    ]
+  },
+  {
+    "name": "Excalibur Neuroptics Blueprint",
+    "samplePlaces": [
+      "Mars - War (Assassination)"
+    ]
+  },
+  {
+    "name": "Excalibur Systems Blueprint",
+    "samplePlaces": [
+      "Mars - War (Assassination)"
+    ]
+  },
+  {
+    "name": "Executive Quittance",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Exemplar Granum Crown Decoration",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Extended Granum Void"
+    ]
+  },
+  {
+    "name": "Exilus Warframe Adapter",
+    "samplePlaces": [
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Exilus Warframe Adapter Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "Exilus Weapon Adapter Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 1 (Hard) (Hard)",
+      "Duviri - Endless: Tier 3 (Hard) (Hard)",
+      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "Fang Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Follie Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Follie Chassis Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Follie Neuroptics Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Follie Systems Blueprint",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Force Specter Blueprint",
+    "samplePlaces": [
+      "Jupiter - Metis (Rescue) [Rot C]",
+      "Saturn - Mimas (Rescue) [Rot C]",
+      "Saturn - Anthe (Rescue) [Rot B]",
+      "Saturn - Numa (Rescue) [Rot C]",
+      "Uranus - Mab (Rescue) [Rot B]"
+    ]
+  },
+  {
+    "name": "Forma",
+    "samplePlaces": [
+      "Earth - Cervantes (Caches) (Caches) [Rot C]",
+      "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Forma Blueprint",
+    "samplePlaces": [
+      "Earth - Cervantes (Caches) (Caches) [Rot C]",
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)"
+    ]
+  },
+  {
+    "name": "Forma Bundle",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+    ]
+  },
+  {
+    "name": "Fragor Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Frost Chassis Blueprint",
+    "samplePlaces": [
+      "Ceres - Exta (Extra) (Assassination)"
+    ]
+  },
+  {
+    "name": "Frost Neuroptics Blueprint",
+    "samplePlaces": [
+      "Ceres - Exta (Extra) (Assassination)"
+    ]
+  },
+  {
+    "name": "Frost Systems Blueprint",
+    "samplePlaces": [
+      "Ceres - Exta (Extra) (Assassination)"
+    ]
+  },
+  {
+    "name": "Furis Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Galariak Prime Blade Blueprint",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "Galariak Prime Blueprint",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "Galariak Prime Handle Blueprint",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "Gallium",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "Gammacor Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Gauss Chassis Blueprint",
+    "samplePlaces": [
+      "Sedna - Kappa (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Gauss Neuroptics Blueprint",
+    "samplePlaces": [
+      "Sedna - Kappa (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Gauss Systems Blueprint",
+    "samplePlaces": [
+      "Sedna - Kappa (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Gram Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Granum Crown Decoration",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Granum Void"
+    ]
+  },
+  {
+    "name": "Harmony Blueprint",
+    "samplePlaces": [
+      "Uranus - Brutus (Ascension)"
+    ]
+  },
+  {
+    "name": "Harrow Neuroptics Blueprint",
+    "samplePlaces": [
+      "Kuva Fortress - Taveuni (Survival) [Rot C]",
+      "Kuva Fortress - Pago (Spy) [Rot A]"
+    ]
+  },
+  {
+    "name": "Harrow Systems Blueprint",
+    "samplePlaces": [
+      "Saturn - Caracol (Defection) [Rot B]",
+      "Saturn - Caracol (Defection) [Rot C]",
+      "Neptune - Yursa (Defection) [Rot B]",
+      "Neptune - Yursa (Defection) [Rot C]",
+      "Phobos - Memphis (Defection) [Rot B]"
+    ]
+  },
+  {
+    "name": "Health Restore (Large)",
+    "samplePlaces": [
+      "Mercury - Elion (Capture)",
+      "Venus - Venera (Capture)",
+      "Earth - Mantle (Capture)",
+      "Earth - Cervantes (Caches) (Caches) [Rot C]",
+      "Earth - Cervantes (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "Higasa Barrel Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Higasa Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Higasa Receiver Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Higasa Stock Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Hikou Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Hind Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Honored Mark",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Hydroid Chassis Blueprint",
+    "samplePlaces": [
+      "Earth - Oro (Assassination)"
+    ]
+  },
+  {
+    "name": "Hydroid Neuroptics Blueprint",
+    "samplePlaces": [
+      "Earth - Oro (Assassination)"
+    ]
+  },
+  {
+    "name": "Hydroid Systems Blueprint",
+    "samplePlaces": [
+      "Earth - Oro (Assassination)"
+    ]
+  },
+  {
+    "name": "Ignis Wraith Blueprint",
+    "samplePlaces": [
+      "Veil Proxima - Flexa (Caches) (Caches) [Rot B]",
+      "Veil Proxima - H-2 Cloud (Caches) (Caches) [Rot B]",
+      "Veil Proxima - R-9 Cloud (Caches) (Caches) [Rot B]",
+      "Veil Proxima - Nsu Grid (Caches) (Caches) [Rot B]"
+    ]
+  },
+  {
+    "name": "Insignia",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Intriguing Datum",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Ivara Chassis Blueprint",
+    "samplePlaces": [
+      "Jupiter - Amalthea (Spy) [Rot C]",
+      "Saturn - Dione (Spy) [Rot C]",
+      "Saturn - Aegaeon (Spy) [Rot C]",
+      "Neptune - Brom Cluster (Skirmish) [Rot C]",
+      "Ceres - Bode (Spy) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ivara Neuroptics Blueprint",
+    "samplePlaces": [
+      "Uranus - Rosalind (Spy) [Rot C]",
+      "Neptune - Nereid (Spy) [Rot C]",
+      "Pluto - Oceanum (Spy) [Rot C]",
+      "Pluto - Peregrine Axis (Skirmish) [Rot C]",
+      "Eris - Cyath (Spy) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ivara Systems Blueprint",
+    "samplePlaces": [
+      "Mercury - Suisei (Spy) [Rot C]",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper (Spy) [Rot C]",
+      "Venus - Unda (Spy) [Rot C]",
+      "Earth - Cambria (Spy) [Rot C]"
+    ]
+  },
+  {
+    "name": "Jade Chassis Blueprint",
+    "samplePlaces": [
+      "Uranus - Brutus (Ascension)"
+    ]
+  },
+  {
+    "name": "Jade Neuroptics Blueprint",
+    "samplePlaces": [
+      "Uranus - Brutus (Ascension)"
+    ]
+  },
+  {
+    "name": "Jade Systems Blueprint",
+    "samplePlaces": [
+      "Uranus - Brutus (Ascension)"
+    ]
+  },
+  {
+    "name": "Jai Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Jai Ii Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Jayap Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Karak Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Kavat Genetic Code",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Kestrel Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Khora Chassis Blueprint",
+    "samplePlaces": [
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+    ]
+  },
+  {
+    "name": "Khora Neuroptics Blueprint",
+    "samplePlaces": [
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+    ]
+  },
+  {
+    "name": "Khora Systems Blueprint",
+    "samplePlaces": [
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+    ]
+  },
+  {
+    "name": "Kogake Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Komms",
+    "samplePlaces": [
+      "Earth - Sover Strait (Extra) (Skirmish)",
+      "Earth - Iota Temple (Extra) (Skirmish)",
+      "Earth - Ogal Cluster (Extra) (Skirmish)",
+      "Earth - Korm's Belt (Extra) (Skirmish)",
+      "Earth - Bendar Cluster (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "Koumei Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Koumei Chassis Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Koumei Neuroptics Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Koumei Systems Blueprint",
+    "samplePlaces": [
+      "Earth - Saya's Visions (Shrine Defense)"
+    ]
+  },
+  {
+    "name": "Kovnik",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Full Experience",
+      "Transient (密室与特殊掉落) - Duviri Circuit"
+    ]
+  },
+  {
+    "name": "Kraken Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Kronsh Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Kroostra Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Kubrow Egg",
+    "samplePlaces": [
+      "Earth - Cervantes (Caches) (Caches) [Rot B]",
+      "Transient (密室与特殊掉落) - Hallowed Flame Mission Caches",
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Kunai Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Kwath Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Laka Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Latron Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Lavan Engines Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot A]",
+      "Venus - Luckless Expanse (Skirmish) [Rot A]"
+    ]
+  },
+  {
+    "name": "Lavan Engines Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lavan Engines Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot A]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot A]",
+      "Pluto - Fenton's Field (Skirmish) [Rot A]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lavan Plating Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot A]",
+      "Venus - Luckless Expanse (Skirmish) [Rot B]"
+    ]
+  },
+  {
+    "name": "Lavan Plating Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lavan Plating Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot A]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot B]",
+      "Pluto - Fenton's Field (Skirmish) [Rot B]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lavan Reactor Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot A]",
+      "Venus - Luckless Expanse (Skirmish) [Rot A]"
+    ]
+  },
+  {
+    "name": "Lavan Reactor Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lavan Reactor Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot A]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot A]",
+      "Pluto - Fenton's Field (Skirmish) [Rot A]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lavan Shield Array Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot A]",
+      "Venus - Luckless Expanse (Skirmish) [Rot B]"
+    ]
+  },
+  {
+    "name": "Lavan Shield Array Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lavan Shield Array Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot A]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot B]",
+      "Pluto - Fenton's Field (Skirmish) [Rot B]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Lawful Medallion",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Extra) (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Legendary Core",
+    "samplePlaces": [
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Lith A13 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Lith C15 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Lith G14 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Lith L8 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Lith S18 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Lith S19 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Lith V11 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Earth)",
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Loki Chassis Blueprint",
+    "samplePlaces": [
+      "Neptune - Psamathe (Assassination)"
+    ]
+  },
+  {
+    "name": "Loki Neuroptics Blueprint",
+    "samplePlaces": [
+      "Neptune - Psamathe (Assassination)"
+    ]
+  },
+  {
+    "name": "Loki Systems Blueprint",
+    "samplePlaces": [
+      "Neptune - Psamathe (Assassination)"
+    ]
+  },
+  {
+    "name": "Lyroic Bridge",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot B]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot B]"
+    ]
+  },
+  {
+    "name": "Mag Chassis Blueprint",
+    "samplePlaces": [
+      "Phobos - Iliad (Assassination)"
+    ]
+  },
+  {
+    "name": "Mag Neuroptics Blueprint",
+    "samplePlaces": [
+      "Phobos - Iliad (Assassination)"
+    ]
+  },
+  {
+    "name": "Mag Systems Blueprint",
+    "samplePlaces": [
+      "Phobos - Iliad (Assassination)"
+    ]
+  },
+  {
+    "name": "Magistar Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Mark",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Medallion",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Melee Arcane Adapter",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Meso A12 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Meso C11 Relic (Radiant)",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Meso D8 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Meso D9 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Meso K9 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Meso V13 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Meso V17 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Meso Y2 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)",
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Mewan Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Miter Barrel",
+    "samplePlaces": [
+      "Ceres - Exta (Assassination)"
+    ]
+  },
+  {
+    "name": "Miter Blade",
+    "samplePlaces": [
+      "Ceres - Exta (Assassination)"
+    ]
+  },
+  {
+    "name": "Miter Blueprint",
+    "samplePlaces": [
+      "Ceres - Exta (Assassination)"
+    ]
+  },
+  {
+    "name": "Miter Chassis",
+    "samplePlaces": [
+      "Ceres - Exta (Assassination)"
+    ]
+  },
+  {
+    "name": "Miter Handle",
+    "samplePlaces": [
+      "Ceres - Exta (Assassination)"
+    ]
+  },
+  {
+    "name": "Mod Drop Chance Booster",
+    "samplePlaces": [
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Morphics",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Saturn - Cephalon Capture (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "Mortuus Shoulder Guard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+    ]
+  },
+  {
+    "name": "Mutagen Mass",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Hallowed Flame Endurance Caches"
+    ]
+  },
+  {
+    "name": "Narin Blueprint",
+    "samplePlaces": [
+      "Zariman - Halako Perimeter (Exterminate)",
+      "Zariman - The Greenway (Mobile Defense)"
+    ]
+  },
+  {
+    "name": "Narin Chassis Blueprint",
+    "samplePlaces": [
+      "Zariman - Everview Arc (Void Flood) [Rot A]",
+      "Zariman - Everview Arc (Void Flood) [Rot B]",
+      "Zariman - Everview Arc (Void Flood) [Rot C]"
+    ]
+  },
+  {
+    "name": "Narin Neuroptics Blueprint",
+    "samplePlaces": [
+      "Zariman - Tuvul Commons (Void Cascade) [Rot A]",
+      "Zariman - Tuvul Commons (Void Cascade) [Rot B]",
+      "Zariman - Tuvul Commons (Void Cascade) [Rot C]"
+    ]
+  },
+  {
+    "name": "Narin Systems Blueprint",
+    "samplePlaces": [
+      "Zariman - Oro Works (Void Armageddon) [Rot A]",
+      "Zariman - Oro Works (Void Armageddon) [Rot B]",
+      "Zariman - Oro Works (Void Armageddon) [Rot C]"
+    ]
+  },
+  {
+    "name": "Nekros Chassis Blueprint",
+    "samplePlaces": [
+      "Deimos - Magnacidium (Assassination)"
+    ]
+  },
+  {
+    "name": "Nekros Neuroptics Blueprint",
+    "samplePlaces": [
+      "Deimos - Magnacidium (Assassination)"
+    ]
+  },
+  {
+    "name": "Nekros Systems Blueprint",
+    "samplePlaces": [
+      "Deimos - Magnacidium (Assassination)"
+    ]
+  },
+  {
+    "name": "Neo A16 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Neo C10 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Neo C11 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Neo C7 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Neo K10 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Neo V13 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Neo Y2 Relic (Radiant)",
+    "samplePlaces": [
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Neptune Resource Bundle",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)"
+    ]
+  },
+  {
+    "name": "Neural Sensors",
+    "samplePlaces": [
+      "Saturn - Cephalon Capture (Conclave) [Rot B]",
+      "Saturn - Cephalon Capture (Extra) (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Conclave) [Rot B]",
+      "Saturn - Team Annihilation (Extra) (Conclave) [Rot B]",
+      "Saturn - Annihilation (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "Neurodes",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Earth - Cervantes (Caches) (Caches) [Rot B]",
+      "Earth - Cervantes (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "Nidus Chassis Blueprint",
+    "samplePlaces": [
+      "Eris - Oestrus (Infested Salvage) [Rot A]",
+      "Eris - Oestrus (Infested Salvage) [Rot B]",
+      "Eris - Oestrus (Infested Salvage) [Rot C]"
+    ]
+  },
+  {
+    "name": "Nidus Neuroptics Blueprint",
+    "samplePlaces": [
+      "Eris - Oestrus (Infested Salvage) [Rot A]",
+      "Eris - Oestrus (Infested Salvage) [Rot B]",
+      "Eris - Oestrus (Infested Salvage) [Rot C]"
+    ]
+  },
+  {
+    "name": "Nidus Systems Blueprint",
+    "samplePlaces": [
+      "Eris - Oestrus (Infested Salvage) [Rot A]",
+      "Eris - Oestrus (Infested Salvage) [Rot B]",
+      "Eris - Oestrus (Infested Salvage) [Rot C]"
+    ]
+  },
+  {
+    "name": "Nitain Extract",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "Nokko Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+    ]
+  },
+  {
+    "name": "Nokko Chassis Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Critter Liberation Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Nokko Neuroptics Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Weed The Gardens Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Nokko Systems Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring Rewards",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)",
+      "Transient (密室与特殊掉落) - Nokko: Corporate Restructuring (Steel Path)"
+    ]
+  },
+  {
+    "name": "Nova Chassis Blueprint",
+    "samplePlaces": [
+      "Europa - Naamah (Assassination)"
+    ]
+  },
+  {
+    "name": "Nova Neuroptics Blueprint",
+    "samplePlaces": [
+      "Europa - Naamah (Assassination)"
+    ]
+  },
+  {
+    "name": "Nova Systems Blueprint",
+    "samplePlaces": [
+      "Europa - Naamah (Assassination)"
+    ]
+  },
+  {
+    "name": "Nullstones",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Extra) (Skirmish)",
+      "Venus - Beacon Shield Ring (Extra) (Skirmish)",
+      "Venus - Orvin-Haarc (Extra) (Skirmish)",
+      "Venus - Vesper Strait (Extra) (Skirmish)",
+      "Venus - Luckless Expanse (Extra) (Skirmish)"
+    ]
+  },
+  {
+    "name": "Nyx Chassis Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Phorid Assassination"
+    ]
+  },
+  {
+    "name": "Nyx Neuroptics Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Phorid Assassination"
+    ]
+  },
+  {
+    "name": "Nyx Systems Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Phorid Assassination"
+    ]
+  },
+  {
+    "name": "Oberon Chassis Blueprint",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Caches) (Caches)",
+      "Saturn - Kasio's Rest (Caches) (Caches)",
+      "Saturn - Nodo Gap (Caches) (Caches)",
+      "Saturn - Lupal Pass (Caches) (Caches)",
+      "Saturn - Vand Cluster (Caches) (Caches)"
+    ]
+  },
+  {
+    "name": "Oberon Neuroptics Blueprint",
+    "samplePlaces": [
+      "Earth - Sover Strait (Caches) (Caches)",
+      "Earth - Iota Temple (Caches) (Caches)",
+      "Earth - Ogal Cluster (Caches) (Caches)",
+      "Earth - Korm's Belt (Caches) (Caches)",
+      "Earth - Bendar Cluster (Caches) (Caches)"
+    ]
+  },
+  {
+    "name": "Oberon Systems Blueprint",
+    "samplePlaces": [
+      "Earth - Sover Strait (Caches) (Caches)",
+      "Earth - Iota Temple (Caches) (Caches)",
+      "Earth - Ogal Cluster (Caches) (Caches)",
+      "Earth - Korm's Belt (Caches) (Caches)",
+      "Earth - Bendar Cluster (Caches) (Caches)"
+    ]
+  },
+  {
+    "name": "Octavia Neuroptics Blueprint",
+    "samplePlaces": [
+      "Deimos - Terrorem (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Octavia Systems Blueprint",
+    "samplePlaces": [
+      "Lua - Plato (Caches) (Caches) [Rot A]"
+    ]
+  },
+  {
+    "name": "Omni Ammo Box",
+    "samplePlaces": [
+      "Mercury - Elion (Capture)",
+      "Venus - Venera (Capture)",
+      "Earth - Mantle (Capture)",
+      "Mars - Ara (Capture)",
+      "Mars - Quirinus (Capture)"
+    ]
+  },
+  {
+    "name": "Omni Forma",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards",
+      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+    ]
+  },
+  {
+    "name": "Omni Forma Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Arbitrations",
+      "Transient (密室与特殊掉落) - Arbitrations",
+      "Transient (密室与特殊掉落) - Arbitrations",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Onos Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot B]"
+    ]
+  },
+  {
+    "name": "Ooltha Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Oraxia Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Oraxia Chassis Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Oraxia Neuroptics Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Oraxia Systems Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Orokin Catalyst Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)",
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Orokin Cell",
+    "samplePlaces": [
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]",
+      "Jupiter - Carpo (Caches) (Caches) [Rot C]",
+      "Saturn - Pallene (Caches) (Caches) [Rot C]",
+      "Saturn - Calypso (Caches) (Caches) [Rot C]",
+      "Saturn - Cephalon Capture (Conclave) [Rot B]"
+    ]
+  },
+  {
+    "name": "Orokin Reactor Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Rare Rewards (Steel Path)",
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Orthos Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Perigale Blueprint",
+    "samplePlaces": [
+      "Lua - Yuvarium (Survival) [Rot A]",
+      "Lua - Circulus (Survival) [Rot A]"
+    ]
+  },
+  {
+    "name": "Peye Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Phase Specter Blueprint",
+    "samplePlaces": [
+      "Mercury - Caloris (Rescue) [Rot C]",
+      "Venus - Linea (Rescue) [Rot C]",
+      "Earth - Pacific (Rescue) [Rot C]",
+      "Mars - Martialis (Rescue) [Rot C]",
+      "Jupiter - Metis (Rescue) [Rot B]"
+    ]
+  },
+  {
+    "name": "Pluto Resource Bundle",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)"
+    ]
+  },
+  {
+    "name": "Pride Blade Blueprint",
+    "samplePlaces": [
+      "Uranus - The Kuva Wytch (Skirmish)"
+    ]
+  },
+  {
+    "name": "Pride Blueprint",
+    "samplePlaces": [
+      "Uranus - The Kuva Wytch (Skirmish)"
+    ]
+  },
+  {
+    "name": "Pride Handle Blueprint",
+    "samplePlaces": [
+      "Uranus - The Kuva Wytch (Skirmish)"
+    ]
+  },
+  {
+    "name": "Primary Arcane Adapter",
+    "samplePlaces": [
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "Protea Chassis Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Extended Granum Void"
+    ]
+  },
+  {
+    "name": "Protea Neuroptics Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Granum Void"
+    ]
+  },
+  {
+    "name": "Protea Systems Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+    ]
+  },
+  {
+    "name": "Quittance",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Reconifex Barrel Blueprint",
+    "samplePlaces": [
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot A]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Reconifex Receiver Blueprint",
+    "samplePlaces": [
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Reconifex Stock Blueprint",
+    "samplePlaces": [
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot A]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ren Hypercore",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot B]"
+    ]
+  },
+  {
+    "name": "Resource Drop Chance Booster",
+    "samplePlaces": [
+      "Sortie (突击任务)"
+    ]
+  },
+  {
+    "name": "Return: 105,000",
+    "samplePlaces": [
+      "Neptune - The Index: Endurance (Low Risk) (Arena) [Rot A]",
+      "Neptune - The Index: Endurance (Medium Risk) (Arena) [Rot A]",
+      "Neptune - The Index: Endurance (High Risk) (Arena) [Rot A]",
+      "Neptune - The Index: Endurance (Arena) [Rot A]"
+    ]
+  },
+  {
+    "name": "Return: 175,000",
+    "samplePlaces": [
+      "Neptune - The Index: Endurance (Low Risk) (Arena) [Rot B]",
+      "Neptune - The Index: Endurance (Medium Risk) (Arena) [Rot B]",
+      "Neptune - The Index: Endurance (High Risk) (Arena) [Rot B]",
+      "Neptune - The Index: Endurance (Arena) [Rot B]"
+    ]
+  },
+  {
+    "name": "Return: 250,000",
+    "samplePlaces": [
+      "Neptune - The Index: Endurance (Low Risk) (Arena) [Rot C]",
+      "Neptune - The Index: Endurance (Medium Risk) (Arena) [Rot C]",
+      "Neptune - The Index: Endurance (High Risk) (Arena) [Rot C]",
+      "Neptune - The Index: Endurance (Arena) [Rot C]"
+    ]
+  },
+  {
+    "name": "Rhino Chassis Blueprint",
+    "samplePlaces": [
+      "Venus - Fossa (Assassination)"
+    ]
+  },
+  {
+    "name": "Rhino Neuroptics Blueprint",
+    "samplePlaces": [
+      "Venus - Fossa (Assassination)"
+    ]
+  },
+  {
+    "name": "Rhino Systems Blueprint",
+    "samplePlaces": [
+      "Venus - Fossa (Assassination)"
+    ]
+  },
+  {
+    "name": "Riot-848 Blueprint",
+    "samplePlaces": [
+      "Höllvania - Solstice Square (Defense) [Rot A]",
+      "Höllvania - Solstice Square (Defense) [Rot B]",
+      "Höllvania - Solstice Square (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Riven Sliver",
+    "samplePlaces": [
+      "Venus - Orvin-Haarc (Skirmish) [Rot A]",
+      "Neptune - Arva Vector (Skirmish) [Rot B]",
+      "Neptune - Enkidu Ice Drifts (Skirmish) [Rot B]",
+      "Neptune - Sovereign Grasp (Skirmish)",
+      "Neptune - Brom Cluster (Skirmish) [Rot A]"
+    ]
+  },
+  {
+    "name": "Riven Transmuter",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+    ]
+  },
+  {
+    "name": "Ruhang Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Ruhang Ii Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Rush Repair Drone",
+    "samplePlaces": [
+      "Veil Proxima - Flexa (Skirmish)",
+      "Veil Proxima - H-2 Cloud (Skirmish)",
+      "Veil Proxima - R-9 Cloud (Skirmish)",
+      "Veil Proxima - Nsu Grid (Skirmish)"
+    ]
+  },
+  {
+    "name": "Ruvox Blade Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot B]"
+    ]
+  },
+  {
+    "name": "Ruvox Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot B]"
+    ]
+  },
+  {
+    "name": "Ruvox Glove Blueprint",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot B]"
+    ]
+  },
+  {
+    "name": "Sagek Prime Barrel Blueprint",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "Sagek Prime Blueprint",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "Sagek Prime Receiver Blueprint",
+    "samplePlaces": [
+      "Dark Refractory, Deimos - Recall: Hunhullus (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Dactolyst (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - Recall: Vanguard (The Perita Rebellion) [Rot A]",
+      "Dark Refractory, Deimos - The Guilty (The Perita Rebellion) [Rot A]"
+    ]
+  },
+  {
+    "name": "Sarofang Blueprint",
+    "samplePlaces": [
+      "Lua - Yuvarium (Survival) [Rot A]",
+      "Lua - Circulus (Survival) [Rot A]"
+    ]
+  },
+  {
+    "name": "Saryn Chassis Blueprint",
+    "samplePlaces": [
+      "Sedna - Merrow (Assassination)"
+    ]
+  },
+  {
+    "name": "Saryn Neuroptics Blueprint",
+    "samplePlaces": [
+      "Sedna - Merrow (Assassination)"
+    ]
+  },
+  {
+    "name": "Saryn Systems Blueprint",
+    "samplePlaces": [
+      "Sedna - Merrow (Assassination)"
+    ]
+  },
+  {
+    "name": "Saturn Resource Bundle",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Saturn)"
+    ]
+  },
+  {
+    "name": "Scindo Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Scyotid Barrel Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Scyotid Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Scyotid Gauntlet Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Secondary Arcane Adapter",
+    "samplePlaces": [
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard) (Hard)"
+    ]
+  },
+  {
+    "name": "Seed",
+    "samplePlaces": [
+      "Venus - Vesper Relay (Follie's Hunt) [Rot A]"
+    ]
+  },
+  {
+    "name": "Seekalla Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Seer Barrel",
+    "samplePlaces": [
+      "Mercury - Tolstoj (Assassination)"
+    ]
+  },
+  {
+    "name": "Seer Blueprint",
+    "samplePlaces": [
+      "Mercury - Tolstoj (Assassination)"
+    ]
+  },
+  {
+    "name": "Seer Receiver",
+    "samplePlaces": [
+      "Mercury - Tolstoj (Assassination)"
+    ]
+  },
+  {
+    "name": "Sevagoth Chassis Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Sevagoth Neuroptics Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Sevagoth Systems Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Neptune)",
+      "Transient (密室与特殊掉落) - Void Storm (Pluto)",
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Shrill Voca",
+    "samplePlaces": [
+      "Deimos - Armatus (Disruption) [Rot A]"
+    ]
+  },
+  {
+    "name": "Sirius & Orion Blueprint",
+    "samplePlaces": [
+      "Uranus - The Kuva Wytch (Skirmish)",
+      "Uranus - Scoria's Angel (Skirmish)"
+    ]
+  },
+  {
+    "name": "Sirius & Orion Chassis Blueprint",
+    "samplePlaces": [
+      "Uranus - The Kuva Wytch (Skirmish)",
+      "Uranus - Scoria's Angel (Skirmish)"
+    ]
+  },
+  {
+    "name": "Sirius & Orion Neuroptics Blueprint",
+    "samplePlaces": [
+      "Uranus - The Kuva Wytch (Skirmish)",
+      "Uranus - Scoria's Angel (Skirmish)"
+    ]
+  },
+  {
+    "name": "Sirius & Orion Systems Blueprint",
+    "samplePlaces": [
+      "Uranus - The Kuva Wytch (Skirmish)",
+      "Uranus - Scoria's Angel (Skirmish)"
+    ]
+  },
+  {
+    "name": "Somatic Fibers",
+    "samplePlaces": [
+      "Lua - Yuvarium (Survival) [Rot A]",
+      "Lua - Circulus (Survival) [Rot A]"
+    ]
+  },
+  {
+    "name": "Sonicor Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Spinnerex Blade Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Spinnerex Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Spinnerex Handle Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Spinnerex String Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards",
+      "Transient (密室与特殊掉落) - Duviri Murmur Invasion Rewards (Steel Path)"
+    ]
+  },
+  {
+    "name": "Steflos Blueprint",
+    "samplePlaces": [
+      "Mars - Tyana Pass (Defense) [Rot A]"
+    ]
+  },
+  {
+    "name": "Stug Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Synthetic Eidolon Shard",
+    "samplePlaces": [
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]"
+    ]
+  },
+  {
+    "name": "Tauforged Amber Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Legendary Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Tauforged Azure Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Legendary Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Tauforged Crimson Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Deep Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Deep Archimedea Legendary Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Silver Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Tauforged Emerald Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards"
+    ]
+  },
+  {
+    "name": "Tauforged Topaz Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards"
+    ]
+  },
+  {
+    "name": "Tauforged Violet Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards",
+      "Transient (密室与特殊掉落) - Temporal Archimedea Legendary Rewards"
+    ]
+  },
+  {
+    "name": "Tellurium",
+    "samplePlaces": [
+      "Mercury - Terminus (Caches) (Caches) [Rot C]",
+      "Mercury - Neruda (Caches) (Caches) [Rot C]",
+      "Venus - Ishtar (Caches) (Caches) [Rot C]",
+      "Mars - Gradivus (Caches) (Caches) [Rot C]",
+      "Jupiter - Adrastea (Caches) (Caches) [Rot C]"
+    ]
+  },
+  {
+    "name": "Temple Blueprint",
+    "samplePlaces": [
+      "Höllvania - Solstice Square (Defense) [Rot A]",
+      "Höllvania - Solstice Square (Defense) [Rot B]",
+      "Höllvania - Solstice Square (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Temple Chassis Blueprint",
+    "samplePlaces": [
+      "Höllvania - Solstice Square (Defense) [Rot A]",
+      "Höllvania - Solstice Square (Defense) [Rot B]",
+      "Höllvania - Solstice Square (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Temple Neuroptics Blueprint",
+    "samplePlaces": [
+      "Höllvania - Solstice Square (Defense) [Rot A]",
+      "Höllvania - Solstice Square (Defense) [Rot B]",
+      "Höllvania - Solstice Square (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Temple Systems Blueprint",
+    "samplePlaces": [
+      "Höllvania - Solstice Square (Defense) [Rot A]",
+      "Höllvania - Solstice Square (Defense) [Rot B]",
+      "Höllvania - Solstice Square (Defense) [Rot C]"
+    ]
+  },
+  {
+    "name": "Topaz Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Trinity Chassis Blueprint",
+    "samplePlaces": [
+      "Pluto - Hades (Assassination)"
+    ]
+  },
+  {
+    "name": "Trinity Neuroptics Blueprint",
+    "samplePlaces": [
+      "Pluto - Hades (Assassination)"
+    ]
+  },
+  {
+    "name": "Trinity Systems Blueprint",
+    "samplePlaces": [
+      "Pluto - Hades (Assassination)"
+    ]
+  },
+  {
+    "name": "Twin Gremlins Blueprint",
+    "samplePlaces": [
+      "Ceres - Exta (Assassination)"
+    ]
+  },
+  {
+    "name": "Universal Medallion",
+    "samplePlaces": [
+      "Jupiter - Ganymede (Disruption) [Rot C]",
+      "Uranus - Ur (Disruption) [Rot C]",
+      "Neptune - Laomedeia (Disruption) [Rot C]",
+      "Sedna - Kappa (Disruption) [Rot C]",
+      "Lua - Apollo (Disruption) [Rot C]"
+    ]
+  },
+  {
+    "name": "Uriel Chassis Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Uriel Neuroptics Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Uriel Systems Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Valkyr Chassis Blueprint",
+    "samplePlaces": [
+      "Jupiter - Themisto (Assassination)"
+    ]
+  },
+  {
+    "name": "Valkyr Neuroptics Blueprint",
+    "samplePlaces": [
+      "Jupiter - Themisto (Assassination)"
+    ]
+  },
+  {
+    "name": "Valkyr Systems Blueprint",
+    "samplePlaces": [
+      "Jupiter - Themisto (Assassination)"
+    ]
+  },
+  {
+    "name": "Vapor Specter Blueprint",
+    "samplePlaces": [
+      "Mercury - Caloris (Rescue) [Rot B]",
+      "Venus - Linea (Rescue) [Rot B]",
+      "Earth - Pacific (Rescue) [Rot B]",
+      "Mars - Martialis (Rescue) [Rot B]",
+      "Jupiter - Metis (Rescue) [Rot A]"
+    ]
+  },
+  {
+    "name": "Vargeet Ii Jai Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vargeet Ii Ruhang Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vargeet Jai Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vargeet Jai Ii Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vargeet Ruhang Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vargeet Ruhang Ii Blueprint",
+    "samplePlaces": [
+      "Saturn - Variant Team Annihilation (Conclave) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vectis Blueprint",
+    "samplePlaces": [
+      "Duviri - Endless: Tier 6 (Normal)"
+    ]
+  },
+  {
+    "name": "Veil Resource Bundle",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Veil Proxima)"
+    ]
+  },
+  {
+    "name": "Veiled Riven Cipher",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests"
+    ]
+  },
+  {
+    "name": "Venus Resource Bundle",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Void Storm (Venus)"
+    ]
+  },
+  {
+    "name": "Vesper 77 Barrel Blueprint",
+    "samplePlaces": [
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vesper 77 Handle Blueprint",
+    "samplePlaces": [
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vesper 77 Receiver Blueprint",
+    "samplePlaces": [
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
+      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot A]",
+      "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vidar Engines Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot B]",
+      "Venus - Luckless Expanse (Skirmish) [Rot B]"
+    ]
+  },
+  {
+    "name": "Vidar Engines Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vidar Engines Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot B]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot B]",
+      "Pluto - Fenton's Field (Skirmish) [Rot B]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vidar Plating Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot B]",
+      "Venus - Luckless Expanse (Skirmish) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vidar Plating Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vidar Plating Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot B]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot C]",
+      "Pluto - Fenton's Field (Skirmish) [Rot C]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vidar Reactor Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot B]",
+      "Venus - Luckless Expanse (Skirmish) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vidar Reactor Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vidar Reactor Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot B]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot C]",
+      "Pluto - Fenton's Field (Skirmish) [Rot C]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vidar Shield Array Mk I",
+    "samplePlaces": [
+      "Venus - Bifrost Echo (Skirmish)",
+      "Venus - Beacon Shield Ring (Skirmish)",
+      "Venus - Orvin-Haarc (Skirmish) [Rot C]",
+      "Venus - Vesper Strait (Skirmish) [Rot B]",
+      "Venus - Luckless Expanse (Skirmish) [Rot C]"
+    ]
+  },
+  {
+    "name": "Vidar Shield Array Mk Ii",
+    "samplePlaces": [
+      "Saturn - Mordo Cluster (Skirmish)",
+      "Saturn - Kasio's Rest (Skirmish)",
+      "Saturn - Nodo Gap (Skirmish)",
+      "Saturn - Lupal Pass (Skirmish)",
+      "Saturn - Vand Cluster (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vidar Shield Array Mk Iii",
+    "samplePlaces": [
+      "Pluto - Khufu Envoy (Skirmish) [Rot B]",
+      "Pluto - Seven Sirens (Skirmish)",
+      "Pluto - Obol Crossing (Skirmish) [Rot C]",
+      "Pluto - Fenton's Field (Skirmish) [Rot C]",
+      "Pluto - Profit Margin (Skirmish)"
+    ]
+  },
+  {
+    "name": "Vinquibus Barrel Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Vinquibus Blade Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Vinquibus Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Vinquibus Receiver Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Vinquibus Stock Blueprint",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - The Descendia: Roathe"
+    ]
+  },
+  {
+    "name": "Violet Archon Shard",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Temporal Archimedea Gold Rewards"
+    ]
+  },
+  {
+    "name": "Voidgel Orb",
+    "samplePlaces": [
+      "Zariman - Everview Arc (Void Flood) [Rot A]",
+      "Zariman - Halako Perimeter (Exterminate)",
+      "Zariman - Tuvul Commons (Void Cascade) [Rot A]",
+      "Zariman - Oro Works (Void Armageddon) [Rot A]",
+      "Zariman - The Greenway (Mobile Defense)"
+    ]
+  },
+  {
+    "name": "Voruna Blueprint",
+    "samplePlaces": [
+      "Lua - Yuvarium (Survival) [Rot C]",
+      "Lua - Circulus (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Voruna Chassis Blueprint",
+    "samplePlaces": [
+      "Lua - Yuvarium (Survival) [Rot C]",
+      "Lua - Circulus (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Voruna Neuroptics Blueprint",
+    "samplePlaces": [
+      "Lua - Yuvarium (Survival) [Rot C]",
+      "Lua - Circulus (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Voruna Systems Blueprint",
+    "samplePlaces": [
+      "Lua - Yuvarium (Survival) [Rot C]",
+      "Lua - Circulus (Survival) [Rot C]"
+    ]
+  },
+  {
+    "name": "Wisp Blueprint",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Extra) (Assassination)"
+    ]
+  },
+  {
+    "name": "Wisp Chassis Blueprint",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Extra) (Assassination)"
+    ]
+  },
+  {
+    "name": "Wisp Neuroptics Blueprint",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Extra) (Assassination)"
+    ]
+  },
+  {
+    "name": "Wisp Systems Blueprint",
+    "samplePlaces": [
+      "Jupiter - The Ropalolyst (Extra) (Assassination)"
+    ]
+  },
+  {
+    "name": "Wrath Blade Blueprint",
+    "samplePlaces": [
+      "Uranus - Scoria's Angel (Skirmish)"
+    ]
+  },
+  {
+    "name": "Wrath Blueprint",
+    "samplePlaces": [
+      "Uranus - Scoria's Angel (Skirmish)"
+    ]
+  },
+  {
+    "name": "Wrath Handle Blueprint",
+    "samplePlaces": [
+      "Uranus - Scoria's Angel (Skirmish)"
+    ]
+  },
+  {
+    "name": "Yao Shrub",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Duviri Circuit"
+    ]
+  },
+  {
+    "name": "Zenith Granum Crown Decoration",
+    "samplePlaces": [
+      "Transient (密室与特殊掉落) - Nightmare Granum Void"
+    ]
+  },
+  {
+    "name": "Zetki Engines Mk Iii",
+    "samplePlaces": [
+      "Veil Proxima - Calabash (Skirmish)",
+      "Veil Proxima - Numina (Skirmish)",
+      "Veil Proxima - Arc Silver (Skirmish) [Rot B]",
+      "Veil Proxima - Erato (Skirmish) [Rot B]",
+      "Veil Proxima - Lu-Yan (Skirmish) [Rot B]"
+    ]
+  },
+  {
+    "name": "Zetki Plating Mk Iii",
+    "samplePlaces": [
+      "Veil Proxima - Calabash (Skirmish)",
+      "Veil Proxima - Numina (Skirmish)",
+      "Veil Proxima - Arc Silver (Skirmish) [Rot C]",
+      "Veil Proxima - Erato (Skirmish) [Rot B]",
+      "Veil Proxima - Lu-Yan (Skirmish) [Rot C]"
+    ]
+  },
+  {
+    "name": "Zetki Reactor Mk Iii",
+    "samplePlaces": [
+      "Veil Proxima - Calabash (Skirmish)",
+      "Veil Proxima - Numina (Skirmish)",
+      "Veil Proxima - Arc Silver (Skirmish) [Rot C]",
+      "Veil Proxima - Erato (Skirmish) [Rot B]",
+      "Veil Proxima - Lu-Yan (Skirmish) [Rot C]"
+    ]
+  },
+  {
+    "name": "Zetki Shield Array Mk Iii",
+    "samplePlaces": [
+      "Veil Proxima - Calabash (Skirmish)",
+      "Veil Proxima - Numina (Skirmish)",
+      "Veil Proxima - Arc Silver (Skirmish) [Rot C]",
+      "Veil Proxima - Erato (Skirmish) [Rot B]",
+      "Veil Proxima - Lu-Yan (Skirmish) [Rot C]"
+    ]
+  }
+]

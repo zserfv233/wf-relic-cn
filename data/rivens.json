@@ -1,0 +1,520 @@
+[
+  {
+    "id": "rifle_riven_mod_veiled",
+    "slug": "rifle_riven_mod_veiled",
+    "name": "Rifle Riven Mod (Veiled)",
+    "zhName": "步枪裂罅 Mod （尚未揭开）",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven_mod",
+      "common",
+      "veiled_riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "mission_duviri_endless: tier 6 (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "rotation": null,
+        "chance": 8.5,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: tier 7",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 7 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 7 (Hard)",
+        "rotation": null,
+        "chance": 8.5,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: repeated rewards (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
+        "rotation": null,
+        "chance": 0.95,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_descendia_uncommon_rewards_steel_path_",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "nameZh": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "rotation": null,
+        "chance": 7.14,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_crested_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "rotation": null,
+        "chance": 8.75,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "rotation": null,
+        "chance": 8.44,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_sortie_sortie_",
+        "sourceType": "sortie",
+        "nameEn": "Sortie (突击任务)",
+        "nameZh": "Sortie (突击任务)",
+        "rotation": null,
+        "chance": 7,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  },
+  {
+    "id": "pistol_riven_mod_veiled",
+    "slug": "pistol_riven_mod_veiled",
+    "name": "Pistol Riven Mod (Veiled)",
+    "zhName": "手枪裂罅 Mod （尚未揭开）",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven_mod",
+      "common",
+      "veiled_riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "mission_duviri_endless: tier 6 (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "rotation": null,
+        "chance": 8.5,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: tier 7",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 7 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 7 (Hard)",
+        "rotation": null,
+        "chance": 8.5,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: repeated rewards (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
+        "rotation": null,
+        "chance": 0.95,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_descendia_uncommon_rewards_steel_path_",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "nameZh": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "rotation": null,
+        "chance": 7.14,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_crested_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "rotation": null,
+        "chance": 8.75,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "rotation": null,
+        "chance": 8.44,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_sortie_sortie_",
+        "sourceType": "sortie",
+        "nameEn": "Sortie (突击任务)",
+        "nameZh": "Sortie (突击任务)",
+        "rotation": null,
+        "chance": 7,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  },
+  {
+    "id": "melee_riven_mod_veiled",
+    "slug": "melee_riven_mod_veiled",
+    "name": "Melee Riven Mod (Veiled)",
+    "zhName": "近战裂罅 Mod （尚未揭开）",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven_mod",
+      "common",
+      "veiled_riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "mission_duviri_endless: tier 6 (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "rotation": null,
+        "chance": 11.9,
+        "rarity": "Uncommon",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: tier 7",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 7 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 7 (Hard)",
+        "rotation": null,
+        "chance": 11.9,
+        "rarity": "Uncommon",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: repeated rewards (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
+        "rotation": null,
+        "chance": 0.95,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_descendia_uncommon_rewards_steel_path_",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "nameZh": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "rotation": null,
+        "chance": 7.14,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_crested_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "rotation": null,
+        "chance": 10.5,
+        "rarity": "Uncommon",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "rotation": null,
+        "chance": 11.81,
+        "rarity": "Uncommon",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_sortie_sortie_",
+        "sourceType": "sortie",
+        "nameEn": "Sortie (突击任务)",
+        "nameZh": "Sortie (突击任务)",
+        "rotation": null,
+        "chance": 9.8,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  },
+  {
+    "id": "shotgun_riven_mod_veiled",
+    "slug": "shotgun_riven_mod_veiled",
+    "name": "Shotgun Riven Mod (Veiled)",
+    "zhName": "霰弹枪裂罅 Mod （尚未揭开）",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven_mod",
+      "common",
+      "veiled_riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "mission_duviri_endless: tier 6 (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "rotation": null,
+        "chance": 2.7,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: tier 7",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 7 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 7 (Hard)",
+        "rotation": null,
+        "chance": 2.7,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: repeated rewards (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
+        "rotation": null,
+        "chance": 0.95,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_descendia_uncommon_rewards_steel_path_",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "nameZh": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "rotation": null,
+        "chance": 7.14,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_crested_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "rotation": null,
+        "chance": 4.55,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_icebind_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Frozen Chests",
+        "rotation": null,
+        "chance": 5.06,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_sortie_sortie_",
+        "sourceType": "sortie",
+        "nameEn": "Sortie (突击任务)",
+        "nameZh": "Sortie (突击任务)",
+        "rotation": null,
+        "chance": 2.2,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  },
+  {
+    "id": "zaw_riven_mod_veiled",
+    "slug": "zaw_riven_mod_veiled",
+    "name": "Zaw Riven Mod (Veiled)",
+    "zhName": "Zaw 裂罅 Mod （尚未揭开）",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven_mod",
+      "common",
+      "veiled_riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "mission_duviri_endless: tier 6 (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "rotation": null,
+        "chance": 1.2,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: tier 7",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 7 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 7 (Hard)",
+        "rotation": null,
+        "chance": 1.2,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: repeated rewards (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
+        "rotation": null,
+        "chance": 0.95,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_descendia_uncommon_rewards_steel_path_",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "nameZh": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "rotation": null,
+        "chance": 7.14,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_sortie_sortie_",
+        "sourceType": "sortie",
+        "nameEn": "Sortie (突击任务)",
+        "nameZh": "Sortie (突击任务)",
+        "rotation": null,
+        "chance": 1,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  },
+  {
+    "id": "kitgun_riven_mod_veiled",
+    "slug": "kitgun_riven_mod_veiled",
+    "name": "Kitgun Riven Mod (Veiled)",
+    "zhName": "组合枪裂罅 Mod （尚未揭开）",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven_mod",
+      "common",
+      "veiled_riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "mission_duviri_endless: tier 6 (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "rotation": null,
+        "chance": 1.2,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: tier 7",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Tier 7 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 7 (Hard)",
+        "rotation": null,
+        "chance": 1.2,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "mission_duviri_endless: repeated rewards (hard)",
+        "sourceType": "mission",
+        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
+        "rotation": null,
+        "chance": 0.95,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_transient_transient_the_descendia_uncommon_rewards_steel_path_",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "nameZh": "Transient (密室与特殊掉落) - The Descendia: Uncommon Rewards (Steel Path)",
+        "rotation": null,
+        "chance": 7.14,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "source_sortie_sortie_",
+        "sourceType": "sortie",
+        "nameEn": "Sortie (突击任务)",
+        "nameZh": "Sortie (突击任务)",
+        "rotation": null,
+        "chance": 1,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  },
+  {
+    "id": "archgun_riven_mod_veiled",
+    "slug": "archgun_riven_mod_veiled",
+    "name": "Archgun Riven Mod (Veiled)",
+    "zhName": "曲翼枪械裂罅 Mod （尚未揭开）",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven_mod",
+      "common",
+      "veiled_riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "source_transient_transient_the_icebind_crested_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "rotation": null,
+        "chance": 1.22,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  },
+  {
+    "id": "companion_weapon_riven_mod_veiled",
+    "slug": "companion_weapon_riven_mod_veiled",
+    "name": "Companion Weapon Riven Mod (Veiled)",
+    "zhName": "同伴武器裂罅 Mod (尚未揭开)",
+    "zhSource": "warframe_market",
+    "tags": [
+      "mod",
+      "riven"
+    ],
+    "dropSources": [
+      {
+        "sourceId": "source_transient_transient_the_icebind_crested_frozen_chests",
+        "sourceType": "transient",
+        "nameEn": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "nameZh": "Transient (密室与特殊掉落) - The Icebind: Crested Frozen Chests",
+        "rotation": null,
+        "chance": 1.22,
+        "rarity": "Rare",
+        "enemyModDropChance": null
+      }
+    ]
+  }
+]

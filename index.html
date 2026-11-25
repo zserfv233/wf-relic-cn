@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Warframe 遗物与掉落查询 | 纯静态全中文</title>
-  <meta name="description" content="Warframe 遗物与掉落查询工具，提供全中文界面、即时拼音搜索、四档精炼期望白金计算、官方掉落表实时入库状态核对。">
+  <meta name="description" content="Warframe 遗物、赋能、紫卡、Mod 与刷取来源掉落查询平台，全中文界面、即时拼音搜索、期望白金计算、官方掉落表实时核对。">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☿</text></svg>">
 </head>
@@ -18,12 +18,23 @@
           <span>Warframe 遗物与掉落查询</span>
         </div>
         <div class="stats-bar" id="stats-bar">
-          <div class="stat-pill">遗物总数: <strong id="stat-total-relics">-</strong></div>
-          <div class="stat-pill">可获取: <strong id="stat-obtainable">-</strong></div>
-          <div class="stat-pill">已入库: <strong id="stat-vaulted">-</strong></div>
+          <div class="stat-pill">遗物: <strong id="stat-total-relics">-</strong></div>
+          <div class="stat-pill">赋能: <strong id="stat-total-arcanes">-</strong></div>
+          <div class="stat-pill">紫卡: <strong id="stat-total-rivens">-</strong></div>
+          <div class="stat-pill">Mod: <strong id="stat-total-mods">-</strong></div>
+          <div class="stat-pill">来源: <strong id="stat-total-sources">-</strong></div>
           <div class="stat-pill">价格覆盖: <strong id="stat-price-coverage">-</strong></div>
         </div>
       </div>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="main-nav" id="main-nav">
+        <button class="nav-tab-btn active" data-view="relics">📦 遗物查询</button>
+        <button class="nav-tab-btn" data-view="arcanes">💎 赋能一览</button>
+        <button class="nav-tab-btn" data-view="rivens">🔮 未开紫卡</button>
+        <button class="nav-tab-btn" data-view="mods">⚡ 掉落 Mod</button>
+        <button class="nav-tab-btn" data-view="sources">🗺️ 刷取来源</button>
+      </nav>
 
       <!-- Top Search Box -->
       <div class="search-wrapper">
@@ -33,7 +44,7 @@
             type="text" 
             id="search-input" 
             class="search-input" 
-            placeholder="搜索遗物或物品（支持中文、英文、拼音全拼如 shiren、首字母如 sr、英文缩写如 aps / tpsb）..." 
+            placeholder="全局搜索（遗物/赋能/紫卡/Mod/任务节点，支持中文、英文、拼音如 shiren、首字母如 sr、缩写如 aps / tpsb）..." 
             autocomplete="off"
             spellcheck="false"
           >
@@ -47,18 +58,38 @@
   <!-- Main Content -->
   <main class="container">
     <!-- Toolbar Controls -->
-    <div class="toolbar">
+    <div class="toolbar" id="toolbar-container">
+      <!-- Row 1: View Specific Filters & Price Mode Switcher -->
       <div class="toolbar-row">
-        <!-- Mode Tabs -->
-        <div class="tab-group" id="mode-tabs">
+        <!-- Relic Mode Tabs (only in relics view) -->
+        <div class="tab-group view-control view-relics" id="mode-tabs">
           <button class="tab-btn active" data-mode="obtainable">可获取（现存掉落）</button>
           <button class="tab-btn" data-mode="all">全部遗物（含已入库）</button>
         </div>
 
-        <!-- Price Mode Switcher -->
+        <!-- Sources Category Filter (only in sources view) -->
+        <div class="tab-group view-control view-sources" id="source-cat-tabs" style="display: none;">
+          <button class="tab-btn active" data-scat="all">全部掉落物</button>
+          <button class="tab-btn" data-scat="arcane">赋能来源</button>
+          <button class="tab-btn" data-scat="riven">紫卡来源</button>
+          <button class="tab-btn" data-scat="mod">Mod 来源</button>
+          <button class="tab-btn" data-scat="relic">遗物来源</button>
+        </div>
+
+        <!-- Global Price Mode Switcher & Sort -->
         <div class="options-group">
-          <label class="toggle-switch" title="切换期望白金计算所用的价格来源">
-            <span id="price-mode-label">计算基准: 最低卖价</span>
+          <!-- Unlisted Relics Toggle (A3) -->
+          <label class="toggle-switch view-control view-relics" id="unlisted-toggle-container" title="是否在可获取模式中包含 DE 掉落表未列出但游戏机制可获得的安魂遗物">
+            <span class="switch-label">
+              <input type="checkbox" id="unlisted-toggle" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </span>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">含特殊来源(安魂遗物)</span>
+          </label>
+
+          <!-- Price Mode Toggle Switch -->
+          <label class="toggle-switch" title="切换期望白金计算所用的市场基准价格">
+            <span id="price-mode-label">价格基准: 最低卖价</span>
             <span class="switch-label">
               <input type="checkbox" id="price-mode-toggle" class="switch-input">
               <span class="switch-slider"></span>
@@ -67,18 +98,15 @@
 
           <!-- Sort Select -->
           <select id="sort-select" class="select-control" title="排序规则">
-            <option value="radiant_desc">期望白金: 光辉 (高到低)</option>
-            <option value="intact_desc">期望白金: 完整 (高到低)</option>
-            <option value="exceptional_desc">期望白金: 优良 (高到低)</option>
-            <option value="flawless_desc">期望白金: 无暇 (高到低)</option>
-            <option value="name_asc">名称: A-Z 顺序</option>
+            <!-- Options dynamically populated per view -->
           </select>
         </div>
       </div>
 
-      <!-- Tier Filters -->
+      <!-- Row 2: Secondary Tier / Type Filters -->
       <div class="toolbar-row">
-        <div class="tier-group" id="tier-filters">
+        <!-- Relic Tier Group -->
+        <div class="tier-group view-control view-relics" id="tier-filters">
           <button class="tier-btn active" data-tier="all">全部纪元</button>
           <button class="tier-btn" data-tier="Lith">古纪 Lith</button>
           <button class="tier-btn" data-tier="Meso">前纪 Meso</button>
@@ -87,15 +115,41 @@
           <button class="tier-btn" data-tier="Requiem">安魂 Requiem</button>
           <button class="tier-btn" data-tier="Vanguard">先锋 Vanguard</button>
         </div>
+
+        <!-- Sources Type Group -->
+        <div class="tier-group view-control view-sources" id="source-type-filters" style="display: none;">
+          <button class="tier-btn active" data-stype="all">全部来源类型</button>
+          <button class="tier-btn" data-stype="mission">星图节点 (Mission)</button>
+          <button class="tier-btn" data-stype="enemy">敌人击杀 (Enemy)</button>
+          <button class="tier-btn" data-stype="bounty">各平原赏金 (Bounty)</button>
+          <button class="tier-btn" data-stype="transient">特殊/密室 (Transient)</button>
+        </div>
+
+        <!-- Mod Rarity Filter -->
+        <div class="tier-group view-control view-mods" id="mod-rarity-filters" style="display: none;">
+          <button class="tier-btn active" data-mrarity="all">全部稀有度</button>
+          <button class="tier-btn" data-mrarity="Common">普通 Common</button>
+          <button class="tier-btn" data-mrarity="Uncommon">罕见 Uncommon</button>
+          <button class="tier-btn" data-mrarity="Rare">稀有 Rare</button>
+          <button class="tier-btn" data-mrarity="Legendary">传说 Legendary</button>
+        </div>
+
         <div id="filter-result-count" class="stat-pill">正在加载数据...</div>
+      </div>
+
+      <!-- Formula Notice Bar (Especially for Sources & Enemy Drops) -->
+      <div id="formula-callout" class="formula-banner view-control view-sources" style="display: none;">
+        <span><strong>期望白金计算公式：</strong>任务/赏金来源 = $\sum (\text{掉率}\% \times \text{价格})$；敌人来源 = Mod掉落几率(enemyModDropChance%) $\times \sum (\text{物品掉率}\% \times \text{价格})$。赋能与 Mod 默认按 0 级掉落价格计入。</span>
       </div>
     </div>
 
-    <!-- Relic Cards Grid -->
-    <div id="relic-grid" class="relic-grid">
-      <div class="empty-state">
-        <h3>正在加载数据...</h3>
-        <p>正在读取遗物掉落表与市场价格，请稍候。</p>
+    <!-- Dynamic Content View Container -->
+    <div id="content-container">
+      <div id="grid-view" class="relic-grid">
+        <div class="empty-state">
+          <h3>正在加载数据...</h3>
+          <p>正在读取全量遗物、赋能、紫卡、Mod 与掉落来源数据，请稍候。</p>
+        </div>
       </div>
     </div>
   </main>
@@ -116,13 +170,13 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>数据源说明与链接</h4>
+          <h4>数据源说明与官方链接</h4>
           <ul class="footer-links">
             <li>• <a href="https://www.warframe.com/droptables" target="_blank" rel="noopener">DE 官方掉落表 (Official Drop Tables)</a></li>
             <li>• <a href="https://drops.warframestat.us/data/all.json" target="_blank" rel="noopener">WFCD warframe-drop-data 解析库</a></li>
             <li>• <a href="https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Relics.json" target="_blank" rel="noopener">WFCD warframe-items Relics.json</a></li>
             <li>• <a href="https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/i18n/zh.json" target="_blank" rel="noopener">WFCD warframe-items zh.json 国际化库</a></li>
-            <li>• <a href="https://warframe.market/" target="_blank" rel="noopener">Warframe.Market API v2 实时交易价格</a></li>
+            <li>• <a href="https://warframe.market/" target="_blank" rel="noopener">Warframe.Market 开放交易 API v2</a></li>
           </ul>
         </div>
 
@@ -130,20 +184,20 @@
           <h4>数据与更新信息</h4>
           <p>• 数据构建时间: <span id="footer-data-time">-</span></p>
           <p>• 价格更新时间: <span id="footer-price-time">-</span></p>
-          <p>• 物品价格覆盖率: <span id="footer-price-coverage">-</span></p>
-          <p>• 遗物入库主判定: 根据 DE 官方最新任务/赏金掉落表直接检索；与 WFCD 标记冲突时已详细注明。</p>
+          <p>• 市场价格覆盖率: <span id="footer-price-coverage">-</span></p>
+          <p>• 价格口径说明: 默认采用在线/游戏中卖家的最低卖价 (sellMin)；可切换为最高收购价 (buyMax)；未抓取价格物品显示“暂无价格”，期望值显示“—”并提示缺价。</p>
         </div>
 
         <div class="footer-col">
-          <h4>开源许可与声明</h4>
-          <p>• 本站为玩家社区非商业独立工具，与 Digital Extremes Ltd. 无任何官方附属关系。</p>
-          <p>• 拼音预计算索引使用 <a href="https://github.com/zh-lx/pinyin-pro" target="_blank" rel="noopener">pinyin-pro</a> (MIT License)。</p>
-          <p>• 架构设计与掉率算法参考了开源项目 <a href="https://github.com/Mersal108/relic-signal" target="_blank" rel="noopener">relic-signal</a> (MIT License)，详见 <a href="./THIRD_PARTY_NOTICES.md" target="_blank">THIRD_PARTY_NOTICES.md</a>。</p>
+          <h4>入库与特殊来源机制</h4>
+          <p>• <strong>主判定依据</strong>: DE 官方掉落表现存任务与赏金轮次。</p>
+          <p>• <strong>特殊来源 (unlisted)</strong>: 安魂遗物 (Requiem I/II/III/IV) 来自赤毒虹吸器/赤毒洪流，DE 掉落表未直接列出，按游戏机制永不入库，默认归入可获取模式，可手动筛选排除。</p>
+          <p>• <strong>开源许可</strong>: 遵循 MIT License；拼音检索使用 <a href="https://github.com/zh-lx/pinyin-pro" target="_blank" rel="noopener">pinyin-pro</a> (MIT)。</p>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 wf-relic-cn 纯静态 Warframe 遗物与掉落查询平台 · 页面全中文 · 原生 ES Modules 驱动</p>
+        <p>© 2026 wf-relic-cn 纯静态 Warframe 遗物与掉落查询平台 · 页面全中文 · 原生 ES Modules 驱动 · 本站为非官方非商业工具，与 Digital Extremes Ltd. 无关</p>
       </div>
     </div>
   </footer>
