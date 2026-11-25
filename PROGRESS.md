@@ -33,3 +33,38 @@
   - D 前端界面扩展：增加顶部分类导航（遗物 / 赋能 / 紫卡 / Mod / 刷取来源）；提供多维筛选、排序与单项反查弹窗；刷取来源支持按每次/每击杀期望白金排序（任务为掉率×价格，敌人为 Mod掉落率×物品掉率×价格）。
   - E 测试验证：npm test 运行 7 个测试套件，29 个用例全部通过（覆盖敌人/轮次期望值、rank 价格键、紫卡匹配、中文/拼音命中赋能/Mod、fixture 不写 prices.json、fetchedAt 写入、unlisted 筛选等）。
 
+
+## 2026-11-26 00:42 AEDT（通道）
+- 阶段 2 结束：commit 0758ea4，npm test 29/29 通过（通道复跑）。
+- 通道复核：遗物掉率 vs DE 官方掉落表 HTML 全量比对 3194/3197 个“遗物×精炼档”一致；唯一不一致是 Meso D1 第二个 2X Forma 槽位（bug），交阶段 3 修。
+- 真实价格抓取已在用户 Mac 上启动（box 被 Cloudflare 403），约 2.5 req/s，共约 2400 个键。
+- 阶段 3 启动：Meso D1 bug、NX 数量前缀、稀有度来源、价格口径说明。
+
+### 自检 2026-11-26 00:42 AEDT（agy 新对话, gemini-3.8-flash-low, 只读）
+结论: 正常
+理由：阶段 2 已顺利交付并产生 commit 0758ea4，测试 29/29 全通；00:42 刚刚启动阶段 3，agy 后台进程 (PID 476982) 处于活跃运行状态；各阶段推进间隔合理，不存在 30 分钟无进展、同一问题反复卡阻或进程挂掉的情况。
+建议：保持当前后台任务运行，等待阶段 3（Meso D1 修复与数量/稀有度规范）执行完毕以及 Mac 端的真实价格抓取数据同步。
+
+## 2026-11-26 00:53 AEDT
+- 阶段 3 完成：
+  1. Meso D1 同名奖励槽位掉率配对修复：
+     - 精炼状态合并由原名称 find 改为基于槽位索引与同名物品出现顺序配对（`getRewardForSlot`）。
+     - Meso D1 两个 "2X Forma Blueprint" 槽位四档掉率严格按 DE 官方掉落表分离：
+       - 槽位 1：完整 11%、优良 13%、无暇 17%、光辉 20%；
+       - 槽位 2：完整 25.33%、优良 23.33%、无暇 20%、光辉 16.67%。
+     - 自动化单测覆盖：断言 Meso D1 两个 Forma 槽位四档掉率与稀有度；断言全量 799 个标准遗物四个精炼等级（完整/优良/无暇/光辉）每档 6 个奖励掉率之和均为 100 ± 0.1%。
+  2. "NX " 数量前缀解析与白金期望值倍率计算：
+     - 构建脚本封装 `parseQuantityAndName` 解析形如 "3X Arcane Energize"、"2X Forma Blueprint"、"2X Riven Sliver" 的数量前缀与基础物品名；
+     - 基础物品自动匹配 market slug（如 `arcane_energize`）；
+     - 期望白金值统一按 $\text{chance} \times \text{quantity} \times \text{单价}$ 计算，并在遗物卡片预览、遗物详情表格、物品反查与掉落来源中展示“×N”数量标签；
+     - 重跑构建后 `data/unmatched.json` 未匹配条目从 657 降至 618，自动化测试断言 `unmatched.json` 中不存在任何去除前缀后可匹配 market 的遗留条目（39 种带数量前缀赋能/矿石成功关联 market）。
+  3. 稀有度显示严格遵循 DE 官方掉落表（drops_all.json）：
+     - 移除根据掉率概率阈值覆盖稀有度的代码，直接使用 DE 原表 `rarity` 字段；
+     - Lith A1 Braton Prime Barrel 正确呈现为 Uncommon（25.33%）；单测断言通过。
+  4. 官方价格与期望值口径明确公示：
+     - 在页面（遗物视图顶栏通知、遗物弹窗期望值看板、页面页脚）和 `README.md` 中写明：“价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物”；单测断言通过。
+  5. 价格缓存严格未改动：
+     - 本阶段严格未修改 `data/prices.json`，保持真实空缓存状态等待外部实际抓取覆盖。
+  6. 测试验证：
+     - 运行 `node scripts/build-data.mjs --raw /workspace/wf-relic-cn-raw` 数据构建全部成功。
+     - 运行 `npm test`，7 个测试套件，37 个用例全部通过（37 passed, 0 failed）。

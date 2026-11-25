@@ -41,24 +41,73 @@ describe('精炼掉率提取 (Drop Chances Extraction)', () => {
     assert.strictEqual(rareReward.chances.radiant, 10, 'Axi A1 Radiant 稀有掉率必须为 10%');
   });
 
-  it('断言 Axi A1 的罕见与常见奖励掉率与 DE 数据完全吻合', () => {
+  it('断言 Axi A1 的全部非稀有奖励在 DE 掉落表中均为 Uncommon', () => {
     const axiA1 = relics.find(r => r.id === 'axi_a1');
     const uncommons = axiA1.rewards.filter(rew => rew.rarity === 'Uncommon');
-    const commons = axiA1.rewards.filter(rew => rew.rarity === 'Common');
+    const rares = axiA1.rewards.filter(rew => rew.rarity === 'Rare');
 
-    assert.strictEqual(uncommons.length, 2, 'Axi A1 应有 2 个罕见奖励');
-    assert.strictEqual(commons.length, 3, 'Axi A1 应有 3 个常见奖励');
+    assert.strictEqual(rares.length, 1, 'Axi A1 应有 1 个稀有奖励 (Nikana Prime Blueprint)');
+    assert.strictEqual(uncommons.length, 5, 'Axi A1 的其余 5 个奖励在 DE 官方表中均为 Uncommon');
 
-    // 罕见掉率: Intact 11%, Radiant 20%
-    for (const unc of uncommons) {
-      assert.strictEqual(unc.chances.intact, 11);
-      assert.strictEqual(unc.chances.radiant, 20);
+    // 掉率两档验证: Intact 11% / Radiant 20% (2项), Intact 25.33% / Radiant 16.67% (3项)
+    const tier11 = uncommons.filter(u => u.chances.intact === 11);
+    const tier25 = uncommons.filter(u => u.chances.intact === 25.33);
+
+    assert.strictEqual(tier11.length, 2);
+    assert.strictEqual(tier25.length, 3);
+    for (const u of tier11) assert.strictEqual(u.chances.radiant, 20);
+    for (const u of tier25) assert.strictEqual(u.chances.radiant, 16.67);
+  });
+
+  it('断言 Meso D1 两个 Forma Blueprint 槽位四档掉率正确配对', () => {
+    const mesoD1 = relics.find(r => r.id === 'meso_d1');
+    assert.ok(mesoD1, 'Meso D1 必须存在');
+    assert.strictEqual(mesoD1.rewards.length, 6);
+
+    const formaRewards = mesoD1.rewards.filter(r => r.baseName === 'Forma Blueprint' || r.name.includes('Forma Blueprint'));
+    assert.strictEqual(formaRewards.length, 2, 'Meso D1 必须包含两个 Forma 蓝图槽位');
+
+    const [slot1, slot2] = formaRewards;
+
+    // Slot 1 (DE 原表 11% 槽位): Intact 11%, Exceptional 13%, Flawless 17%, Radiant 20%
+    assert.strictEqual(slot1.chances.intact, 11);
+    assert.strictEqual(slot1.chances.exceptional, 13);
+    assert.strictEqual(slot1.chances.flawless, 17);
+    assert.strictEqual(slot1.chances.radiant, 20);
+    assert.strictEqual(slot1.rarity, 'Uncommon');
+    assert.strictEqual(slot1.quantity, 2);
+
+    // Slot 2 (DE 原表 25.33% 槽位): Intact 25.33%, Exceptional 23.33%, Flawless 20%, Radiant 16.67%
+    assert.strictEqual(slot2.chances.intact, 25.33);
+    assert.strictEqual(slot2.chances.exceptional, 23.33);
+    assert.strictEqual(slot2.chances.flawless, 20);
+    assert.strictEqual(slot2.chances.radiant, 16.67);
+    assert.strictEqual(slot2.rarity, 'Uncommon');
+    assert.strictEqual(slot2.quantity, 2);
+  });
+
+  it('断言 data/relics.json 里全部 6 奖励遗物四个精炼档每档掉率之和≈100 (误差 ±0.1)', () => {
+    const standardRelics = relics.filter(r => r.rewards.length === 6);
+    assert.strictEqual(standardRelics.length, 799, '应有 799 个标准 6 奖励遗物');
+
+    const tiers = ['intact', 'exceptional', 'flawless', 'radiant'];
+    for (const r of standardRelics) {
+      for (const tier of tiers) {
+        const sum = r.rewards.reduce((acc, rew) => acc + (rew.chances[tier] ?? 0), 0);
+        assert.ok(
+          Math.abs(sum - 100) <= 0.1,
+          `遗物 ${r.name} 在精炼 ${tier} 下掉率总和 ${sum} 偏离 100% 超过 0.1`
+        );
+      }
     }
+  });
 
-    // 常见掉率: Intact 25.33%, Radiant 16.67%
-    for (const com of commons) {
-      assert.strictEqual(com.chances.intact, 25.33);
-      assert.strictEqual(com.chances.radiant, 16.67);
-    }
+  it('断言 Lith A1 Braton Prime Barrel 的稀有度使用 DE 掉落表的 Uncommon', () => {
+    const lithA1 = relics.find(r => r.id === 'lith_a1');
+    assert.ok(lithA1, 'Lith A1 遗物必须存在');
+    const bratonBarrel = lithA1.rewards.find(r => r.name === 'Braton Prime Barrel');
+    assert.ok(bratonBarrel, 'Lith A1 必须包含 Braton Prime Barrel');
+    assert.strictEqual(bratonBarrel.rarity, 'Uncommon', '稀有度必须取 DE 掉落表的 Uncommon 而非 Common');
+    assert.strictEqual(bratonBarrel.chances.intact, 25.33);
   });
 });

@@ -14,6 +14,8 @@
   - 完整 (Intact)、优良 (Exceptional)、无暇 (Flawless)、光辉 (Radiant) 四档掉率严格提取自 DE 官方掉落表。
   - 期望白金值 = $\sum(\text{单项掉率} \times \text{单价})$，默认基于市场【最低卖价】，可无缝切换为【最高收购价】。
   - 若物品在市场缺价，自动以 0 白金计入并清晰提示缺价数量。
+  - **价格与期望值口径**：价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。
+  - 支持数量前缀（如 `3X`、`2X`）与掉落几率结合计算（$\text{单项掉率} \times \text{数量} \times \text{单价}$）。
 - **入库状态多源核对与冲突标记**：
   - **主判定依据**：直接检索 DE 官方掉落表现存任务与各赏金轮次是否有该遗物掉落。
   - **二次比对**：与 WFCD warframe-items 的 `vaulted` 字段进行双向校验，状态不一致时标记黄色存疑徽章并在详情页展开说明。
@@ -60,6 +62,7 @@ node scripts/build-data.mjs --download
 ### 步骤 2：抓取 Warframe.Market 市场价格
 
 > **注意**：部分网络环境下直接访问 `api.warframe.market` 可能会受到 Cloudflare 质询拦截。价格抓取脚本应在可正常直连 API 的环境中执行。
+> 价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。
 
 ```bash
 # 抓取未缓存或已过期的物品价格（默认跳过 24 小时内抓取项，限速 ≤ 3 req/s）

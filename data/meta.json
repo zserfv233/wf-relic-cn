@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "phase": 2,
-  "builtAt": "2026-11-25T13:39:52.024Z",
+  "builtAt": "2026-11-25T13:53:41.345Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -15,12 +15,12 @@
     "vaultedRelics": 760,
     "unlistedRelics": 4,
     "conflictRelics": 2,
-    "totalRewardItems": 608,
+    "totalRewardItems": 607,
     "totalArcanes": 170,
     "totalRivens": 8,
     "totalMods": 751,
     "totalSources": 2061,
-    "unmatchedCount": 657
+    "unmatchedCount": 618
   },
   "prices": {
     "updatedAt": null,

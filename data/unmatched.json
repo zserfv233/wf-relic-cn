@@ -146,13 +146,6 @@
     ]
   },
   {
-    "name": "10X Esher Devar",
-    "samplePlaces": [
-      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
-      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
-    ]
-  },
-  {
     "name": "10X Experimental Arc-Relay",
     "samplePlaces": [
       "Höllvania - Exterminate: Scaldra (Exterminate)",
@@ -254,13 +247,6 @@
   },
   {
     "name": "10X Salvage",
-    "samplePlaces": [
-      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
-      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
-    ]
-  },
-  {
-    "name": "10X Tear Azurite",
     "samplePlaces": [
       "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
       "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
@@ -1063,192 +1049,6 @@
     ]
   },
   {
-    "name": "3X Arcane Acceleration",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Aegis",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Agility",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Arachne",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Avenger",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Awakening",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Circumvent",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
-    "name": "3X Arcane Concentration",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
-    "name": "3X Arcane Consequence",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Deflection",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Eruption",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Expertise",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
-    "name": "3X Arcane Fury",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Guardian",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Healing",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Ice",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Momentum",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Nullifier",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Persistence",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
-    "name": "3X Arcane Phantasm",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Precision",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Pulse",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Rage",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Resistance",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Strike",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Tempo",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Trickery",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Ultimatum",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Velocity",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Victory",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
-    "name": "3X Arcane Warmth",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards"
-    ]
-  },
-  {
     "name": "3X Auroxium Alloy",
     "samplePlaces": [
       "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
@@ -1292,12 +1092,6 @@
     ]
   },
   {
-    "name": "3X Melee Careen",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
     "name": "3X Mutagen Sample",
     "samplePlaces": [
       "Eris - Candiru (Caches) (Caches) [Rot B]",
@@ -1314,24 +1108,6 @@
     ]
   },
   {
-    "name": "3X Primary Bulwark",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
-    "name": "3X Primary Debilitate",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
-    "name": "3X Primary Overcharge",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
-    ]
-  },
-  {
     "name": "3X Riven Sliver",
     "samplePlaces": [
       "Veil Proxima - Flexa (Skirmish)",
@@ -1345,12 +1121,6 @@
     "name": "3X Saggen Pearl",
     "samplePlaces": [
       "Transient (密室与特殊掉落) - Duviri Full Experience"
-    ]
-  },
-  {
-    "name": "3X Secondary Irradiate",
-    "samplePlaces": [
-      "Transient (密室与特殊掉落) - The Descendia: Infernum 20 Triple Arcane Rewards (Steel Path)"
     ]
   },
   {
@@ -1725,13 +1495,6 @@
   },
   {
     "name": "6X Fersteel Alloy",
-    "samplePlaces": [
-      "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
-      "Saturn - Variant Team Annihilation (Conclave) [Rot B]"
-    ]
-  },
-  {
-    "name": "6X Marquise Veridos",
     "samplePlaces": [
       "Saturn - Variant Team Annihilation (Conclave) [Rot A]",
       "Saturn - Variant Team Annihilation (Conclave) [Rot B]"

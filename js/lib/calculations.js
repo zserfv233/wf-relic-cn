@@ -46,15 +46,18 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
 
   for (const rew of rewards) {
     const chance = rew.chances ? (rew.chances[refinement] ?? 0) : (rew.chance ?? 0);
+    const quantity = rew.quantity || 1;
     const slug = rew.marketSlug || rew.slug;
     const price = getItemPrice(slug, 0, prices, priceType);
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
-      const contribution = (chance / 100) * price;
+      const contribution = (chance / 100) * quantity * price;
       total += contribution;
       breakdown.push({
         name: rew.name || rew.itemName,
+        baseName: rew.baseName,
+        quantity,
         zhName: rew.zhName || rew.itemZh || rew.name,
         rarity: rew.rarity,
         chance,
@@ -65,6 +68,8 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
       missingPriceCount++;
       breakdown.push({
         name: rew.name || rew.itemName,
+        baseName: rew.baseName,
+        quantity,
         zhName: rew.zhName || rew.itemZh || rew.name,
         rarity: rew.rarity,
         chance,
@@ -113,13 +118,14 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
 
   for (const item of rewards) {
     const chance = typeof item.chance === 'number' ? item.chance : parseFloat(item.chance || 0);
+    const quantity = item.quantity || 1;
     const slug = item.slug;
     // 赋能/Mod 掉落均为 0 级
     const price = getItemPrice(slug, 0, prices, priceType);
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
-      total += (chance / 100) * price;
+      total += (chance / 100) * quantity * price;
     } else {
       missingCount++;
     }
@@ -150,13 +156,14 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
 
   for (const item of mods) {
     const chance = typeof item.chance === 'number' ? item.chance : parseFloat(item.chance || 0);
+    const quantity = item.quantity || 1;
     const slug = item.slug;
     const price = getItemPrice(slug, 0, prices, priceType);
 
     if (typeof price === 'number' && price > 0) {
       pricedCount++;
       // chance 为百分比
-      subTotal += (chance / 100) * price;
+      subTotal += (chance / 100) * quantity * price;
     } else {
       missingCount++;
     }

@@ -103,6 +103,24 @@ const VEILED_RIVEN_NAME_MAP = {
 };
 
 /**
+ * 解析物品数量前缀（如 "3X Arcane Energize" -> { quantity: 3, baseName: "Arcane Energize" }）
+ */
+export function parseQuantityAndName(rawName) {
+  if (!rawName || typeof rawName !== 'string') return { quantity: 1, baseName: '' };
+  const m = rawName.match(/^(\d+)X\s+(.+)$/i);
+  if (m) {
+    return {
+      quantity: parseInt(m[1], 10),
+      baseName: m[2].trim()
+    };
+  }
+  return {
+    quantity: 1,
+    baseName: rawName.trim()
+  };
+}
+
+/**
  * 解析命令行参数
  */
 function parseArgs() {
@@ -278,7 +296,8 @@ async function build() {
 
   function checkRelicItem(itemName) {
     if (!itemName || typeof itemName !== 'string') return;
-    const m = itemName.match(/\b(Lith|Meso|Neo|Axi|Requiem|Vanguard)\s+([A-Za-z0-9]+)\s+Relic\b/i);
+    const { baseName } = parseQuantityAndName(itemName);
+    const m = baseName.match(/\b(Lith|Meso|Neo|Axi|Requiem|Vanguard)\s+([A-Za-z0-9]+)\s+Relic\b/i);
     if (m) {
       droppingRelics.add(`${m[1]} ${m[2]}`.toUpperCase());
     }
@@ -288,18 +307,25 @@ async function build() {
     if (!itemName) return;
     if (!directDrops.has(itemName)) directDrops.set(itemName, []);
     directDrops.get(itemName).push(drop);
+
+    const { baseName } = parseQuantityAndName(itemName);
+    if (baseName && baseName !== itemName) {
+      if (!directDrops.has(baseName)) directDrops.set(baseName, []);
+      directDrops.get(baseName).push(drop);
+    }
   }
 
-  // 2. 匹配 DE 物品名称到 WFM 物品
+  // 2. 匹配 DE 物品名称到 WFM 物品（支持去除 "NX " 数量前缀）
   function matchMarketItem(rawName) {
     if (!rawName || typeof rawName !== 'string') return null;
-    const lower = rawName.toLowerCase().trim();
+    const { quantity, baseName } = parseQuantityAndName(rawName);
+    const lower = baseName.toLowerCase();
 
     // 1) 未开紫卡
     if (VEILED_RIVEN_NAME_MAP[lower]) {
       const slug = VEILED_RIVEN_NAME_MAP[lower];
       const item = wfmBySlug.get(slug);
-      return { item, slug, category: 'riven' };
+      return { item, slug, category: 'riven', quantity, baseName };
     }
 
     // 2) 直接名称匹配
@@ -314,7 +340,7 @@ async function build() {
       else if (item.tags?.includes('mod')) category = 'mod';
       else if (item.tags?.includes('veiled_riven')) category = 'riven';
       else if (item.tags?.includes('prime')) category = 'relic';
-      return { item, slug: item.slug, category };
+      return { item, slug: item.slug, category, quantity, baseName };
     }
 
     return null;
@@ -352,20 +378,23 @@ async function build() {
           addDirectDrop(r.itemName, { place: nameEn, rotation, chance: r.chance, rarity: r.rarity });
 
           const matched = matchMarketItem(r.itemName);
-          let itemZh = r.itemName;
+          const { quantity, baseName } = parseQuantityAndName(r.itemName);
+          let itemZh = baseName;
           let slug = null;
           let category = 'other';
 
           if (matched) {
             slug = matched.slug;
             category = matched.category;
-            itemZh = matched.item?.i18n?.['zh-hans']?.name || r.itemName;
+            itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
           } else {
             recordUnmatched(r.itemName, nameEn);
           }
 
           processedRewards.push({
             itemName: r.itemName,
+            baseName,
+            quantity,
             itemZh,
             slug,
             category,
@@ -413,20 +442,23 @@ async function build() {
     const processedMods = [];
     for (const m of em.mods || []) {
       const matched = matchMarketItem(m.modName);
-      let itemZh = m.modName;
+      const { quantity, baseName } = parseQuantityAndName(m.modName);
+      let itemZh = baseName;
       let slug = null;
       let category = 'mod';
 
       if (matched) {
         slug = matched.slug;
         category = matched.category;
-        itemZh = matched.item?.i18n?.['zh-hans']?.name || m.modName;
+        itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
       } else {
         recordUnmatched(m.modName, nameEn);
       }
 
       processedMods.push({
         itemName: m.modName,
+        baseName,
+        quantity,
         itemZh,
         slug,
         category,
@@ -484,20 +516,23 @@ async function build() {
           addDirectDrop(itemName, { place: prefixEn, rotation: item.rotation || null, chance: item.chance, rarity: item.rarity });
 
           const matched = matchMarketItem(itemName);
-          let itemZh = itemName;
+          const { quantity, baseName } = parseQuantityAndName(itemName);
+          let itemZh = baseName;
           let slug = null;
           let category = 'other';
 
           if (matched) {
             slug = matched.slug;
             category = matched.category;
-            itemZh = matched.item?.i18n?.['zh-hans']?.name || itemName;
+            itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
           } else {
             recordUnmatched(itemName, prefixEn);
           }
 
           processed.push({
             itemName,
+            baseName,
+            quantity,
             itemZh,
             slug,
             category,
@@ -545,6 +580,7 @@ async function build() {
           nameZh: src.nameZh,
           rotation: src.rotation || null,
           chance: r.chance,
+          quantity: r.quantity || 1,
           rarity: r.rarity,
           enemyModDropChance: src.enemyModDropChance ?? null
         });
@@ -719,21 +755,31 @@ async function build() {
     const radiantRewards = dropsRelic.states['radiant'] || [];
 
     const wfcdIntactRewards = wfcdMeta?.states['intact']?.rewards || [];
-    const wfcdItemMap = new Map();
-    for (const rew of wfcdIntactRewards) {
-      if (rew.item?.name) wfcdItemMap.set(rew.item.name, rew.item);
+
+    function getRewardForSlot(targetList, itemName, slotIdx) {
+      if (!targetList || targetList.length === 0) return null;
+      if (targetList[slotIdx] && targetList[slotIdx].itemName === itemName) {
+        return targetList[slotIdx];
+      }
+      // 回退：按在 intactRewards 中同名物品的出现次序匹配
+      let occurrence = 0;
+      for (let i = 0; i < slotIdx; i++) {
+        if (intactRewards[i]?.itemName === itemName) occurrence++;
+      }
+      const matches = targetList.filter(x => x.itemName === itemName);
+      return matches[occurrence] || matches[0] || null;
     }
 
     const processedRewards = [];
-    for (const rew of intactRewards) {
+    for (let slotIndex = 0; slotIndex < intactRewards.length; slotIndex++) {
+      const rew = intactRewards[slotIndex];
       const itemName = rew.itemName;
-      const wfcdItem = wfcdItemMap.get(itemName);
-      const uniqueName = wfcdItem?.uniqueName;
-      const marketSlug = wfcdItem?.warframeMarket?.urlName || null;
+      const { quantity, baseName } = parseQuantityAndName(itemName);
 
-      const excRew = exceptionalRewards.find(x => x.itemName === itemName);
-      const flaRew = flawlessRewards.find(x => x.itemName === itemName);
-      const radRew = radiantRewards.find(x => x.itemName === itemName);
+      // 按槽位对应配对四个精炼等级
+      const excRew = getRewardForSlot(exceptionalRewards, itemName, slotIndex);
+      const flaRew = getRewardForSlot(flawlessRewards, itemName, slotIndex);
+      const radRew = getRewardForSlot(radiantRewards, itemName, slotIndex);
 
       const chances = {
         intact: rew.chance ?? 0,
@@ -742,10 +788,30 @@ async function build() {
         radiant: radRew ? radRew.chance : null
       };
 
-      let rarity = rew.rarity || 'Common';
-      if (chances.intact <= 3) rarity = 'Rare';
-      else if (chances.intact <= 15) rarity = 'Uncommon';
-      else rarity = 'Common';
+      // 稀有度直接使用 DE 官方掉落表 (drops_all.json) 里的 rarity，不要覆盖
+      const rarity = rew.rarity || 'Common';
+
+      // 匹配 WFCD item 元数据
+      let wfcdItem = null;
+      if (wfcdIntactRewards[slotIndex] && (wfcdIntactRewards[slotIndex].item?.name === itemName || wfcdIntactRewards[slotIndex].item?.name === baseName)) {
+        wfcdItem = wfcdIntactRewards[slotIndex].item;
+      } else {
+        let occurrence = 0;
+        for (let i = 0; i < slotIndex; i++) {
+          if (intactRewards[i]?.itemName === itemName) occurrence++;
+        }
+        const matches = wfcdIntactRewards.filter(x => x.item?.name === itemName || x.item?.name === baseName);
+        wfcdItem = matches[occurrence]?.item || matches[0]?.item || null;
+      }
+
+      const uniqueName = wfcdItem?.uniqueName;
+      let marketSlug = wfcdItem?.warframeMarket?.urlName || null;
+      if (!marketSlug) {
+        const marketMatch = matchMarketItem(baseName);
+        if (marketMatch?.slug) {
+          marketSlug = marketMatch.slug;
+        }
+      }
 
       let itemZhName = null;
       let itemZhSource = null;
@@ -764,12 +830,14 @@ async function build() {
         itemZhName = wfcdRawZh;
         itemZhSource = 'wfcd_i18n';
       } else {
-        itemZhName = itemName;
+        itemZhName = baseName;
         itemZhSource = 'en_fallback';
       }
 
       processedRewards.push({
         name: itemName,
+        baseName,
+        quantity,
         zhName: itemZhName,
         zhSource: itemZhSource,
         rarity,
@@ -777,15 +845,16 @@ async function build() {
         chances
       });
 
-      const itemKey = marketSlug || itemName;
+      const itemKey = marketSlug || baseName;
       if (!itemsResult[itemKey]) {
         itemsResult[itemKey] = {
-          name: itemName,
+          name: baseName,
+          rawName: itemName,
           zhName: itemZhName,
           zhSource: itemZhSource,
           marketSlug,
           relics: [],
-          directDrops: directDrops.get(itemName) || []
+          directDrops: directDrops.get(itemName) || directDrops.get(baseName) || []
         };
       }
 
@@ -800,6 +869,7 @@ async function build() {
         unlisted,
         conflict,
         rarity,
+        quantity,
         chances
       });
     }
@@ -861,6 +931,9 @@ async function build() {
   // 遗物奖励物品
   for (const [key, item] of Object.entries(itemsResult)) {
     const tokens = generateTokens(item.name, item.zhName);
+    if (item.rawName && item.rawName !== item.name) {
+      for (const t of generateTokens(item.rawName, null)) tokens.push(t);
+    }
     if (item.marketSlug) tokens.push(item.marketSlug.toLowerCase());
     searchIndexData.push({
       id: key,
@@ -997,7 +1070,7 @@ async function build() {
   fs.writeFileSync(path.join(DATA_DIR, 'meta.json'), JSON.stringify(meta, null, 2));
 
   console.log('--------------------------------------------------');
-  console.log(`[build] 阶段 2 数据构建成功完成！`);
+  console.log(`[build] 阶段 3 数据构建成功完成！`);
   console.log(`- 遗物总数: ${relicsResult.length} (可获取: ${obtainableCount}, 入库: ${vaultedCount}, 特殊未列出: ${unlistedCount}, 冲突: ${conflictCount})`);
   console.log(`- 赋能总数: ${arcanesResult.length}`);
   console.log(`- 未开紫卡数: ${rivensResult.length}`);
@@ -1009,7 +1082,9 @@ async function build() {
   console.log('--------------------------------------------------');
 }
 
-build().catch(err => {
-  console.error('[build] 构建失败:', err);
-  process.exit(1);
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  build().catch(err => {
+    console.error('[build] 构建失败:', err);
+    process.exit(1);
+  });
+}

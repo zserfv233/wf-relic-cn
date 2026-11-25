@@ -374,13 +374,13 @@ function renderRelicsView() {
         <div class="rewards-preview">
           ${rareReward ? `
             <div class="reward-preview-item reward-preview-rare">
-              <span class="reward-name" title="${escapeHtml(rareReward.zhName)}">★ ${escapeHtml(rareReward.zhName)}</span>
+              <span class="reward-name" title="${escapeHtml(rareReward.zhName)}">★ ${rareReward.quantity > 1 ? `<span class="quantity-tag">×${rareReward.quantity}</span>` : ''}${escapeHtml(rareReward.zhName)}</span>
               <span>${rareReward.chances.radiant}%</span>
             </div>
           ` : ''}
           ${uncRewards.slice(0, 2).map(u => `
             <div class="reward-preview-item reward-preview-uncommon">
-              <span class="reward-name" title="${escapeHtml(u.zhName)}">◆ ${escapeHtml(u.zhName)}</span>
+              <span class="reward-name" title="${escapeHtml(u.zhName)}">◆ ${u.quantity > 1 ? `<span class="quantity-tag">×${u.quantity}</span>` : ''}${escapeHtml(u.zhName)}</span>
               <span>${u.chances.radiant}%</span>
             </div>
           `).join('')}
@@ -746,7 +746,7 @@ export function openRelicModal(relicId) {
         </td>
         <td>
           <div class="item-link" data-item-slug="${slug || rew.name}">
-            ${escapeHtml(rew.zhName)}
+            ${rew.quantity > 1 ? `<span class="quantity-tag">×${rew.quantity}</span>` : ''}${escapeHtml(rew.zhName)}
           </div>
           <div style="font-size: 0.75rem; color: var(--text-muted);">
             ${escapeHtml(rew.name)} · 来源: ${rew.zhSource}
@@ -819,6 +819,9 @@ export function openRelicModal(relicId) {
       </div>
 
       ${missingWarning}
+      <div class="dashboard-note" style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted);">
+        💡 价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。
+      </div>
     </div>
   `;
 
@@ -868,7 +871,7 @@ export function openItemModal(itemKey) {
           ${r.unlisted ? '特殊来源' : (!r.vaulted ? '可获取' : '已入库')}
         </span>
       </td>
-      <td>${r.rarity}</td>
+      <td>${r.quantity > 1 ? `<span class="quantity-tag">×${r.quantity}</span>` : ''}${r.rarity}</td>
       <td>${r.chances.intact}%</td>
       <td>${r.chances.radiant}%</td>
     </tr>
@@ -942,7 +945,7 @@ export function openArcaneModal(slug) {
         <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
         <td>${s.sourceType}</td>
         <td>${s.rotation ? `轮次 ${s.rotation}` : '-'}</td>
-        <td style="color: var(--cyan-primary);">${compChance}</td>
+        <td style="color: var(--cyan-primary);">${s.quantity > 1 ? `<span class="quantity-tag">×${s.quantity}</span> ` : ''}${compChance}</td>
       </tr>
     `;
   }).join('');
@@ -1077,7 +1080,7 @@ export function openModModal(slug) {
         <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
         <td>${s.sourceType}</td>
         <td>${s.rotation ? `轮次 ${s.rotation}` : '-'}</td>
-        <td style="color: var(--cyan-primary);">${compChance}</td>
+        <td style="color: var(--cyan-primary);">${s.quantity > 1 ? `<span class="quantity-tag">×${s.quantity}</span> ` : ''}${compChance}</td>
       </tr>
     `;
   }).join('');
@@ -1145,19 +1148,20 @@ export function openSourceModal(sourceId) {
 
   const rows = src.rewards.map(r => {
     const price = getItemPrice(r.slug, 0, state.prices, priceType);
+    const q = r.quantity || 1;
     let contrib = '—';
     if (price !== null && typeof price === 'number') {
       if (isEnemy) {
-        contrib = `${(((src.enemyModDropChance / 100) * (r.chance / 100) * price)).toFixed(4)} ☿`;
+        contrib = `${(((src.enemyModDropChance / 100) * (r.chance / 100) * q * price)).toFixed(4)} ☿`;
       } else {
-        contrib = `${(((r.chance / 100) * price)).toFixed(4)} ☿`;
+        contrib = `${(((r.chance / 100) * q * price)).toFixed(4)} ☿`;
       }
     }
 
     return `
       <tr>
         <td>
-          <strong>${escapeHtml(r.itemZh || r.itemName)}</strong>
+          <strong>${r.quantity > 1 ? `<span class="quantity-tag">×${r.quantity}</span>` : ''}${escapeHtml(r.itemZh || r.itemName)}</strong>
           <div style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(r.itemName)}</div>
         </td>
         <td><span class="rarity-pill rarity-${r.rarity}">${r.rarity}</span></td>

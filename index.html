@@ -141,6 +141,11 @@
       <div id="formula-callout" class="formula-banner view-control view-sources" style="display: none;">
         <span><strong>期望白金计算公式：</strong>任务/赏金来源 = $\sum (\text{掉率}\% \times \text{价格})$；敌人来源 = Mod掉落几率(enemyModDropChance%) $\times \sum (\text{物品掉率}\% \times \text{价格})$。赋能与 Mod 默认按 0 级掉落价格计入。</span>
       </div>
+
+      <!-- Relic Price Disclaimer Bar -->
+      <div id="price-disclaimer-callout" class="formula-banner view-control view-relics">
+        <span>💡 <strong>价格与期望值口径：</strong>价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。</span>
+      </div>
     </div>
 
     <!-- Dynamic Content View Container -->
@@ -185,7 +190,7 @@
           <p>• 数据构建时间: <span id="footer-data-time">-</span></p>
           <p>• 价格更新时间: <span id="footer-price-time">-</span></p>
           <p>• 市场价格覆盖率: <span id="footer-price-coverage">-</span></p>
-          <p>• 价格口径说明: 默认采用在线/游戏中卖家的最低卖价 (sellMin)；可切换为最高收购价 (buyMax)；未抓取价格物品显示“暂无价格”，期望值显示“—”并提示缺价。</p>
+          <p>• 价格口径说明: 价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。未抓取价格物品显示“暂无价格”，期望值显示“—”并提示缺价。</p>
         </div>
 
         <div class="footer-col">
