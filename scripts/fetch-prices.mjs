@@ -219,6 +219,8 @@ async function main() {
 
     let successCount = 0;
     let failCount = 0;
+    let consecutiveFail = 0;
+    const MAX_CONSECUTIVE_FAIL = 15; // 连续失败熔断：被拦截/封禁时立即停止，不继续请求、不写入
 
     for (let i = 0; i < pendingTasks.length; i++) {
       const task = pendingTasks[i];
@@ -258,6 +260,7 @@ async function main() {
               fetchedAt: new Date().toISOString()
             };
             successCount++;
+            consecutiveFail = 0;
           } else if (res.ok) {
             const json = await res.json();
             const parsed = parseOrdersTop(json, { targetRank: rank, slug });
@@ -267,14 +270,22 @@ async function main() {
               fetchedAt: new Date().toISOString()
             };
             successCount++;
+            consecutiveFail = 0;
           } else {
             console.warn(`[prices] [${i + 1}/${pendingTasks.length}] 请求 ${cacheKey} 失败 (HTTP ${res.status})`);
             failCount++;
+            consecutiveFail++;
           }
         } catch (err) {
           console.warn(`[prices] [${i + 1}/${pendingTasks.length}] 抓取 ${cacheKey} 异常: ${err.message}`);
           failCount++;
+          consecutiveFail++;
         }
+      }
+
+      if (!fixturePath && consecutiveFail >= MAX_CONSECUTIVE_FAIL) {
+        console.error(`[prices] 连续 ${consecutiveFail} 次请求失败（疑似被 Cloudflare 拦截或限流），熔断退出；本类别不写入，现有价格数据保持不变。`);
+        process.exit(2);
       }
 
       if ((i + 1) % 25 === 0 || i === pendingTasks.length - 1) {

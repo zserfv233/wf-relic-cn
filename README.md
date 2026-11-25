@@ -94,6 +94,18 @@ npm test
 
 ---
 
+## 🤖 自动更新与部署（GitHub Actions / Pages）
+
+| 工作流 | 频率 | 作用 |
+| :--- | :--- | :--- |
+| `Update market prices` | 每 6 小时（UTC `:17`）+ 手动 | 抓取 warframe.market v2 价格（≤3 req/s，连续 15 次失败即熔断），测试通过后才提交 `data/prices.json` 与 `data/meta.json` |
+| `Update drop tables (DE / WFCD)` | 每天 UTC 02:43 + 手动 | 从 DE 掉落表（经 WFCD 解析库）与 WFCD warframe-items 重新构建 `data/`，测试通过后才提交 |
+| `Deploy GitHub Pages` | 推送到 `main`、上述任务成功后、手动 | 把 `index.html / css / js / data / config` 发布到 GitHub Pages |
+
+抓价失败（例如被 Cloudflare 拦截）时工作流会失败且**不会提交**，站点继续使用上一次的价格数据。
+
+---
+
 ## 📚 数据来源清单
 
 | 数据源名称 | 描述 | 官方 / 开源地址 |
