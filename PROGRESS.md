@@ -626,3 +626,5 @@
 - `node scripts/check-invariants-with-mutated-prices.mjs`：全量通过，真实价格与元数据未被修改；
 - `/tmp/wf-sim-r6b` 变异副本仿真：使用 Python 随机变动 100 个键（包含 10 个倒挂变非倒挂、15 个非倒挂变倒挂、75 个缩放偏移，同时保持 `arcane_reaper@r0` 与 `adaptation@r0` 不变），执行 `fetch-prices.mjs` 触发 meta 重算后，副本内 `npm test` **139/139 全过**；
 - `data/meta.json` 与 `docs/remaining-english.md` 时间戳已还原检出，真实 `data/prices.json` 未受修改。
+
+## 2026-11-26 22:28 AEDT — R6 / R6b 复核通过（有 raw 139/139；无 raw 129+10skip；新缓存场景 A/B/C 全过；check-invariants 通过），写 DONE，提交
