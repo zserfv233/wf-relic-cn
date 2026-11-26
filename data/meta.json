@@ -37,9 +37,9 @@
         "coverage": "100.0%"
       },
       "rivens": {
-        "pricedCount": 0,
+        "pricedCount": 8,
         "totalCount": 8,
-        "coverage": "0.0%"
+        "coverage": "100.0%"
       },
       "arcanes": {
         "pricedCount": 332,
