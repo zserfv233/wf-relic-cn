@@ -26,30 +26,30 @@
   },
   "pvpSources": 45,
   "prices": {
-    "updatedAt": "2026-11-25T23:26:59.166Z",
-    "pricedCount": 2399,
+    "updatedAt": "2026-11-26T11:46:49.288Z",
+    "pricedCount": 2445,
     "totalCount": 2495,
-    "coverage": "96.2%",
+    "coverage": "98.0%",
     "categories": {
       "relics": {
-        "pricedCount": 588,
+        "pricedCount": 582,
         "totalCount": 603,
-        "coverage": "97.5%"
+        "coverage": "96.5%"
       },
       "rivens": {
-        "pricedCount": 7,
+        "pricedCount": 8,
         "totalCount": 8,
-        "coverage": "87.5%"
+        "coverage": "100.0%"
       },
       "arcanes": {
-        "pricedCount": 297,
+        "pricedCount": 318,
         "totalCount": 340,
-        "coverage": "87.4%"
+        "coverage": "93.5%"
       },
       "mods": {
-        "pricedCount": 1507,
+        "pricedCount": 1537,
         "totalCount": 1544,
-        "coverage": "97.6%"
+        "coverage": "99.5%"
       }
     }
   },
