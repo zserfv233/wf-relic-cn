@@ -813,7 +813,8 @@ export async function build(customOptions = {}) {
 
         for (const [stage, stageItems] of stageMap.entries()) {
           const cleanStage = stage.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-          const stageZh = stage.replace(/Stage\s+(\d+)/i, '阶段 $1');
+          const stageMatch = stage.match(/^Stage\s+(\d+)$/i);
+          const stageZh = stageMatch ? `阶段 ${stageMatch[1]}` : stage;
           const baseSourceId = `source_bounty_${cleanLevel}_${rot.toLowerCase()}_${cleanStage}`;
           const sourceId = registerUniqueSourceId(baseSourceId);
 

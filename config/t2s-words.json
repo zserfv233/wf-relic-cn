@@ -1,0 +1,103 @@
+{
+ "_note": "整词繁→简转换表，通道（Antigravity 通道 executor）于 2026-11-26 14:10 AEDT 准备；依据 Codex /workspace/wf_decisions_1126b/decisions.md 第 1 项。简体目标词在已下载资料中的出现：除“堕落 Vor”外均在 DE ExportRegions_zh / ExportFlavour_zh 或 WFCD i18n/languages 中出现（见 evidence）；“墮落 Vor→堕落 Vor”为 Codex 明示批准的例子。只允许整词替换，禁止逐字或整段机械转换。",
+ "entries": [
+  {
+   "traditional": "防禦",
+   "simplified": "防御",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_DEFENSE",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "捕獲",
+   "simplified": "捕获",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_CAPTURE",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "刺殺",
+   "simplified": "刺杀",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_ASSASSINATION",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "殲滅",
+   "simplified": "歼灭",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_EXTERMINATION",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "攔截",
+   "simplified": "拦截",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_TERRITORY",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "間諜",
+   "simplified": "间谍",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_INTEL",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "移動防禦",
+   "simplified": "移动防御",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_MOBILE_DEFENSE",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "破壞",
+   "simplified": "破坏",
+   "scope": "missionTypes",
+   "upstreamKey": "MT_SABOTAGE",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "穀神星",
+   "simplified": "谷神星",
+   "scope": "nodes(planet part)",
+   "upstreamKey": "DE ExportRegions_zh systemName",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "鬩神星",
+   "simplified": "阋神星",
+   "scope": "nodes(planet part)",
+   "upstreamKey": "DE ExportRegions_zh systemName",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "賽德娜",
+   "simplified": "赛德娜",
+   "scope": "nodes(planet part)",
+   "upstreamKey": "DE ExportRegions_zh systemName",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "歐羅巴",
+   "simplified": "欧罗巴",
+   "scope": "nodes(planet part)",
+   "upstreamKey": "DE ExportRegions_zh systemName",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "火衛一",
+   "simplified": "火卫一",
+   "scope": "nodes(planet part)",
+   "upstreamKey": "DE ExportRegions_zh systemName",
+   "method": "traditional_to_simplified"
+  },
+  {
+   "traditional": "墮落 Vor",
+   "simplified": "堕落 Vor",
+   "scope": "enemies",
+   "upstreamKey": "sortieData bosses.SORTIE_BOSS_CORRUPTED_VOR.name",
+   "method": "traditional_to_simplified"
+  }
+ ]
+}

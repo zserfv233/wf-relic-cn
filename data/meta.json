@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "phase": 4,
-  "builtAt": "2026-11-26T02:39:53.266Z",
+  "builtAt": "2026-11-26T04:34:06.248Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -54,7 +54,7 @@
     }
   },
   "localization": {
-    "generatedAt": "2026-11-26T01:15:25.358Z",
+    "generatedAt": "2026-11-26T04:34:04.442Z",
     "stats": {
       "relics": {
         "name": "遗物 (Relics)",
@@ -104,20 +104,20 @@
       "sources": {
         "name": "掉落来源 (Sources)",
         "totalCount": 2394,
-        "translatedCount": 1265,
-        "asIsCount": 14,
-        "fallbackCount": 1115,
-        "coverage": "52.8%",
-        "effectiveCoverage": "53.4%"
+        "translatedCount": 1280,
+        "asIsCount": 7,
+        "fallbackCount": 1107,
+        "coverage": "53.5%",
+        "effectiveCoverage": "53.8%"
       },
       "planets": {
         "name": "星球 (Planets)",
         "totalCount": 28,
-        "translatedCount": 27,
+        "translatedCount": 28,
         "asIsCount": 0,
-        "fallbackCount": 1,
-        "coverage": "96.4%",
-        "effectiveCoverage": "96.4%"
+        "fallbackCount": 0,
+        "coverage": "100.0%",
+        "effectiveCoverage": "100.0%"
       },
       "missionTypes": {
         "name": "任务类型 (Mission Types)",
@@ -131,20 +131,20 @@
       "nodes": {
         "name": "节点 (Nodes)",
         "totalCount": 435,
-        "translatedCount": 0,
-        "asIsCount": 435,
-        "fallbackCount": 0,
-        "coverage": "0.0%",
-        "effectiveCoverage": "100.0%"
+        "translatedCount": 201,
+        "asIsCount": 174,
+        "fallbackCount": 60,
+        "coverage": "46.2%",
+        "effectiveCoverage": "86.2%"
       },
       "enemies": {
         "name": "敌人 (Enemies)",
         "totalCount": 919,
-        "translatedCount": 25,
-        "asIsCount": 14,
-        "fallbackCount": 880,
-        "coverage": "2.7%",
-        "effectiveCoverage": "4.2%"
+        "translatedCount": 37,
+        "asIsCount": 7,
+        "fallbackCount": 875,
+        "coverage": "4.0%",
+        "effectiveCoverage": "4.8%"
       },
       "bounties": {
         "name": "赏金标题 (Bounties)",
@@ -158,20 +158,20 @@
       "transientSources": {
         "name": "特殊来源 (Transient Sources)",
         "totalCount": 53,
-        "translatedCount": 1,
+        "translatedCount": 2,
         "asIsCount": 0,
-        "fallbackCount": 52,
-        "coverage": "1.9%",
-        "effectiveCoverage": "1.9%"
+        "fallbackCount": 51,
+        "coverage": "3.8%",
+        "effectiveCoverage": "3.8%"
       }
     },
     "grandTotal": {
       "total": 6269,
-      "translated": 3718,
-      "asIs": 465,
-      "fallback": 2086,
-      "rate": "59.3%",
-      "effectiveRate": "66.7%"
+      "translated": 3948,
+      "asIs": 190,
+      "fallback": 2131,
+      "rate": "63.0%",
+      "effectiveRate": "66.0%"
     },
     "abbreviatedCorrectionsCount": 451
   }

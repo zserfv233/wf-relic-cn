@@ -143,7 +143,7 @@ export function formatSourceType(type, isPvp = false) {
     case 'mission': return '星图任务';
     case 'enemy': return '敌人击杀';
     case 'bounty': return '平原赏金';
-    case 'transient': return '特殊/密室';
+    case 'transient': return '特殊来源';
     case 'sortie': return '突击任务';
     default: return type || '未知';
   }

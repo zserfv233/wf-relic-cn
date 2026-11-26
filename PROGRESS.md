@@ -314,3 +314,50 @@
 
 ## 2026-11-26 13:55 AEDT — 通道复核完成
 - Dec1 13:42 退出（SUCCESS，efb5988）；6 项独立复核通过，截图 36–43，详见 DONE.md 顶部。
+
+## 2026-11-26 14:04 AEDT — 第三轮开始（fix/round3，worktree /workspace/wf-relic-cn-r3，基于 main 4ac5eea）
+- 依据 /workspace/wf_decisions_1126b/decisions.md（11 项）。通道已下载 DE ExportRegions/Flavour zh+en、DE 官网页面存档（见 /workspace/wf-relic-cn-raw/SOURCES-zh.md 第三轮新增）；繁→简整词表 /workspace/wf-relic-cn-notes/r3-t2s-table.json。
+- Vox Solaris 中文指南 URL 对 box 302 到通用页，未复现 Codex 引文；按 Codex 决定执行并记录替代佐证。
+- 分两次 agy：R3a=第 1–6 项（汉化），R3b=第 7–11 项（数学/界面）。
+
+- 14:51 中断后恢复：R3a (pid 695541) 仍在跑，有文件改动；继续等待（停止条件：30 分钟无文件变化，或 16:04 仍未结束）。
+
+## 2026-11-26 15:34 AEDT — R3a 汉化相关项（第 1–6 项）完成
+- 依据 Codex 拍板文件 `/workspace/wf_decisions_1126b/decisions.md` 实现第 1–6 项汉化工作：
+  1. **繁体→简体转换（第 1 项）**：
+     - 引入受控整词表 `config/t2s-words.json`（14 条，原样保留 evidence 说明），严禁逐字或整段机械转换，不引入外部第三方库；
+     - 转换条目完整保存：`zhRaw`（繁体原文）、`zhTransform: 'traditional_to_simplified'`，保留上游原始 `zhSource`；
+     - 覆盖任务类型 8 项（防御、捕获、刺杀、移动防御、歼灭、间谍、破坏、拦截）、星图节点中 38 个传统繁体星球名（谷神星、阋神星、赛德娜、欧罗巴、火卫一），以及敌人「堕落 Vor」；
+     - 构建产物与数据经全量检测，无任何转换表繁体词残留。
+  2. **DE 节点对齐（第 2 项）**：
+     - 使用 DE 官方 `ExportRegions_zh.json` 与 `ExportRegions_en.json`，按 SolNode ID（uniqueName）精确对齐，严格核验 en 记录 name/systemName 与掉落表 cleanNode/planet 一致性；
+     - 官方中文显示用 DE 名（例如 SolNode94 → 阿波罗多罗斯撞击坑），`zhSource` 标记为 `de_export:ExportRegions_zh:SolNodeXX`；
+     - 统计细分清晰：DE 官方中文 201 条（46.2%）、上游原样英文（as-is）174 条（40.0%）、本站回退英文（fallback）60 条（13.8%），节点总数 435 条，可追溯率达到 86.2%。
+  3. **Solaris 与 Arbitrations 精确实体映射（第 3 项）**：
+     - `Solaris` → 「索拉里斯」，`zhSource` 标记为 `decision:codex_1126b_item3:solaris`，佐证记录 DE ExportFlavour 索拉里斯工艺奖浮印与 WFCD i18n 索拉里斯人派生，保留英文别名；
+     - `Arbitrations` → 「仲裁」，`zhSource` 标记为 `de_web:arbitrations-update-zh.html`，派生规则 `strip_suffix:任务`；
+     - 前端 `js/app.js` 与 `index.html` 中来源分类文案修正为官方规范「特殊来源」（彻底移除「特殊/密室」）。
+  4. **拼接名称受控模板白名单（第 4 项）**：
+     - 彻底废除逐字符放行机制，在 `scripts/build-zh-map.mjs` 中实现**整词受控白名单 + 固定语法模板**校验；
+     - 只允许六词：「等级、赏金、阶段、轮次、特殊、奖励」；
+     - 只允许六模板：「等级 {数值或区间}」「{有出处名称}赏金」「阶段 {正整数}」「[轮次 {A/B/C}]」「（特殊）」「{有出处名称}奖励」；
+     - 不符合模板的形式（如「Stage 4 of 5」「Final Stage」「Stage 3 of 4, and Stage 3 of 5」）严格整段保留英文；
+     - 加强测试反例断言：随机重组六词汉字（如「奖等」「金赏」）或非模板中文（如「巨人战舰」「奥秘隔离库」）一律严格被拒。
+  5. **Eidolon 夜灵三傻（第 5 项）**：
+     - 仅对「夜灵兆力使、夜灵巨力使、夜灵水力使」应用后缀剥除，证据来自 `wfcd-items/i18n_zh.json` 的 `TeralystAFItem`、`TeralystBigAFItem`、`TeralystRainAFItem`；
+     - 保存完整 `rawName`、`uniqueName` 与规则 `strip_suffix:可动模型`；
+     - `(Special)` 版本按第 4 项受控模板追加「（特殊）」，`source` 标记为 `site_word`；
+     - 保证该规则绝不推广至任何其他物品或敌人。
+  6. **敌人名机械回查与双口径统计（第 6 项）**：
+     - 严格按机械可回查规则补充敌人名：DE ExportFlavour 浮印对齐 13 条（`strip_suffix:浮印` / `strip_suffix:的浮印`）、WFCD languages 4 条、WFCD sortieData 5 条 + 1 条繁简转换，连同 Eidolon 6 条共汉化 37 条敌人；
+     - 歧义判定：`Captain Vor` 在 Sortie 为「Vor 上尉」而在 Flavour 浮印为「沃尔上尉」，按规范保守拒绝汉化，保留英文 fallback，列入待拍板；
+     - 双口径统计报告：在 `scripts/build-remaining-english.mjs` 与 `docs/remaining-english.md` 中分开列出「中文率」（纯中文显示占比）与「可追溯率」（中文 + 上游官方原样英文占比），并在文档中增设星图节点三类细分表格。
+  7. **待 Codex 拍板事项**：
+     - `Captain Vor` 中文名歧义（Sortie「Vor 上尉」vs Flavour「沃尔上尉」），目前保守保留英文 fallback；
+     - 处决者浮印所有格「的」字（如「处决者 Nok 的」），目前严格保留前缀，待 Codex 拍板是否去掉「的」；
+     - 特殊来源中无单一模式名项目保留英文（如 Sanctuary Onslaught、The Circuit）。
+- 测试与验证：
+  - 新增测试套件 `test/localization_r3.test.mjs`（覆盖繁简转换、DE 节点对齐、Solaris/Arbitrations、模板正反例、Eidolon、敌人回查与歧义、双口径覆盖率）；
+  - `npm test`：13 个测试套件，82 个测试全部通过（82 passed, 0 failed）；
+  - `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：价格变异不变量全部通过。
+

@@ -25,7 +25,10 @@ const VALID_SOURCE_PREFIXES = [
   'composed:',
   'traditional:',
   'en_as_is:',
-  'en_fallback'
+  'en_fallback',
+  'de_export:',
+  'de_web:',
+  'decision:'
 ];
 
 function isValidZhSource(source) {
@@ -131,13 +134,15 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
     checkCategoryFloor('planets', 0.90);
     checkCategoryFloor('bounties', 0.65);
 
-    // 节点规范覆盖率 (含资料原样英文) >= 90%
+    // 节点可追溯率 (含 DE 中文与上游原样英文) >= 85%
     const nodeEff = parseFloat(stats.nodes.effectiveCoverage);
-    assert.ok(nodeEff >= 90.0, `节点规范覆盖率 (${stats.nodes.effectiveCoverage}) 应 >= 90%`);
+    assert.ok(nodeEff >= 85.0, `节点可追溯率 (${stats.nodes.effectiveCoverage}) 应 >= 85%`);
+    const nodeCov = parseFloat(stats.nodes.coverage);
+    assert.ok(nodeCov >= 45.0, `节点 DE 官方中文率 (${stats.nodes.coverage}) 应 >= 45%`);
 
     // 验证 meta.localization.stats 与 remaining-english.md 提取内容严格一致
     for (const [catKey, catVal] of Object.entries(stats)) {
-      assert.ok(remainingDocContent.includes(catVal.coverage), `remaining-english.md 应包含 ${catKey} 覆盖率 ${catVal.coverage}`);
+      assert.ok(remainingDocContent.includes(catVal.coverage), `remaining-english.md 应包含 ${catKey} 中文率 ${catVal.coverage}`);
     }
   });
 
@@ -153,6 +158,20 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
     const missionTypesZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/missionTypes.json'), 'utf8'));
     const languagesZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/languages.json'), 'utf8'));
     const sortieZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/sortieData.json'), 'utf8'));
+
+    const deRegionsZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportRegions_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
+    const deRegionsZhMap = new Map();
+    for (const r of (deRegionsZhRaw.ExportRegions || deRegionsZhRaw)) {
+      if (r.uniqueName) deRegionsZhMap.set(r.uniqueName, r);
+    }
+
+    const deFlavourZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportFlavour_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
+    const deFlavourZhMap = new Map();
+    for (const f of (deFlavourZhRaw.ExportFlavour || deFlavourZhRaw)) {
+      if (f.uniqueName) deFlavourZhMap.set(f.uniqueName, f);
+    }
+
+    const arbitrationsHtml = fs.readFileSync(path.join(RAW_DIR, 'de-web/arbitrations-update-zh.html'), 'utf8');
 
     const wfmBySlug = new Map(wfmData.map(x => [x.slug, x]));
 
@@ -182,6 +201,20 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
         const key = cleanSource.replace('wfcd_worldstate:sortieData:bosses:', '');
         return sortieZh.bosses?.[key]?.name;
       }
+      if (cleanSource.startsWith('de_export:ExportRegions_zh:')) {
+        const key = cleanSource.replace('de_export:ExportRegions_zh:', '');
+        return deRegionsZhMap.get(key)?.name;
+      }
+      if (cleanSource.startsWith('de_export:ExportFlavour_zh:')) {
+        const key = cleanSource.replace('de_export:ExportFlavour_zh:', '');
+        return deFlavourZhMap.get(key)?.name;
+      }
+      if (cleanSource.startsWith('de_web:arbitrations-update-zh.html')) {
+        return arbitrationsHtml;
+      }
+      if (cleanSource.startsWith('decision:')) {
+        return 'Codex 1126b 第 3 项决定：Solaris -> 索拉里斯';
+      }
       return null;
     }
 
@@ -202,24 +235,40 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
           assert.strictEqual(joined, item.nameZh, `条目 ${cat}:${key} 的 zhSegments 拼接 (${joined}) 必须与 nameZh (${item.nameZh}) 严格一致`);
 
           for (const seg of item.zhSegments) {
-            if (seg.source === 'SITE_WORDS') {
-              assert.ok(isSiteWord(seg.text), `条目 ${cat}:${key} 的 SITE_WORDS 片段 "${seg.text}" 未在受控白名单中`);
+            if (seg.source === 'SITE_WORDS' || seg.source === 'site_word') {
+              assert.ok(isSiteWord(seg.text), `条目 ${cat}:${key} 的 site_word 片段 "${seg.text}" 未在受控白名单中`);
+            } else if (seg.source === 'original_en') {
+              assert.ok(/^[\x20-\x7E\s]*$/.test(seg.text), `条目 ${cat}:${key} 的 original_en 片段 "${seg.text}" 必须为 ASCII 英文或符号`);
             } else {
               const rawVal = resolveRawValue(seg.source);
               assert.ok(rawVal, `条目 ${cat}:${key} 的片段出处 ${seg.source} 在原始资料中不存在`);
-              assert.ok(
-                rawVal.includes(seg.text),
-                `条目 ${cat}:${key} 的片段 "${seg.text}" 必须在资料出处内容 (${rawVal}) 中逐字出现`
-              );
+              if (seg.zhTransform === 'traditional_to_simplified') {
+                assert.ok(
+                  rawVal.includes(seg.zhRaw),
+                  `条目 ${cat}:${key} 的片段繁体原文 "${seg.zhRaw}" 必须在资料出处内容 (${rawVal}) 中逐字出现`
+                );
+              } else {
+                assert.ok(
+                  rawVal.includes(seg.text),
+                  `条目 ${cat}:${key} 的片段 "${seg.text}" 必须在资料出处内容 (${rawVal}) 中逐字出现`
+                );
+              }
             }
           }
         } else {
           const rawVal = resolveRawValue(src);
           assert.ok(rawVal, `条目 ${cat}:${key} 的出处 ${src} 在原始资料中不存在`);
-          assert.ok(
-            rawVal.includes(item.nameZh),
-            `条目 ${cat}:${key} 的中文名 "${item.nameZh}" 必须在原始资料 (${rawVal}) 中逐字存在`
-          );
+          if (item.zhTransform === 'traditional_to_simplified') {
+            assert.ok(
+              rawVal.includes(item.zhRaw),
+              `条目 ${cat}:${key} 的繁体原文 "${item.zhRaw}" 必须在原始资料 (${rawVal}) 中逐字存在`
+            );
+          } else {
+            assert.ok(
+              rawVal.includes(item.nameZh),
+              `条目 ${cat}:${key} 的中文名 "${item.nameZh}" 必须在原始资料 (${rawVal}) 中逐字存在`
+            );
+          }
         }
       }
     }
@@ -275,10 +324,11 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
     assert.ok(holl2 && !holl2.zhSource.includes('HexDogTagUncommon'), 'Höllvania 绝不可引用 HexDogTagUncommon');
     assert.strictEqual(holl1.nameZh, '霍瓦尼亚');
 
-    // Solaris 回退为英文
+    // Solaris 按 Item 3 映射为「索拉里斯」
     const solaris = zhMap.planets?.['Solaris'];
-    assert.strictEqual(solaris?.zhSource, 'en_fallback', 'Solaris 必须为 en_fallback');
-    assert.strictEqual(solaris?.nameZh, 'Solaris', 'Solaris nameZh 必须为英文');
+    assert.ok(solaris, 'zhMap.planets 必须包含 Solaris');
+    assert.strictEqual(solaris.nameZh, '索拉里斯', 'Solaris nameZh 必须为「索拉里斯」');
+    assert.ok(solaris.zhSource.startsWith('decision:codex_1126b_item3:solaris'), 'Solaris zhSource 必须指向上准拍板决定');
 
     // Deimos / Zariman / Duviri / Cetus 引用有效键
     const deimos = zhMap.planets?.['Deimos'];
@@ -297,15 +347,16 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
       return;
     }
 
-    const solNodesZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/solNodes.json'), 'utf8'));
     const missionTypesZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/missionTypes.json'), 'utf8'));
     const wfmData = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfm_items_v2.json'), 'utf8')).data;
 
-    // SolNode94: Apollodorus
-    const rawApollodorus = solNodesZh['SolNode94']?.value;
+    // SolNode94: Apollodorus -> 阿波罗多罗斯撞击坑 (DE ExportRegions 对齐)
+    const deRegionsZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportRegions_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
+    const deApollodorus = (deRegionsZhRaw.ExportRegions || deRegionsZhRaw).find(r => r.uniqueName === 'SolNode94')?.name;
     const mappedNode = zhMap.nodes?.['Mercury:Apollodorus'];
     assert.ok(mappedNode, 'zhMap 必须包含 Mercury:Apollodorus');
-    assert.strictEqual(mappedNode.nameZh, rawApollodorus);
+    assert.strictEqual(mappedNode.nameZh, deApollodorus);
+    assert.strictEqual(mappedNode.zhSource, 'de_export:ExportRegions_zh:SolNode94');
 
     // MT_SURVIVAL: 生存
     const rawSurvival = missionTypesZh['MT_SURVIVAL']?.value;

@@ -2,7 +2,8 @@
 /**
  * scripts/build-remaining-english.mjs
  * Warframe 全站汉化剩余英文统计与清单生成脚本
- * 严格按照分类统计：已汉化 / 资料原样英文 / 无中文资料保留英文 / 总数
+ * 严格按照分类统计：中文条目数 (已汉化) / 上游原样英文 / 本站回退英文 / 类别总数
+ * 输出双口径指标：中文率（纯中文）与可追溯率（中文 + 官方原样）
  * 输出规范文档 docs/remaining-english.md
  */
 
@@ -50,8 +51,18 @@ export function generateRemainingEnglishDocs(options = {}) {
     { id: 'sources', name: '掉落来源 (Sources)', list: sourcesData, getName: s => s.nameEn, getZh: s => s.nameZh, getSource: s => s.zhSource },
     { id: 'planets', name: '星球 (Planets)', list: Object.entries(zhMap.planets || {}).map(([en, v]) => ({ en, ...v })), getName: p => p.en, getZh: p => p.nameZh, getSource: p => p.zhSource },
     { id: 'missionTypes', name: '任务类型 (Mission Types)', list: Object.entries(zhMap.missionTypes || {}).map(([en, v]) => ({ en, ...v })), getName: m => m.en, getZh: m => m.nameZh, getSource: m => m.zhSource, isAsIs: m => m.isAsIs },
-    { id: 'nodes', name: '节点 (Nodes)', list: Object.entries(zhMap.nodes || {}).map(([key, v]) => ({ key, ...v })), getName: n => n.key, getZh: n => n.nameZh, getSource: n => n.zhSource, isAsIs: n => n.isAsIs },
-    { id: 'enemies', name: '敌人 (Enemies)', list: Object.entries(zhMap.enemies || {}).map(([en, v]) => ({ en, ...v })), getName: e => e.en, getZh: e => e.nameZh, getSource: e => e.zhSource },
+    {
+      id: 'nodes',
+      name: '节点 (Nodes)',
+      list: Object.entries(zhMap.nodes || {}).map(([key, v]) => ({ key, ...v })),
+      getName: n => n.key,
+      getZh: n => n.nameZh,
+      getSource: n => n.zhSource,
+      isAsIs: n => Boolean(n.isAsIs),
+      isFallback: n => Boolean(n.fallback),
+      isTranslated: n => Boolean(n.deAligned || (n.zhSource && n.zhSource.startsWith('de_export:')))
+    },
+    { id: 'enemies', name: '敌人 (Enemies)', list: Object.entries(zhMap.enemies || {}).map(([en, v]) => ({ en, ...v })), getName: e => e.en, getZh: e => e.nameZh, getSource: e => e.zhSource, isAsIs: e => e.isAsIs },
     { id: 'bounties', name: '赏金标题 (Bounties)', list: Object.entries(zhMap.bounties || {}).map(([en, v]) => ({ en, ...v })), getName: b => b.en, getZh: b => b.nameZh, getSource: b => b.zhSource },
     { id: 'transientSources', name: '特殊来源 (Transient Sources)', list: Object.entries(zhMap.transientSources || {}).map(([en, v]) => ({ en, ...v })), getName: t => t.en, getZh: t => t.nameZh, getSource: t => t.zhSource }
   ];
@@ -64,6 +75,10 @@ export function generateRemainingEnglishDocs(options = {}) {
   let grandAsIs = 0;
   let grandFallback = 0;
 
+  let deNodesCount = 0;
+  let asIsNodesCount = 0;
+  let fallbackNodesCount = 0;
+
   for (const cat of categories) {
     let translatedCount = 0;
     let asIsCount = 0;
@@ -74,17 +89,33 @@ export function generateRemainingEnglishDocs(options = {}) {
       const zh = cat.getZh(item);
       const src = cat.getSource(item) || '';
       const isAsIs = (cat.isAsIs && cat.isAsIs(item)) || src.startsWith('en_as_is');
+      const isFallback = (cat.isFallback && cat.isFallback(item)) || src.startsWith('en_fallback');
 
-      if (src.startsWith('en_fallback') || zh === en) {
-        if (isAsIs) {
+      if (cat.id === 'nodes') {
+        if (cat.isTranslated(item)) {
+          translatedCount++;
+          deNodesCount++;
+        } else if (isAsIs) {
           asIsCount++;
+          asIsNodesCount++;
           remainingEntries.push({
             category: cat.name,
             enName: en,
             type: '资料原样英文',
-            reason: `上游官方资料库中文版原样保留英文 (source: ${src || 'solNodes/worldstate'})`
+            reason: `DE ExportRegions 未覆盖，上游 WFCD 官方资料原样保留英文 (source: ${src})`
           });
         } else {
+          fallbackCount++;
+          fallbackNodesCount++;
+          remainingEntries.push({
+            category: cat.name,
+            enName: en,
+            type: '无中文资料保留英文',
+            reason: `未匹配到 DE 或 WFCD 星图节点 ID，按规范保留英文 (source: ${src})`
+          });
+        }
+      } else {
+        if (isFallback) {
           fallbackCount++;
           remainingEntries.push({
             category: cat.name,
@@ -92,17 +123,25 @@ export function generateRemainingEnglishDocs(options = {}) {
             type: '无中文资料保留英文',
             reason: `本地原始资料库中未检索到官方中文译名，按规范严格保留英文 (source: ${src})`
           });
+        } else if (isAsIs) {
+          asIsCount++;
+          remainingEntries.push({
+            category: cat.name,
+            enName: en,
+            type: '资料原样英文',
+            reason: `上游官方资料库中文版原样保留英文 (source: ${src || 'worldstate'})`
+          });
+        } else if (zh === en) {
+          fallbackCount++;
+          remainingEntries.push({
+            category: cat.name,
+            enName: en,
+            type: '无中文资料保留英文',
+            reason: `本地原始资料库中未检索到官方中文译名，按规范严格保留英文 (source: ${src})`
+          });
+        } else {
+          translatedCount++;
         }
-      } else if (isAsIs) {
-        asIsCount++;
-        remainingEntries.push({
-          category: cat.name,
-          enName: en,
-          type: '资料原样英文',
-          reason: `节点/任务原样保留英文，已拼接入中文星球/类型 (source: ${src})`
-        });
-      } else {
-        translatedCount++;
       }
     }
 
@@ -144,15 +183,17 @@ export function generateRemainingEnglishDocs(options = {}) {
     '# wf-relic-cn 汉化覆盖率与剩余英文统计报告',
     '',
     `> 生成时间：${new Date().toISOString()}  `,
-    `> 数据来源：本地原始资料 \`/workspace/wf-relic-cn-raw\`（WFCD warframe-items, warframe-worldstate-data, warframe.market v2, DE 官方掉落表）  `,
+    `> 数据来源：本地原始资料 \`/workspace/wf-relic-cn-raw\`（DE 官方 ExportRegions/ExportFlavour、WFCD warframe-items、warframe-worldstate-data、warframe.market v2、DE 官方掉落表）  `,
     `> 统计口径说明：  `,
-    `> - **已汉化**：在官方资料库或权威数据中查找到确切中文译名（含依官方术语规范拼成的合成标题）。  `,
-    `> - **资料原样英文**：上游官方资料库原样保留英文的内容（如 solNodes 中「Galatea (海王星)」的英文节点名部分、未英汉对照的固有模式等）。允许保留且计入规范。  `,
-    `> - **无中文资料保留英文**：上游全部本地原始资料均无中文对应项的内容（如未命名的特殊敌人、无官方译名之掉落项等）。严格遵守硬性约束绝不自行翻译，保留英文。`,
+    `> - **中文率**：显示名含中文的条目 / 类别总数（确切具有中文译名的条目占比）。  `,
+    `> - **可追溯率**：(中文条目 + 上游原样英文条目) / 类别总数（每一条均有可靠出处的条目占比）。  `,
+    `> - **中文条目数**：在官方资料库或权威数据中查找到确切中文译名（含 DE 官方节点名、依术语规范拼成的合成标题、繁简转换规范词）。  `,
+    `> - **上游原样英文**：上游官方资料库中文版原样保留英文的内容（如 solNodes 中「Galatea (海王星)」的英文节点名部分、未英汉对照的固有模式等）。允许保留且计入可追溯率。  `,
+    `> - **本站回退英文**：上游全部本地原始资料均无中文对应项的内容（如未命名的特殊敌人、无官方译名之掉落项等）。严格遵守硬性约束绝不自行翻译，保留英文。  `,
     '',
     '## 1. 各类别汉化覆盖率总表',
     '',
-    '| 实体类别 | 已汉化 | 资料原样英文 | 无中文资料保留英文 | 类别总数 | 汉化率 (纯中文) | 规范覆盖率 (含原样) |',
+    '| 实体类别 | 中文条目数 | 上游原样英文 | 本站回退英文 | 类别总数 | 中文率 | 可追溯率 |',
     '| :--- | :---: | :---: | :---: | :---: | :---: | :---: |'
   ];
 
@@ -160,6 +201,14 @@ export function generateRemainingEnglishDocs(options = {}) {
     lines.push(`| ${s.category} | ${s.translated} | ${s.asIs} | ${s.fallback} | ${s.total} | ${s.rate} | ${s.effectiveRate} |`);
   }
   lines.push(`| **总计 (Grand Total)** | **${grandTranslated}** | **${grandAsIs}** | **${grandFallback}** | **${grandTotal}** | **${grandRate}** | **${grandEffectiveRate}** |`);
+
+  lines.push('');
+  lines.push('### 星图节点覆盖率细分 (Item 2 专项)');
+  lines.push('');
+  lines.push(`- **DE 官方中文对齐**：${deNodesCount} 条（占节点总数 ${(deNodesCount / (deNodesCount + asIsNodesCount + fallbackNodesCount) * 100).toFixed(1)}%），来源为 \`de_export:ExportRegions_zh:SolNodeXX\`，并经 en 记录 name/systemName 与掉落表双重校验。`);
+  lines.push(`- **上游英文原样 (as-is)**：${asIsNodesCount} 条（占 ${(asIsNodesCount / (deNodesCount + asIsNodesCount + fallbackNodesCount) * 100).toFixed(1)}%），匹配到上游 WFCD solNodeKey 但 DE ExportRegions 未收录，原样保留英文。其中传统繁体星球名已通过整词表规范化为简体。`);
+  lines.push(`- **本站回退英文 (fallback)**：${fallbackNodesCount} 条（占 ${(fallbackNodesCount / (deNodesCount + asIsNodesCount + fallbackNodesCount) * 100).toFixed(1)}%），上游资料库中无 SolNode ID 对应记录，保守回退为英文。`);
+  lines.push(`- **节点总数**：${deNodesCount + asIsNodesCount + fallbackNodesCount} 条，节点可追溯率：${(((deNodesCount + asIsNodesCount) / (deNodesCount + asIsNodesCount + fallbackNodesCount)) * 100).toFixed(1)}%（中文率：${((deNodesCount / (deNodesCount + asIsNodesCount + fallbackNodesCount)) * 100).toFixed(1)}%）。`);
 
   lines.push('');
   lines.push('## 2. 简略名系统性消除统计');
@@ -179,19 +228,25 @@ export function generateRemainingEnglishDocs(options = {}) {
   }
 
   lines.push('');
-  lines.push('## 3. 本站界面词与结构词白名单说明 (SITE_WORDS)');
+  lines.push('## 3. 本站界面词与结构模板白名单说明 (Item 4 专项)');
   lines.push('');
-  lines.push('在 `composed:*` 规则生成的组合译名中，所有中文游戏实体名称均严格来自本地原始资料（WFCD i18n、warframe.market 或 WFCD worldstate），每一段中文都在资料中逐字对应并在 `zhSegments` 中记录精确出处。');
-  lines.push('对于非专有名词的修饰成分与结构符号，脚本定义了显式受控白名单 `SITE_WORDS`：');
-  lines.push('- **受控文案词**：`等级`、`赏金`、`阶段`、`轮次`、`特殊`、`奖励`');
-  lines.push('- **结构与标点符号**：空格、横杠（` - `）、圆括号（`(`、`)`、`（`、`）`）、中括号（`[`、`]`）、数字、英文原名节点/模式/属性前缀（如 `Caches`、`Extra`、`Resource`、`Level`、`Dark Refractory, `）');
-  lines.push('- **无出处整条回退**：若某个组合规则中的任何中文段落在原始资料与 `SITE_WORDS` 中均无逐字出处（例如「赤毒洪流」「暗影追猎者」「噩梦模式」「巨人战舰破坏」「奥秘隔离库」「英择谛实验室」「WF1999 赏金」），一律严格整条回退为英文，绝不自行拼接或编造。');
+  lines.push('所有拼接译名严格遵循 Codex 1126b 第 4 项规则，摒弃逐字放行，实行**整词受控白名单 + 固定语法模板**校验：');
+  lines.push('- **允许的六个整词**：`等级`、`赏金`、`阶段`、`轮次`、`特殊`、`奖励`');
+  lines.push('- **允许的六种模板**：');
+  lines.push('  1. `等级 {数值或区间}`（如「等级 5-15」）');
+  lines.push('  2. `{有出处名称}赏金`（如「金流恐鸟赏金」）');
+  lines.push('  3. `阶段 {正整数}`（如「阶段 1」；对于非模板形式如「Stage 4 of 5」「Final Stage」，严格全段保留英文）');
+  lines.push('  4. `[轮次 {A/B/C}]`（如「[轮次 A]」）');
+  lines.push('  5. `（特殊）`（如「夜灵兆力使（特殊）」）');
+  lines.push('  6. `{有出处名称}奖励`（如「赏金奖励」）');
+  lines.push('- **拒绝规则**：任何随机重组（如「奖等」「金赏」）或不在模板内的汉字组合均被拒绝。');
+
   lines.push('');
   lines.push('## 4. 待 Codex 拍板事项 (Pending Codex Decision)');
   lines.push('');
-  lines.push('1. **繁体任务类型保留**：上游 `wfcd-worldstate-zh/solNodes.json` 及 `missionTypes.json` 包含部分官方繁体条目（如「捕獲」「移動防禦」「刺殺」「防禦」「殲滅」「間諜」「破壞」「攔截」）。按硬性约束不做私自简繁替换，标记 `zhSource: traditional:...`。');
-  lines.push('2. **星图节点英文名**：上游 `solNodes.json` 中节点名格式多为「Galatea (海王星)」，即英文节点名 + 中文星球。本站保留原样英文并计入「资料原样英文」。');
-  lines.push('3. **特殊来源与未开紫卡模式**：如「Arbitrations」「Sanctuary Onslaught」「The Circuit」在原始资料任务类型与语言包中无单一对应模式名，按规则保留英文。');
+  lines.push('1. **Captain Vor 中文名歧义**：WFCD sortieData 中 boss 译名为「Vor 上尉」，而 DE ExportFlavour 中浮印译名为「沃尔上尉」。按第 6 项规则，遇到歧义保守放弃汉化，保留英文 fallback，待 Codex 拍板统一命名。');
+  lines.push('2. **处决者浮印所有格「的」字**：DE ExportFlavour 中处决者浮印多形如「处决者 Nok 的浮印」，剥除「浮印」后缀后保留为「处决者 Nok 的」。本站严格执行 `strip_suffix:浮印`（或 `strip_suffix:的浮印`）规则，待 Codex 拍板是否统一去掉所有格「的」。');
+  lines.push('3. **特殊来源与未开紫卡模式**：如「Sanctuary Onslaught」「The Circuit」在官方掉落表与本地资料中无单一对应模式名，按规则保留英文。');
 
   lines.push('');
   lines.push('## 5. 剩余英文详细清单 (按类别列出每一条)');
@@ -211,7 +266,20 @@ export function generateRemainingEnglishDocs(options = {}) {
   fs.writeFileSync(outPath, lines.join('\n'), 'utf8');
 
   console.log(`[build-remaining-english] 文档已生成: ${outPath} (剩余条目数: ${remainingEntries.length})`);
-  return { outPath, tableSummary, grandSummary, totalRemaining: remainingEntries.length, grandRate, grandEffectiveRate };
+  return {
+    outPath,
+    tableSummary,
+    grandSummary,
+    totalRemaining: remainingEntries.length,
+    grandRate,
+    grandEffectiveRate,
+    nodeBreakdown: {
+      deNodesCount,
+      asIsNodesCount,
+      fallbackNodesCount,
+      total: deNodesCount + asIsNodesCount + fallbackNodesCount
+    }
+  };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {

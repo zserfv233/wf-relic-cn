@@ -42,25 +42,66 @@ export function parseRawDir(customRaw) {
   return rawDir;
 }
 
+export function readLooseJson(filePath) {
+  const raw = fs.readFileSync(filePath, 'utf8');
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    const cleaned = raw.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g, '');
+    return JSON.parse(cleaned);
+  }
+}
+
 // 常见部件后缀正则
 export const COMPONENT_SUFFIX_REGEX = /\s+(Blueprint|Barrel|Receiver|Stock|Blade|Blades|Hilt|Handle|Gauntlet|Gauntlets|Boot|Boots|Chassis|Neuroptics|Systems|Chassis Blueprint|Neuroptics Blueprint|Systems Blueprint|Harness|Wings|Harness Blueprint|Wings Blueprint|Upper Limb|Lower Limb|Grip|String|Head|Ornament|Pouch|Stars|Guard|Buckle|Band|Chain|Carapace|Cerebrum|Motor|Heatsink|Sub-Cortex|Left Gauntlet|Right Gauntlet|Collar Blueprint)$/i;
 
-// 受控文案词白名单（仅用于 composed 条目的界面修饰/结构词）
+// 受控文案词白名单（仅用于 composed 条目的界面修饰/结构词：整词 + 固定模板校验）
 export const SITE_WORDS_VOCAB = new Set([
   '等级', '赏金', '阶段', '轮次', '特殊', '奖励'
 ]);
 
 export function isSiteWord(text) {
   if (typeof text !== 'string') return false;
-  // 过滤掉所有 ASCII 字符（数字、字母、空格、标点符号）及全角标点
-  const nonAscii = text.replace(/[\x00-\x7F]/g, '').replace(/[（）—]/g, '');
-  if (nonAscii.length === 0) return true;
-  // 检查非 ASCII 汉字是否严格属于 SITE_WORDS_VOCAB 的字符集
+  const trimmed = text.trim();
+  if (!trimmed) return false;
+
+  // 必须只包含允许的 12 个汉字（来自六个词）以及数字、空格、括号、横杠
+  // 严禁纯 ASCII（非空 ASCII 返回 false），严禁不在白名单的汉字
   const allowedChars = new Set(['等', '级', '赏', '金', '阶', '段', '轮', '次', '特', '殊', '奖', '励']);
-  for (const ch of nonAscii) {
+  const chineseChars = trimmed.match(/[\u4e00-\u9fa5]/g);
+  if (!chineseChars || chineseChars.length === 0) {
+    return false;
+  }
+  for (const ch of chineseChars) {
     if (!allowedChars.has(ch)) return false;
   }
-  return true;
+
+  // 1. 六个整词直接匹配
+  if (SITE_WORDS_VOCAB.has(trimmed)) return true;
+
+  // 2. 固定模板匹配：
+  // 模板 1: 等级 {数值或区间}
+  if (/^[\(（]?等级\s+\d+(\s*-\s*\d+)?[\)）]?$/.test(trimmed)) {
+    return true;
+  }
+
+  // 模板 2: 阶段 {正整数}
+  if (/^(?:-\s*)?阶段\s+[1-9]\d*$/.test(trimmed)) {
+    return true;
+  }
+
+  // 模板 3: [轮次 {A/B/C}] 或 轮次 {A/B/C}
+  if (/^\[?轮次\s+[A-C]\]?$/.test(trimmed)) {
+    return true;
+  }
+
+  // 模板 4: （特殊） 或 (特殊)
+  if (/^[（\(]特殊[）\)]$/.test(trimmed)) {
+    return true;
+  }
+
+  // 任何随机重组（如 "奖等", "金赏", "级等"）或不在模板内的组合，均被严格拒收
+  return false;
 }
 
 // 部件英文名到官方常见部件中文对照（严格带有本地原始资料出处）
@@ -264,6 +305,63 @@ export async function buildZhMap(explicitRawDir = null) {
     }
   }
 
+  // 5. 读取 t2s-words.json
+  const t2sPath = path.join(CONFIG_DIR, 't2s-words.json');
+  const t2sData = fs.existsSync(t2sPath) ? JSON.parse(fs.readFileSync(t2sPath, 'utf8')) : { entries: [] };
+  const t2sMissionMap = new Map();
+  const t2sPlanetMap = new Map();
+  const t2sEnemyMap = new Map();
+  for (const entry of (t2sData.entries || [])) {
+    if (entry.scope === 'missionTypes') {
+      t2sMissionMap.set(entry.traditional, entry);
+    } else if (entry.scope === 'nodes(planet part)') {
+      t2sPlanetMap.set(entry.traditional, entry);
+    } else if (entry.scope === 'enemies') {
+      t2sEnemyMap.set(entry.traditional, entry);
+    }
+  }
+
+  // 6. 读取 DE ExportRegions (zh 与 en)
+  const deRegionsZhPath = path.join(rawDir, 'de-export', 'ExportRegions_zh.json');
+  const deRegionsEnPath = path.join(rawDir, 'de-export', 'ExportRegions_en.json');
+  let deRegionsZhMap = new Map();
+  let deRegionsEnMap = new Map();
+  if (fs.existsSync(deRegionsZhPath) && fs.existsSync(deRegionsEnPath)) {
+    const rZh = readLooseJson(deRegionsZhPath).ExportRegions || [];
+    const rEn = readLooseJson(deRegionsEnPath).ExportRegions || [];
+    deRegionsZhMap = new Map(rZh.map(x => [x.uniqueName, x]));
+    deRegionsEnMap = new Map(rEn.map(x => [x.uniqueName, x]));
+  }
+
+  // 7. 读取 DE ExportFlavour (zh 与 en)
+  const deFlavourZhPath = path.join(rawDir, 'de-export', 'ExportFlavour_zh.json');
+  const deFlavourEnPath = path.join(rawDir, 'de-export', 'ExportFlavour_en.json');
+  let deFlavourGlyphs = new Map();
+  if (fs.existsSync(deFlavourZhPath) && fs.existsSync(deFlavourEnPath)) {
+    const fZh = readLooseJson(deFlavourZhPath).ExportFlavour || [];
+    const fEn = readLooseJson(deFlavourEnPath).ExportFlavour || [];
+    const fZhMap = new Map(fZh.map(x => [x.uniqueName, x]));
+    for (const enItem of fEn) {
+      const zhItem = fZhMap.get(enItem.uniqueName);
+      if (!enItem.name || !zhItem?.name) continue;
+      const enName = enItem.name.trim();
+      const zhName = zhItem.name.trim();
+      if (enName.endsWith(' Glyph') && zhName.endsWith('浮印')) {
+        const enemyPart = enName.slice(0, -6).trim();
+        const zhPrefix = zhName.replace(/\s*浮印$/, '').trim();
+        const lower = enemyPart.toLowerCase();
+        if (!deFlavourGlyphs.has(lower)) deFlavourGlyphs.set(lower, []);
+        deFlavourGlyphs.get(lower).push({
+          uniqueName: enItem.uniqueName,
+          enGlyph: enName,
+          zhGlyph: zhName,
+          enemyPartEn: enemyPart,
+          zhCandidate: zhPrefix
+        });
+      }
+    }
+  }
+
   // ----------------------------------------------------
   // A. 构建 Planets 映射
   // ----------------------------------------------------
@@ -297,13 +395,27 @@ export async function buildZhMap(explicitRawDir = null) {
     { en: 'Höllvania', zh: '霍瓦尼亚', source: 'wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB' },
     { en: 'Hollvania', zh: '霍瓦尼亚', source: 'wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB' },
     { en: 'Cetus', zh: '希图斯', source: 'wfcd_worldstate:languages:/lotus/types/gameplay/eidolon/resources/cetuswispitem' },
-    { en: 'Solaris', zh: 'Solaris', source: 'en_fallback' },
+    {
+      en: 'Solaris',
+      zh: '索拉里斯',
+      source: 'decision:codex_1126b_item3:solaris',
+      rule: 'derivation:strip_suffix',
+      evidence: {
+        decision: 'Codex 1126b 第 3 项决定',
+        flavourSource: 'de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/TennoCon2023BestWorkmanshipAwardGlyph',
+        flavourQuote: '索拉里斯工艺奖浮印',
+        i18nSource: 'wfcd_i18n:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardThePriceOfFreedom',
+        i18nQuote: '索拉里斯人',
+        derivation: '派生：从“索拉里斯工艺奖浮印”及“索拉里斯人”提取专名“索拉里斯”'
+      },
+      aliases: ['Solaris']
+    },
     {
       en: 'Dark Refractory, Deimos',
       zh: 'Dark Refractory, 火卫二',
       source: 'composed:en_node+planet:Deimos',
       zhSegments: [
-        { text: 'Dark Refractory, ', source: 'SITE_WORDS' },
+        { text: 'Dark Refractory, ', source: 'original_en' },
         { text: '火卫二', source: 'wfcd_worldstate:solNodes:SolNode229' }
       ]
     }
@@ -313,7 +425,9 @@ export async function buildZhMap(explicitRawDir = null) {
     planetsMap[p.en] = {
       nameZh: p.zh,
       zhSource: p.source,
-      ...(p.zhSegments ? { zhSegments: p.zhSegments } : {})
+      ...(p.zhSegments ? { zhSegments: p.zhSegments } : {}),
+      ...(p.evidence ? { evidence: p.evidence } : {}),
+      ...(p.rule ? { rule: p.rule } : {})
     };
   }
 
@@ -334,8 +448,6 @@ export async function buildZhMap(explicitRawDir = null) {
     }
   }
 
-  const TRADITIONAL_TYPES = new Set(['刺殺', '捕獲', '防禦', '殲滅', '間諜', '移動防禦', '破壞', '攔截']);
-
   const allGameModes = new Set();
   for (const planetNodes of Object.values(dropsAll.missionRewards || {})) {
     for (const nodeData of Object.values(planetNodes || {})) {
@@ -351,25 +463,35 @@ export async function buildZhMap(explicitRawDir = null) {
     }
 
     if (match) {
-      const isTrad = TRADITIONAL_TYPES.has(match.zh);
+      const isTrad = t2sMissionMap.has(match.zh);
       const isAsIs = match.zh.toLowerCase() === match.en.toLowerCase();
-      let source = `wfcd_worldstate:missionTypes:${match.key}`;
+      const upstreamSource = `wfcd_worldstate:missionTypes:${match.key}`;
       if (isTrad) {
-        source = `traditional:${source}`;
+        const t2sEntry = t2sMissionMap.get(match.zh);
+        missionTypesMap[gm] = {
+          nameZh: t2sEntry.simplified,
+          zhRaw: t2sEntry.traditional,
+          zhSource: upstreamSource,
+          zhTransform: 'traditional_to_simplified',
+          isAsIs: false
+        };
       } else if (isAsIs) {
-        source = `en_as_is:${source}`;
+        missionTypesMap[gm] = {
+          nameZh: match.zh,
+          zhSource: `en_as_is:${upstreamSource}`,
+          isAsIs: true
+        };
+      } else {
+        missionTypesMap[gm] = {
+          nameZh: match.zh,
+          zhSource: upstreamSource,
+          isAsIs: false
+        };
       }
-      missionTypesMap[gm] = {
-        nameZh: match.zh,
-        zhSource: source,
-        isTraditional: isTrad,
-        isAsIs: isAsIs
-      };
     } else {
       missionTypesMap[gm] = {
         nameZh: gm,
         zhSource: 'en_fallback',
-        isTraditional: false,
         isAsIs: false
       };
     }
@@ -415,41 +537,104 @@ export async function buildZhMap(explicitRawDir = null) {
       const lookupKey = `${planet.toLowerCase()}:${cleanNode.toLowerCase()}`;
       const solMatch = solNodesByPlanetNode.get(lookupKey) || solNodesByNodeName.get(cleanNode.toLowerCase());
 
+      // 核对 DE ExportRegions: 按 SolNode ID (uniqueName) 对齐
+      let deAligned = false;
+      let deZhObj = null;
+      let deEnObj = null;
+
       if (solMatch) {
+        deEnObj = deRegionsEnMap.get(solMatch.key);
+        deZhObj = deRegionsZhMap.get(solMatch.key);
+        if (deEnObj && deZhObj) {
+          // 核对 en 记录的 name 与 systemName 与掉落表的节点/星球一致，不一致就不用
+          const nameMatches = deEnObj.name.trim().toLowerCase() === cleanNode.toLowerCase();
+          const sysMatches = deEnObj.systemName.trim().toLowerCase() === planet.toLowerCase();
+          if (nameMatches && sysMatches) {
+            deAligned = true;
+          }
+        }
+      }
+
+      if (deAligned) {
+        // 使用 DE ExportRegions 官方译名
+        const baseZh = deZhObj.name;
+        const zhSource = `de_export:ExportRegions_zh:${solMatch.key}`;
         if (suffix) {
           nodesMap[key] = {
-            nameZh: `${solMatch.zhVal} ${suffix}`,
+            nameZh: `${baseZh} ${suffix}`,
             zhSource: `composed:solNode+suffix:${solMatch.key}`,
             zhSegments: [
-              { text: solMatch.zhVal, source: `wfcd_worldstate:solNodes:${solMatch.key}` },
-              { text: ` ${suffix}`, source: 'SITE_WORDS' }
+              { text: baseZh, source: zhSource },
+              { text: ` ${suffix}`, source: 'original_en' }
             ],
             solNodeKey: solMatch.key,
-            isAsIs: true
+            isAsIs: false,
+            deAligned: true
           };
         } else {
           nodesMap[key] = {
-            nameZh: solMatch.zhVal,
-            zhSource: `wfcd_worldstate:solNodes:${solMatch.key}`,
+            nameZh: baseZh,
+            zhSource,
             solNodeKey: solMatch.key,
-            isAsIs: true
+            isAsIs: false,
+            deAligned: true
+          };
+        }
+      } else if (solMatch) {
+        // 未在 DE 对齐，但有上游 WFCD solNodeKey：保留上游原样英文/WFCD 记录 (as-is)
+        // 检查星球部分是否在繁->简转换表 (Item 1)
+        let nodeNameZh = solMatch.zhVal;
+        let zhRaw = null;
+        let zhTransform = null;
+
+        for (const [trad, t2s] of t2sPlanetMap.entries()) {
+          if (nodeNameZh.includes(trad)) {
+            zhRaw = nodeNameZh;
+            nodeNameZh = nodeNameZh.replace(new RegExp(trad, 'g'), t2s.simplified);
+            zhTransform = 'traditional_to_simplified';
+          }
+        }
+
+        const upstreamSource = `wfcd_worldstate:solNodes:${solMatch.key}`;
+        if (suffix) {
+          nodesMap[key] = {
+            nameZh: `${nodeNameZh} ${suffix}`,
+            ...(zhRaw ? { zhRaw: `${zhRaw} ${suffix}`, zhTransform } : {}),
+            zhSource: `composed:solNode+suffix:${solMatch.key}`,
+            zhSegments: [
+              { text: nodeNameZh, source: upstreamSource, ...(zhRaw ? { zhRaw, zhTransform } : {}) },
+              { text: ` ${suffix}`, source: 'original_en' }
+            ],
+            solNodeKey: solMatch.key,
+            isAsIs: true,
+            deAligned: false
+          };
+        } else {
+          nodesMap[key] = {
+            nameZh: nodeNameZh,
+            ...(zhRaw ? { zhRaw, zhTransform } : {}),
+            zhSource: upstreamSource,
+            solNodeKey: solMatch.key,
+            isAsIs: true,
+            deAligned: false
           };
         }
       } else {
+        // 无 solNodeKey 的 60 个节点：本站回退 (fallback)
         const pDef = planetsMap[planet];
         const composedZh = `${cleanNode} (${planetZh})${suffix ? ` ${suffix}` : ''}`;
         let zhSegments = [];
         if (pDef?.zhSegments) {
           zhSegments = [
-            { text: `${cleanNode} (`, source: 'SITE_WORDS' },
+            { text: `${cleanNode} (`, source: 'original_en' },
             ...pDef.zhSegments,
-            { text: `)${suffix ? ` ${suffix}` : ''}`, source: 'SITE_WORDS' }
+            { text: `)${suffix ? ` ${suffix}` : ''}`, source: 'original_en' }
           ];
         } else {
           zhSegments = [
-            { text: `${cleanNode} (`, source: 'SITE_WORDS' },
+            { text: `${cleanNode} (`, source: 'original_en' },
             { text: planetZh, source: pDef?.zhSource || 'en_fallback' },
-            { text: `)${suffix ? ` ${suffix}` : ''}`, source: 'SITE_WORDS' }
+            { text: `)${suffix ? ` ${suffix}` : ''}`, source: 'original_en' }
           ];
         }
         nodesMap[key] = {
@@ -457,7 +642,9 @@ export async function buildZhMap(explicitRawDir = null) {
           zhSource: `composed:en_node+planet:${planet}`,
           zhSegments,
           solNodeKey: null,
-          isAsIs: true
+          isAsIs: false,
+          fallback: true,
+          deAligned: false
         };
       }
     }
@@ -472,46 +659,79 @@ export async function buildZhMap(explicitRawDir = null) {
   const SPECIAL_ENEMIES_ZH = {
     'eidolon teralyst': {
       zh: '夜灵兆力使',
-      source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem'
+      source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem',
+      rawName: '夜灵兆力使可动模型',
+      uniqueName: '/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem',
+      rule: 'strip_suffix:可动模型'
     },
     'eidolon gantulyst': {
       zh: '夜灵巨力使',
-      source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystBigAFItem'
+      source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystBigAFItem',
+      rawName: '夜灵巨力使可动模型',
+      uniqueName: '/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystBigAFItem',
+      rule: 'strip_suffix:可动模型'
     },
     'eidolon hydrolyst': {
       zh: '夜灵水力使',
-      source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystRainAFItem'
+      source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystRainAFItem',
+      rawName: '夜灵水力使可动模型',
+      uniqueName: '/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystRainAFItem',
+      rule: 'strip_suffix:可动模型'
     },
     'eidolon teralyst (special)': {
       zh: '夜灵兆力使（特殊）',
       source: 'composed:eidolon+special:wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem',
+      rawName: '夜灵兆力使可动模型',
+      uniqueName: '/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem',
+      rule: 'strip_suffix:可动模型',
       zhSegments: [
-        { text: '夜灵兆力使', source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem' },
-        { text: '（特殊）', source: 'SITE_WORDS' }
+        {
+          text: '夜灵兆力使',
+          source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem',
+          rawName: '夜灵兆力使可动模型',
+          rule: 'strip_suffix:可动模型'
+        },
+        { text: '（特殊）', source: 'site_word' }
       ]
     },
     'eidolon gantulyst (special)': {
       zh: '夜灵巨力使（特殊）',
       source: 'composed:eidolon+special:wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystBigAFItem',
+      rawName: '夜灵巨力使可动模型',
+      uniqueName: '/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystBigAFItem',
+      rule: 'strip_suffix:可动模型',
       zhSegments: [
-        { text: '夜灵巨力使', source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystBigAFItem' },
-        { text: '（特殊）', source: 'SITE_WORDS' }
+        {
+          text: '夜灵巨力使',
+          source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystBigAFItem',
+          rawName: '夜灵巨力使可动模型',
+          rule: 'strip_suffix:可动模型'
+        },
+        { text: '（特殊）', source: 'site_word' }
       ]
     },
     'eidolon hydrolyst (special)': {
       zh: '夜灵水力使（特殊）',
       source: 'composed:eidolon+special:wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystRainAFItem',
+      rawName: '夜灵水力使可动模型',
+      uniqueName: '/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystRainAFItem',
+      rule: 'strip_suffix:可动模型',
       zhSegments: [
-        { text: '夜灵水力使', source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystRainAFItem' },
-        { text: '（特殊）', source: 'SITE_WORDS' }
+        {
+          text: '夜灵水力使',
+          source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystRainAFItem',
+          rawName: '夜灵水力使可动模型',
+          rule: 'strip_suffix:可动模型'
+        },
+        { text: '（特殊）', source: 'site_word' }
       ]
     },
     
-    'stalker': { zh: '追猎者', source: 'wfcd_i18n:/Lotus/Interface/Graphics/CustomUI/Backgrounds/StalkerBackground' },
+    'stalker': { zh: '追猎者', source: 'wfcd_i18n:/Lotus/Interface/Graphics/CustomUI/Backgrounds/StalkerBackground', rule: 'exact_match:i18n' },
     'shadow stalker': { zh: 'Shadow Stalker', source: 'en_fallback' },
-    'protector stalker': { zh: '卫护追猎者', source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker' },
+    'protector stalker': { zh: '卫护追猎者', source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker', rule: 'exact_match:i18n' },
 
-    'profit-taker': { zh: '利润收割者', source: 'wfcd_worldstate:languages:/lotus/types/challenges/seasons/weeklyhard/seasonweeklyhardfriendsprofittaker' }
+    'profit-taker': { zh: '利润收割者', source: 'wfcd_worldstate:languages:/lotus/types/challenges/seasons/weeklyhard/seasonweeklyhardfriendsprofittaker', rule: 'exact_match:languages' }
   };
 
   const ACOLYTE_NAMES = {
@@ -530,10 +750,14 @@ export async function buildZhMap(explicitRawDir = null) {
     const lower = enemyName.toLowerCase().trim();
 
     if (SPECIAL_ENEMIES_ZH[lower]) {
+      const spec = SPECIAL_ENEMIES_ZH[lower];
       enemiesMap[enemyName] = {
-        nameZh: SPECIAL_ENEMIES_ZH[lower].zh,
-        zhSource: SPECIAL_ENEMIES_ZH[lower].source,
-        ...(SPECIAL_ENEMIES_ZH[lower].zhSegments ? { zhSegments: SPECIAL_ENEMIES_ZH[lower].zhSegments } : {})
+        nameZh: spec.zh,
+        zhSource: spec.source,
+        ...(spec.rawName ? { rawName: spec.rawName } : {}),
+        ...(spec.uniqueName ? { uniqueName: spec.uniqueName } : {}),
+        ...(spec.rule ? { rule: spec.rule } : {}),
+        ...(spec.zhSegments ? { zhSegments: spec.zhSegments } : {})
       };
       continue;
     }
@@ -546,37 +770,90 @@ export async function buildZhMap(explicitRawDir = null) {
       enemiesMap[enemyName] = {
         nameZh: `${aco.zh} (${levelStr})`,
         zhSource: `composed:acolyte:${aco.source}`,
+        rule: 'composed:acolyte',
         zhSegments: [
           { text: aco.zh, source: aco.source },
-          { text: ` (${levelStr})`, source: 'SITE_WORDS' }
+          { text: ` (${levelStr})`, source: 'site_word' }
         ]
+      };
+      continue;
+    }
+
+    // 歧义核对：Captain Vor 在 Sortie 为 "Vor 上尉"，在 Flavour 浮印为 "沃尔上尉"
+    // 按 Codex 决定第 6 项：歧义（一个英文名对应多个不同中文）就不用，列入待拍板，保留英文
+    if (lower === 'captain vor') {
+      enemiesMap[enemyName] = {
+        nameZh: enemyName,
+        zhSource: 'en_fallback',
+        ambiguity: {
+          candidates: [
+            { zh: 'Vor 上尉', source: 'wfcd_worldstate:sortieData:bosses:SORTIE_BOSS_VOR' },
+            { zh: '沃尔上尉', source: 'de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor' }
+          ],
+          reason: '存在多个不同中文译名（Vor 上尉 vs 沃尔上尉），按规范保守保留英文回退'
+        }
       };
       continue;
     }
 
     if (sortieBossesByEn.has(lower)) {
       const boss = sortieBossesByEn.get(lower);
-      const isTrad = TRADITIONAL_TYPES.has(boss.zh) || boss.zh === '墮落 Vor';
+      if (t2sEnemyMap.has(boss.zh)) {
+        const t2sEntry = t2sEnemyMap.get(boss.zh);
+        enemiesMap[enemyName] = {
+          nameZh: t2sEntry.simplified,
+          zhRaw: t2sEntry.traditional,
+          zhSource: `wfcd_worldstate:sortieData:bosses:${boss.key}`,
+          zhTransform: 'traditional_to_simplified',
+          rule: 'sortie_boss:t2s'
+        };
+        continue;
+      }
       const isAsIs = boss.zh.toLowerCase() === boss.en.toLowerCase();
-      let source = `wfcd_worldstate:sortieData:bosses:${boss.key}`;
-      if (isTrad) source = `traditional:${source}`;
-      else if (isAsIs) source = `en_as_is:${source}`;
+      if (!isAsIs && /[\u4e00-\u9fa5]/.test(boss.zh)) {
+        enemiesMap[enemyName] = {
+          nameZh: boss.zh,
+          zhSource: `wfcd_worldstate:sortieData:bosses:${boss.key}`,
+          rule: 'sortie_boss'
+        };
+        continue;
+      }
+    }
 
-      enemiesMap[enemyName] = {
-        nameZh: boss.zh,
-        zhSource: source
-      };
-      continue;
+    // DE ExportFlavour Glyphs (strip_suffix:浮印)
+    if (deFlavourGlyphs.has(lower)) {
+      const glyphMatches = deFlavourGlyphs.get(lower);
+      const cand = glyphMatches[0];
+      if (cand && /[\u4e00-\u9fa5]/.test(cand.zhCandidate)) {
+        enemiesMap[enemyName] = {
+          nameZh: cand.zhCandidate,
+          zhSource: `de_export:ExportFlavour_zh:${cand.uniqueName}`,
+          rule: 'strip_suffix:浮印',
+          rawName: cand.zhGlyph,
+          uniqueName: cand.uniqueName
+        };
+        continue;
+      }
     }
 
     if (languagesByEnValue.has(lower)) {
       const lang = languagesByEnValue.get(lower);
       const isAsIs = lang.zh.toLowerCase() === lang.en.toLowerCase();
-      enemiesMap[enemyName] = {
-        nameZh: lang.zh,
-        zhSource: isAsIs ? `en_as_is:wfcd_worldstate:languages:${lang.key}` : `wfcd_worldstate:languages:${lang.key}`
-      };
-      continue;
+      if (!isAsIs && /[\u4e00-\u9fa5]/.test(lang.zh)) {
+        enemiesMap[enemyName] = {
+          nameZh: lang.zh,
+          zhSource: `wfcd_worldstate:languages:${lang.key}`,
+          rule: 'exact_match:languages'
+        };
+        continue;
+      } else if (isAsIs) {
+        enemiesMap[enemyName] = {
+          nameZh: lang.zh,
+          zhSource: `en_as_is:wfcd_worldstate:languages:${lang.key}`,
+          isAsIs: true
+        };
+        continue;
+      }
     }
 
     enemiesMap[enemyName] = {
@@ -616,64 +893,69 @@ export async function buildZhMap(explicitRawDir = null) {
       zh = `${levelStr}希图斯赏金`;
       source = 'composed:bounty:cetus';
       zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
+        { text: levelStr, source: 'site_word' },
         { text: '希图斯', source: 'wfcd_worldstate:languages:/lotus/types/gameplay/eidolon/resources/cetuswispitem' },
-        { text: '赏金', source: 'SITE_WORDS' }
+        { text: '赏金', source: 'site_word' }
       ];
     } else if (rest === 'Ghoul Bounty') {
       zh = `${levelStr}尸鬼赏金`;
       source = 'composed:bounty:ghoul';
       zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
+        { text: levelStr, source: 'site_word' },
         { text: '尸鬼', source: 'wfcd_worldstate:languages:/lotus/language/gamemodes/recurringghoulalert' },
-        { text: '赏金', source: 'SITE_WORDS' }
+        { text: '赏金', source: 'site_word' }
       ];
     } else if (rest === 'Plague Star') {
       zh = `${levelStr}瘟疫之星`;
       source = 'composed:bounty:plague_star';
       zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
+        { text: levelStr, source: 'site_word' },
         { text: '瘟疫之星', source: 'wfcd_worldstate:languages:/lotus/language/infestedplainsevent/infestedplainsbountyname' }
       ];
     } else if (rest === 'Orb Vallis Bounty') {
       zh = `${levelStr}奥布山谷赏金`;
       source = 'composed:bounty:orb_vallis';
       zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
+        { text: levelStr, source: 'site_word' },
         { text: '奥布山谷', source: 'wfcd_i18n:SolNode129' },
-        { text: '赏金', source: 'SITE_WORDS' }
+        { text: '赏金', source: 'site_word' }
       ];
     } else if (rest.startsWith('PROFIT-TAKER - PHASE')) {
       const phase = rest.replace('PROFIT-TAKER - PHASE', '').trim();
-      zh = `${levelStr}利润收割者 - 阶段 ${phase}`;
-      source = 'composed:bounty:profit_taker';
-      zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
-        { text: '利润收割者', source: 'wfcd_worldstate:languages:/lotus/types/challenges/seasons/weeklyhard/seasonweeklyhardfriendsprofittaker' },
-        { text: ` - 阶段 ${phase}`, source: 'SITE_WORDS' }
-      ];
+      if (/^[1-9]\d*$/.test(phase)) {
+        zh = `${levelStr}利润收割者 - 阶段 ${phase}`;
+        source = 'composed:bounty:profit_taker';
+        zhSegments = [
+          { text: levelStr, source: 'site_word' },
+          { text: '利润收割者', source: 'wfcd_worldstate:languages:/lotus/types/challenges/seasons/weeklyhard/seasonweeklyhardfriendsprofittaker' },
+          { text: ` - 阶段 ${phase}`, source: 'site_word' }
+        ];
+      } else {
+        zh = title;
+        source = 'en_fallback';
+      }
     } else if (rest === 'Cambion Drift Bounty') {
       zh = `${levelStr}魔胎之境赏金`;
       source = 'composed:bounty:cambion_drift';
       zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
+        { text: levelStr, source: 'site_word' },
         { text: '魔胎之境', source: 'wfcd_worldstate:solNodes:SolNode229' },
-        { text: '赏金', source: 'SITE_WORDS' }
+        { text: '赏金', source: 'site_word' }
       ];
     } else if (rest === 'Isolation Vault') {
       zh = `${levelStr}隔离库`;
       source = 'composed:bounty:isolation_vault';
       zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
+        { text: levelStr, source: 'site_word' },
         { text: '隔离库', source: 'wfcd_i18n:/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosBouncy' }
       ];
     } else if (rest === 'Zariman Bounty') {
       zh = `${levelStr}扎里曼赏金`;
       source = 'composed:bounty:zariman';
       zhSegments = [
-        { text: levelStr, source: 'SITE_WORDS' },
+        { text: levelStr, source: 'site_word' },
         { text: '扎里曼', source: 'wfcd_worldstate:solNodes:SolNode230' },
-        { text: '赏金', source: 'SITE_WORDS' }
+        { text: '赏金', source: 'site_word' }
       ];
     } else {
       zh = title;
@@ -694,7 +976,23 @@ export async function buildZhMap(explicitRawDir = null) {
   const transientMap = {};
 
   const TRANSIENT_DEFS = {
-    'Arbitrations': { zh: 'Arbitrations', source: 'en_fallback' },
+    'Arbitrations': {
+      zh: '仲裁',
+      source: 'de_web:arbitrations-update-zh.html',
+      rule: 'strip_suffix:任务',
+      url: 'https://www.warframe.com/zh-hans/news/arbitrations-update',
+      quote: '仲裁任务',
+      derivation: '从官方页面标题“仲裁任务更新”或正文“仲裁任务”去除“任务”后缀派生为“仲裁”',
+      aliases: ['Arbitrations'],
+      zhSegments: [
+        {
+          text: '仲裁',
+          source: 'de_web:arbitrations-update-zh.html',
+          rule: 'strip_suffix:任务',
+          raw: '仲裁任务'
+        }
+      ]
+    },
     'Derelict Vault': { zh: 'Derelict Vault', source: 'en_fallback' },
     'Phorid Assassination': { zh: 'Phorid Assassination', source: 'en_fallback' },
     'Nightmare Mode Rewards': { zh: 'Nightmare Mode Rewards', source: 'en_fallback' },
@@ -710,9 +1008,16 @@ export async function buildZhMap(explicitRawDir = null) {
     if (!objName || transientMap[objName]) continue;
 
     if (TRANSIENT_DEFS[objName]) {
+      const def = TRANSIENT_DEFS[objName];
       transientMap[objName] = {
-        nameZh: TRANSIENT_DEFS[objName].zh,
-        zhSource: TRANSIENT_DEFS[objName].source
+        nameZh: def.zh,
+        zhSource: def.source,
+        ...(def.rule ? { rule: def.rule } : {}),
+        ...(def.url ? { url: def.url } : {}),
+        ...(def.quote ? { quote: def.quote } : {}),
+        ...(def.derivation ? { derivation: def.derivation } : {}),
+        ...(def.aliases ? { aliases: def.aliases } : {}),
+        ...(def.zhSegments ? { zhSegments: def.zhSegments } : {})
       };
     } else {
       transientMap[objName] = { nameZh: objName, zhSource: 'en_fallback' };
@@ -809,7 +1114,7 @@ export async function buildZhMap(explicitRawDir = null) {
         nameZh: `${amount} 现金匣`,
         zhSource: 'composed:credits_cache:wfcd_worldstate:languages:/lotus/storeitems/types/pickups/credits/1000credits',
         zhSegments: [
-          { text: `${amount} `, source: 'SITE_WORDS' },
+          { text: `${amount} `, source: 'original_en' },
           { text: '现金匣', source: 'wfcd_worldstate:languages:/lotus/storeitems/types/pickups/credits/1000credits' }
         ]
       };
@@ -870,7 +1175,7 @@ export async function buildZhMap(explicitRawDir = null) {
           rule = 'wfcd_parent_plus_part';
           zhSegments = [
             { text: parentZh, source: parentInfo.source },
-            { text: ' ', source: 'SITE_WORDS' },
+            { text: ' ', source: 'original_en' },
             { text: partZh, source: partDef.source }
           ];
         }
