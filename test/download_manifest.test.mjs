@@ -5,7 +5,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
-import { REMOTE_FILES, REMOTE_URLS, build } from '../scripts/build-data.mjs';
+import { REMOTE_FILES, REMOTE_URLS, build, validateWfmItems } from '../scripts/build-data.mjs';
 import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -41,10 +41,11 @@ describe('下载清单规范与原始文件完整性测试 (Download Manifest & 
     assert.equal(REMOTE_FILES.zh?.required, true, 'zh.json 必须为必需文件');
     assert.equal(REMOTE_FILES.zh?.fileName, 'zh.json');
 
-    // 1.3 wfm_items_v2.json 必须存在且允许降级 (required: false)
+    // 1.3 wfm_items_v2.json 必须存在且允许降级 (required: false)，且必须声明 Language: 'zh-hans' 请求头
     assert.ok(fileNames.includes('wfm_items_v2.json'), 'REMOTE_FILES 必须包含 wfm_items_v2.json');
     assert.equal(REMOTE_FILES.wfm_items_v2?.required, false, 'wfm_items_v2.json 必须允许降级 (required: false)');
     assert.equal(REMOTE_FILES.wfm_items_v2?.fileName, 'wfm_items_v2.json');
+    assert.equal(REMOTE_FILES.wfm_items_v2?.headers?.Language, 'zh-hans', "REMOTE_FILES.wfm_items_v2.headers.Language 必须为 'zh-hans'");
 
     // 1.4 REMOTE_URLS 保持对应 URL
     assert.equal(REMOTE_URLS.de_droptables, 'https://www.warframe.com/droptables');
@@ -173,7 +174,132 @@ describe('下载清单规范与原始文件完整性测试 (Download Manifest & 
       assert.equal(tempRivens.length, repoRivens.length, 'rivens 条目数必须一致');
       assert.equal(tempArcanes.length, repoArcanes.length, 'arcanes 条目数必须一致');
       assert.equal(tempMods.length, repoMods.length, 'mods 条目数必须一致');
+
+      // 4. arcanes/rivens/mods/relics/sources 与仓库 data/ 对应文件 JSON 深相等
+      assert.deepEqual(tempArcanes, repoArcanes, 'arcanes 与仓库 data/arcanes.json 必须深相等');
+      assert.deepEqual(tempRivens, repoRivens, 'rivens 与仓库 data/rivens.json 必须深相等');
+      assert.deepEqual(tempMods, repoMods, 'mods 与仓库 data/mods.json 必须深相等');
+      assert.deepEqual(tempRelics, repoRelics, 'relics 与仓库 data/relics.json 必须深相等');
+      assert.deepEqual(tempSources, repoSources, 'sources 与仓库 data/sources.json 必须深相等');
     } finally {
+      fs.rmSync(tempRawDir, { recursive: true, force: true });
+      fs.rmSync(tempDataDir, { recursive: true, force: true });
+    }
+  });
+
+  it('4. validateWfmItems 纯函数校验：仅 en 的 fixture 拒绝，en+zh-hans fixture ratio=1 通过，空 data 拒绝', () => {
+    // 4.1 断言 REMOTE_FILES.wfm_items_v2.headers.Language === 'zh-hans'
+    assert.equal(REMOTE_FILES.wfm_items_v2?.headers?.Language, 'zh-hans');
+
+    // 4.2 仅 en 的 fixture（构造 3 条）→ 抛错且错误信息写明缺少 zh-hans
+    const enOnlyFixture = {
+      data: [
+        { slug: 'item_1', i18n: { en: { name: 'Item One' } } },
+        { slug: 'item_2', i18n: { en: { name: 'Item Two' } } },
+        { slug: 'item_3', i18n: { en: { name: 'Item Three' } } }
+      ]
+    };
+    assert.throws(
+      () => validateWfmItems(enOnlyFixture),
+      /缺少 zh-hans，可能未带 Language 头/,
+      '仅 en 的 fixture 必须抛错拒绝并写明“缺少 zh-hans，可能未带 Language 头”'
+    );
+
+    // 4.3 en+zh-hans fixture → ratio=1 通过
+    const enZhFixture = {
+      data: [
+        { slug: 'item_1', i18n: { en: { name: 'Item One' }, 'zh-hans': { name: '物品一' } } },
+        { slug: 'item_2', i18n: { en: { name: 'Item Two' }, 'zh-hans': { name: '物品二' } } },
+        { slug: 'item_3', i18n: { en: { name: 'Item Three' }, 'zh-hans': { name: '物品三' } } }
+      ]
+    };
+    const validResult = validateWfmItems(enZhFixture);
+    assert.equal(validResult.total, 3);
+    assert.equal(validResult.zhCount, 3);
+    assert.equal(validResult.ratio, 1, 'en+zh-hans fixture 的 ratio 必须为 1');
+
+    // 4.4 空 data → 拒绝
+    assert.throws(
+      () => validateWfmItems({ data: [] }),
+      /缺少 zh-hans，可能未带 Language 头/,
+      '空数组 data 必须抛错拒绝'
+    );
+    assert.throws(
+      () => validateWfmItems({ data: null }),
+      /缺少 zh-hans，可能未带 Language 头/
+    );
+    assert.throws(
+      () => validateWfmItems({}),
+      /缺少 zh-hans，可能未带 Language 头/
+    );
+    assert.throws(
+      () => validateWfmItems(null),
+      /缺少 zh-hans，可能未带 Language 头/
+    );
+  });
+
+  it('5. 有 raw 时：对 RAW_DIR/wfm_items_v2.json 调 validateWfmItems (ratio >= 0.95)，去掉 zh-hans 重建时赋能汉化率 < 90% (回归哨兵)', async (t) => {
+    const manifestFileNames = ['drops_all.json', 'Relics.json', 'zh.json', 'wfm_items_v2.json', 'de_droptables.html'];
+    if (!hasRawFiles(...manifestFileNames)) {
+      t.skip(`本地缺少原始资料 (${manifestFileNames.join(', ')})，跳过 wfm zh-hans 校验与回归哨兵测试`);
+      return;
+    }
+
+    // 5.1 对 RAW_DIR/wfm_items_v2.json 调 validateWfmItems，ratio >= 0.95
+    const rawWfmPath = path.join(RAW_DIR, 'wfm_items_v2.json');
+    const rawWfmData = JSON.parse(fs.readFileSync(rawWfmPath, 'utf8'));
+    const rawStats = validateWfmItems(rawWfmData);
+    assert.ok(
+      rawStats.ratio >= 0.95,
+      `RAW_DIR/wfm_items_v2.json 的 zh-hans ratio (${(rawStats.ratio * 100).toFixed(2)}%) 必须 >= 0.95`
+    );
+
+    // 5.2 去掉 zh-hans 后的副本写到临时目录，与 drops_all.json, Relics.json, zh.json, de_droptables.html 一起用 build({ dataDir: tmp, rawDir: tmpRaw }) 重建
+    const tempRawDir = fs.mkdtempSync(path.join(os.tmpdir(), 'wf-raw-no-zh-manifest-'));
+    const tempDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'wf-data-no-zh-manifest-'));
+    const remainingDocPath = path.join(ROOT_DIR, 'docs', 'remaining-english.md');
+    const originalRemainingDoc = fs.existsSync(remainingDocPath) ? fs.readFileSync(remainingDocPath, 'utf8') : null;
+
+    try {
+      const otherFiles = ['drops_all.json', 'Relics.json', 'zh.json', 'de_droptables.html'];
+      for (const fileName of otherFiles) {
+        fs.copyFileSync(path.join(RAW_DIR, fileName), path.join(tempRawDir, fileName));
+      }
+
+      // 生成去掉 zh-hans 的 wfm 副本
+      const wfmWithoutZh = {
+        ...rawWfmData,
+        data: rawWfmData.data.map(item => {
+          if (!item?.i18n) return item;
+          const { 'zh-hans': _, ...restI18n } = item.i18n;
+          return {
+            ...item,
+            i18n: restI18n
+          };
+        })
+      };
+      fs.writeFileSync(path.join(tempRawDir, 'wfm_items_v2.json'), JSON.stringify(wfmWithoutZh));
+
+      // 执行纯净构建，不写真实 data/
+      await build({
+        dataDir: tempDataDir,
+        rawDir: tempRawDir,
+        shouldDownload: false
+      });
+
+      // 读取临时 meta.json，断言赋能汉化率 < 90%
+      const meta = JSON.parse(fs.readFileSync(path.join(tempDataDir, 'meta.json'), 'utf8'));
+      const arcaneCoverageStr = meta.localization?.stats?.arcanes?.coverage;
+      assert.ok(arcaneCoverageStr, 'meta.json 必须包含赋能汉化覆盖率统计');
+      const arcaneCoverage = parseFloat(arcaneCoverageStr);
+      assert.ok(
+        arcaneCoverage < 90.0,
+        `去掉 zh-hans 后赋能汉化率 (${arcaneCoverageStr}) 必须 < 90% (证明 zh-hans 是必需输入，回归哨兵生效)`
+      );
+    } finally {
+      if (originalRemainingDoc !== null) {
+        fs.writeFileSync(remainingDocPath, originalRemainingDoc, 'utf8');
+      }
       fs.rmSync(tempRawDir, { recursive: true, force: true });
       fs.rmSync(tempDataDir, { recursive: true, force: true });
     }

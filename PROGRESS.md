@@ -649,3 +649,21 @@
 
 
 ## 2026-11-26 23:24 AEDT — R7 复核通过（有 raw 142/142；无 raw 131+11skip；--download 流程模拟，重建与仓库逐字节一致；check-invariants 通过），写 DONE，提交
+
+## 2026-11-26 23:33 AEDT — R8 开始：worktree /workspace/wf-relic-cn-r8 (fix/ci-zh-rebuild, 自 af95b27)。根因：build-data --download 请求 api.warframe.market/v2/items 时没带 `Language: zh-hans` 请求头，WFM v2 默认只返回 i18n.en（官方文档 Language Header：默认 en，需要翻译须带 Language 头）。证据：CI 日志 wfm_items_v2.json 1.56 MB；box raw 副本（en+zh-hans，2.39 MB 原样/紧凑）去掉 zh-hans 后紧凑序列化恰为 1640469 B = 1.56 MiB；用这个仅 en 版本 + 其余 4 个下载文件在隐藏 raw 下重建，精确复现 CI 两个失败（赋能 72.4%、rifle riven mod）。box 下载 wfm 仍 403，记录不绕过。修法：下载 wfm 时带 Language: zh-hans 并校验 zh-hans 覆盖，不需要改 workflow。
+
+## 2026-11-26 23:53 AEDT — R8 修复完成：WFM v2 请求带 Language: zh-hans 并进行覆盖率校验
+- **根因修复**：
+  1. `scripts/build-data.mjs`：在 `REMOTE_FILES.wfm_items_v2` 添加 `headers: { Language: 'zh-hans' }`。
+  2. `downloadFiles`：请求时合并条目 `item.headers`（保留 `User-Agent`，其他条目行为不变）。
+  3. 新增并导出 `validateWfmItems(json)`：返回 `{ total, zhCount, ratio }`；`downloadFiles` 下载 wfm 成功后解析并校验——`data` 必须是非空数组且 `i18n['zh-hans'].name` 比例 ≥ 0.95，否则抛错退出并明确提示“缺少 zh-hans，可能未带 Language 头”。HTTP 失败/403 时保留现有降级跳过行为。
+- **测试验证**：
+  - `test/download_manifest.test.mjs` 新增断言：
+    - 断言 `REMOTE_FILES.wfm_items_v2.headers.Language === 'zh-hans'`；
+    - `validateWfmItems`：仅 en fixture 抛错拒绝，en+zh-hans fixture ratio=1 通过，空 data 拒绝；
+    - 有 raw 时：真实 `RAW_DIR/wfm_items_v2.json` 调 `validateWfmItems` ratio ≥ 0.95；去掉 zh-hans 副本在临时目录重建断言赋能汉化率 < 90%（回归哨兵生效）；完整副本重建与仓库 `arcanes/rivens/mods/relics/sources` 5 个文件 JSON 深度完全相等。
+- **全量测试通过**：
+  - `npm test`（有 raw）：144/144 全部通过；
+  - `WF_RAW_DIR=/nonexistent/xx npm test`：131 通过、13 跳过、0 失败；
+  - `node scripts/check-invariants-with-mutated-prices.mjs`：通过；
+  - 未改动 `.github/workflows`、未改动前端代码、未抓价或改动 `data/` 下任何数据文件；时间戳变动文件已按硬性约束还原。

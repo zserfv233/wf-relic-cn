@@ -104,6 +104,9 @@ export const REMOTE_FILES = {
   wfm_items_v2: {
     fileName: 'wfm_items_v2.json',
     url: 'https://api.warframe.market/v2/items',
+    headers: {
+      Language: 'zh-hans'
+    },
     required: false
   }
 };
@@ -225,6 +228,30 @@ function parseArgs() {
 }
 
 /**
+ * 校验 warframe.market v2 items 原始数据结构与简体中文覆盖率
+ * data 必须是非空数组，且带 i18n['zh-hans'].name 的条目比例必须 >= 0.95
+ * @param {object} json 解析后的 JSON 对象
+ * @returns {{ total: number, zhCount: number, ratio: number }}
+ */
+export function validateWfmItems(json) {
+  if (!json || typeof json !== 'object' || !Array.isArray(json.data) || json.data.length === 0) {
+    throw new Error('wfm_items_v2 数据无效或 data 为空数组，缺少 zh-hans，可能未带 Language 头');
+  }
+  const total = json.data.length;
+  let zhCount = 0;
+  for (const item of json.data) {
+    if (item?.i18n?.['zh-hans']?.name && String(item.i18n['zh-hans'].name).trim().length > 0) {
+      zhCount++;
+    }
+  }
+  const ratio = total > 0 ? zhCount / total : 0;
+  if (ratio < 0.95) {
+    throw new Error(`wfm_items_v2 中带 i18n['zh-hans'].name 的条目比例 (${(ratio * 100).toFixed(2)}%) 低于 95%，缺少 zh-hans，可能未带 Language 头`);
+  }
+  return { total, zhCount, ratio };
+}
+
+/**
  * 从网络下载文件
  */
 async function downloadFiles(targetDir) {
@@ -237,8 +264,13 @@ async function downloadFiles(targetDir) {
     const isRequired = item.required !== false;
     const dest = path.join(targetDir, fileName);
     console.log(`[download] 下载 ${fileName} 来自 ${url}`);
+    let data;
     try {
-      const res = await fetch(url, { headers: { 'User-Agent': 'wf-relic-cn (personal, non-commercial)' } });
+      const headers = {
+        'User-Agent': 'wf-relic-cn (personal, non-commercial)',
+        ...(item.headers || {})
+      };
+      const res = await fetch(url, { headers });
       if (!res.ok) {
         if (!isRequired) {
           console.warn(`[download] 警告: 下载 ${fileName} 失败 (HTTP ${res.status})，将使用降级策略。`);
@@ -246,16 +278,28 @@ async function downloadFiles(targetDir) {
         }
         throw new Error(`下载失败: ${url} (HTTP ${res.status})`);
       }
-      const data = await res.arrayBuffer();
-      fs.writeFileSync(dest, Buffer.from(data));
-      console.log(`[download] 已保存 ${fileName} (${(data.byteLength / 1024 / 1024).toFixed(2)} MB)`);
+      data = await res.arrayBuffer();
     } catch (err) {
       if (!isRequired) {
         console.warn(`[download] 警告: 无法下载 ${fileName}: ${err.message}，将使用降级策略。`);
+        continue;
       } else {
         throw err;
       }
     }
+
+    if (key === 'wfm_items_v2') {
+      let json;
+      try {
+        json = JSON.parse(Buffer.from(data).toString('utf8'));
+      } catch (err) {
+        throw new Error(`wfm_items_v2 JSON 解析失败，缺少 zh-hans，可能未带 Language 头: ${err.message}`);
+      }
+      validateWfmItems(json);
+    }
+
+    fs.writeFileSync(dest, Buffer.from(data));
+    console.log(`[download] 已保存 ${fileName} (${(data.byteLength / 1024 / 1024).toFixed(2)} MB)`);
   }
 }
 
