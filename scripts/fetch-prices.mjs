@@ -39,6 +39,25 @@ export function findCrossedKeys(items = {}) {
   return crossedKeys;
 }
 
+export function buildMetaPrices(priceCache, dataDir = DATA_DIR) {
+  const relicsPath = path.join(dataDir, 'relics.json');
+  const rivensPath = path.join(dataDir, 'rivens.json');
+  const arcanesPath = path.join(dataDir, 'arcanes.json');
+  const modsPath = path.join(dataDir, 'mods.json');
+
+  const relicsData = JSON.parse(fs.readFileSync(relicsPath, 'utf8')).relics;
+  const rivensData = JSON.parse(fs.readFileSync(rivensPath, 'utf8'));
+  const arcanesData = JSON.parse(fs.readFileSync(arcanesPath, 'utf8'));
+  const modsData = JSON.parse(fs.readFileSync(modsPath, 'utf8'));
+
+  return calculatePriceCoverage(priceCache, {
+    relics: relicsData,
+    rivens: rivensData,
+    arcanes: arcanesData,
+    mods: modsData
+  });
+}
+
 /**
  * 解析命令行参数
  */
@@ -88,7 +107,8 @@ async function main() {
   const { limit, maxAgeHours, onlyCategories, fixturePath, outPath, dryRun } = parseArgs();
 
   const pricesDefaultPath = path.join(DATA_DIR, 'prices.json');
-  const metaPath = path.join(DATA_DIR, 'meta.json');
+  const metaDir = outPath ? path.dirname(outPath) : DATA_DIR;
+  const metaPath = path.join(metaDir, 'meta.json');
 
   // 读取现有 prices.json 缓存
   let priceCache = { updatedAt: null, items: {} };
@@ -436,16 +456,11 @@ async function main() {
       console.log(`[prices] [${cat.name}] 完成，已同步写入价格文件: ${outPath}`);
     }
 
-    // 更新 meta.json 中该类别与总覆盖率 (使用统一的 calculatePriceCoverage 函数)
+    // 更新 meta.json 中各类别与总覆盖率 (从真实数据集计算，统一口径)
     if (fs.existsSync(metaPath) && outPath && outPath.endsWith('prices.json')) {
       try {
         const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
-        meta.prices = calculatePriceCoverage(priceCache, {
-          relicSlugs: allCategoryKeys.relics,
-          rivenSlugs: allCategoryKeys.rivens,
-          arcaneKeys: allCategoryKeys.arcanes,
-          modKeys: allCategoryKeys.mods
-        });
+        meta.prices = buildMetaPrices(priceCache, DATA_DIR);
 
         fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2));
       } catch (e) {
