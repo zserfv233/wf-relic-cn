@@ -1126,7 +1126,8 @@ export function openArcaneModal(slug) {
   const dropSourcesHtml = renderDropSourcesGrouped(arc.dropSources, {
     itemType: 'arcane',
     showRotation: true,
-    emptyNormalText: 'DE 掉落表中未收录该赋能的直接掉落（可能源自商城、活动或商人兑换）'
+    emptyNormalText: 'DE 掉落表中未收录该赋能的直接掉落（可能源自商城、活动或商人兑换）',
+    sources: state.sources
   });
 
   elements.modalHeaderContent.innerHTML = `
@@ -1185,7 +1186,8 @@ export function openRivenModal(slug) {
   const dropSourcesHtml = renderDropSourcesGrouped(riv.dropSources, {
     itemType: 'riven',
     showRotation: false,
-    emptyNormalText: '暂无掉落来源'
+    emptyNormalText: '暂无掉落来源',
+    sources: state.sources
   });
 
   elements.modalHeaderContent.innerHTML = `
@@ -1239,7 +1241,8 @@ export function openModModal(slug) {
     itemType: 'mod',
     showRotation: true,
     emptyNormalText: '暂无掉落来源',
-    limitNormal: 50
+    limitNormal: 50,
+    sources: state.sources
   });
 
   elements.modalHeaderContent.innerHTML = `

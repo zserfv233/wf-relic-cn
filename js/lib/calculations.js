@@ -654,10 +654,10 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
       missingCount++;
       missingProbability += chance;
       missingItems.push({
-        name: item.modName || item.name || '',
-        itemName: item.modName || item.name || '',
+        name: item.itemName || item.modName || item.name || '',
+        itemName: item.itemName || item.modName || item.name || '',
         baseName: item.baseName || item.name || '',
-        zhName: item.modZh || item.zhName || item.modName || '',
+        zhName: item.itemZh || item.modZh || item.zhName || item.itemName || item.modName || '',
         quantity,
         chance,
         rarity: item.rarity || 'Common',

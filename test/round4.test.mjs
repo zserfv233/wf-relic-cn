@@ -7,7 +7,8 @@ import { fileURLToPath } from 'node:url';
 import {
   getPriceEntry,
   getItemPrice,
-  calculateSourceExpectedValue
+  calculateSourceExpectedValue,
+  calculateEnemyExpectedValue
 } from '../js/lib/calculations.js';
 import { parseOrdersTop } from '../js/lib/prices.js';
 import {
@@ -562,6 +563,77 @@ describe('Codex 1126c Round 4 决定实现全量验证套件 (Round 4 Tests)', (
       ];
       const html = renderDropSourcesGrouped(mockUnknown, { sources });
       assert.ok(html.includes('来源状态未确认'), '无法匹配主记录的 sourceId 必须标记“来源状态未确认”');
+    });
+
+    it('renderDropSourcesGrouped: 使用 fixture sources + dropSources，普通来源计数正确，Ten-Zero 进 details 历史组且有行内标记，无“来源状态未确认”', () => {
+      const fixtureSources = [
+        { id: 'src_normal_mission', type: 'mission', nameZh: '水星 - 阿波罗多罗斯撞击坑 (生存) [轮次 A]', historicalEvent: false },
+        { id: 'src_normal_enemy', type: 'enemy', nameZh: '敌人: 屠夫', historicalEvent: false },
+        { id: 'event_recall_ten_zero_week_1', type: 'source', nameZh: 'Recall: Ten-Zero Week 1', historicalEvent: true }
+      ];
+      const fixtureDropSources = [
+        { sourceId: 'src_normal_mission', chance: 12.5, nameZh: '水星 - 阿波罗多罗斯撞击坑 (生存) [轮次 A]' },
+        { sourceId: 'src_normal_enemy', chance: 5.0, nameZh: '敌人: 屠夫' },
+        { sourceId: 'event_recall_ten_zero_week_1', chance: 0.95, nameZh: 'Recall: Ten-Zero Week 1' }
+      ];
+
+      const html = renderDropSourcesGrouped(fixtureDropSources, {
+        itemType: 'riven',
+        showRotation: false,
+        sources: fixtureSources
+      });
+
+      // 1. 普通来源计数正确
+      assert.ok(html.includes('掉落来源（2 处，排除历史活动）'), '普通组标题必须显示 2 处');
+      // 2. Ten-Zero 进 <details> 历史组且行内有“历史活动”标记
+      assert.ok(html.includes('<details class="historical-sources-group"'), '必须包含 details 历史组');
+      assert.ok(html.includes('历史活动来源（1 处）'), '历史组必须显示 1 处');
+      assert.ok(html.includes('Recall: Ten-Zero Week 1'), '历史组内必须包含 Ten-Zero 来源');
+      assert.ok(html.includes('<span class="badge badge-historical"'), 'Ten-Zero 行内必须有历史活动标记');
+      // 3. 无“来源状态未确认”
+      assert.ok(!html.includes('来源状态未确认'), '绝不得包含“来源状态未确认”');
+      assert.ok(!html.includes('badge-unconfirmed'), '绝不得包含 badge-unconfirmed 未确认徽章');
+      assert.ok(!html.includes('处状态未确认'), '标题绝不得包含“处状态未确认”提示');
+    });
+
+    it('app.js 源码断言：每个 renderDropSourcesGrouped 调用都必须传入 sources: state.sources', () => {
+      const appJsPath = path.join(ROOT_DIR, 'js', 'app.js');
+      const appJsContent = fs.readFileSync(appJsPath, 'utf8');
+
+      // 匹配所有形如 renderDropSourcesGrouped(...) 的调用
+      const callRegex = /renderDropSourcesGrouped\s*\(\s*[^,]+,\s*\{([^}]+)\}\s*\)/g;
+      const matches = [...appJsContent.matchAll(callRegex)];
+
+      assert.ok(matches.length >= 3, `app.js 中必须至少有 3 处 renderDropSourcesGrouped 调用，当前发现 ${matches.length} 处`);
+
+      for (const match of matches) {
+        const optionsText = match[1];
+        assert.ok(
+          /sources\s*:\s*state\.sources/.test(optionsText),
+          `调用处未传入 sources: state.sources:\n${match[0]}`
+        );
+      }
+    });
+
+    it('calculateEnemyExpectedValue: 敌人来源弹窗缺价清单正确回退 itemName/itemZh (例：enemy_carrier 的 15 Endo 不得为空括弧 "()")', () => {
+      const carrier = sources.find(s => s.id === 'enemy_carrier');
+      assert.ok(carrier, 'sources 必须包含 enemy_carrier');
+
+      const res = calculateEnemyExpectedValue(carrier.enemyModDropChance, carrier.rewards, {});
+      assert.ok(res.missingItems.length > 0, 'Carrier 应有缺价奖励');
+
+      const endo15 = res.missingItems.find(m => m.name === '15 Endo' || m.itemName === '15 Endo');
+      assert.ok(endo15, '必须在 missingItems 中找到 15 Endo');
+      assert.strictEqual(endo15.name, '15 Endo');
+      assert.strictEqual(endo15.itemName, '15 Endo');
+      assert.strictEqual(endo15.zhName, '15 Endo');
+
+      for (const m of res.missingItems) {
+        assert.ok(m.name && m.name.trim().length > 0, `缺价项 name 不得为空: ${JSON.stringify(m)}`);
+        assert.ok(m.zhName && m.zhName.trim().length > 0, `缺价项 zhName 不得为空: ${JSON.stringify(m)}`);
+        const rendered = `${m.zhName || m.name} (${m.name})`;
+        assert.ok(!rendered.includes('()'), `渲染名称不得包含空括弧 "()": ${rendered}`);
+      }
     });
   });
 });

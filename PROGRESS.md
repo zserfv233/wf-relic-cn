@@ -533,3 +533,24 @@
 - **变异价格测试通过**：`node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw` 执行价格变异与临时数据重建，129 个测试全部 PASS；真实 `data/prices.json` 未受变动；
 - **路径泄漏排查**：`grep -rn "/workspace/" index.html js/ data/` 输出为空，确认无本机路径泄漏。
 
+
+## 2026-11-26 20:08 AEDT — R4 通道复核：修复 2 处必须修正的问题（弹窗分组传参与敌人缺价物品名回退）
+
+### 1. 第 8 项弹窗分组传参修正
+- **问题原因**：`js/app.js` 中赋能（`openArcaneModal`）、紫卡（`openRivenModal`）、Mod（`openModModal`）调用 `renderDropSourcesGrouped(x.dropSources, {...})` 时遗漏传入 `sources: state.sources`，导致 `js/lib/sources.js` 内 `sourceById` 为空 Map，所有来源均被归为未知来源并渲染为“来源状态未确认”，标题误显示“0 处，排除历史活动”，Ten-Zero 历史活动来源未进入 `<details>` 折叠组。
+- **修复方案**：在 `js/app.js` 的赋能、紫卡、Mod 三处调用统一补齐 `sources: state.sources` 参数。
+- **测试覆盖**：
+  - 在 `test/round4.test.mjs` 中添加 fixture 测试：验证使用 fixture `sources` + `dropSources` 调用 `renderDropSourcesGrouped` 时，普通来源计数正确、Ten-Zero 正确收纳进 `<details>` 历史折叠组且行内有“历史活动”徽章、页面无“来源状态未确认”与状态未确认提示。
+  - 在 `test/round4.test.mjs` 中添加源码静态断言：文本扫描 `js/app.js` 中所有 `renderDropSourcesGrouped` 调用，严格断言均传入 `sources: state.sources`。
+
+### 2. 敌人来源弹窗缺价清单物品名为空修正
+- **问题原因**：`js/lib/calculations.js` 中 `calculateEnemyExpectedValue` 构建 `missingItems` 时仅读取 `item.modName || item.name` 与 `item.modZh || item.zhName || item.modName`。而敌人击杀来源掉落表中包含诸如 “15 Endo” 等非 Mod / 通用物品，其字段为 `itemName` 与 `itemZh`，导致推入 `missingItems` 时 `name` 与 `zhName` 为空字符串，弹窗中格式化为 ` ()`。
+- **修复方案**：对齐 `calculateSourceExpectedValue` 的成熟回退写法，在 `calculateEnemyExpectedValue` 推入 `missingItems` 时加入 `item.itemName` 与 `item.itemZh` 回退链：`name`/`itemName` 采用 `item.itemName || item.modName || item.name || ''`，`zhName` 采用 `item.itemZh || item.modZh || item.zhName || item.itemName || item.modName || ''`。
+- **测试覆盖**：
+  - 在 `test/calculations.test.mjs` 中添加单元测试：验证敌人来源缺少市价物品提取时正确回退 `itemName`/`itemZh`。
+  - 在 `test/round4.test.mjs` 中以真实数据集 `enemy_carrier`（母舰）实测验证：`15 Endo` 等缺价项正确提取名称与中文名，渲染名称绝不含空括弧 `()`。
+
+### 3. 验证结果
+- `npm test`：133 tests 全部 PASS（133 passed, 0 failed）；
+- `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：全部不变量断言通过；
+- 按照硬性约束还原 `data/meta.json` 与 `docs/remaining-english.md` 时间戳。

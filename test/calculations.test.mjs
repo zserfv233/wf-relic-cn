@@ -150,6 +150,24 @@ describe('期望值计算 (Calculations - Phase 2)', () => {
     assert.strictEqual(result.pricedCount, 2);
   });
 
+  it('敌人来源缺价物品提取正确回退 itemName/itemZh (不显示为空)', () => {
+    const enemyRewards = [
+      { itemName: '15 Endo', itemZh: '15 Endo', chance: 37.94, slug: null, category: 'mod' },
+      { modName: 'Argon Plating', modZh: '氩晶装甲', chance: 37.94, slug: 'argon_plating', category: 'mod' }
+    ];
+    const result = calculateEnemyExpectedValue(5.0, enemyRewards, {});
+    assert.strictEqual(result.missingCount, 2);
+    assert.strictEqual(result.missingItems.length, 2);
+    const endo = result.missingItems[0];
+    assert.strictEqual(endo.name, '15 Endo');
+    assert.strictEqual(endo.itemName, '15 Endo');
+    assert.strictEqual(endo.zhName, '15 Endo');
+
+    const mod = result.missingItems[1];
+    assert.strictEqual(mod.name, 'Argon Plating');
+    assert.strictEqual(mod.zhName, '氩晶装甲');
+  });
+
   it('期望值按 chance * quantity * price 倍率正确计算', () => {
     // 假设某遗物奖励包含 3X 物品：掉率 10%，单价 50 白金，数量 3
     // 单项贡献 = 0.1 * 3 * 50 = 15 白金
