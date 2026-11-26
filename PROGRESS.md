@@ -667,3 +667,5 @@
   - `WF_RAW_DIR=/nonexistent/xx npm test`：131 通过、13 跳过、0 失败；
   - `node scripts/check-invariants-with-mutated-prices.mjs`：通过；
   - 未改动 `.github/workflows`、未改动前端代码、未抓价或改动 `data/` 下任何数据文件；时间戳变动文件已按硬性约束还原。
+
+## 2026-11-27 00:00 AEDT — R8 复核通过（有 raw 144/144；隐藏 raw 仅下载文件重建与仓库一致、132+12skip 0 失败；check-invariants 通过），写 DONE，提交

@@ -1,28 +1,26 @@
-# DONE — fix/drop-tables（R7：Update drop tables 定时任务失败修复）
+# DONE — fix/ci-zh-rebuild（R8：CI 重建后汉化变差）
 
-- 状态：完成，通道独立复核通过。结束时间：2026-11-26 23:30 AEDT。仅本地提交，未推送；**未改 .github/workflows**（不需要改）；未改前端（js/、css/、index.html）；未抓价，data/prices.json 与 data/ 相对 cdabf6e 无改动。
-- 提交（作者 zserfv233）：6a93050（修复）、本 DONE/PROGRESS 提交。agy R7：22:53–23:22（1757 s）。
+- 状态：完成，通道独立复核通过。结束时间：2026-11-27 00:05 AEDT。仅本地提交，未推送；**未改 .github/workflows**；未改前端；未抓价；data/ 相对 af95b27 无改动；测试下限未放宽。
+- 提交（作者 zserfv233）：0aa20e5（修复）、本 DONE/PROGRESS 提交。agy R8：23:33–23:52（1171 s）。
 
-## 失败原因
-- run 45811008052（schedule，11:29Z=22:29 AEDT，共 17 秒）：checkout 的是 **f088b4b**（R6 合并之前），“Download raw sources and rebuild data/” 成功，失败在“Run tests”，之后“Commit updated data”被跳过。
-- 日志关键行：`✖ renderDropSourcesGrouped: 普通与历史来源分组…（普通组标题必须声明排除历史活动）`、`✖ renderDropSourcesGrouped: 仅有历史来源时提示…`、`✖ 汉化覆盖率不变量…`、`✖ 重建后保留验证…`。其中后两项是 R6 已修的无 raw 问题（f088b4b 上存在）。
-- 在 cdabf6e（含 R6）上用 /tmp 副本复现后，剩下的真实根因：workflow 的 `node scripts/build-data.mjs --download --raw $RUNNER_TEMP/wf-raw` 只下载 4 个文件（drops_all、Relics、zh、wfm_items_v2），而 build-data.mjs 还读取 `de_droptables.html`（Duviri 表头 + Recall: Ten-Zero Week 1–5 历史来源）。CI 里没有它，5 个 `event_recall_ten_zero_week_*` 来源整体消失，relics/rivens/sources/unmatched/search-index 随之变化，round3b/round3c/round4 共 6 个测试（9 条 ✖）失败。不修的话，即使不失败也会把缺 Ten-Zero 的数据提交到线上。
+## 根因与证据
+- `build-data.mjs --download` 请求 `https://api.warframe.market/v2/items` 时只带 User-Agent。WFM API v2 的 i18n 默认只返回 `en`，要简体中文必须带 `Language: zh-hans` 请求头（WFM Api v2 官方文档 “Language Header”：默认 en）。CI 拿到的文件没有 `i18n['zh-hans']`，build-data 里依赖 wfm 中文名的回退全部失效。config/zh-map.json 是被用上的（CI 日志“已成功读取中文映射表 config/zh-map.json (物品数: 2264)”），问题不在它。
+- 证据 1：run 45819556829 日志 `已保存 wfm_items_v2.json (1.56 MB)`、`条目数: 3893`。box 上的 raw 副本是 en + zh-hans（3893 条全带 zh-hans，原样 2.39 MB）；把 zh-hans 去掉后紧凑序列化正好 1,640,469 B = 1.56 MiB，与 CI 一致。
+- 证据 2：用这份仅 en 版本加另外 4 个下载文件，在隐藏 raw 的环境下重建并测试，精确复现 CI 的两个失败：`arcanes 汉化率 (72.4%) 低于保守下限 90%`、`紫卡中文名 (rifle riven mod) 应包含 步枪裂罅`。
+- box 访问 api.warframe.market 仍是 HTTP 403（Cloudflare），已记录，未绕过；所以 CI 实际返回的内容是根据日志大小和条目数推断的。
 
 ## 修了什么
-- scripts/build-data.mjs：下载清单改为导出的 `REMOTE_FILES`（文件名、地址、是否必需），加入 `https://www.warframe.com/droptables` → `de_droptables.html`（302 到 DE 的 CDN，fetch 自动跟随），**必需**，下载失败直接报错退出，不降级；wfm_items_v2 仍可降级。`REMOTE_URLS` 保留兼容。
-- 新增 test/download_manifest.test.mjs（清单内容、源码静态覆盖检查、有 raw 时仅用清单里 5 个文件重建到临时目录并断言 sources id 集合与仓库一致，含 5 个 Ten-Zero 来源；缺 raw 时 skip）。
-- 因为 workflow 只是调用 `--download`，**不用改 workflow**。
+- scripts/build-data.mjs：wfm_items_v2 下载带 `Language: zh-hans`（其余文件不变）；新增导出 `validateWfmItems`，下载成功后检查带 zh-hans 名称的条目比例 ≥ 95%，不够就报错退出，不会把缺中文的数据写进去再重建提交（HTTP 失败时原有的降级行为不变）。仅 en 版本会被拒：“比例 (0.00%) 低于 95%，缺少 zh-hans，可能未带 Language 头”。
+- test/download_manifest.test.mjs：请求头断言；validateWfmItems 的仅 en / en+zh / 空数据用例；有 raw 时的回归哨兵（去掉 zh-hans 重建 → 赋能汉化率 < 90%；完整副本重建 → 与仓库 data/ 深相等）。
+- 选“让 --download 拿到公开中文资料”而不是把译名落进 zh-map 快照：wfm zh-hans 本来就是这些名字的 zhSource（warframe_market:<slug>），改一个请求头就和本地构建同源，不需要复制几百条译名，也不会和上游更新脱节。两种做法没有需要 Codex 拍板的重大取舍。
 
-## 本地模拟（照 yml 顺序，在 /tmp 副本，不动 worktree）
-1. `npm ci`：通过。
-2. `node scripts/build-data.mjs --download --raw /tmp/wf-r7-raw2`：drops_all/Relics/zh/de_droptables.html 下载成功（de_droptables 4.28 MB）；**wfm_items_v2.json 从 box 返回 HTTP 403（Cloudflare），已记录，未绕过**，脚本按降级处理。（CI 上这个文件能下载成功，见 run 日志。）
-3. 因 box 拿不到 wfm，把本地已有的 /workspace/wf-relic-cn-raw/wfm_items_v2.json 复制进临时 raw 后重建：relics/arcanes/rivens/mods/sources/unmatched/search-index/prices 与仓库内文件逐字节一致。（修复前同样步骤：5 个 Ten-Zero 来源消失，6 个测试失败。）
-4. `npm test`，无 raw（ci-sim.sh 挂载隐藏）：142 个，131 通过、11 skip、0 失败；`WF_RAW_DIR=/nonexistent/xx`：同上。
-5. 有 raw 的 worktree：142/142；check-invariants-with-mutated-prices 通过。
-6. 提交步骤：重建结果与仓库一致，CI 上只会有 meta.json 的 builtAt 变化（既有行为，未改）。
-没有写 data/prices.json，没有抓价。
+## 模拟 CI（raw 目录用 unshare 挂载命名空间完全隐藏，原目录不动）
+1. `build-data.mjs --download`：drops_all、Relics、zh、de_droptables.html 下载成功；wfm 从 box 403 → 跳过。
+2. wfm 用 box 副本补上（en + zh-hans，就是带 Language: zh-hans 时 API 返回的形式，3893 条与 CI 条目数一致）。
+3. 只用这 5 个文件重建：relics/arcanes/rivens/mods/sources/unmatched/search-index/prices 与仓库逐字节一致，meta.json 除 builtAt 外一致。
+4. 隐藏 raw 的 npm test：144 个，132 通过、12 skip、0 失败；WF_RAW_DIR 指向不存在的路径时结果相同。
+5. 有 raw：144/144；check-invariants-with-mutated-prices 通过。
 
-## 已知问题 / 风险
-- wfm_items_v2 在 CI 若某天也遇到 403，赋能/Mod 会降级为 0，测试会失败而不是提交坏数据（这是安全的失败方式，但会让每日任务失败）。
-- 每次定时重建都会改 meta.json 的 builtAt，导致每天一个“rebuild drop tables”提交（既有行为）。
+## 已知风险
+- 修复是否生效要看合并后 CI 的实际下载：日志里 wfm_items_v2.json 应该是约 2.3–2.4 MB，并且不报 zh-hans 校验错误。
 - 需要 Codex 拍板：无。
