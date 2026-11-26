@@ -598,3 +598,31 @@
 - `node scripts/check-invariants-with-mutated-prices.mjs`：全部不变量断言通过，真实 `data/prices.json` 绝未被修改；
 - `data/meta.json` 与 `docs/remaining-english.md` 时间戳已按硬性约束检出还原。
 
+
+## 2026-11-26 21:51 AEDT — R6 agy 结束(3 commits: 854d140, b55d957, 3d1f18e)。复核：有 raw 138/138；无 raw（挂载隐藏/WF_RAW_DIR 不存在）128 过 10 skip 0 失败；check-invariants 通过；prices.json/workflows 无改动。新价格缓存场景（/tmp 副本里 fixture 抓价改动 120 键、制造缺价）发现 3 个测试把当前缓存快照写死（倒挂键数=53 在 round3b:420/round4:482、仲裁 0.84375 在 round3b:348，只靠 arcane_reaper=15/72、adaptation=5 判断“未变异”），真实新缓存里这两个键没变而其他键变了就会失败 → 跑 R6b 改成自洽不变量。
+
+## 2026-11-26 22:10 AEDT — R6b: 消除价格依赖快照断言，实现独立自洽重算与固定 fixture
+
+### 1. 背景与根因
+- 价格自动更新每 6 小时抓取一次新价格后在 CI 运行 `npm test`。原有 3 处断言依赖“哨兵键值”（`arcane_reaper@r0` 为 15/72 或 `adaptation@r0` 为 5）来判断缓存是否“未变异”，随后断言硬编码的快照常数（倒挂键数 53、基础 slug 数 52、仲裁已计价贡献 0.84375、计价概率 22.375% 等）。
+- 当真实缓存中哨兵键未变但其他条目更新时，快照断言必然失败（如在副本中 100 键变异复现倒挂数与仲裁值变化）。
+
+### 2. 改动位置与重构内容
+1. `test/round3b.test.mjs`：
+   - 仲裁前八轮加权计算：移除 `adaptation@r0.sellMin === 5` 哨兵判断；引入独立实现的 `independentArbitrationPortion`，在测试内根据 `[2A + 2B + 4C] / 8` 自行加权（只对有效价条目，卖侧用 sellMin、买侧用 buyMax，倒挂项有效价置 null，untradeable 概率 3.0%），断言 `arbitrationFirst8PricedPortion` 的 `knownContribution`、`pricedProbability`、`missingProbability` 与独立重算结果在 1e-9 容差内完全一致。
+   - 新增独立测试：`仲裁前八轮加权计算 (固定 fixture): 手算期望值与概率完全确定，不受 prices.json 变动影响`，使用内存中固定 fixture 数据与手算期望值（18.25p，计价概率 82.5%，不可交易 12.5%，缺价 5.0%，完整 EV 为 null），确保核心数学逻辑的精确数值断言得到绝对保障。
+   - 倒挂键隔离断言：遍历 `prices.items`，以实现无关的最简口径（优先 raw 字段，严格 `buy > sell` 且两侧非 null）独立收集倒挂集合；断言 `findCrossedKeys(prices)` 集合与独立重算集合完全一致，且 `getPriceEntry` 对每个倒挂键返回 `crossedMarket: true` 及有效价 null；样本 `arcane_reaper@r0` 仅在其真实倒挂时断言。
+   - 紫卡 subtype 匹配断言：移除 `rifle_riven_mod_veiled@unrevealed` 哨兵数量假定，改为从 `rivens.json` 动态比对全量合法性。
+2. `test/round4.test.mjs`：
+   - 移除 `arcane_reaper@r0` 哨兵与 `findCrossedKeys(prices).length === 53` 快照断言，改为断言 `findCrossedKeys(prices)` 与动态独立遍历重算的倒挂键集合完全相等。
+3. `test/round3c.test.mjs`：
+   - 样本 `arcane_reaper@r0` 断言改为仅当其在当前缓存中按独立口径确实倒挂时才断言其 `crossedMarket`、`raw` 价格与 `noBuyOrders: false`。
+4. `test/coverage.test.mjs`：
+   - 头部注释中移除硬编码数字“53 个倒挂键”，改为不含具体数字的说明。
+
+### 3. 验证结果
+- `npm test`（含 raw）：**139/139 测试通过（0 fail, 0 skip）**；
+- `WF_RAW_DIR=/nonexistent/xx npm test`（无 raw）：**129/139 测试通过，10 个依赖 raw 的测试优雅跳过（0 fail, 10 skip）**；
+- `node scripts/check-invariants-with-mutated-prices.mjs`：全量通过，真实价格与元数据未被修改；
+- `/tmp/wf-sim-r6b` 变异副本仿真：使用 Python 随机变动 100 个键（包含 10 个倒挂变非倒挂、15 个非倒挂变倒挂、75 个缩放偏移，同时保持 `arcane_reaper@r0` 与 `adaptation@r0` 不变），执行 `fetch-prices.mjs` 触发 meta 重算后，副本内 `npm test` **139/139 全过**；
+- `data/meta.json` 与 `docs/remaining-english.md` 时间戳已还原检出，真实 `data/prices.json` 未受修改。

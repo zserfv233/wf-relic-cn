@@ -476,11 +476,22 @@ describe('Codex 1126c Round 4 决定实现全量验证套件 (Round 4 Tests)', (
       const found = findCrossedKeys(mockItems);
       assert.deepStrictEqual(found.sort(), ['item_a@r0', 'item_c@r0', 'item_e@r0'].sort());
 
-      // 2. 未变异的真实缓存样本验证
-      if (prices.items && prices.items['arcane_reaper@r0'] && prices.items['arcane_reaper@r0'].sellMin === 15 && prices.items['arcane_reaper@r0'].buyMax === 72) {
-        const crossed = findCrossedKeys(prices);
-        assert.strictEqual(crossed.length, 53, '未变异真实缓存应识别出 53 个倒挂键');
+      // 2. 真实缓存独立自洽重算验证：遍历 prices.items，与实现无关的独立最简口径与 findCrossedKeys 完全一致
+      const independentCrossed = [];
+      for (const [key, item] of Object.entries(prices.items || {})) {
+        if (!item || typeof item !== 'object') continue;
+        const rawSell = (item.rawSellMin !== undefined && item.rawSellMin !== null) ? item.rawSellMin : item.sellMin;
+        const rawBuy = (item.rawBuyMax !== undefined && item.rawBuyMax !== null) ? item.rawBuyMax : item.buyMax;
+        if (typeof rawSell === 'number' && typeof rawBuy === 'number' && rawBuy > rawSell) {
+          independentCrossed.push(key);
+        }
       }
+      const actualCrossed = findCrossedKeys(prices);
+      assert.deepStrictEqual(
+        actualCrossed.slice().sort(),
+        independentCrossed.slice().sort(),
+        'findCrossedKeys 识别结果必须与独立口径完全一致'
+      );
 
       // 3. 模拟复核结果状态机验证
       const reverificationResults = {

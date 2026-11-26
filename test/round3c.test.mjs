@@ -156,19 +156,24 @@ describe('Codex 1126b R3b 通道复核 4 处界面问题修正 (Round 3c Tests)'
       assert.strictEqual(crossedNoBuy.noBuyOrders, true, '无买单条目 noBuyOrders 为 true');
     });
 
-    it('真实缓存样本 arcane_reaper@r0 (sell 15 / buy 72): crossedMarket: true, noBuyOrders: false', () => {
-      if (prices.items && prices.items['arcane_reaper@r0'] && prices.items['arcane_reaper@r0'].sellMin === 15 && prices.items['arcane_reaper@r0'].buyMax === 72) {
-        const reaper = getPriceEntry('arcane_reaper', 0, prices.items);
-        assert.strictEqual(reaper.crossedMarket, true);
-        assert.strictEqual(reaper.rawSellMin, 15);
-        assert.strictEqual(reaper.rawBuyMax, 72);
-        assert.strictEqual(reaper.sellMin, null);
-        assert.strictEqual(reaper.buyMax, null);
-        assert.strictEqual(
-          reaper.noBuyOrders,
-          false,
-          'arcane_reaper@r0 具有最高收购价 72 ☿，严禁因倒挂隔离被标记为 noBuyOrders: true'
-        );
+    it('真实缓存样本 arcane_reaper@r0: 若实际倒挂则断言 crossedMarket: true 且 noBuyOrders: false', () => {
+      const reaperRaw = prices.items && prices.items['arcane_reaper@r0'];
+      if (reaperRaw && typeof reaperRaw === 'object') {
+        const rawSell = (reaperRaw.rawSellMin !== undefined && reaperRaw.rawSellMin !== null) ? reaperRaw.rawSellMin : reaperRaw.sellMin;
+        const rawBuy = (reaperRaw.rawBuyMax !== undefined && reaperRaw.rawBuyMax !== null) ? reaperRaw.rawBuyMax : reaperRaw.buyMax;
+        if (typeof rawSell === 'number' && typeof rawBuy === 'number' && rawBuy > rawSell) {
+          const reaper = getPriceEntry('arcane_reaper', 0, prices.items);
+          assert.strictEqual(reaper.crossedMarket, true);
+          assert.strictEqual(reaper.rawSellMin, rawSell);
+          assert.strictEqual(reaper.rawBuyMax, rawBuy);
+          assert.strictEqual(reaper.sellMin, null);
+          assert.strictEqual(reaper.buyMax, null);
+          assert.strictEqual(
+            reaper.noBuyOrders,
+            false,
+            'arcane_reaper@r0 具有收购价，严禁因倒挂隔离被标记为 noBuyOrders: true'
+          );
+        }
       }
     });
 

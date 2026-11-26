@@ -17,6 +17,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const CONFIG_DIR = path.join(ROOT_DIR, 'config');
 import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
+import { findCrossedKeys } from '../scripts/fetch-prices.mjs';
 
 describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b Tests)', () => {
   const zhMapPath = path.join(CONFIG_DIR, 'zh-map.json');
@@ -343,12 +344,71 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
     assert.strictEqual(portionSell.untradeableProbability, 3.0);
     assert.strictEqual(portionSell.completeExpectedValue, null); // 包含缺价项时完整 EV 必须为 null
 
-    // 在未变异的标准价格缓存下，验证精确数值 (sell: 0.84375, 22.375%; buy: 0, 0%)
-    if (prices.items['adaptation@r0'] && prices.items['adaptation@r0'].sellMin === 5) {
-      assert.strictEqual(portionSell.knownContribution, 0.84375);
-      assert.strictEqual(portionSell.pricedProbability, 22.375);
-      assert.strictEqual(portionSell.missingProbability, 74.625);
+    // 独立口径重算仲裁前八轮 [2A + 2B + 4C] / 8 已计价部分加权（与 prices.json 实时行情自洽解耦）
+    function independentArbitrationPortion(rewardsA, rewardsB, rewardsC, items, priceType) {
+      function calcRotation(rewards) {
+        let known = 0;
+        let pricedProb = 0;
+        let missingProb = 0;
+        let untradeableProb = 0;
+        for (const r of rewards) {
+          if (r.untradeable === true || (r.baseName || r.itemName || '').includes('Forma Blueprint') || r.slug === 'forma_blueprint') {
+            untradeableProb += r.chance;
+            continue;
+          }
+          if (!r.slug) {
+            missingProb += r.chance;
+            continue;
+          }
+          const entry = items[`${r.slug}@r0`] || items[r.slug];
+          if (!entry || typeof entry !== 'object') {
+            missingProb += r.chance;
+            continue;
+          }
+          const rawSell = (entry.rawSellMin !== undefined && entry.rawSellMin !== null) ? entry.rawSellMin : entry.sellMin;
+          const rawBuy = (entry.rawBuyMax !== undefined && entry.rawBuyMax !== null) ? entry.rawBuyMax : entry.buyMax;
+          const isCrossed = (typeof rawSell === 'number' && typeof rawBuy === 'number' && rawBuy > rawSell) || Boolean(entry.crossedMarket);
+          if (isCrossed) {
+            missingProb += r.chance;
+            continue;
+          }
+          const val = entry[priceType];
+          if (typeof val === 'number' && val > 0) {
+            pricedProb += r.chance;
+            const qty = (typeof r.quantity === 'number' && r.quantity > 0) ? r.quantity : 1;
+            known += (r.chance / 100) * qty * val;
+          } else {
+            missingProb += r.chance;
+          }
+        }
+        return { known, pricedProb, missingProb, untradeableProb };
+      }
+
+      const rA = calcRotation(rewardsA);
+      const rB = calcRotation(rewardsB);
+      const rC = calcRotation(rewardsC);
+
+      const rawKnown = (2 * rA.known + 2 * rB.known + 4 * rC.known) / 8;
+      const rawPriced = (2 * rA.pricedProb + 2 * rB.pricedProb + 4 * rC.pricedProb) / 8;
+      const rawMissing = (2 * rA.missingProb + 2 * rB.missingProb + 4 * rC.missingProb) / 8;
+      const rawUntradeable = (2 * rA.untradeableProb + 2 * rB.untradeableProb + 4 * rC.untradeableProb) / 8;
+
+      return {
+        knownContribution: Number(rawKnown.toFixed(5)),
+        knownContributionRaw: rawKnown,
+        pricedProbability: Number(rawPriced.toFixed(3)),
+        missingProbability: Number(rawMissing.toFixed(3)),
+        untradeableProbability: Number(rawUntradeable.toFixed(3))
+      };
     }
+
+    const expIndSell = independentArbitrationPortion(arbA.rewards, arbB.rewards, arbC.rewards, prices.items || {}, 'sellMin');
+    assert.ok(Math.abs(portionSell.knownContribution - expIndSell.knownContribution) < 1e-9,
+      `sell knownContribution 与独立自洽重算不一致 (实际: ${portionSell.knownContribution}, 预期: ${expIndSell.knownContribution})`);
+    assert.ok(Math.abs(portionSell.pricedProbability - expIndSell.pricedProbability) < 1e-9,
+      `sell pricedProbability 与独立自洽重算不一致 (实际: ${portionSell.pricedProbability}, 预期: ${expIndSell.pricedProbability})`);
+    assert.ok(Math.abs(portionSell.missingProbability - expIndSell.missingProbability) < 1e-9,
+      `sell missingProbability 与独立自洽重算不一致 (实际: ${portionSell.missingProbability}, 预期: ${expIndSell.missingProbability})`);
 
     const eABuy = calculateSourceExpectedValue(arbA.rewards, prices.items, { priceType: 'buyMax' });
     const eBBuy = calculateSourceExpectedValue(arbB.rewards, prices.items, { priceType: 'buyMax' });
@@ -358,11 +418,58 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
     assert.strictEqual(portionBuy.structuralDataInsufficient, false);
     assert.strictEqual(portionBuy.untradeableProbability, 3.0);
     assert.strictEqual(portionBuy.completeExpectedValue, null);
-    if (prices.items['adaptation@r0'] && prices.items['adaptation@r0'].sellMin === 5) {
-      assert.strictEqual(portionBuy.knownContribution, 0);
-      assert.strictEqual(portionBuy.pricedProbability, 0);
-      assert.strictEqual(portionBuy.missingProbability, 97.0);
-    }
+
+    const expIndBuy = independentArbitrationPortion(arbA.rewards, arbB.rewards, arbC.rewards, prices.items || {}, 'buyMax');
+    assert.ok(Math.abs(portionBuy.knownContribution - expIndBuy.knownContribution) < 1e-9,
+      `buy knownContribution 与独立自洽重算不一致 (实际: ${portionBuy.knownContribution}, 预期: ${expIndBuy.knownContribution})`);
+    assert.ok(Math.abs(portionBuy.pricedProbability - expIndBuy.pricedProbability) < 1e-9,
+      `buy pricedProbability 与独立自洽重算不一致 (实际: ${portionBuy.pricedProbability}, 预期: ${expIndBuy.pricedProbability})`);
+    assert.ok(Math.abs(portionBuy.missingProbability - expIndBuy.missingProbability) < 1e-9,
+      `buy missingProbability 与独立自洽重算不一致 (实际: ${portionBuy.missingProbability}, 预期: ${expIndBuy.missingProbability})`);
+  });
+
+  it('仲裁前八轮加权计算 (固定 fixture): 手算期望值与概率完全确定，不受 prices.json 变动影响', () => {
+    // 构造独立的固定 fixture（完全不依赖外部 prices.json）
+    const fixItems = {
+      'fix_a@r0': { sellMin: 10, buyMax: 5 },
+      'fix_b@r0': { sellMin: 20, buyMax: 8 },
+      'fix_c@r0': { sellMin: 30, buyMax: 15 }
+    };
+    // rot A: fix_a (50%, 10p), forma (50%, untradeable) -> priced EV = 5.0, priced = 50%, untrad = 50%
+    const rotA = [
+      { slug: 'fix_a', chance: 50, category: 'mod', quantity: 1 },
+      { slug: 'forma_blueprint', chance: 50, untradeable: true }
+    ];
+    // rot B: fix_b (40%, 20p), fix_c (40%, 30p), fix_missing (20%, missing)
+    // -> priced EV = 8 + 12 = 20.0, priced = 80%, missing = 20%
+    const rotB = [
+      { slug: 'fix_b', chance: 40, category: 'mod', quantity: 1 },
+      { slug: 'fix_c', chance: 40, category: 'mod', quantity: 1 },
+      { slug: 'fix_missing', chance: 20, category: 'mod', quantity: 1 }
+    ];
+    // rot C: fix_a (30%, 10p), fix_c (70%, 30p) -> priced EV = 3 + 21 = 24.0, priced = 100%
+    const rotC = [
+      { slug: 'fix_a', chance: 30, category: 'mod', quantity: 1 },
+      { slug: 'fix_c', chance: 70, category: 'mod', quantity: 1 }
+    ];
+
+    const eA = calculateSourceExpectedValue(rotA, fixItems, { priceType: 'sellMin' });
+    const eB = calculateSourceExpectedValue(rotB, fixItems, { priceType: 'sellMin' });
+    const eC = calculateSourceExpectedValue(rotC, fixItems, { priceType: 'sellMin' });
+
+    const portion = arbitrationFirst8PricedPortion(eA, eB, eC);
+
+    // [2*5.0 + 2*20.0 + 4*24.0] / 8 = (10 + 40 + 96) / 8 = 146 / 8 = 18.25
+    assert.strictEqual(portion.structuralDataInsufficient, false);
+    assert.strictEqual(portion.knownContribution, 18.25);
+    // [2*50 + 2*80 + 4*100] / 8 = (100 + 160 + 400) / 8 = 660 / 8 = 82.5%
+    assert.strictEqual(portion.pricedProbability, 82.5);
+    // [2*50 + 2*0 + 4*0] / 8 = 100 / 8 = 12.5%
+    assert.strictEqual(portion.untradeableProbability, 12.5);
+    // [2*0 + 2*20 + 4*0] / 8 = 40 / 8 = 5.0%
+    assert.strictEqual(portion.missingProbability, 5.0);
+    // 包含缺价项，完整 EV 必须为 null
+    assert.strictEqual(portion.completeExpectedValue, null);
   });
 
   // --------------------------------------------------------------------------
@@ -397,35 +504,49 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
     const nullBuy = getPriceEntry('null_buy', 0, mockItems);
     assert.strictEqual(nullBuy.crossedMarket, false);
 
-    // 2. 价格缓存不变量：所有 buyMax > sellMin 的条目，getPriceEntry 必须返回 crossedMarket: true 且有效价为 null
+    // 2. 价格缓存不变量：独立口径识别倒挂条目，断言 findCrossedKeys 集合完全一致，且 getPriceEntry 对每个倒挂键返回 crossedMarket: true 且两侧有效价 null
     const crossedKeys = [];
     const crossedBaseSlugs = new Set();
 
     for (const [key, entry] of Object.entries(prices.items || {})) {
-      if (entry && typeof entry.sellMin === 'number' && typeof entry.buyMax === 'number' && entry.buyMax > entry.sellMin) {
+      if (!entry || typeof entry !== 'object') continue;
+      const rawSell = (entry.rawSellMin !== undefined && entry.rawSellMin !== null) ? entry.rawSellMin : entry.sellMin;
+      const rawBuy = (entry.rawBuyMax !== undefined && entry.rawBuyMax !== null) ? entry.rawBuyMax : entry.buyMax;
+      if (typeof rawSell === 'number' && typeof rawBuy === 'number' && rawBuy > rawSell) {
         crossedKeys.push(key);
         crossedBaseSlugs.add(key.split('@')[0]);
 
         const [slug, suffix] = key.split('@');
         const rank = (suffix && suffix.startsWith('r')) ? parseInt(suffix.slice(1), 10) : null;
         const pe = getPriceEntry(slug, rank, prices.items);
+        assert.ok(pe, `倒挂条目 ${key} 必须能取到 getPriceEntry`);
         assert.strictEqual(pe.crossedMarket, true, `倒挂条目 ${key} 必须标记 crossedMarket: true`);
         assert.strictEqual(pe.sellMin, null, `倒挂条目 ${key} 有效 sellMin 必须为 null`);
         assert.strictEqual(pe.buyMax, null, `倒挂条目 ${key} 有效 buyMax 必须为 null`);
       }
     }
 
-    // 3. 在标准未变异 prices.json 缓存下，验证精确键数与样本 arcane_reaper@r0 (sell 15, buy 72)
-    if (prices.items['arcane_reaper@r0'] && prices.items['arcane_reaper@r0'].sellMin === 15 && prices.items['arcane_reaper@r0'].buyMax === 72) {
-      assert.strictEqual(crossedKeys.length, 53, `真实缓存中倒挂键数应为 53 (实际 ${crossedKeys.length})`);
-      assert.strictEqual(crossedBaseSlugs.size, 52, `真实缓存中倒挂基础 slug 数应为 52 (实际 ${crossedBaseSlugs.size})`);
+    // 3. 断言 findCrossedKeys(prices) 结果集合与独立遍历结果完全相等
+    const foundKeys = findCrossedKeys(prices);
+    assert.deepStrictEqual(
+      foundKeys.slice().sort(),
+      crossedKeys.slice().sort(),
+      'findCrossedKeys 识别出的倒挂键集合必须与独立重算口径完全一致'
+    );
 
-      const reaperEntry = getPriceEntry('arcane_reaper', 0, prices.items);
-      assert.strictEqual(reaperEntry.crossedMarket, true);
-      assert.strictEqual(reaperEntry.sellMin, null);
-      assert.strictEqual(reaperEntry.buyMax, null);
-      assert.strictEqual(reaperEntry.rawSellMin, 15);
-      assert.strictEqual(reaperEntry.rawBuyMax, 72);
+    // 4. arcane_reaper 样本：仅当该键按上述独立口径确实倒挂时才断言 getPriceEntry 结果，否则不断言
+    const reaperRaw = prices.items && prices.items['arcane_reaper@r0'];
+    if (reaperRaw && typeof reaperRaw === 'object') {
+      const reaperRawSell = (reaperRaw.rawSellMin !== undefined && reaperRaw.rawSellMin !== null) ? reaperRaw.rawSellMin : reaperRaw.sellMin;
+      const reaperRawBuy = (reaperRaw.rawBuyMax !== undefined && reaperRaw.rawBuyMax !== null) ? reaperRaw.rawBuyMax : reaperRaw.buyMax;
+      if (typeof reaperRawSell === 'number' && typeof reaperRawBuy === 'number' && reaperRawBuy > reaperRawSell) {
+        const reaperEntry = getPriceEntry('arcane_reaper', 0, prices.items);
+        assert.strictEqual(reaperEntry.crossedMarket, true);
+        assert.strictEqual(reaperEntry.sellMin, null);
+        assert.strictEqual(reaperEntry.buyMax, null);
+        assert.strictEqual(reaperEntry.rawSellMin, reaperRawSell);
+        assert.strictEqual(reaperEntry.rawBuyMax, reaperRawBuy);
+      }
     }
   });
 
@@ -463,19 +584,28 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
   // --------------------------------------------------------------------------
   it('紫卡 subtype 严格匹配：带 @unrevealed 严格对应，不回退无 subtype 基础键', () => {
     const unrevealedKeys = Object.keys(prices.items || {}).filter(k => k.endsWith('@unrevealed'));
-    if (prices.items['rifle_riven_mod_veiled@unrevealed']) {
-      assert.strictEqual(unrevealedKeys.length, 8, 'prices.json 中应包含 8 种未开紫卡 @unrevealed 键');
-    }
+    const rivensPath = path.join(DATA_DIR, 'rivens.json');
+    const rivensData = JSON.parse(fs.readFileSync(rivensPath, 'utf8'));
+    const expectedRivenKeys = new Set(rivensData.map(r => `${r.slug}@unrevealed`));
 
     for (const k of unrevealedKeys) {
+      assert.ok(expectedRivenKeys.has(k), `未开紫卡键 ${k} 必须属于 rivens.json`);
       const slug = k.replace('@unrevealed', '');
       const entry = getPriceEntry(slug, null, prices.items);
       assert.ok(entry, `紫卡 ${slug} 必须能取到 entry`);
-      // 如果未倒挂，则其 sellMin/buyMax 应来自 @unrevealed
+      // 如果未倒挂，则其 sellMin 应来自 @unrevealed
       const raw = prices.items[k];
-      if (raw.buyMax <= raw.sellMin || raw.sellMin === null || raw.buyMax === null) {
+      const rawSell = (raw.rawSellMin !== undefined && raw.rawSellMin !== null) ? raw.rawSellMin : raw.sellMin;
+      const rawBuy = (raw.rawBuyMax !== undefined && raw.rawBuyMax !== null) ? raw.rawBuyMax : raw.buyMax;
+      const isCrossed = (typeof rawSell === 'number' && typeof rawBuy === 'number' && rawBuy > rawSell) || Boolean(raw.crossedMarket);
+      if (!isCrossed && typeof raw.sellMin === 'number') {
         assert.strictEqual(entry.sellMin, raw.sellMin);
       }
+    }
+
+    const allExpectedPresent = [...expectedRivenKeys].every(k => Boolean(prices.items && prices.items[k]));
+    if (allExpectedPresent) {
+      assert.strictEqual(unrevealedKeys.length, rivensData.length, `全量缓存下应包含 ${rivensData.length} 种未开紫卡 @unrevealed 键`);
     }
   });
 });
