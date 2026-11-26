@@ -10,6 +10,7 @@ import {
   isUntradeableItem,
   getItemPrice
 } from '../js/lib/calculations.js';
+import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -317,8 +318,8 @@ describe('数学内核修复 (Math Kernel - Phase M1 - Invariants)', () => {
   });
 
   it('10. Duviri 跨表头串入截取与普通 Tier 1/3 舍入兼容 (决策 1)', (t) => {
-    const rawHtmlPath = '/workspace/wf-relic-cn-raw/de_droptables.html';
-    const htmlExists = fs.existsSync(rawHtmlPath);
+    const rawHtmlPath = path.join(RAW_DIR, 'de_droptables.html');
+    const htmlExists = hasRawFiles('de_droptables.html');
 
     const duviriHard = sources.find(s => s.id === 'mission_duviri_endless_repeated_rewards_hard');
     assert.ok(duviriHard, 'Duviri/Endless: Repeated Rewards (Hard) 来源必须存在');

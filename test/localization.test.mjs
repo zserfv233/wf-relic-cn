@@ -14,9 +14,9 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const CONFIG_DIR = path.join(ROOT_DIR, 'config');
 const DOCS_DIR = path.join(ROOT_DIR, 'docs');
-const RAW_DIR = '/workspace/wf-relic-cn-raw';
+import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
 
-const hasRaw = fs.existsSync(RAW_DIR) && fs.existsSync(path.join(RAW_DIR, 'wfcd-items/i18n_zh.json'));
+const hasRaw = hasRawFiles('wfcd-items/i18n_zh.json');
 
 const VALID_SOURCE_PREFIXES = [
   'wfcd_i18n:',
@@ -483,7 +483,12 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
     assert.ok(resInitials.some(r => r.name === targetEn), '搜 "kxzz" 必须命中 Venka Prime Gauntlet');
   });
 
-  it('重建后保留验证：构建到临时目录时 nameZh/zhSource 完整保留', async () => {
+  it('重建后保留验证：构建到临时目录时 nameZh/zhSource 完整保留', async (t) => {
+    if (!hasRawFiles('drops_all.json', 'Relics.json', 'zh.json')) {
+      t.skip('缺少原始资料 (drops_all.json, Relics.json, zh.json)，跳过重建后保留验证');
+      return;
+    }
+
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'wf-rebuild-test-'));
 
     try {

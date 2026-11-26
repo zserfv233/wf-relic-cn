@@ -23,7 +23,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 
 // 解析 CLI 参数
 const args = process.argv.slice(2);
-let rawPath = '/workspace/wf-relic-cn-raw';
+let rawPath = process.env.WF_RAW_DIR || '/workspace/wf-relic-cn-raw';
 const rawIndex = args.indexOf('--raw');
 if (rawIndex !== -1 && args[rawIndex + 1]) {
   rawPath = path.resolve(args[rawIndex + 1]);

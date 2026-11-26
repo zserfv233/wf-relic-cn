@@ -11,9 +11,9 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const CONFIG_DIR = path.join(ROOT_DIR, 'config');
 const DOCS_DIR = path.join(ROOT_DIR, 'docs');
-const RAW_DIR = '/workspace/wf-relic-cn-raw';
+import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
 
-const hasRaw = fs.existsSync(RAW_DIR) && fs.existsSync(path.join(RAW_DIR, 'de-export/ExportRegions_zh.json'));
+const hasRaw = hasRawFiles('de-export/ExportRegions_zh.json', 'de-export/ExportRegions_en.json', 'de-export/ExportFlavour_zh.json');
 
 describe('Codex 1126b 第 1–6 项汉化规范与不变量测试 (Localization Round 3 Tests)', () => {
   const t2sWordsPath = path.join(CONFIG_DIR, 't2s-words.json');

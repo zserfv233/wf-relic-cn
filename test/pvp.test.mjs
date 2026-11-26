@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { isPvpSource, filterSources } from '../js/lib/sources.js';
+import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,7 +14,7 @@ const DATA_DIR = path.resolve(__dirname, '../data');
 describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)', () => {
   const sourcesFile = path.join(DATA_DIR, 'sources.json');
   const metaFile = path.join(DATA_DIR, 'meta.json');
-  const rawFile = '/workspace/wf-relic-cn-raw/drops_all.json';
+  const rawFile = path.join(RAW_DIR, 'drops_all.json');
 
   assert.ok(fs.existsSync(sourcesFile), 'data/sources.json 必须存在');
   assert.ok(fs.existsSync(metaFile), 'data/meta.json 必须存在');
@@ -23,7 +24,7 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
 
   // 从 raw drops_all.json 重算预期 Conclave 来源数
   let expectedPvpCount = null;
-  if (fs.existsSync(rawFile)) {
+  if (hasRawFiles('drops_all.json')) {
     try {
       const raw = JSON.parse(fs.readFileSync(rawFile, 'utf8'));
       let rawPvpCount = 0;
@@ -113,15 +114,14 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
     assert.ok(pvpList.every(s => s.isPvp === true), 'PvP 列表中每一项都必须是 isPvp === true');
   });
 
-  it('回归验证: 再次执行 build-data.mjs 后 isPvp 仍正确生成并保持一致', () => {
-    const rawDir = '/workspace/wf-relic-cn-raw';
-    if (!fs.existsSync(rawDir)) {
-      console.log('跳过重新构建回归测试: /workspace/wf-relic-cn-raw 不存在');
+  it('回归验证: 再次执行 build-data.mjs 后 isPvp 仍正确生成并保持一致', (t) => {
+    if (!hasRawFiles('drops_all.json', 'Relics.json', 'zh.json')) {
+      t.skip('缺少原始资料文件 (drops_all.json, Relics.json, zh.json)，跳过重新构建回归测试');
       return;
     }
 
     // 运行构建脚本
-    execFileSync('node', ['scripts/build-data.mjs', '--raw', rawDir], {
+    execFileSync('node', ['scripts/build-data.mjs', '--raw', RAW_DIR], {
       cwd: path.resolve(__dirname, '..'),
       stdio: 'pipe'
     });

@@ -11,6 +11,7 @@ import {
   getItemPrice
 } from '../js/lib/calculations.js';
 import { parseQuantityAndName } from '../scripts/build-data.mjs';
+import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -234,8 +235,8 @@ describe('期望值计算 (Calculations - Phase 2)', () => {
     assert.ok(fs.existsSync(unmatchedPath), 'data/unmatched.json 必须存在');
     const unmatched = JSON.parse(fs.readFileSync(unmatchedPath, 'utf8'));
 
-    const rawDir = fs.existsSync('/workspace/wf-relic-cn-raw/wfm_items_v2.json') 
-      ? '/workspace/wf-relic-cn-raw' 
+    const rawDir = hasRawFiles('wfm_items_v2.json') 
+      ? RAW_DIR 
       : path.join(ROOT_DIR, 'data', 'raw');
     const wfmPath = path.join(rawDir, 'wfm_items_v2.json');
 

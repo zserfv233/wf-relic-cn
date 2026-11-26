@@ -26,7 +26,7 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const CONFIG_DIR = path.join(ROOT_DIR, 'config');
-const RAW_DIR = '/workspace/wf-relic-cn-raw';
+import { RAW_DIR, hasRawFiles } from '../scripts/lib/raw-dir.mjs';
 
 describe('Codex 1126c Round 4 决定实现全量验证套件 (Round 4 Tests)', () => {
   const zhMapPath = path.join(CONFIG_DIR, 'zh-map.json');
