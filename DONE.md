@@ -72,3 +72,8 @@ Antigravity 自报结果均由通道复跑核对；其自报“Forma 在 market 
 - 前后对比（卖价口径）：Nightmare 12.31（三表混算，概率和 300.03%）→ A 4.0439 / B 2.4649 / C 5.8020；仲裁 2.04 → A 0.67 / B 0.65 / C 0.715（均不完整，已计价 21/22.5/30.5%）；Lith A1 4.33/4.67/5.16/5.77 不变；Conclave Saturn Cephalon Capture A 19.52 → 含低置信 19.5176 / 高置信 2.356（19 项稀疏卖单）；赏金 0 个 → 299 个，Cetus L5–15 A Stage1 0.20（已计价 20%）；ETERNA 5.89/0/0/0 → 5.89/null/null/null + 资料冲突。
 - 截图：/workspace/wf-relic-cn-shots/12–22。
 - 已知问题与待 Codex 拍板：见通道回报。
+
+## 2026-11-26 11:24 AEDT — agy 汉化 Z1 结束（feat/zh-localization b7861b8，对话 f6aae698）
+- 结果：npm test 69/69（通道复跑确认）；规范覆盖率 68.2%（敌人 4.4%、特殊来源 24.5%、任务类型 60.6% 偏低，WFCD i18n 不含敌人名，灰机 wiki 被 403）。
+- 通道复核发现问题，已派 Z2 修正：无出处中文（赤毒洪流/暗影追猎者/噩梦模式奖励/巨人战舰破坏）、错字（塞德娜→资料为赛德娜）、Neuroptics 拼成「头部蓝图」44 条、zhSource 指向错误条目（Höllvania/Solaris/Deimos/Zariman/Duviri/Cetus）。
+- agy 进程在提交后约 15 分钟才退出（空闲无 CPU），已记录。
