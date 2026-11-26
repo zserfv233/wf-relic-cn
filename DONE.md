@@ -1,3 +1,35 @@
+# DONE — fix/round3 阶段 R3b + R3c（Codex 1126b 第 7–11 项、R3a 修正 A1–A4、界面修正）
+
+- 状态：完成，通道独立复核通过。结束时间：2026-11-26 18:20 AEDT。本地提交，未推送。
+- 提交：0831eda（R3b，agy 对话 e200973d-463a-4d78-a482-161365b7e36a，5016 s）、4c466f1（R3c，修 4 处界面问题）。
+- HEAD 上 npm test 102/102；check-invariants-with-mutated-prices 通过；data/prices.json、.github 相对 4ac5eea 未改；未抓价。
+
+## 独立复核（/workspace/wf-relic-cn-notes/verify/r3b_indep.py 等）
+- A1：nameZh 用上了 DE 节点名（“水星 - 阿波罗多罗斯撞击坑 (生存) [轮次 A]”），英文 Apollodorus 仍可搜到（截图 57）。
+- A2–A4：8 个 Executioner、Carrier、Stalker、Protector Stalker 全部回退英文，并保留 candidate 与 pendingDecision；Kubrow 保留“库狛”，标注“宠物同种”。
+- 第 7 项 AABC：rotationPattern 里只剩仲裁的“AABBCCCC…（不套用 AABC）”；Nightmare 和普通节点都不再显示 AABC。
+- 第 8 项 Ten-Zero：独立解析 DE HTML，5 张表行数 10/10/10/10/11、各 100%，与数据逐项一致；historicalEvent=true，默认不在列表；按钮切换后显示 5 处（截图 50）。
+- 第 9 项 仲裁已计价部分平均（套用第 10 项隔离后）：卖 0.84375，已计价 22.375% / 缺价 74.625% / 不可交易 3%；买 0（买侧唯一有价的“赋能·枪炮”倒挂被隔离），已计价 0% / 缺价 97% / 不可交易 3%。完整 EV 为 null。不套用隔离时复算为卖 0.95625 / 26.125%、买 0.15 / 3.75%，与 Codex 数字一致，说明差异只来自第 10 项。
+- 第 10 项 倒挂：独立统计 53 键 / 52 个基础 slug；arcane_reaper@r0 两侧有效价 null，raw 15/72 保留，crossedMarket=true，noBuyOrders=false；物品、来源弹窗都显示“⚠️ 倒挂隔离（卖 15 / 买 72）”（截图 47、53）。
+- 第 11 项：“(Hard) (Hard)” 6 → 0；卖、买卡片各自显示“不完整估值”（Nightmare A 卖侧完整、买侧缺 97.99%，截图 49）。
+- 紫卡：旧基础键返回 null；8 个 @unrevealed 键，步枪紫卡 10p（截图 58）。
+
+## 4c466f1 修了什么（通道看截图发现的问题）
+1. 「📜 历史活动」按钮原来没有点击处理，Ten-Zero 在列表里打不开；现已加上切换，并与 PvP 互斥。
+2. 来源弹窗的公式、轮次规律、完整性提示重复显示两次；现在只留一份。
+3. 物品/赋能/Mod/遗物弹窗原来不显示倒挂提示；同时修正倒挂条目的 noBuyOrders 被误置为 true。
+4. 界面文案里泄露了本机路径（/workspace/…）；现已删除，并加测试保证 data/js/index.html 里不出现。
+
+## 截图（/workspace/wf-relic-cn-shots/ 与 docs-shots/，均在 4c466f1 上重拍）
+44 DE 节点名 Apollodorus · 45 谷神星（繁→简）· 46 星图任务列表 · 47 仲裁已计价部分平均（两侧）· 48 仲裁缺价清单（两侧）· 49 Nightmare 买侧单独不完整 · 50 历史活动组 · 51 Ten-Zero Week 1 · 52 Duviri Hard 不重复 · 53 倒挂（赋能·收割）· 54 敌人 Eidolon · 55 敌人列表 · 56 默认来源页（无 AABC）· 57 英文搜索节点 · 58 紫卡 subtype 价格
+
+## 已知问题
+- 物品弹窗的“掉落来源”表仍会列出 Ten-Zero Week N，但没有“历史活动”标记（例如截图 58 的步枪紫卡）。
+- 倒挂隔离后，仲裁买侧已计价为 0%。
+- 敌人中文率只有 2.8%，因为没有可用的完整敌人中文资料。
+
+---
+
 # DONE — fix/round3 阶段 R3a（Codex 1126b 第 1–6 项，汉化）
 
 - 状态：agy R3a 完成（对话 53c8546e-c8f1-4681-b90c-e4d396a81eb3，5975 s，15:43 AEDT 退出），提交 38f64cf；通道复核发现 5 处问题，放入 R3b 一并修正（见下）。

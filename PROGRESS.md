@@ -457,3 +457,7 @@
 - `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：变异价格不变量复核全部通过；
 - 构建产物与文档时间戳已通过 `git checkout --` 还原，工作区仅保留 4 处问题必要修改与对应测试。
 
+
+## 2026-11-26 18:14 AEDT — 第三轮收尾
+- R3b 复核通过；4c466f1 修了 4 处界面问题；截图 44–58 已在 HEAD 重拍；npm test 102/102。
+- 本轮中断记录：14:51、15:41、16:32、17:22、18:12 共 5 次在等 agy 时被中断，外加本轮开始前 13:36 的 1 次，合计 6 次；每次都从 git 与 PROGRESS 状态续接，没有重复启动 agy。
