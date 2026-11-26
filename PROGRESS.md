@@ -433,3 +433,27 @@
 - `npm test`：14 个测试套件，92 个测试全部通过（92 passed, 0 failed）；
 - `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：变异价格不变量复核全部通过。
 
+
+## 2026-11-26 17:23 AEDT — R3b 通道复核：4 处界面问题修复完成 (R3c)
+
+### A. 4 处界面问题修复
+1. **「📜 历史活动」按钮点击处理**：
+   - 在 `js/lib/sources.js` 中新增纯函数 `toggleHistoricalFilter` 与 `togglePvpFilter`，实现历史活动与 PvP 筛选的保守互斥切换；
+   - 在 `js/app.js` 中为 `elements.historicalFilterBtn` 绑定 `click` 事件监听，同步更新按钮 `active` 类名与横幅，点一次仅显示历史活动（`historicalOnly: true`），再点恢复默认；默认仍排除历史活动、不进收益排序。
+2. **来源弹窗提示去重**：
+   - 修复 `js/app.js` 中 `openSourceModal` 的模板重复渲染问题，删除卡片外的第二份“公式 / 轮次规律 / 完整性提示”及多余的闭合 `</div>` 标签，仅保留“单轮次单次发奖期望”卡片内的一份。
+3. **倒挂报价在弹窗/卡片提示与 noBuyOrders 判定修正**：
+   - 在 `js/lib/calculations.js` 中新增纯函数 `formatPriceDisplay`，凡 `crossedMarket === true` 的价格条目，统一显示“⚠️ 倒挂隔离 (卖 X / 买 Y)”，并将 `title` 设为 `crossedMarketReason`，有效价仍为 `null`；
+   - 在物品弹窗（`openItemModal`）、赋能弹窗（`openArcaneModal`）、Mod 弹窗（`openModModal`）、遗物弹窗奖励行（`openRelicModal`）、紫卡弹窗（`openRivenModal`）及赋能/Mod/紫卡列表卡片中全面接入 `formatPriceDisplay`；
+   - 修正 `js/lib/calculations.js` 和 `js/lib/prices.js` 中 `noBuyOrders` 判定：改按原始买单存在性（`rawBuyMax === null || buyCount === 0`）判断，倒挂隔离条目（如 `arcane_reaper@r0` 卖 15 / 买 72）不再被误标为 `noBuyOrders: true`。
+4. **界面文案与数据消除本机路径 `/workspace/`**：
+   - 从 `js/app.js` 的历史活动横幅及弹窗文案中彻底删去“页面存档：/workspace/...”本机路径；
+   - 从 `scripts/build-data.mjs` 中移除 `officialArchiveLocal` 字段构建，并从 `data/sources.json` 的 5 处 Recall: Ten-Zero 来源中彻底移除该字段；
+   - 确保 `index.html`、`js/`、`data/` 全站所有用户可见文件不出现任何 `/workspace/`。
+
+### B. 测试与验证
+- 新增专用测试套件 `test/round3c.test.mjs`（10 个测试用例，覆盖 4 处问题的纯函数与不变量断言）；
+- `npm test`：15 个测试套件，102 个测试全部通过（102 passed, 0 failed）；
+- `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：变异价格不变量复核全部通过；
+- 构建产物与文档时间戳已通过 `git checkout --` 还原，工作区仅保留 4 处问题必要修改与对应测试。
+

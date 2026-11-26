@@ -1177,7 +1177,6 @@ export async function build(customOptions = {}) {
         eventGroupName: 'Recall: Ten-Zero',
         eventGroupNameZh: 'Recall: Ten-Zero',
         officialNoticeUrl: 'https://www.warframe.com/en/news/rappel-ten-zero',
-        officialArchiveLocal: '/workspace/wf-relic-cn-raw/de-web/rappel-ten-zero-en.html',
         officialNoticeQuote: 'The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero! ... leading up to TennoCon 2023 on August 26 ... only the third Mission in each weekly sequence will grant a new Reward',
         nameEn,
         nameZh,

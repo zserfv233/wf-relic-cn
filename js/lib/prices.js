@@ -128,7 +128,7 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     buyLowConfidence: uniqueBuyers < LOW_CONFIDENCE_MIN_SELLERS || buyMax === null,
     sellerCountUnverified: false,
     buyerCountUnverified: false,
-    noBuyOrders: sortedBuyPrices.length === 0 || buyMax === null,
+    noBuyOrders: sortedBuyPrices.length === 0 || rawBuyMax === null,
     uniqueSellers,
     uniqueBuyers,
     sellSamples: sortedSellPrices,

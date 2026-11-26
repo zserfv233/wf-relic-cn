@@ -133,7 +133,7 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
 
   const lowConfidence = sellMin === null || sellerCountUnverified || uniqueSellers < LOW_CONFIDENCE_MIN_SELLERS;
   const buyLowConfidence = buyMax === null || buyerCountUnverified || uniqueBuyers < LOW_CONFIDENCE_MIN_SELLERS;
-  const noBuyOrders = buyCount === 0 || buyMax === null;
+  const noBuyOrders = buyCount === 0 || rawBuyMax === null;
 
   return {
     ...rawItem,
@@ -156,6 +156,31 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
     buyLowConfidence,
     noBuyOrders
   };
+}
+
+/**
+ * 格式化物品白金价格展示（支持倒挂隔离提示与未挂单兜底）
+ * @param {number|null} price - 有效白金价格
+ * @param {Object|null} priceEntry - getPriceEntry 返回的价格条目
+ * @param {string} [suffix=' ☿'] - 白金符号后缀
+ * @returns {string} HTML 格式化字符串
+ */
+export function formatPriceDisplay(price, priceEntry = null, suffix = ' ☿') {
+  if (priceEntry?.crossedMarket) {
+    const reason = priceEntry.crossedMarketReason || '买价高于卖价，报价倒挂隔离';
+    const escapedReason = String(reason).replace(/[&<>"']/g, m => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[m]);
+    return `<span style="color: #fbbf24; font-size: 0.85em;" title="${escapedReason}">⚠️ 倒挂隔离 (卖 ${priceEntry.rawSellMin} / 买 ${priceEntry.rawBuyMax})</span>`;
+  }
+  if (price === null || price === undefined) {
+    return '<span style="color: var(--text-muted); font-size: 0.85em;">暂无挂单</span>';
+  }
+  return `${price}${suffix}`;
 }
 
 /**

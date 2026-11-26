@@ -14,10 +14,11 @@ import {
   arcaneCopiesForRank,
   isUntradeableItem,
   arbitrationFirst8,
-  arbitrationFirst8PricedPortion
+  arbitrationFirst8PricedPortion,
+  formatPriceDisplay
 } from './lib/calculations.js';
 import { searchIndex } from './lib/search.js';
-import { filterSources } from './lib/sources.js';
+import { filterSources, toggleHistoricalFilter, togglePvpFilter } from './lib/sources.js';
 
 // 应用全局状态
 const state = {
@@ -132,11 +133,10 @@ function formatDateTime(isoStr) {
 }
 
 /**
- * 格式化白金价格展示（无价格显示“暂无挂单”）
+ * 格式化白金价格展示（无价格显示“暂无挂单”，倒挂隔离显示警告）
  */
-function formatPlat(price, suffix = ' ☿') {
-  if (price === null || price === undefined) return '<span style="color: var(--text-muted); font-size: 0.85em;">暂无挂单</span>';
-  return `${price}${suffix}`;
+function formatPlat(price, suffix = ' ☿', priceEntry = null) {
+  return formatPriceDisplay(price, priceEntry, suffix);
 }
 
 /**
@@ -478,6 +478,8 @@ function renderArcanesView() {
   elements.filterResultCount.textContent = `共 ${list.length} 个赋能`;
 
   elements.gridView.innerHTML = list.map(arc => {
+    const entry0 = getPriceEntry(arc.slug, 0, state.prices);
+    const entryMax = getPriceEntry(arc.slug, arc.maxRank, state.prices);
     const price0 = getItemPrice(arc.slug, 0, state.prices, priceType);
     const priceMax = getItemPrice(arc.slug, arc.maxRank, state.prices, priceType);
     const N = arcaneCopiesForRank(arc.maxRank);
@@ -501,11 +503,11 @@ function renderArcanesView() {
         <div class="card-expected-value" style="flex-direction: column; align-items: flex-start; gap: 0.35rem;">
           <div style="display: flex; justify-content: space-between; width: 100%;">
             <span class="plat-label">0 级参考价格:</span>
-            <span class="plat-badge" style="font-size: 0.95rem;">${formatPlat(price0)}</span>
+            <span class="plat-badge" style="font-size: 0.95rem;">${formatPriceDisplay(price0, entry0)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; width: 100%;">
             <span class="plat-label">满级 (Rank ${arc.maxRank}) 价格:</span>
-            <span class="plat-badge" style="font-size: 0.95rem; color: var(--gold-light);">${formatPlat(priceMax)}</span>
+            <span class="plat-badge" style="font-size: 0.95rem; color: var(--gold-light);">${formatPriceDisplay(priceMax, entryMax)}</span>
           </div>
           <div style="font-size: 0.75rem; color: var(--cyan-primary); margin-top: 0.2rem; width: 100%;">
             满级折合每个 0 级 ≈ ${perR0Sell !== null ? `${perR0Sell} ☿` : '—'}（卖）/ ${perR0Buy !== null ? `${perR0Buy} ☿` : '—'}（买）
@@ -563,7 +565,7 @@ function renderRivensView() {
 
         <div class="card-expected-value">
           <span class="plat-label">市场交易价:</span>
-          <span class="plat-badge">${formatPlat(price)}</span>
+          <span class="plat-badge">${formatPriceDisplay(price, rivenEntry)}</span>
         </div>
 
         <div class="rewards-preview">
@@ -617,6 +619,8 @@ function renderModsView() {
   const displayList = list.slice(0, 100);
 
   elements.gridView.innerHTML = displayList.map(m => {
+    const entry0 = getPriceEntry(m.slug, 0, state.prices);
+    const entryMax = getPriceEntry(m.slug, m.maxRank, state.prices);
     const p0 = getItemPrice(m.slug, 0, state.prices, priceType);
     const pMax = getItemPrice(m.slug, m.maxRank, state.prices, priceType);
 
@@ -635,11 +639,11 @@ function renderModsView() {
         <div class="card-expected-value" style="flex-direction: column; align-items: flex-start; gap: 0.35rem;">
           <div style="display: flex; justify-content: space-between; width: 100%;">
             <span class="plat-label">0 级参考价格:</span>
-            <span class="plat-badge" style="font-size: 0.95rem;">${formatPlat(p0)}</span>
+            <span class="plat-badge" style="font-size: 0.95rem;">${formatPriceDisplay(p0, entry0)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; width: 100%;">
             <span class="plat-label">满级 (Rank ${m.maxRank}) 价格:</span>
-            <span class="plat-badge" style="font-size: 0.95rem; color: var(--gold-light);">${formatPlat(pMax)}</span>
+            <span class="plat-badge" style="font-size: 0.95rem; color: var(--gold-light);">${formatPriceDisplay(pMax, entryMax)}</span>
           </div>
         </div>
 
@@ -686,7 +690,7 @@ function renderSourcesView() {
   // 更新历史活动提示横幅 (Decision 8)
   if (elements.sourceHistoricalCallout && elements.sourceHistoricalCalloutText) {
     if (state.sourceHistoricalOnly) {
-      elements.sourceHistoricalCalloutText.innerHTML = '📜 <strong>历史活动；当前开放状态未确认</strong><br>官方公告信息：<a href="https://www.warframe.com/en/news/rappel-ten-zero" target="_blank" rel="noopener" style="color: var(--cyan-primary); text-decoration: underline;">Recall: Ten-Zero 官方公告</a>（原文：“The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero!”、“leading up to TennoCon 2023 on August 26”、“only the third Mission in each weekly sequence will grant a new Reward”；页面存档：/workspace/wf-relic-cn-raw/de-web/rappel-ten-zero-en.html）。';
+      elements.sourceHistoricalCalloutText.innerHTML = '📜 <strong>历史活动；当前开放状态未确认</strong><br>官方公告信息：<a href="https://www.warframe.com/en/news/rappel-ten-zero" target="_blank" rel="noopener" style="color: var(--cyan-primary); text-decoration: underline;">Recall: Ten-Zero 官方公告</a>（原文：“The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero!”、“leading up to TennoCon 2023 on August 26”、“only the third Mission in each weekly sequence will grant a new Reward”）。';
       elements.sourceHistoricalCallout.style.display = 'block';
       if (elements.historicalFilterBtn) elements.historicalFilterBtn.classList.add('active');
     } else {
@@ -897,13 +901,17 @@ export function openRelicModal(relicId) {
   const rowsHtml = relic.rewards.map(rew => {
     const slug = rew.marketSlug;
     const isUntrad = isUntradeableItem(rew);
-    const priceData = slug ? state.prices[slug] : null;
-    const sellPrice = isUntrad 
-      ? '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>'
-      : (priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>');
-    const buyPrice = isUntrad 
-      ? '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>'
-      : (priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '<span style="color: var(--text-muted);">暂无挂单</span>');
+    const priceEntry = slug ? getPriceEntry(slug, null, state.prices) : null;
+    let priceCellHtml;
+    if (isUntrad) {
+      priceCellHtml = '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>';
+    } else if (priceEntry?.crossedMarket) {
+      priceCellHtml = formatPriceDisplay(null, priceEntry);
+    } else {
+      const sellPrice = priceEntry?.sellMin !== null && priceEntry?.sellMin !== undefined ? `${priceEntry.sellMin} ☿` : '<span style="color: var(--text-muted); font-size: 0.85em;">暂无挂单</span>';
+      const buyPrice = priceEntry?.buyMax !== null && priceEntry?.buyMax !== undefined ? `${priceEntry.buyMax} ☿` : '<span style="color: var(--text-muted); font-size: 0.85em;">暂无挂单</span>';
+      priceCellHtml = `${sellPrice} / <span style="font-size: 0.85rem; color: var(--text-muted);">${buyPrice}</span>`;
+    }
 
     return `
       <tr>
@@ -921,7 +929,7 @@ export function openRelicModal(relicId) {
           </div>
         </td>
         <td style="color: var(--plat-color); font-weight: 600;">
-          ${sellPrice} / <span style="font-size: 0.85rem; color: var(--text-muted);">${buyPrice}</span>
+          ${priceCellHtml}
         </td>
         <td>${rew.chances.intact !== null ? `${rew.chances.intact}%` : '不适用'}</td>
         <td>${rew.chances.exceptional !== null ? `${rew.chances.exceptional}%` : '不适用'}</td>
@@ -1016,9 +1024,9 @@ export function openItemModal(itemKey) {
   window.location.hash = `item=${encodeURIComponent(itemKey)}`;
   state.activeModal = { type: 'item', id: itemKey };
 
-  const priceData = item.marketSlug ? state.prices[item.marketSlug] : null;
-  const sellMin = priceData?.sellMin !== null && priceData?.sellMin !== undefined ? `${priceData.sellMin} ☿` : '暂无挂单';
-  const buyMax = priceData?.buyMax !== null && priceData?.buyMax !== undefined ? `${priceData.buyMax} ☿` : '暂无挂单';
+  const priceEntry = item.marketSlug ? getPriceEntry(item.marketSlug, null, state.prices) : null;
+  const sellMin = formatPriceDisplay(priceEntry?.sellMin, priceEntry);
+  const buyMax = formatPriceDisplay(priceEntry?.buyMax, priceEntry);
 
   elements.modalHeaderContent.innerHTML = `
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
@@ -1102,6 +1110,8 @@ export function openArcaneModal(slug) {
   window.location.hash = `arcane=${encodeURIComponent(slug)}`;
   state.activeModal = { type: 'arcane', id: slug };
 
+  const entry0 = getPriceEntry(slug, 0, state.prices);
+  const entryMax = getPriceEntry(slug, arc.maxRank, state.prices);
   const p0 = getItemPrice(slug, 0, state.prices, state.currentPriceType);
   const pMax = getItemPrice(slug, arc.maxRank, state.prices, state.currentPriceType);
   const N = arcaneCopiesForRank(arc.maxRank);
@@ -1141,11 +1151,11 @@ export function openArcaneModal(slug) {
     <div class="item-price-box">
       <div class="price-metric">
         <div class="metric-label">0 级参考价格</div>
-        <div class="metric-val">${formatPlat(p0)}</div>
+        <div class="metric-val">${formatPriceDisplay(p0, entry0)}</div>
       </div>
       <div class="price-metric">
         <div class="metric-label">满级 (Rank ${arc.maxRank}) 价格</div>
-        <div class="metric-val" style="color: var(--gold-light);">${formatPlat(pMax)}</div>
+        <div class="metric-val" style="color: var(--gold-light);">${formatPriceDisplay(pMax, entryMax)}</div>
       </div>
     </div>
     <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 6px; padding: 0.6rem 0.8rem; margin-top: 0.75rem; font-size: 0.82rem; color: var(--cyan-primary);">
@@ -1211,7 +1221,7 @@ export function openRivenModal(slug) {
     <div class="item-price-box">
       <div class="price-metric">
         <div class="metric-label">当前参考市场价格</div>
-        <div class="metric-val" style="color: #c084fc;">${formatPlat(price)}</div>
+        <div class="metric-val" style="color: #c084fc;">${formatPriceDisplay(price, rivenEntry)}</div>
       </div>
     </div>
 
@@ -1247,6 +1257,8 @@ export function openModModal(slug) {
   window.location.hash = `mod=${encodeURIComponent(slug)}`;
   state.activeModal = { type: 'mod', id: slug };
 
+  const entry0 = getPriceEntry(slug, 0, state.prices);
+  const entryMax = getPriceEntry(slug, mod.maxRank, state.prices);
   const p0 = getItemPrice(slug, 0, state.prices, state.currentPriceType);
   const pMax = getItemPrice(slug, mod.maxRank, state.prices, state.currentPriceType);
 
@@ -1281,11 +1293,11 @@ export function openModModal(slug) {
     <div class="item-price-box">
       <div class="price-metric">
         <div class="metric-label">0 级参考价格</div>
-        <div class="metric-val">${formatPlat(p0)}</div>
+        <div class="metric-val">${formatPriceDisplay(p0, entry0)}</div>
       </div>
       <div class="price-metric">
         <div class="metric-label">满级 (Rank ${mod.maxRank}) 价格</div>
-        <div class="metric-val" style="color: var(--gold-light);">${formatPlat(pMax)}</div>
+        <div class="metric-val" style="color: var(--gold-light);">${formatPriceDisplay(pMax, entryMax)}</div>
       </div>
     </div>
 
@@ -1354,10 +1366,8 @@ export function openSourceModal(sourceId) {
     let priceDisplay;
     if (isUntrad) {
       priceDisplay = '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>';
-    } else if (priceEntry?.crossedMarket) {
-      priceDisplay = `<span style="color: #fbbf24; font-size: 0.85em;" title="${escapeHtml(priceEntry.crossedMarketReason || '买价高于卖价，报价倒挂隔离')}">⚠️ 倒挂隔离 (卖 ${priceEntry.rawSellMin} / 买 ${priceEntry.rawBuyMax})</span>`;
     } else {
-      priceDisplay = formatPlat(price);
+      priceDisplay = formatPriceDisplay(price, priceEntry);
     }
 
     return `
@@ -1425,8 +1435,7 @@ export function openSourceModal(sourceId) {
         <div style="font-weight: 600; color: #facc15; font-size: 0.95rem; margin-bottom: 0.3rem;">📜 历史活动；当前开放状态未确认</div>
         <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
           官方公告信息：<a href="${escapeHtml(src.officialNoticeUrl || 'https://www.warframe.com/en/news/rappel-ten-zero')}" target="_blank" rel="noopener" style="color: var(--cyan-primary); text-decoration: underline;">Recall: Ten-Zero 官方公告</a><br>
-          原文：“The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero!”、“leading up to TennoCon 2023 on August 26”、“only the third Mission in each weekly sequence will grant a new Reward”<br>
-          页面存档：/workspace/wf-relic-cn-raw/de-web/rappel-ten-zero-en.html
+          原文：“The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero!”、“leading up to TennoCon 2023 on August 26”、“only the third Mission in each weekly sequence will grant a new Reward”
         </div>
       </div>`
     : '';
@@ -1582,16 +1591,6 @@ export function openSourceModal(sourceId) {
           </div>
         </div>
       </div>
-      <div style="font-size: 0.8rem; color: var(--text-muted);">
-        公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
-        ${rotationPatternNotice}
-        ${dedupeNotice}
-        ${boundaryFixNotice}
-        ${probNotice}
-        ${incompleteNotice}
-        ${expSell.lowConfidenceCount > 0 ? `<div style="margin-top: 0.25rem; color: #fbbf24;">⚠️ 卖单中包含 ${expSell.lowConfidenceCount} 项低置信挂单（有效去重卖家少于 3 人），高置信收益估算为 ${expSell.expectedValueConfident !== null ? `${expSell.expectedValueConfident} ☿` : '—'}。</div>` : ''}
-      </div>
-    </div>
       <div style="font-size: 0.8rem; color: var(--text-muted);">
         公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
         ${rotationPatternNotice}
@@ -1786,12 +1785,32 @@ function setupEventListeners() {
     });
   });
 
-  // PvP 切换按钮 (点击只看 PvP 来源，再点回到非 PvP 视图)
+  // PvP 切换按钮 (点击只看 PvP 来源，再点回到非 PvP 视图；与历史活动互斥)
   if (elements.pvpFilterBtn) {
     elements.pvpFilterBtn.addEventListener('click', () => {
-      state.sourcePvpOnly = !state.sourcePvpOnly;
+      const updated = togglePvpFilter(state);
+      state.sourcePvpOnly = updated.sourcePvpOnly;
+      state.sourceHistoricalOnly = updated.sourceHistoricalOnly;
       elements.pvpFilterBtn.classList.toggle('active', state.sourcePvpOnly);
       elements.pvpFilterBtn.classList.toggle('pvp-active', state.sourcePvpOnly);
+      if (elements.historicalFilterBtn) {
+        elements.historicalFilterBtn.classList.toggle('active', state.sourceHistoricalOnly);
+      }
+      renderCurrentView();
+    });
+  }
+
+  // 历史活动切换按钮 (点击只看历史活动来源，再点回到默认视图；与 PvP 互斥)
+  if (elements.historicalFilterBtn) {
+    elements.historicalFilterBtn.addEventListener('click', () => {
+      const updated = toggleHistoricalFilter(state);
+      state.sourceHistoricalOnly = updated.sourceHistoricalOnly;
+      state.sourcePvpOnly = updated.sourcePvpOnly;
+      elements.historicalFilterBtn.classList.toggle('active', state.sourceHistoricalOnly);
+      if (elements.pvpFilterBtn) {
+        elements.pvpFilterBtn.classList.toggle('active', state.sourcePvpOnly);
+        elements.pvpFilterBtn.classList.toggle('pvp-active', state.sourcePvpOnly);
+      }
       renderCurrentView();
     });
   }

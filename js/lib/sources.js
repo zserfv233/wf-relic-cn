@@ -68,3 +68,32 @@ export function filterSources(sources, { type = 'all', category = 'all', pvpOnly
     return true;
   });
 }
+
+/**
+ * 切换历史活动筛选状态（与 PvP 筛选互斥）
+ * @param {Object} state - 当前状态
+ * @returns {{ sourceHistoricalOnly: boolean, sourcePvpOnly: boolean }}
+ */
+export function toggleHistoricalFilter(state = {}) {
+  const nextHistorical = !state.sourceHistoricalOnly;
+  return {
+    ...state,
+    sourceHistoricalOnly: nextHistorical,
+    sourcePvpOnly: nextHistorical ? false : Boolean(state.sourcePvpOnly)
+  };
+}
+
+/**
+ * 切换 PvP 筛选状态（与历史活动筛选互斥）
+ * @param {Object} state - 当前状态
+ * @returns {{ sourceHistoricalOnly: boolean, sourcePvpOnly: boolean }}
+ */
+export function togglePvpFilter(state = {}) {
+  const nextPvp = !state.sourcePvpOnly;
+  return {
+    ...state,
+    sourcePvpOnly: nextPvp,
+    sourceHistoricalOnly: nextPvp ? false : Boolean(state.sourceHistoricalOnly)
+  };
+}
+
