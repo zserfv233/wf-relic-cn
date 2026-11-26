@@ -77,3 +77,10 @@ Antigravity 自报结果均由通道复跑核对；其自报“Forma 在 market 
 - 结果：npm test 69/69（通道复跑确认）；规范覆盖率 68.2%（敌人 4.4%、特殊来源 24.5%、任务类型 60.6% 偏低，WFCD i18n 不含敌人名，灰机 wiki 被 403）。
 - 通道复核发现问题，已派 Z2 修正：无出处中文（赤毒洪流/暗影追猎者/噩梦模式奖励/巨人战舰破坏）、错字（塞德娜→资料为赛德娜）、Neuroptics 拼成「头部蓝图」44 条、zhSource 指向错误条目（Höllvania/Solaris/Deimos/Zariman/Duviri/Cetus）。
 - agy 进程在提交后约 15 分钟才退出（空闲无 CPU），已记录。
+
+## 2026-11-26 12:35 AEDT — agy 汉化 Z2 结束 + 通道复核（feat/zh-localization 0baf9a5）
+- Z2 修正：赤毒洪流/暗影追猎者/噩梦模式奖励/巨人战舰破坏等无出处中文改回英文；塞德娜→赛德娜；44 条「头部蓝图」→「头部神经光元 蓝图」；zhSource 错指（Höllvania、Solaris→回英文、Deimos/Zariman/Duviri/Cetus）修正；composed 条目逐段 zhSegments + SITE_WORDS 白名单。agy 耗时约 63 分钟（11:24–12:27），前 50 分钟无文件改动但日志显示持续请求模型，已记录。
+- 测试：npm test 70/70（通道复跑）。覆盖率（规范，含资料原样英文）总计 66.7%：遗物/赋能/紫卡 100%、物品 98.5%、Mod 99.2%、星球 96.4%、任务类型 93.9%、节点 100%（全为资料原样「英文节点名 (中文星球)」）、赏金 70%、敌人 4.2%、特殊来源 1.9%、来源 53.4%。
+- 通道独立核验：zh_cjk_trace.py（每段中文须在本地资料逐字出现）→ 只剩「资料词+本站文案词」组合与「（特殊）」，无编造；zh_audit.py 出处逐条核对，剩余 7 条为嵌套键脚本误报，人工核对 sortieData.bosses 一致；22+4 条抽查全部一致（docs/zh-spotcheck-channel.txt）。
+- 截图：/workspace/wf-relic-cn-shots/23–35（docs-shots/ 有拷贝），界面残留英文见 28/29/31。
+- 已知问题：敌人与特殊来源大量英文（WFCD i18n 无敌人名，灰机 wiki 403）；繁体任务类型保留；npm test 会改写 docs/remaining-english.md 时间戳与 meta builtAt（已还原）。

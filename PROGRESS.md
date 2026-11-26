@@ -262,3 +262,6 @@
   - 新增测试：`出处一致性与逐段反编造断言：zh-map 与原始资料及 SITE_WORDS 严格一致（CI 优雅跳过）` 与 `审核方问题回归核验 (Z2 Review Regression Tests)`。全量核查 3782 条映射与 360 条组合规则，0 编造 0 错漏。
   - `npm test`：12 套件 70 个测试全部通过（70 passed, 0 failed）。
   - 覆盖率前后对比（详见交付报告）：总条目 6269，规范覆盖率 66.7%（纯中文汉化率 59.3%），无中文资料保留英文 2086 条。
+
+## 2026-11-26 12:35 AEDT — 汉化轮完成（通道复核通过）
+- 详见 DONE.md。下一步：fix/math-decisions（worktree /workspace/wf-relic-cn-decisions）。

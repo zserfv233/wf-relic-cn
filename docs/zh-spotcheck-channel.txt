@@ -1,0 +1,22 @@
+OK  planets Mercury → 水星 | wfcd_worldstate:solNodes:SolNode12 | {"value": "Elion (水星)", "enemy": "Grinee
+OK  planets Sedna → 赛德娜 | wfcd_i18n:/Lotus/Types/Items/ShipDecos/PlanetTrophies/PlanetTrophySednaBronze | 钢铁之路 — 赛德娜
+OK  planets Höllvania → 霍瓦尼亚 | wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB | 霍瓦尼亚沥青布碎片
+OK  nodes Mercury:Apollodorus → Apollodorus (水星) | wfcd_worldstate:solNodes:SolNode94 | {"value": "Apollodorus (水星)", "enemy": "
+OK  nodes Venus:Bifrost Echo → 虹桥回声 (金星比邻星域) | wfcd_worldstate:solNodes:CrewBattleNode503 | {"value": "虹桥回声 (金星比邻星域)", "enemy": "Cor
+OK  missionTypes Survival → 生存 | wfcd_worldstate:missionTypes:MT_SURVIVAL | {"value": "生存"}
+OK  missionTypes Defense → 防禦 | traditional:wfcd_worldstate:missionTypes:MT_DEFENSE | {"value": "防禦"}
+OK  enemies Captain Vor → Vor 上尉 | wfcd_worldstate:sortieData:bosses:SORTIE_BOSS_VOR | {"name": "Vor 上尉", "faction": "Grineer"}
+OK  enemies Eidolon Teralyst → 夜灵兆力使 | wfcd_i18n:/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem | 夜灵兆力使可动模型
+OK  enemies Misery (Level 0 - 100) → 苦难 (等级 0 - 100) | [('苦难', 'wfcd_worldstate:languages:/lotus/language/game/areacasteracolyte', '{"value": "苦难"}'), (' (等级 0 - 100)', 'SITE_WORDS', '')]
+OK  bounties Level 5 - 15 Cetus Bounty → 等级 5 - 15 希图斯赏金 | [('等级 5 - 15 ', 'SITE_WORDS', ''), ('希图斯', 'wfcd_worldstate:languages:/lotus/types/gameplay/eidolon/resources/cetuswispitem', '{"value": "希图斯幽魂"}'), ('赏金', 'SITE_WORDS', '')]
+OK  bounties Level 10 - 30 Orb Vallis Bounty → 等级 10 - 30 奥布山谷赏金 | [('等级 10 - 30 ', 'SITE_WORDS', ''), ('奥布山谷', 'wfcd_i18n:SolNode129', '奥布山谷'), ('赏金', 'SITE_WORDS', '')]
+OK  bounties Level 15 - 25 Cambion Drift Bounty → 等级 15 - 25 魔胎之境赏金 | [('等级 15 - 25 ', 'SITE_WORDS', ''), ('魔胎之境', 'wfcd_worldstate:solNodes:SolNode229', '{"value": "魔胎之境 (火卫二)", "enemy'), ('赏金', 'SITE_WORDS', '')]
+OK  items Venka Prime Gauntlet → 凯旋之爪 Prime 手套 | warframe_market:venka_prime_gauntlet | 凯旋之爪 Prime 手套
+OK  items Akstiletto Prime Barrel → 史提托双枪 Prime 枪管 | warframe_market:akstiletto_prime_barrel | 史提托双枪 Prime 枪管
+OK  items Rhino Neuroptics Blueprint → Rhino 头部神经光元 蓝图 | [('Rhino', 'wfcd_i18n:/Lotus/Powersuits/Rhino/Rhino', 'Rhino'), (' ', 'SITE_WORDS', ''), ('头部神经光元 蓝图', 'warframe_market:rhino_prime_neuroptics_blueprint', 'Rhino Prime 头部神经光元 蓝图')]
+OK  items Ash Prime Neuroptics Blueprint → Ash Prime 头部神经光元 蓝图 | warframe_market:ash_prime_neuroptics_blueprint | Ash Prime 头部神经光元 蓝图
+OK  items Forma Blueprint → Forma 蓝图 | wfcd_worldstate:languages:/lotus/types/recipes/components/formablueprint | {"value": "Forma 蓝图"}
+OK  items Soaring Strike → 上升打击 | wfcd_i18n:/Lotus/Upgrades/Mods/PvPMods/Rifle/FasterChargeInAirBowMod | 上升打击
+OK  items Hammer Shot → 重锤射击 | wfcd_i18n:/Lotus/Upgrades/Mods/Rifle/DualStat/HammerShotMod | 重锤射击
+OK  items Arcane Energize → 赋能·充沛 | wfcd_i18n:/Lotus/Upgrades/CosmeticEnhancers/Utility/GolemArcaneRadialEnergyOnEnergyPickup | 赋能·充沛
+MISSING items Pax Charge
