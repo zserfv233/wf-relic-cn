@@ -647,3 +647,5 @@
   - `node scripts/check-invariants-with-mutated-prices.mjs`：通过；
   - 测试期间由重构触发的时间戳变动文件 `data/meta.json` 与 `docs/remaining-english.md` 已还原检出，未改动前端、未改动 `.github/workflows`、未抓价或改动 `data/prices.json`。
 
+
+## 2026-11-26 23:24 AEDT — R7 复核通过（有 raw 142/142；无 raw 131+11skip；--download 流程模拟，重建与仓库逐字节一致；check-invariants 通过），写 DONE，提交

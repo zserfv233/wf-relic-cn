@@ -1,38 +1,28 @@
-# DONE — fix/ci-tests（R6：价格自动更新 CI 测试失败修复）
+# DONE — fix/drop-tables（R7：Update drop tables 定时任务失败修复）
 
-- 状态：完成，通道独立复核通过。结束时间：2026-11-26 22:35 AEDT。仅本地提交，未推送；**未改 .github/workflows**（不需要改）；未抓价，data/prices.json 相对 f088b4b 无改动。
-- 提交（作者 zserfv233）：854d140（抓价脚本 meta 口径）、b55d957（无 raw 时 skip + Carrier Prime 测试）、3d1f18e（圣殿等来源名去重并重建数据）、751580c（价格相关断言改为自洽不变量）、本 DONE/PROGRESS 提交。
-- agy：R6 20:52–21:41（2971 s），R6b 21:51–22:21。
+- 状态：完成，通道独立复核通过。结束时间：2026-11-26 23:30 AEDT。仅本地提交，未推送；**未改 .github/workflows**（不需要改）；未改前端（js/、css/、index.html）；未抓价，data/prices.json 与 data/ 相对 cdabf6e 无改动。
+- 提交（作者 zserfv233）：6a93050（修复）、本 DONE/PROGRESS 提交。agy R7：22:53–23:22（1757 s）。
 
-## 测试结果
-| 环境 | 结果 |
-|---|---|
-| 有 raw，当前缓存 | 139/139 通过 |
-| 无 raw（unshare 挂载命名空间用空 tmpfs 盖住 raw，原目录不动；ci-sim.sh） | 129 通过、10 skip、0 失败 |
-| 无 raw（WF_RAW_DIR=/nonexistent/xx） | 129 通过、10 skip、0 失败 |
-| check-invariants-with-mutated-prices | 通过 |
-| 新价格缓存场景 A/B（/tmp 副本随机改 100 个键，含倒挂↔正常互换，保留 arcane_reaper=15/72、adaptation=5，再用 fixture 模式触发 meta 重算） | 有/无 raw 都全过 |
-| 新价格缓存场景 C（fixture 覆盖 120 键+30 个缺价） | 有/无 raw 都全过（修前同场景 3 失败） |
-新价格缓存没法真取：run 45792593580 没有 artifact，日志里没有价格数据，所以用副本构造。
+## 失败原因
+- run 45811008052（schedule，11:29Z=22:29 AEDT，共 17 秒）：checkout 的是 **f088b4b**（R6 合并之前），“Download raw sources and rebuild data/” 成功，失败在“Run tests”，之后“Commit updated data”被跳过。
+- 日志关键行：`✖ renderDropSourcesGrouped: 普通与历史来源分组…（普通组标题必须声明排除历史活动）`、`✖ renderDropSourcesGrouped: 仅有历史来源时提示…`、`✖ 汉化覆盖率不变量…`、`✖ 重建后保留验证…`。其中后两项是 R6 已修的无 raw 问题（f088b4b 上存在）。
+- 在 cdabf6e（含 R6）上用 /tmp 副本复现后，剩下的真实根因：workflow 的 `node scripts/build-data.mjs --download --raw $RUNNER_TEMP/wf-raw` 只下载 4 个文件（drops_all、Relics、zh、wfm_items_v2），而 build-data.mjs 还读取 `de_droptables.html`（Duviri 表头 + Recall: Ten-Zero Week 1–5 历史来源）。CI 里没有它，5 个 `event_recall_ten_zero_week_*` 来源整体消失，relics/rivens/sources/unmatched/search-index 随之变化，round3b/round3c/round4 共 6 个测试（9 条 ✖）失败。不修的话，即使不失败也会把缺 Ten-Zero 的数据提交到线上。
 
-## 3 个失败怎么修的
-1. pricedCount 2416 vs 2424：根因是 fetch-prices.mjs 更新 meta 时把 cacheKey（`xxx@unrevealed`）当紫卡 slug 传给 calculatePriceCoverage，函数内又追加一次 `@unrevealed`，8 个紫卡全部查不到价，meta 少算 8 个。选“改脚本”而不是放宽测试：脚本改用与测试相同的口径（新增导出函数 buildMetaPrices，从 data/*.json 读数据集算覆盖率），测试保持严格不变量；理由是 meta 本来就该由唯一口径生成，放宽测试会掩盖真实缺陷。同时 meta 路径改为跟随 --out 目录，fixture 运行不再改真实 data/meta.json。基线复现：旧脚本 fixture 跑完紫卡 0/8、meta 与重算差 7。新增回归测试 test/fetch_meta_consistency.test.mjs。workflow 调用 `node scripts/fetch-prices.mjs --max-age-hours 5`（无 --out，默认 data/prices.json），行为不变，所以不用改 workflow。
-2. 汉化重建测试缺 raw：改为按所需文件是否存在 skip（新增 scripts/lib/raw-dir.mjs，支持 WF_RAW_DIR）；pvp 重建测试原先只判断目录存在，目录为空时失败，也改成判断文件。有 raw 时断言强度不变。
-3. Corrupted Ancient exact_match 出处原文 undefined：没有 raw 时跳过“出处原文严格相等”这一项，其余仍断言；有 raw 时仍严格比对。
-4. 额外发现并修复（复核时的新价格场景暴露）：round3b/round4 里有 3 处用 arcane_reaper=15/72 或 adaptation=5 当哨兵判断“缓存没变”，再断言快照常数（倒挂键数 53、仲裁 0.84375），真实新缓存里哨兵键没变、其他键变了就会失败。已改成独立重算口径的自洽断言，并保留固定 fixture 的精确数值断言。
+## 修了什么
+- scripts/build-data.mjs：下载清单改为导出的 `REMOTE_FILES`（文件名、地址、是否必需），加入 `https://www.warframe.com/droptables` → `de_droptables.html`（302 到 DE 的 CDN，fetch 自动跟随），**必需**，下载失败直接报错退出，不降级；wfm_items_v2 仍可降级。`REMOTE_URLS` 保留兼容。
+- 新增 test/download_manifest.test.mjs（清单内容、源码静态覆盖检查、有 raw 时仅用清单里 5 个文件重建到临时目录并断言 sources id 集合与仓库一致，含 5 个 Ten-Zero 来源；缺 raw 时 skip）。
+- 因为 workflow 只是调用 `--download`，**不用改 workflow**。
 
-## Carrier Prime 部件
-没有改名。「搬运者 Prime 系统/外壳/头部/蓝图」与 DE ExportResources_zh（PrimeCarrierSystems/Carapace/Cerebrum）、ExportSentinels_zh（PrimeCarrierPowerSuit=搬运者 Prime，CarrierPowerSuit=搬运者）和 warframe.market zh-hans（含蓝图）三方一致；哨兵 Carrier 官方中文名就是「搬运者」。Codex 定的「母舰」只绑定敌人 SwarmShipAvatar，两者不冲突（test/carrier_prime.test.mjs 锁定，缺 raw 时 skip）。
+## 本地模拟（照 yml 顺序，在 /tmp 副本，不动 worktree）
+1. `npm ci`：通过。
+2. `node scripts/build-data.mjs --download --raw /tmp/wf-r7-raw2`：drops_all/Relics/zh/de_droptables.html 下载成功（de_droptables 4.28 MB）；**wfm_items_v2.json 从 box 返回 HTTP 403（Cloudflare），已记录，未绕过**，脚本按降级处理。（CI 上这个文件能下载成功，见 run 日志。）
+3. 因 box 拿不到 wfm，把本地已有的 /workspace/wf-relic-cn-raw/wfm_items_v2.json 复制进临时 raw 后重建：relics/arcanes/rivens/mods/sources/unmatched/search-index/prices 与仓库内文件逐字节一致。（修复前同样步骤：5 个 Ten-Zero 来源消失，6 个测试失败。）
+4. `npm test`，无 raw（ci-sim.sh 挂载隐藏）：142 个，131 通过、11 skip、0 失败；`WF_RAW_DIR=/nonexistent/xx`：同上。
+5. 有 raw 的 worktree：142/142；check-invariants-with-mutated-prices 通过。
+6. 提交步骤：重建结果与仓库一致，CI 上只会有 meta.json 的 builtAt 变化（既有行为，未改）。
+没有写 data/prices.json，没有抓价。
 
-## 圣殿重复：14 个来源修复前 → 修复后
-规则：括号里的模式名已完整包含在节点英文名中时，中英文名都省略「(模式)」；Hard 去重逻辑不变；其余来源名称不变。完整对照表：/workspace/wf-relic-cn-notes/r6-sanctuary-before-after.md。
-- 圣殿 - 圣殿突袭 (圣殿突袭) [轮次 A/B/C] → 圣殿 - 圣殿突袭 [轮次 A/B/C]
-- 圣殿 - 精英级圣殿突袭 (圣殿突袭) [轮次 A/B/C] → 圣殿 - 精英级圣殿突袭 [轮次 A/B/C]
-- 双衍王境 - 无尽回廊 (无尽回廊) [轮次 A/B/C] → 双衍王境 - 无尽回廊 [轮次 A/B/C]
-- 霍瓦尼亚 - 传承种收割 (Legacyte Harvest) [轮次 A/B/C] → 霍瓦尼亚 - 传承种收割 [轮次 A/B/C]
-- 霍瓦尼亚 - 歼灭：炽蛇军/科腐者 (歼灭) → 霍瓦尼亚 - 歼灭：炽蛇军/科腐者
-英文名同步（如 Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A] → Sanctuary - Sanctuary Onslaught [Rot A]）；mods/arcanes/unmatched/search-index 里引用旧名的 place 已同步，无旧名残留。来源 id 未变。
-
-## 已知问题
-- 圣殿之外另 8 个来源（霍瓦尼亚传承种收割、歼灭）也按同一规则去重了，范围比总管举例大，已在对照表列出。
-- 无 raw 时有 10 个测试 skip（均依赖本地原始资料），CI 上这部分只有有 raw 的本地环境才会跑。
+## 已知问题 / 风险
+- wfm_items_v2 在 CI 若某天也遇到 403，赋能/Mod 会降级为 0，测试会失败而不是提交坏数据（这是安全的失败方式，但会让每日任务失败）。
+- 每次定时重建都会改 meta.json 的 builtAt，导致每天一个“rebuild drop tables”提交（既有行为）。
+- 需要 Codex 拍板：无。
