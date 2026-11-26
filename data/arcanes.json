@@ -2794,8 +2794,8 @@
       {
         "sourceId": "mission_sanctuary_elite_sanctuary_onslaught_b",
         "sourceType": "mission",
-        "nameEn": "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-        "nameZh": "圣殿 - 精英级圣殿突袭 (圣殿突袭) [轮次 B]",
+        "nameEn": "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
+        "nameZh": "圣殿 - 精英级圣殿突袭 [轮次 B]",
         "zhSource": "de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught",
         "rotation": "B",
         "stage": null,
@@ -4673,8 +4673,8 @@
       {
         "sourceId": "mission_sanctuary_elite_sanctuary_onslaught_c",
         "sourceType": "mission",
-        "nameEn": "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
-        "nameZh": "圣殿 - 精英级圣殿突袭 (圣殿突袭) [轮次 C]",
+        "nameEn": "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
+        "nameZh": "圣殿 - 精英级圣殿突袭 [轮次 C]",
         "zhSource": "de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught",
         "rotation": "C",
         "stage": null,

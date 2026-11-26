@@ -22,8 +22,8 @@
   {
     "name": "10,000 Höllars Cache",
     "samplePlaces": [
-      "Höllvania - Exterminate: Scaldra (Exterminate)",
-      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Exterminate: Scaldra",
+      "Höllvania - Exterminate: Techrot",
       "Höllvania - Antivirus Bounty (Exterminate)"
     ]
   },
@@ -175,8 +175,8 @@
   {
     "name": "10X Experimental Arc-Relay",
     "samplePlaces": [
-      "Höllvania - Exterminate: Scaldra (Exterminate)",
-      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Exterminate: Scaldra",
+      "Höllvania - Exterminate: Techrot",
       "Höllvania - Antivirus Bounty (Exterminate)",
       "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
     ]
@@ -283,8 +283,8 @@
   {
     "name": "10X Techrot Chitin",
     "samplePlaces": [
-      "Höllvania - Exterminate: Scaldra (Exterminate)",
-      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Exterminate: Scaldra",
+      "Höllvania - Exterminate: Techrot",
       "Höllvania - Antivirus Bounty (Exterminate)",
       "Level  105 - 110 WF1999 Bounty [Rot C] (Final stage)"
     ]
@@ -1784,8 +1784,8 @@
     "samplePlaces": [
       "Duviri - Endless: Tier 1 (Normal)",
       "Duviri - Endless: Tier 3 (Normal)",
-      "Höllvania - Exterminate: Scaldra (Exterminate)",
-      "Höllvania - Exterminate: Techrot (Exterminate)",
+      "Höllvania - Exterminate: Scaldra",
+      "Höllvania - Exterminate: Techrot",
       "Höllvania - Antivirus Bounty (Exterminate)"
     ]
   },
@@ -2165,7 +2165,7 @@
   {
     "name": "750 Endo",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 4 of 5)",
       "Level 25 - 30 Cambion Drift Bounty [Rot A] (Final Stage)",
       "Level 25 - 30 Cambion Drift Bounty [Rot B] (Stage 4 of 5)",
@@ -2456,49 +2456,49 @@
   {
     "name": "Axi A21 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi A22 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi C12 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi C13 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi D6 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi P10 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Veil Proxima)"
     ]
   },
   {
     "name": "Axi S21 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Level 50 - 60 PROFIT-TAKER - PHASE 4 [Rot C] (Final Stage)",
       "Void Storm (Veil Proxima)"
     ]
@@ -2506,7 +2506,7 @@
   {
     "name": "Axi V14 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Veil Proxima)"
     ]
   },
@@ -3602,25 +3602,25 @@
   {
     "name": "Khora Chassis Blueprint",
     "samplePlaces": [
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+      "Sanctuary - Sanctuary Onslaught [Rot A]",
+      "Sanctuary - Sanctuary Onslaught [Rot B]",
+      "Sanctuary - Sanctuary Onslaught [Rot C]"
     ]
   },
   {
     "name": "Khora Neuroptics Blueprint",
     "samplePlaces": [
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+      "Sanctuary - Sanctuary Onslaught [Rot A]",
+      "Sanctuary - Sanctuary Onslaught [Rot B]",
+      "Sanctuary - Sanctuary Onslaught [Rot C]"
     ]
   },
   {
     "name": "Khora Systems Blueprint",
     "samplePlaces": [
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]"
+      "Sanctuary - Sanctuary Onslaught [Rot A]",
+      "Sanctuary - Sanctuary Onslaught [Rot B]",
+      "Sanctuary - Sanctuary Onslaught [Rot C]"
     ]
   },
   {
@@ -3864,7 +3864,7 @@
   {
     "name": "Lith A13 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)",
       "Void Storm (Earth)",
       "Void Storm (Venus)"
@@ -3873,7 +3873,7 @@
   {
     "name": "Lith C15 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)",
       "Void Storm (Earth)",
       "Void Storm (Venus)"
@@ -3882,7 +3882,7 @@
   {
     "name": "Lith G14 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Void Storm (Earth)",
       "Void Storm (Venus)"
     ]
@@ -3890,7 +3890,7 @@
   {
     "name": "Lith L8 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Level 40 - 60 PROFIT-TAKER - PHASE 1 [Rot C] (Final Stage)",
       "Void Storm (Earth)",
       "Void Storm (Venus)"
@@ -3899,7 +3899,7 @@
   {
     "name": "Lith S18 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Void Storm (Earth)",
       "Void Storm (Venus)"
     ]
@@ -3907,7 +3907,7 @@
   {
     "name": "Lith S19 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Void Storm (Earth)",
       "Void Storm (Venus)"
     ]
@@ -3915,7 +3915,7 @@
   {
     "name": "Lith V11 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Void Storm (Earth)",
       "Void Storm (Venus)"
     ]
@@ -3992,7 +3992,7 @@
   {
     "name": "Meso A12 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
       "Void Storm (Saturn)",
       "Void Storm (Neptune)"
     ]
@@ -4007,7 +4007,7 @@
   {
     "name": "Meso D8 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
       "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)",
       "Void Storm (Saturn)",
       "Void Storm (Neptune)"
@@ -4016,7 +4016,7 @@
   {
     "name": "Meso D9 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
       "Void Storm (Saturn)",
       "Void Storm (Neptune)"
     ]
@@ -4024,7 +4024,7 @@
   {
     "name": "Meso K9 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Void Storm (Saturn)",
       "Void Storm (Neptune)"
     ]
@@ -4032,7 +4032,7 @@
   {
     "name": "Meso V13 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
       "Void Storm (Saturn)",
       "Void Storm (Neptune)"
     ]
@@ -4040,7 +4040,7 @@
   {
     "name": "Meso V17 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Void Storm (Saturn)",
       "Void Storm (Neptune)"
     ]
@@ -4048,7 +4048,7 @@
   {
     "name": "Meso Y2 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot A]",
       "Level 40 - 60 PROFIT-TAKER - PHASE 2 [Rot C] (Final Stage)",
       "Void Storm (Saturn)",
       "Void Storm (Neptune)"
@@ -4186,7 +4186,7 @@
   {
     "name": "Neo A16 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
       "Level 50 - 60 PROFIT-TAKER - PHASE 4 [Rot C] (Final Stage)",
       "Void Storm (Pluto)"
     ]
@@ -4194,21 +4194,21 @@
   {
     "name": "Neo C10 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo C11 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
       "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo C7 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Level 40 - 60 PROFIT-TAKER - PHASE 3 [Rot C] (Subsequent Completions)",
       "Void Storm (Pluto)"
     ]
@@ -4216,21 +4216,21 @@
   {
     "name": "Neo K10 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo V13 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot C]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot C]",
       "Void Storm (Pluto)"
     ]
   },
   {
     "name": "Neo Y2 Relic (Radiant)",
     "samplePlaces": [
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]",
       "Void Storm (Pluto)"
     ]
   },
@@ -4651,9 +4651,9 @@
   {
     "name": "Reconifex Barrel Blueprint",
     "samplePlaces": [
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Legacyte Harvest [Rot A]",
+      "Höllvania - Legacyte Harvest [Rot B]",
+      "Höllvania - Legacyte Harvest [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot A]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
     ]
@@ -4667,9 +4667,9 @@
   {
     "name": "Reconifex Receiver Blueprint",
     "samplePlaces": [
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Legacyte Harvest [Rot A]",
+      "Höllvania - Legacyte Harvest [Rot B]",
+      "Höllvania - Legacyte Harvest [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
     ]
@@ -4677,9 +4677,9 @@
   {
     "name": "Reconifex Stock Blueprint",
     "samplePlaces": [
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Legacyte Harvest [Rot A]",
+      "Höllvania - Legacyte Harvest [Rot B]",
+      "Höllvania - Legacyte Harvest [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot A]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
     ]
@@ -5093,9 +5093,9 @@
   {
     "name": "Synthetic Eidolon Shard",
     "samplePlaces": [
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot A]",
-      "Sanctuary - Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]",
-      "Sanctuary - Elite Sanctuary Onslaught (Sanctuary Onslaught) [Rot B]"
+      "Sanctuary - Sanctuary Onslaught [Rot A]",
+      "Sanctuary - Sanctuary Onslaught [Rot B]",
+      "Sanctuary - Elite Sanctuary Onslaught [Rot B]"
     ]
   },
   {
@@ -5369,9 +5369,9 @@
   {
     "name": "Vesper 77 Barrel Blueprint",
     "samplePlaces": [
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Legacyte Harvest [Rot A]",
+      "Höllvania - Legacyte Harvest [Rot B]",
+      "Höllvania - Legacyte Harvest [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
     ]
@@ -5385,9 +5385,9 @@
   {
     "name": "Vesper 77 Handle Blueprint",
     "samplePlaces": [
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Legacyte Harvest [Rot A]",
+      "Höllvania - Legacyte Harvest [Rot B]",
+      "Höllvania - Legacyte Harvest [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
     ]
@@ -5395,9 +5395,9 @@
   {
     "name": "Vesper 77 Receiver Blueprint",
     "samplePlaces": [
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot A]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot B]",
-      "Höllvania - Legacyte Harvest (Legacyte Harvest) [Rot C]",
+      "Höllvania - Legacyte Harvest [Rot A]",
+      "Höllvania - Legacyte Harvest [Rot B]",
+      "Höllvania - Legacyte Harvest [Rot C]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot A]",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot C]"
     ]

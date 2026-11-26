@@ -556,3 +556,45 @@
 - 按照硬性约束还原 `data/meta.json` 与 `docs/remaining-english.md` 时间戳。
 
 ## 2026-11-26 20:27 AEDT — R5 复核通过（133/133，截图 72–75），写 DONE，提交
+
+## 2026-11-26 21:30 AEDT — R6 修复完成：CI 失败修复 (1-3)、圣殿等来源名去重 (4) 与 Carrier Prime 哨兵部件断言 (5)
+
+### 1. 修复 1：fetch-prices.mjs 与 meta.json 覆盖率口径一致性
+- **根因分析**：更新 meta 时调用 `calculatePriceCoverage(priceCache, { rivenSlugs: allCategoryKeys.rivens, ... })`，但 `allCategoryKeys.rivens` 是缓存键（形如 `xxx@unrevealed`），而 `computeCategoryStats(..., {category:'rivens'})` 会再次追加 `@unrevealed` 查价，导致 8 个紫卡均查不到价格，meta.json 少算 8 个 pricedCount（2416 vs 2424）。同时，只要 `--out` 以 `prices.json` 结尾就会写死 `data/meta.json` 真实文件，导致 fixture 测试污染真实 meta。
+- **改动位置**：
+  - `scripts/fetch-prices.mjs`：抽出导出函数 `buildMetaPrices(priceCache, dataDir = DATA_DIR)`，直接读取 `relics.json`、`rivens.json`、`arcanes.json`、`mods.json` 数据集，与 `test/coverage.test.mjs` 采用完全一致的调用方式；
+  - 修正 `metaPath` 路径计算逻辑：取 `outPath` 所在目录下的 `meta.json`，不存在则跳过，彻底隔离 fixture 测试与真实数据。
+- **新增测试**：
+  - `test/fetch_meta_consistency.test.mjs`：
+    1. 回归验证：使用 fixture 模式与临时目录执行 `fetch-prices.mjs`，断言临时 `meta.json` 的 prices 段与 `calculatePriceCoverage(临时 prices, 真实数据集)` 逐字段深相等，且 `rivens.pricedCount` 与直接数 `@unrevealed` 有价项一致；断言真实 `meta.json` 与 `prices.json` 绝不被修改；
+    2. 单元测试：8 个 `slug@unrevealed` 均有价时，验证 `buildMetaPrices` 统计下 `rivens.pricedCount === 8`。
+
+### 2. 修复 2 & 3：缺少原始资料环境下的优雅跳过 (Graceful Skip)
+- **改动位置**：
+  - 新增 `scripts/lib/raw-dir.mjs`：导出 `RAW_DIR = process.env.WF_RAW_DIR || '/workspace/wf-relic-cn-raw'` 与 `hasRawFiles(...relPaths)`；
+  - `test/localization.test.mjs`：“重建后保留验证”在缺少原始资料（`drops_all.json`, `Relics.json`, `zh.json`）时优雅调用 `t.skip()`；
+  - `test/round3b.test.mjs`：A4 exact_match 出处比对在缺少 `wfcd-worldstate-zh/languages.json` 时跳过严格原文对比，但仍对 `nameZh`、`zhSource`、`rule` 等仓库内数据严格断言；在有 raw 时保持严格断言不变；
+  - `test/pvp.test.mjs`：重构 rawFile 检查与第 117 行回归测试，检查必要文件而非空目录；
+  - 排查并更新 `test/calculations.test.mjs`、`test/math_kernel_m1.test.mjs`、`test/localization_r3.test.mjs`、`test/round4.test.mjs`、`scripts/check-invariants-with-mutated-prices.mjs`，统一引入 `scripts/lib/raw-dir.mjs`。
+
+### 3. 修复 4：14 个任务来源名称括号模式去重与数据重建
+- **改动位置**：
+  - `scripts/build-data.mjs`（约 630–670 行）：当括号模式名（英文 `gameMode`）已完整包含在节点英文名中时省略 ` (模式)`，中文名同理当 `modeZh` 被 `nodeDisplayZh` 包含时省略；若判断不一致以英文判断为准并同时省略中文。保留原 Hard 去重逻辑，且排除 Caches 变体后缀；
+  - 本地执行 `node scripts/build-data.mjs --raw /workspace/wf-relic-cn-raw` 重建全站数据；
+  - 检查 diff：`data/prices.json` 无任何变动；`data/meta.json` prices 段保持一致；`data/sources.json`、`data/arcanes.json`、`data/mods.json`、`data/search-index.json`、`data/unmatched.json` 仅涉及受影响的 14 个来源及引用它们的名称/索引；
+  - 输出 14 个来源修复前后中英文对照表至 `/workspace/wf-relic-cn-notes/r6-sanctuary-before-after.md`；
+  - 新增测试 `test/sanctuary_dedupe.test.mjs`：断言 `data/sources.json` 中无任何任务来源包含未去重的括号模式名；并以 ID 精确断言 14 个来源修复后的新中英文名称。
+
+### 4. 修复 5：Carrier Prime 哨兵部件官方译名验证
+- **改动位置**：
+  - 新增测试 `test/carrier_prime.test.mjs`：
+    - 读取 `/workspace/wf-relic-cn-raw/de-export/ExportResources_zh.json`（缺失时优雅 skip）；
+    - 断言 `PrimeCarrierSystems`、`PrimeCarrierCarapace`、`PrimeCarrierCerebrum` 的 name 分别严格等于数据中 `Carrier Prime Systems`、`Carrier Prime Carapace`、`Carrier Prime Cerebrum` 的中文名（“搬运者 Prime 系统/外壳/头部”）；
+    - 断言 `config/zh-map.json` 中 `enemies.Carrier` 仍为“母舰”，且 `uniqueName` 仅绑定 `SwarmShipAvatar`。
+
+### 5. 验证结果
+- `npm test`（含 raw）：**138/138 测试通过（0 fail, 0 skip）**；
+- `WF_RAW_DIR=/nonexistent/xx npm test`（无 raw）：**128/138 测试通过，10 个依赖 raw 的测试优雅跳过（0 fail, 10 skip）**；
+- `node scripts/check-invariants-with-mutated-prices.mjs`：全部不变量断言通过，真实 `data/prices.json` 绝未被修改；
+- `data/meta.json` 与 `docs/remaining-english.md` 时间戳已按硬性约束检出还原。
+

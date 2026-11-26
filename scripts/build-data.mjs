@@ -633,10 +633,6 @@ export async function build(customOptions = {}) {
         const isHardDuplicate = hasHardSuffix && isGameModeHard;
         const nodeBaseEn = isHardDuplicate ? node.replace(/\s*\(Hard\)$/i, '').trim() : node;
 
-        const nameEn = isHardDuplicate
-          ? `${planet} - ${nodeBaseEn} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`
-          : `${planet} - ${node} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`;
-
         // A1: nodeZh 已是 DE 名时，nameZh 使用 nodeZh（如 水星 - 阿波罗多罗斯撞击坑 (生存) [轮次 A]）；未对齐节点保持原样
         const isDeAligned = Boolean(nodeMap?.deAligned || (nodeMap?.zhSource && nodeMap.zhSource.startsWith('de_export:ExportRegions_zh')));
         let nodeDisplayZh = node;
@@ -646,7 +642,38 @@ export async function build(customOptions = {}) {
           nodeDisplayZh = nodeBaseEn;
         }
 
-        const nameZh = `${planetZh} - ${nodeDisplayZh} (${modeZh})${rotation ? ` [轮次 ${rotation}]` : ''}`;
+        // 修复 4: 圣殿等来源名重复 (当括号模式名完整包含在节点英文名中时省略 (模式))
+        // 现有 Hard 去重保持不变；Caches 变体后缀保持不变
+        const isModeInNodeEn = Boolean(
+          gameMode &&
+          gameMode !== 'Caches' &&
+          !isHardDuplicate &&
+          nodeBaseEn.toLowerCase().includes(gameMode.trim().toLowerCase())
+        );
+        const isModeInNodeZh = Boolean(
+          modeZh &&
+          gameMode !== 'Caches' &&
+          !isHardDuplicate &&
+          nodeDisplayZh.toLowerCase().includes(modeZh.trim().toLowerCase())
+        );
+        // 判定分别对英文和中文做，若不一致以英文判断为准并同时省略中文
+        const omitMode = isModeInNodeEn;
+
+        let nameEn;
+        if (omitMode) {
+          nameEn = `${planet} - ${nodeBaseEn}${rotation ? ` [Rot ${rotation}]` : ''}`;
+        } else if (isHardDuplicate) {
+          nameEn = `${planet} - ${nodeBaseEn} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`;
+        } else {
+          nameEn = `${planet} - ${node} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`;
+        }
+
+        let nameZh;
+        if (omitMode) {
+          nameZh = `${planetZh} - ${nodeDisplayZh}${rotation ? ` [轮次 ${rotation}]` : ''}`;
+        } else {
+          nameZh = `${planetZh} - ${nodeDisplayZh} (${modeZh})${rotation ? ` [轮次 ${rotation}]` : ''}`;
+        }
         const sourceZhSource = nodeMap?.zhSource || 'composed:mission_rewards';
         
         const processedRewards = [];
