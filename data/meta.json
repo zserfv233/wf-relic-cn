@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "phase": 4,
-  "builtAt": "2026-11-26T01:26:17.840Z",
+  "builtAt": "2026-11-26T02:39:53.266Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -22,7 +22,7 @@
     "totalSources": 2394,
     "bountySources": 299,
     "pvpSources": 45,
-    "unmatchedCount": 754
+    "unmatchedCount": 753
   },
   "pvpSources": 45,
   "prices": {
@@ -37,9 +37,9 @@
         "coverage": "100.0%"
       },
       "rivens": {
-        "pricedCount": 8,
+        "pricedCount": 0,
         "totalCount": 8,
-        "coverage": "100.0%"
+        "coverage": "0.0%"
       },
       "arcanes": {
         "pricedCount": 332,

@@ -41,20 +41,6 @@
         "enemyModDropChance": null
       },
       {
-        "sourceId": "mission_duviri_endless_repeated_rewards_hard",
-        "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
-        "zhSource": "composed:en_node+planet:Duviri",
-        "rotation": null,
-        "stage": null,
-        "bountyLevel": null,
-        "chance": 0.95,
-        "quantity": 1,
-        "rarity": "Legendary",
-        "enemyModDropChance": null
-      },
-      {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
         "sourceType": "transient",
         "nameEn": "The Descendia: Uncommon Rewards (Steel Path)",
@@ -151,20 +137,6 @@
         "chance": 8.5,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
-      },
-      {
-        "sourceId": "mission_duviri_endless_repeated_rewards_hard",
-        "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
-        "zhSource": "composed:en_node+planet:Duviri",
-        "rotation": null,
-        "stage": null,
-        "bountyLevel": null,
-        "chance": 0.95,
-        "quantity": 1,
-        "rarity": "Legendary",
         "enemyModDropChance": null
       },
       {
@@ -267,20 +239,6 @@
         "enemyModDropChance": null
       },
       {
-        "sourceId": "mission_duviri_endless_repeated_rewards_hard",
-        "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
-        "zhSource": "composed:en_node+planet:Duviri",
-        "rotation": null,
-        "stage": null,
-        "bountyLevel": null,
-        "chance": 0.95,
-        "quantity": 1,
-        "rarity": "Legendary",
-        "enemyModDropChance": null
-      },
-      {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
         "sourceType": "transient",
         "nameEn": "The Descendia: Uncommon Rewards (Steel Path)",
@@ -377,20 +335,6 @@
         "chance": 2.7,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
-      },
-      {
-        "sourceId": "mission_duviri_endless_repeated_rewards_hard",
-        "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
-        "zhSource": "composed:en_node+planet:Duviri",
-        "rotation": null,
-        "stage": null,
-        "bountyLevel": null,
-        "chance": 0.95,
-        "quantity": 1,
-        "rarity": "Legendary",
         "enemyModDropChance": null
       },
       {
@@ -493,20 +437,6 @@
         "enemyModDropChance": null
       },
       {
-        "sourceId": "mission_duviri_endless_repeated_rewards_hard",
-        "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
-        "zhSource": "composed:en_node+planet:Duviri",
-        "rotation": null,
-        "stage": null,
-        "bountyLevel": null,
-        "chance": 0.95,
-        "quantity": 1,
-        "rarity": "Legendary",
-        "enemyModDropChance": null
-      },
-      {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
         "sourceType": "transient",
         "nameEn": "The Descendia: Uncommon Rewards (Steel Path)",
@@ -575,20 +505,6 @@
         "chance": 1.2,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
-      },
-      {
-        "sourceId": "mission_duviri_endless_repeated_rewards_hard",
-        "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Repeated Rewards (Hard) (Hard)",
-        "zhSource": "composed:en_node+planet:Duviri",
-        "rotation": null,
-        "stage": null,
-        "bountyLevel": null,
-        "chance": 0.95,
-        "quantity": 1,
-        "rarity": "Legendary",
         "enemyModDropChance": null
       },
       {

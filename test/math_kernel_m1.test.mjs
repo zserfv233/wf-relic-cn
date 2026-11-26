@@ -315,4 +315,53 @@ describe('数学内核修复 (Math Kernel - Phase M1 - Invariants)', () => {
     assert.ok(Math.abs(values.expectedValueRaw - 4.333) < 0.005);
     assert.strictEqual(values.expectedValue, 4.33);
   });
+
+  it('10. Duviri 跨表头串入截取与普通 Tier 1/3 舍入兼容 (决策 1)', (t) => {
+    const rawHtmlPath = '/workspace/wf-relic-cn-raw/de_droptables.html';
+    const htmlExists = fs.existsSync(rawHtmlPath);
+
+    const duviriHard = sources.find(s => s.id === 'mission_duviri_endless_repeated_rewards_hard');
+    assert.ok(duviriHard, 'Duviri/Endless: Repeated Rewards (Hard) 来源必须存在');
+
+    if (!htmlExists) {
+      if (t && typeof t.skip === 'function') {
+        t.skip('未提供 de_droptables.html 原始文件，跳过截取指纹断言');
+      }
+    } else {
+      // 钢铁重复奖励截取为 11 项，概率和约为 99.99%
+      assert.strictEqual(duviriHard.rewards.length, 11, '钢铁重复奖励必须精确截取为 11 项');
+      assert.ok(Math.abs(duviriHard.probabilitySum - 99.99) < 0.01, `概率和必须约为 99.99%，实际为 ${duviriHard.probabilitySum}`);
+      assert.ok(duviriHard.boundaryFix, '必须存在 boundaryFix 结构');
+      assert.strictEqual(duviriHard.boundaryFix.source, 'de_droptables.html');
+      assert.strictEqual(duviriHard.boundaryFix.originalCount, 62);
+      assert.strictEqual(duviriHard.boundaryFix.keptCount, 11);
+      assert.strictEqual(duviriHard.contaminated, false);
+    }
+
+    // 普通难度 Tier 1 和 Tier 3 舍入兼容性豁免
+    const duviriT1 = sources.find(s => s.id === 'mission_duviri_endless_tier_1');
+    const duviriT3 = sources.find(s => s.id === 'mission_duviri_endless_tier_3');
+    assert.ok(duviriT1, 'Duviri Endless Tier 1 必须存在');
+    assert.ok(duviriT3, 'Duviri Endless Tier 3 必须存在');
+
+    assert.strictEqual(duviriT1.roundingCompatible, true);
+    assert.strictEqual(duviriT1.rewards.length, 150);
+    assert.strictEqual(duviriT1.probabilitySum, 100.5);
+    assert.ok(duviriT1.roundingNote.includes('150'));
+
+    assert.strictEqual(duviriT3.roundingCompatible, true);
+    assert.strictEqual(duviriT3.rewards.length, 150);
+    assert.strictEqual(duviriT3.probabilitySum, 100.5);
+    assert.ok(duviriT3.roundingNote.includes('150'));
+
+    // 其他 over 100% 的表严禁被附带豁免 (不得普遍豁免超额表)
+    const otherOverSources = sources.filter(s =>
+      s.probabilitySum > 100.1 &&
+      s.id !== 'mission_duviri_endless_tier_1' &&
+      s.id !== 'mission_duviri_endless_tier_3'
+    );
+    for (const src of otherOverSources) {
+      assert.strictEqual(src.roundingCompatible ?? false, false, `来源 ${src.id} (${src.nameEn}) 概率和为 ${src.probabilitySum}%，不应被豁免 roundingCompatible`);
+    }
+  });
 });

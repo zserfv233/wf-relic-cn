@@ -84,4 +84,33 @@ describe('价格解析与乱序订单提取 (Price Parsing & Fixture Isolation)'
     const afterContent = fs.readFileSync(DATA_PRICES_PATH, 'utf8');
     assert.strictEqual(afterContent, beforeContent, 'fixture 模式绝不能修改 data/prices.json');
   });
+
+  it('紫卡 subtype 严格过滤：排除 missing subtype 或 revealed 订单，结果 subtype 取自订单实际字段', () => {
+    const ordersData = {
+      sell: [
+        { platinum: 20, subtype: 'revealed', user: { status: 'ingame', id: 'u1' } }, // revealed 应被排除
+        { platinum: 25, user: { status: 'ingame', id: 'u2' } }, // 缺 subtype 应被排除且不被标为 unrevealed
+        { platinum: 35, subtype: 'unrevealed', user: { status: 'online', id: 'u3' } }, // 命中
+        { platinum: 40, subtype: 'unrevealed', user: { status: 'ingame', id: 'u4' } }, // 命中
+        { platinum: 50, subtype: 'unrevealed', user: { status: 'online', id: 'u5' } }  // 命中
+      ],
+      buy: [
+        { platinum: 10, subtype: 'unrevealed', user: { status: 'online', id: 'b1' } },
+        { platinum: 15, subtype: 'revealed', user: { status: 'online', id: 'b2' } }, // 排除
+        { platinum: 12, user: { status: 'online', id: 'b3' } } // 排除
+      ]
+    };
+
+    const res = parseOrdersTop(ordersData, { slug: 'rifle_riven_mod_veiled', subtype: 'unrevealed' });
+    assert.strictEqual(res.sellMin, 35, '最低 unrevealed 卖价应为 35');
+    assert.strictEqual(res.sellCount, 3);
+    assert.strictEqual(res.uniqueSellers, 3);
+    assert.strictEqual(res.lowConfidence, false);
+    assert.strictEqual(res.subtype, 'unrevealed', '结果中 subtype 应为被接受订单的实际 subtype');
+
+    assert.strictEqual(res.buyMax, 10, '最高 unrevealed 买价应为 10');
+    assert.strictEqual(res.buyCount, 1);
+    assert.strictEqual(res.uniqueBuyers, 1);
+    assert.strictEqual(res.buyLowConfidence, true);
+  });
 });

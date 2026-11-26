@@ -12,7 +12,8 @@ import {
   getItemPrice,
   getPriceEntry,
   arcaneCopiesForRank,
-  isUntradeableItem
+  isUntradeableItem,
+  arbitrationFirst8
 } from './lib/calculations.js';
 import { searchIndex } from './lib/search.js';
 import { filterSources } from './lib/sources.js';
@@ -541,7 +542,6 @@ function renderRivensView() {
   elements.gridView.innerHTML = list.map(riv => {
     const rivenEntry = getPriceEntry(riv.slug, null, state.prices);
     const price = rivenEntry ? rivenEntry[priceType] : null;
-    const isSubtypeUnknown = rivenEntry?.subtypeUnknown ?? false;
     const topSources = riv.dropSources.slice(0, 3);
 
     return `
@@ -560,7 +560,6 @@ function renderRivensView() {
           <span class="plat-label">市场交易价:</span>
           <span class="plat-badge">${formatPlat(price)}</span>
         </div>
-        ${isSubtypeUnknown ? `<div style="margin-bottom: 0.35rem;"><span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;" title="旧缓存未区分子类型">旧缓存未区分子类型</span></div>` : ''}
 
         <div class="rewards-preview">
           ${topSources.map(s => `
@@ -688,8 +687,11 @@ function renderSourcesView() {
     }
   });
 
-  // 4. 排序 (默认推荐使用 confident 未取整值，若无则使用 Raw 值)
+  // 4. 排序 (默认推荐使用 confident 未取整值，若无则使用 Raw 值；受污染来源退出收益排序)
   list.sort((a, b) => {
+    if (a.contaminated && !b.contaminated) return 1;
+    if (!a.contaminated && b.contaminated) return -1;
+
     const curA = state.currentPriceType === 'buyMax' ? a._expBuy : a._expSell;
     const curB = state.currentPriceType === 'buyMax' ? b._expBuy : b._expSell;
     const expA = curA?.expectedValueConfidentRaw ?? curA?.expectedValueRaw ?? -1;
@@ -736,7 +738,11 @@ function renderSourcesView() {
     }
 
     let probBadge = '';
-    if (src.probabilityCheck === 'over' || src.probabilityCheck === 'under') {
+    if (src.contaminated) {
+      probBadge = `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.72rem;">⚠️ 数据污染（已退出收益排序）</span>`;
+    } else if (src.roundingCompatible) {
+      probBadge = `<span class="badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); font-size: 0.72rem;" title="${escapeHtml(src.roundingNote || '')}">概率和 ${src.probabilitySum}%（舍入兼容）</span>`;
+    } else if (src.probabilityCheck === 'over' || src.probabilityCheck === 'under') {
       probBadge = `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.72rem;">概率和 ${src.probabilitySum}%（待核对）</span>`;
     }
 
@@ -748,7 +754,7 @@ function renderSourcesView() {
 
     let lowConfBadge = '';
     if (hasSellLowConf) {
-      lowConfBadge = `<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;" title="包含卖家数不足 3 人的稀疏卖单">「低置信」含 ${src._expSell.lowConfidenceCount} 项稀疏卖单</span>`;
+      lowConfBadge = `<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;" title="包含有效去重卖家不足 3 人的低置信挂单（warframe.market /top 接口每侧最多返回 5 条在线订单，仅为样本，不代表全市场卖家数）">「低置信」含 ${src._expSell.lowConfidenceCount} 项</span>`;
     }
 
     return `
@@ -840,7 +846,15 @@ export function openRelicModal(relicId) {
   `;
 
   let alertBanner = '';
-  if (relic.dataConflict) {
+  if (relic.id === 'requiem_eterna' || relic.chanceOverride) {
+    const override = relic.chanceOverride || {};
+    alertBanner = `
+      <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #f87171;">
+        <div style="margin-bottom: 0.35rem;"><strong>官方原文：</strong>"${escapeHtml(override.quote || "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.")}"（出处：<a href="${override.url || 'https://www.warframe.com/en/patch-notes/pc/42-0-0'}" target="_blank" style="color: var(--cyan-primary);">DE Update 42 更新说明</a>）</div>
+        <div><strong>本站推导：</strong>${escapeHtml(override.derivation || '仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）')}（DE 官方掉落表仍列 8 项各 9.50% 合计 76%，本站有效期望按 12.5% 计算）</div>
+      </div>
+    `;
+  } else if (relic.dataConflict) {
     alertBanner = `
       <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #f87171;">
         <strong>资料冲突：</strong>${escapeHtml(relic.dataConflictNote || 'DE 掉落表与更新说明冲突')}。<br>
@@ -1155,7 +1169,6 @@ export function openRivenModal(slug) {
 
   const rivenEntry = getPriceEntry(slug, null, state.prices);
   const price = rivenEntry ? rivenEntry[state.currentPriceType] : null;
-  const isSubtypeUnknown = rivenEntry?.subtypeUnknown ?? false;
 
   const sourcesRows = riv.dropSources.map(s => `
     <tr>
@@ -1182,11 +1195,6 @@ export function openRivenModal(slug) {
         <div class="metric-val" style="color: #c084fc;">${formatPlat(price)}</div>
       </div>
     </div>
-    ${isSubtypeUnknown ? `
-      <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 6px; padding: 0.6rem 0.8rem; margin-top: 0.75rem; font-size: 0.82rem; color: #fbbf24;">
-        ⚠️ <strong>旧缓存未区分子类型：</strong>当前价格数据尚未区分 unrevealed 等具体子类型，可能混有不同挂单。
-      </div>
-    ` : ''}
 
     <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1rem 0 0.5rem 0;">
       🎯 掉落来源 (${riv.dropSources.length} 处)
@@ -1362,8 +1370,17 @@ export function openSourceModal(sourceId) {
     modalTitle = '单次发奖期望';
   }
 
-  const probNotice = (src.probabilityCheck === 'over' || src.probabilityCheck === 'under')
-    ? `<div style="margin-top: 0.35rem; color: #f87171; font-size: 0.8rem;">⚠️ 概率和 ${src.probabilitySum}%（待核对）</div>`
+  let probNotice = '';
+  if (src.contaminated) {
+    probNotice = `<div style="margin-top: 0.35rem; color: #f87171; font-size: 0.8rem;">⚠️ <strong>数据污染：</strong>上游数据存在异常或校验失败，该来源已强制退出收益排序，期望值记 null。</div>`;
+  } else if (src.roundingCompatible) {
+    probNotice = `<div style="margin-top: 0.25rem; color: #60a5fa; font-size: 0.8rem;">💡 <strong>舍入兼容说明：</strong>${escapeHtml(src.roundingNote || '')}</div>`;
+  } else if (src.probabilityCheck === 'over' || src.probabilityCheck === 'under') {
+    probNotice = `<div style="margin-top: 0.35rem; color: #f87171; font-size: 0.8rem;">⚠️ 概率和 ${src.probabilitySum}%（待核对）</div>`;
+  }
+
+  const boundaryFixNotice = src.boundaryFix
+    ? `<div style="margin-top: 0.25rem; color: var(--cyan-primary); font-size: 0.8rem;">ℹ️ <strong>表头边界修正：</strong>依据 ${escapeHtml(src.boundaryFix.source)} 表头 "${escapeHtml(src.boundaryFix.header)}" 校验，已从原始 ${src.boundaryFix.originalCount} 项中截取所属 ${src.boundaryFix.keptCount} 项。</div>`
     : '';
 
   const incompleteNotice = expData.incomplete
@@ -1378,7 +1395,82 @@ export function openSourceModal(sourceId) {
     ? `<div style="margin-top: 0.25rem; color: var(--cyan-primary);">ℹ️ 去重说明：${escapeHtml(src.dedupeNote)}</div>`
     : '';
 
+  // 仲裁前八轮平均参考 (Decision 2)
+  let arbitrationBanner = '';
+  if (src.id.includes('arbitrations_') || (src.nameEn && src.nameEn.startsWith('Arbitrations'))) {
+    const arbA = state.sources.find(s => s.id === 'source_transient_arbitrations_a');
+    const arbB = state.sources.find(s => s.id === 'source_transient_arbitrations_b');
+    const arbC = state.sources.find(s => s.id === 'source_transient_arbitrations_c');
+    if (arbA && arbB && arbC) {
+      const eASell = calculateSourceExpectedValue(arbA.rewards, state.prices, { priceType: 'sellMin' });
+      const eBSell = calculateSourceExpectedValue(arbB.rewards, state.prices, { priceType: 'sellMin' });
+      const eCSell = calculateSourceExpectedValue(arbC.rewards, state.prices, { priceType: 'sellMin' });
+
+      const eABuy = calculateSourceExpectedValue(arbA.rewards, state.prices, { priceType: 'buyMax' });
+      const eBBuy = calculateSourceExpectedValue(arbB.rewards, state.prices, { priceType: 'buyMax' });
+      const eCBuy = calculateSourceExpectedValue(arbC.rewards, state.prices, { priceType: 'buyMax' });
+
+      const avg8Sell = arbitrationFirst8(eASell.expectedValueRaw, eBSell.expectedValueRaw, eCSell.expectedValueRaw);
+      const avg8Buy = arbitrationFirst8(eABuy.expectedValueRaw, eBBuy.expectedValueRaw, eCBuy.expectedValueRaw);
+      const avg8Conf = arbitrationFirst8(eASell.expectedValueConfidentRaw, eBSell.expectedValueConfidentRaw, eCSell.expectedValueConfidentRaw);
+
+      const isIncomplete = eASell.incomplete || eBSell.incomplete || eCSell.incomplete;
+
+      arbitrationBanner = `
+        <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap;">
+            <span style="font-weight: 600; color: #c084fc; font-size: 0.95rem;">⚖️ 仲裁前八轮平均参考（发奖序列 AABBCCCC…）</span>
+            ${isIncomplete ? '<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;">不完整估值</span>' : ''}
+          </div>
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.4rem;">
+            <div>卖单均值: <strong style="color: var(--gold-light);">${avg8Sell !== null ? `${avg8Sell.toFixed(2)} ☿` : '—'}</strong> ${avg8Conf !== null ? `<span style="font-size: 0.8rem; color: var(--cyan-primary);">(高置信: ${avg8Conf.toFixed(2)} ☿)</span>` : ''}</div>
+            <div>买单均值: <strong style="color: var(--text-primary);">${avg8Buy !== null ? `${avg8Buy.toFixed(2)} ☿` : '—'}</strong></div>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
+            单位：<strong>每次发奖平均白金</strong>（注：不代表每分钟收益）。仲裁第 4 轮后持续给 C 轮奖励；发奖轮数 N≥4 通式为 <code>[2A+2B+(N−4)C]/N</code>。
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // 缺价物品清单 (Decision 3)
+  let missingItemsSection = '';
+  if (expData.missingItems && expData.missingItems.length > 0) {
+    missingItemsSection = `
+      <div style="margin-top: 1rem; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 6px; padding: 0.75rem 1rem;">
+        <div style="font-weight: 600; color: #fbbf24; font-size: 0.9rem; margin-bottom: 0.4rem;">
+          ⚠️ 缺价/未估值物品清单（共 ${expData.missingItems.length} 项，缺价概率合计 ${expData.missingProbability}%）
+        </div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+          说明：Endo、现金包、赤毒等无直接市价资源不设默认白金汇率，保持未估值状态，不代表无用途或价值为 0 ☿。
+        </div>
+        <div style="max-height: 160px; overflow-y: auto;">
+          <table style="width: 100%; font-size: 0.8rem; border-collapse: collapse;">
+            <thead>
+              <tr style="color: var(--text-muted); text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                <th style="padding: 0.25rem 0.5rem;">物品名称</th>
+                <th style="padding: 0.25rem 0.5rem;">数量</th>
+                <th style="padding: 0.25rem 0.5rem;">掉落几率</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${expData.missingItems.map(m => `
+                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                  <td style="padding: 0.25rem 0.5rem; color: var(--text-primary);">${escapeHtml(m.zhName || m.name)} <span style="font-size: 0.72rem; color: var(--text-muted);">(${escapeHtml(m.name)})</span></td>
+                  <td style="padding: 0.25rem 0.5rem; color: var(--text-secondary);">${m.quantity > 1 ? `×${m.quantity}` : '1'}</td>
+                  <td style="padding: 0.25rem 0.5rem; color: var(--cyan-primary);">${m.chance}%</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
   elements.modalBodyContent.innerHTML = `
+    ${arbitrationBanner}
     <div class="expected-dashboard" style="margin-top: 0;">
       <div style="font-size: 0.85rem; font-weight: 600; color: var(--gold-light); margin-bottom: 0.6rem;">${modalTitle}</div>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
@@ -1400,9 +1492,10 @@ export function openSourceModal(sourceId) {
         公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
         ${rotationPatternNotice}
         ${dedupeNotice}
+        ${boundaryFixNotice}
         ${probNotice}
         ${incompleteNotice}
-        ${expSell.lowConfidenceCount > 0 ? `<div style="margin-top: 0.25rem; color: #fbbf24;">⚠️ 卖单中包含 ${expSell.lowConfidenceCount} 项稀疏卖单（卖家数不足 3 人），高置信收益估算为 ${expSell.expectedValueConfident !== null ? `${expSell.expectedValueConfident} ☿` : '—'}。</div>` : ''}
+        ${expSell.lowConfidenceCount > 0 ? `<div style="margin-top: 0.25rem; color: #fbbf24;">⚠️ 卖单中包含 ${expSell.lowConfidenceCount} 项低置信挂单（有效去重卖家少于 3 人），高置信收益估算为 ${expSell.expectedValueConfident !== null ? `${expSell.expectedValueConfident} ☿` : '—'}。</div>` : ''}
       </div>
     </div>
 
@@ -1425,6 +1518,7 @@ export function openSourceModal(sourceId) {
         </tbody>
       </table>
     </div>
+    ${missingItemsSection}
   `;
 
   elements.detailModal.classList.add('active');

@@ -87818,7 +87818,15 @@
       "conflict": true,
       "conflictNote": "DE当前掉落表现存该遗物，但WFCD标记为已入库",
       "dataConflict": true,
-      "dataConflictNote": "资料冲突：DE 掉落表为 8 项×9.5%=76%，DE 更新说明为不可精炼、8 种等概率（12.5%）；本站按 DE 掉落表原值计算且不归一化",
+      "dataConflictNote": "资料冲突：DE 掉落表为 8 项×9.5%=76%，DE 更新说明为不可精炼、8 种等概率（12.5%）；本站按官方等概率规则推导 12.5% 计算有效期望并保留原始 9.5%",
+      "chanceOverride": {
+        "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+        "verifiedOn": "2026-11-26",
+        "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+        "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
+      },
+      "rawProbabilitySum": 76,
+      "effectiveProbabilitySum": 100,
       "rewards": [
         {
           "name": "Lohk",
@@ -87833,6 +87841,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         },
         {
@@ -87848,6 +87864,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         },
         {
@@ -87863,6 +87887,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         },
         {
@@ -87878,6 +87910,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         },
         {
@@ -87893,6 +87933,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         },
         {
@@ -87908,6 +87956,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         },
         {
@@ -87923,6 +87979,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         },
         {
@@ -87938,6 +88002,14 @@
             "exceptional": null,
             "flawless": null,
             "radiant": null
+          },
+          "rawChance": 9.5,
+          "effectiveChance": 12.5,
+          "chanceOverride": {
+            "url": "https://www.warframe.com/en/patch-notes/pc/42-0-0",
+            "verifiedOn": "2026-11-26",
+            "quote": "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+            "derivation": "仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）"
           }
         }
       ]
@@ -102697,36 +102769,6 @@
           "place": "Duviri - Endless: Tier 4 (Hard) (Hard)",
           "rotation": null,
           "chance": 4.43,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 1.59,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 1.59,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 1.59,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 1.59,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 1.59,
           "rarity": "Rare"
         },
         {
@@ -186264,36 +186306,6 @@
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 17.26,
-          "rarity": "Uncommon"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 17.26,
-          "rarity": "Uncommon"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 17.26,
-          "rarity": "Uncommon"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 17.26,
-          "rarity": "Uncommon"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 17.26,
-          "rarity": "Uncommon"
-        },
-        {
           "place": "Level 30 - 50 Cetus Bounty [Rot C] (Stage 1)",
           "rotation": "C",
           "stage": "Stage 1",
@@ -186725,36 +186737,6 @@
         }
       ],
       "directDrops": [
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 9.52,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 9.52,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 9.52,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 9.52,
-          "rarity": "Rare"
-        },
-        {
-          "place": "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
-          "rotation": null,
-          "chance": 9.52,
-          "rarity": "Rare"
-        },
         {
           "place": "Level 25 - 30 Cambion Drift Bounty [Rot A] (Stage 1)",
           "rotation": "A",

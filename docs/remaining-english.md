@@ -1,6 +1,6 @@
 # wf-relic-cn 汉化覆盖率与剩余英文统计报告
 
-> 生成时间：2026-11-26T01:26:17.940Z  
+> 生成时间：2026-11-26T02:39:53.283Z  
 > 数据来源：本地原始资料 `/workspace/wf-relic-cn-raw`（WFCD warframe-items, warframe-worldstate-data, warframe.market v2, DE 官方掉落表）  
 > 统计口径说明：  
 > - **已汉化**：在官方资料库或权威数据中查找到确切中文译名（含依官方术语规范拼成的合成标题）。  

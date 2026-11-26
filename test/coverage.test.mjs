@@ -54,12 +54,11 @@ describe('价格覆盖率与统计口径 (Price Coverage & Meta - Invariants)', 
     assert.ok(relicsRate >= COVERAGE_FLOOR, `relics 覆盖率 (${(relicsRate * 100).toFixed(1)}%) 不得低于下限 ${COVERAGE_FLOOR * 100}%`);
     assert.ok(relicsRate <= 1.0);
 
-    // 2. Rivens
+    // 2. Rivens (依据 Decision 5：废除紫卡无 subtype 基础键回退，旧缓存缺少 @unrevealed 导致覆盖率下降为预期结果；下限只对物品/赋能/Mod 适用，紫卡仅断言 0–100% 且与重算一致)
     assert.strictEqual(coverage.categories.rivens.totalCount, expectedRivenCount, 'rivens 应抓数必须与紫卡数据集长度一致');
     assert.ok(coverage.categories.rivens.pricedCount <= expectedRivenCount);
     const rivensRate = coverage.categories.rivens.pricedCount / expectedRivenCount;
-    assert.ok(rivensRate >= COVERAGE_FLOOR, `rivens 覆盖率 (${(rivensRate * 100).toFixed(1)}%) 不得低于下限 ${COVERAGE_FLOOR * 100}%`);
-    assert.ok(rivensRate <= 1.0);
+    assert.ok(rivensRate >= 0.0 && rivensRate <= 1.0, `rivens 覆盖率 (${(rivensRate * 100).toFixed(1)}%) 必须在 0-100% 区间`);
 
     // 3. Arcanes
     assert.strictEqual(coverage.categories.arcanes.totalCount, expectedArcaneCount, 'arcanes 应抓数必须与赋能等级键重算一致');

@@ -96,7 +96,7 @@ describe('期望值计算 (Calculations - Phase 2)', () => {
       'arcane_energize@r5': { sellMin: 1400, buyMax: 1200 },
       'serration@r0': { sellMin: 2, buyMax: 1 },
       'serration@r10': { sellMin: 180, buyMax: 150 },
-      'rifle_riven_mod_veiled': { sellMin: 25, buyMax: 20 }
+      'rifle_riven_mod_veiled@unrevealed': { sellMin: 25, buyMax: 20 }
     };
 
     assert.strictEqual(getItemPrice('arcane_energize', 0, rankPrices, 'sellMin'), 65);

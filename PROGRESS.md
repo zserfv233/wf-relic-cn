@@ -265,3 +265,49 @@
 
 ## 2026-11-26 12:35 AEDT — 汉化轮完成（通道复核通过）
 - 详见 DONE.md。下一步：fix/math-decisions（worktree /workspace/wf-relic-cn-decisions）。
+
+## 2026-11-26 12:35 AEDT — 数学决议轮开始（fix/math-decisions，基于 feat/zh-localization 8372999）
+- 依据 /workspace/wf_decisions_1126/decisions.md；WFM subtype 核实记录 /workspace/wf-relic-cn-notes/wfm-subtype-evidence.md。
+- 通道独立核验 DE HTML：Duviri/Endless: Repeated Rewards (Hard) 11 项 99.99%；JSON 该节点 62 项 599.99%（verify/duviri_html.py）。
+
+- 13:37 第7次中断后恢复：Dec1 (pid 660286) 仍在跑，13:29 后仍有文件变动；继续等待。停止条件：13:29 后 30 分钟无文件变化，或 14:35（开始后 120 分钟）仍未结束。
+
+## 2026-11-26 13:40 AEDT — 数学决议轮完成（fix/math-decisions 本地实现与测试全通）
+- 依据 Codex 拍板文件 `/workspace/wf_decisions_1126/decisions.md` 与 WFM subtype 契约核实记录 `/workspace/wf-relic-cn-notes/wfm-subtype-evidence.md` 完成 6 项决定：
+  1. **Duviri 跨表头串入截取与普通 Tier 1/3 舍入兼容**：
+     - 在 `scripts/build-data.mjs` 中从 `de_droptables.html` 动态解析 `Duviri/Endless: Repeated Rewards (Hard)` 表头及 11 项奖励名称与掉率；
+     - 与 JSON 对应项进行严格指纹比对，核验一致后截取 11 项并写入 `boundaryFix: { source: 'de_droptables.html', header: 'Duviri/Endless: Repeated Rewards  (Hard)', originalCount: 62, keptCount: 11 }` 与 `contaminated: false`；
+     - 串入的 Recall Ten-Zero Week 1–5 五周表（51 项）不作为 Duviri 奖励，是否作为常态掉落源目前在当前版本中无法获取，在 PROGRESS 里注明并列入待拍板；
+     - 普通难度 Tier 1 和 Tier 3（150 项 × 0.67% = 100.50%）经核实为 150 项严格等概率且偏差 +0.50% <= 0.75% 舍入上限，标记 `roundingCompatible: true` 与 `roundingNote`，保留原概率与和，不擅自归一；
+     - 其余超额表严禁获得 roundingCompatible 豁免。
+  2. **平均视图纯函数与通式**：
+     - 在 `js/lib/calculations.js` 中新增纯函数 `aabcAverage(A, B, C) = (2A+B+C)/4`、`arbitrationFirstNAverage(A, B, C, N)` 与 `arbitrationFirst8(A, B, C)`；
+     - 使用未取整 EV 计算；严格实现 null 传播（任一输入为 null 则结果为 null）；
+     - 仲裁来源在弹窗中启用“仲裁前八轮平均”横幅，并公式公示 N 轮通式 `[2A+2B+(N−4)C]/N`（N>=4）；
+     - 单位明确为“每次发奖平均白金”，注明不代表每分钟收益；
+     - AABC 纯函数在单测中全覆盖，界面默认不对常规星图节点启用，列入「待 Codex 拍板」。
+  3. **无市价资源保持 incomplete**：
+     - 不设虚构汇率、不写为 0 或“无用途”，在期望值计算中保持 `incomplete: true`；
+     - 在 `calculateSourceExpectedValue` 与 `calculateEnemyExpectedValue` 中收集 `missingItems: [{ name, itemName, baseName, zhName, quantity, chance, rarity, slug }]`；
+     - 来源详情弹窗展示“缺价物品清单”，清晰展示缺价物品名称、数量、掉率及缺价概率合计。
+  4. **低置信按去重卖家**：
+     - 常量统一导出：在 `js/lib/calculations.js` 中导出 `LOW_CONFIDENCE_MIN_SELLERS = 3`，`js/lib/prices.js` 统一 import；
+     - `parseOrdersTop` 中统计同 rank/subtype/在线、价格有效的去重卖家 `uniqueSellers` 与去重买家 `uniqueBuyers`（优先按 `user.id`，回退 `user.ingameName`）；
+     - 旧缓存条目无 `uniqueSellers` 时标记 `sellerCountUnverified: true` 并视为低置信；买侧独立标记 `buyerCountUnverified: true`；
+     - 前端低置信提示与表格列头明示：“warframe.market /top 接口每侧最多返回 5 条在线订单，仅为样本，不代表全市场卖家数”。
+  5. **紫卡 subtype 契约与回退清理**：
+     - 读取路径 `getPriceEntry` 与覆盖率 `computeCategoryStats` 彻底移除对未带 subtype 基础键的回退：紫卡只认 `${slug}@unrevealed`，不存在则返回 null（缺价）；
+     - `matchesSubtype` 严格检查 `order.subtype === subtype`，缺少字段或不等一律排除；结果里的 subtype 记录订单实际 subtype；
+     - 撰写文档 `docs/wfm-subtype.md`，记录官方契约要点与排查依据；
+     - 前端移除“旧缓存未区分子类型”徽章，展示为暂无价格；
+     - `test/coverage.test.mjs` 中对紫卡覆盖率断言放宽至 0–100% 并注释原因。
+  6. **Requiem ETERNA 掉率覆盖**：
+     - 仅对 `requiem_eterna` 遗物奖励补充：`rawChance: 9.5`、`effectiveChance: 12.5` 以及 `chanceOverride: { url: 'https://www.warframe.com/en/patch-notes/pc/42-0-0', verifiedOn: '2026-11-26', quote: "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.", derivation: '仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）' }`；
+     - 遗物 `rawProbabilitySum: 76`，`effectiveProbabilitySum: 100`；EV 计算采用 `effectiveChance`；
+     - 保留 `dataConflict: true`；优良/无暇/光辉严格为 null 并标记 unsupportedRefinement；
+     - 遗物弹窗双行说明：“官方原文：...（引用+链接）”与“本站推导：1/8=12.5%”，说明 DE 掉落表仍写 9.5%；
+     - 保证除 ETERNA 外其他任何遗物不套用覆盖。
+- 测试与验证：
+  - `npm test`：12 个测试套件，75 个测试用例全部通过（75 passed, 0 failed）；
+  - `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：变异价格不变量验证全部通过。
+

@@ -306,6 +306,37 @@ export async function build(customOptions = {}) {
   const relicsJson = JSON.parse(fs.readFileSync(relicsPath, 'utf8'));
   const zhJson = JSON.parse(fs.readFileSync(zhPath, 'utf8'));
 
+  // 读取 de_droptables.html 并解析 Duviri 钢铁重复奖励表头
+  const htmlPath = path.join(rawDir, 'de_droptables.html');
+  let duviriHtmlSteelRepeated = null;
+  if (fs.existsSync(htmlPath)) {
+    try {
+      const htmlContent = fs.readFileSync(htmlPath, 'utf8');
+      const headerRegex = /<th[^>]*>\s*(Duviri\/Endless:\s*Repeated Rewards\s*\(Hard\))\s*<\/th>/i;
+      const match = headerRegex.exec(htmlContent);
+      if (match) {
+        const headerText = match[1];
+        const afterHeader = htmlContent.slice(match.index + match[0].length);
+        const sectionEndRegex = /<tr class="blank-row">|<th[^>]*>|<\/table>/i;
+        const endMatch = sectionEndRegex.exec(afterHeader);
+        const tableSlice = endMatch ? afterHeader.slice(0, endMatch.index) : afterHeader.slice(0, 5000);
+        const rowRegex = /<tr>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(?:(.*?)\s*\(([\d.]+)%\)|([\d.]+)%)\s*<\/td>\s*<\/tr>/gi;
+        const items = [];
+        let rowMatch;
+        while ((rowMatch = rowRegex.exec(tableSlice)) !== null) {
+          items.push({
+            name: rowMatch[1].trim(),
+            rarity: (rowMatch[2] || '').trim(),
+            chance: parseFloat(rowMatch[3] || rowMatch[4])
+          });
+        }
+        duviriHtmlSteelRepeated = { header: headerText, items };
+      }
+    } catch (err) {
+      console.warn('[build] 解析 de_droptables.html 失败:', err.message);
+    }
+  }
+
   // 读取 status-overrides.json (A3)
   const statusOverridesPath = path.join(CONFIG_DIR, 'status-overrides.json');
   let statusOverrides = { relics: {} };
@@ -521,8 +552,43 @@ export async function build(customOptions = {}) {
         let rewardList = rawRewardList;
         let dedupedRepeats = null;
         let dedupeNote = null;
+        let boundaryFix = null;
+        let isContaminated = false;
 
-        const repeats = findExactRepeats(rawRewardList);
+        // Duviri 钢铁重复奖励跨表头串入修正 (Decision 1)
+        if (planet === 'Duviri' && node === 'Endless: Repeated Rewards (Hard)') {
+          let verified = false;
+          if (duviriHtmlSteelRepeated && duviriHtmlSteelRepeated.items.length === 11 && rawRewardList.length >= 11) {
+            let matchesFingerprint = true;
+            for (let i = 0; i < 11; i++) {
+              const jsonItem = rawRewardList[i];
+              const htmlItem = duviriHtmlSteelRepeated.items[i];
+              const jsonName = jsonItem.itemName || jsonItem.modName;
+              if (jsonName !== htmlItem.name || Math.abs(Number(jsonItem.chance) - htmlItem.chance) > 0.001) {
+                matchesFingerprint = false;
+                break;
+              }
+            }
+            if (matchesFingerprint) {
+              verified = true;
+              boundaryFix = {
+                source: 'de_droptables.html',
+                header: duviriHtmlSteelRepeated.header,
+                originalCount: rawRewardList.length,
+                keptCount: 11
+              };
+              rewardList = rawRewardList.slice(0, 11);
+            }
+          }
+
+          if (!verified) {
+            // 校验失败（或缺少 HTML 导致无法校验）：保留原数据，但强制 expectedValue 为 null、contaminated: true、退出收益排序
+            rewardList = rawRewardList;
+            isContaminated = true;
+          }
+        }
+
+        const repeats = findExactRepeats(rewardList);
         if (repeats) {
           rewardList = repeats.singleBlock;
           dedupedRepeats = repeats.k;
@@ -592,6 +658,18 @@ export async function build(customOptions = {}) {
           rotation,
           rewards: processedRewards
         };
+
+        if (boundaryFix) {
+          srcObj.boundaryFix = boundaryFix;
+          srcObj.contaminated = false;
+        }
+        if (isContaminated) {
+          srcObj.contaminated = true;
+          srcObj.expectedValue = null;
+          srcObj.expectedValueRaw = null;
+          srcObj.expectedValueConfident = null;
+          srcObj.expectedValueConfidentRaw = null;
+        }
 
         if (rotation && ENDLESS_GAME_MODES.has(gameMode)) {
           srcObj.rotationPattern = '常见 AABC（仅供参考，未做聚合）';
@@ -1056,7 +1134,7 @@ export async function build(customOptions = {}) {
     }
   }
 
-  // 概率和核对
+  // 概率和核对与舍入兼容豁免
   for (const src of sourcesResult) {
     const sum = Number((src.rewards || []).reduce((acc, r) => {
       const c = typeof r.chance === 'number' ? r.chance : (parseFloat(r.chance) || 0);
@@ -1069,6 +1147,23 @@ export async function build(customOptions = {}) {
       src.probabilityCheck = 'under';
     } else {
       src.probabilityCheck = 'ok';
+    }
+
+    // 普通难度 Tier 1/3（150×0.67%=100.50%）舍入兼容核验 (Decision 1)
+    // 仅在行结构已核对（全部等概率且 N×0.005 >= 偏差）时豁免，不得普遍豁免超额表
+    if (src.planet === 'Duviri' && (src.node === 'Endless: Tier 1' || src.node === 'Endless: Tier 3')) {
+      const rews = src.rewards || [];
+      const N = rews.length;
+      if (N > 0) {
+        const firstChance = rews[0].chance;
+        const allEqual = rews.every(r => r.chance === firstChance);
+        const deviation = Math.abs(sum - 100);
+        const maxRoundingDeviation = Number((N * 0.005).toFixed(4)); // 两位小数舍入上限 (本例 150 * 0.005 = 0.75)
+        if (allEqual && maxRoundingDeviation >= deviation) {
+          src.roundingCompatible = true;
+          src.roundingNote = `全部 ${N} 项等概率 (${firstChance}%)，两位小数最大舍入偏差 ${N}×0.005 = ${maxRoundingDeviation.toFixed(2)} 个百分点 ≥ ${deviation.toFixed(2)} 个百分点偏差，与逐项舍入兼容，保留原值不归一化`;
+        }
+      }
     }
   }
 
@@ -1375,7 +1470,7 @@ export async function build(customOptions = {}) {
         }
       }
 
-      processedRewards.push({
+      const rewardItem = {
         name: itemName,
         baseName,
         quantity,
@@ -1384,7 +1479,20 @@ export async function build(customOptions = {}) {
         rarity,
         marketSlug,
         chances
-      });
+      };
+
+      if (relicId === 'requiem_eterna') {
+        rewardItem.rawChance = 9.5;
+        rewardItem.effectiveChance = 12.5;
+        rewardItem.chanceOverride = {
+          url: 'https://www.warframe.com/en/patch-notes/pc/42-0-0',
+          verifiedOn: '2026-11-26',
+          quote: "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+          derivation: '仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）'
+        };
+      }
+
+      processedRewards.push(rewardItem);
 
       const itemKey = marketSlug || baseName;
       if (!itemsResult[itemKey]) {
@@ -1418,7 +1526,15 @@ export async function build(customOptions = {}) {
     const isEterna = relicId === 'requiem_eterna';
     const dataConflict = isEterna;
     const dataConflictNote = isEterna
-      ? '资料冲突：DE 掉落表为 8 项×9.5%=76%，DE 更新说明为不可精炼、8 种等概率（12.5%）；本站按 DE 掉落表原值计算且不归一化'
+      ? '资料冲突：DE 掉落表为 8 项×9.5%=76%，DE 更新说明为不可精炼、8 种等概率（12.5%）；本站按官方等概率规则推导 12.5% 计算有效期望并保留原始 9.5%'
+      : null;
+    const chanceOverride = isEterna
+      ? {
+          url: 'https://www.warframe.com/en/patch-notes/pc/42-0-0',
+          verifiedOn: '2026-11-26',
+          quote: "This Relic’s droptable only contains the 8 Requiem Mods (with equal chance for all), and cannot be refined with Void Traces.",
+          derivation: '仅 8 项且等概率 ⇒ 每项 1/8 = 12.5%（推导，原文未直接写 12.5%）'
+        }
       : null;
 
     relicsResult.push({
@@ -1439,6 +1555,7 @@ export async function build(customOptions = {}) {
       conflictNote,
       dataConflict,
       dataConflictNote,
+      ...(chanceOverride ? { chanceOverride, rawProbabilitySum: 76, effectiveProbabilitySum: 100 } : {}),
       rewards: processedRewards
     });
   }

@@ -101,17 +101,38 @@ describe('精炼掉率提取 (Drop Chances Extraction)', () => {
       }
     }
 
-    // 检查 ETERNA 资料冲突不变量
+    // 检查 ETERNA 资料冲突不变量与决策 6 覆盖
     const eterna = relics.find(r => r.id === 'requiem_eterna');
     assert.ok(eterna, 'Requiem ETERNA 必须存在');
     assert.strictEqual(eterna.dataConflict, true, 'ETERNA 必须标记 dataConflict === true');
     assert.ok(eterna.dataConflictNote.includes('资料冲突'));
     assert.strictEqual(eterna.rewards.length, 8, 'ETERNA 包含 8 种安魂 Mod');
-    const intactSum = eterna.rewards.reduce((acc, rew) => acc + (rew.chances.intact ?? 0), 0);
-    assert.ok(Math.abs(intactSum - 76) <= 0.1, `ETERNA intact 掉率和为 76% (8 * 9.5%)，实测为 ${intactSum}`);
+
+    // 原始数据验证：8 × 9.5% = 76%
+    const intactRawSum = eterna.rewards.reduce((acc, rew) => acc + (rew.rawChance ?? rew.chances.intact ?? 0), 0);
+    assert.ok(Math.abs(intactRawSum - 76) <= 0.1, `ETERNA intact 原始掉率和为 76% (8 * 9.5%)，实测为 ${intactRawSum}`);
+    assert.strictEqual(eterna.rawProbabilitySum, 76);
+
+    // 有效模型验证：8 × 12.5% = 100%
+    const intactEffectiveSum = eterna.rewards.reduce((acc, rew) => acc + (rew.effectiveChance ?? 0), 0);
+    assert.ok(Math.abs(intactEffectiveSum - 100) <= 0.1, `ETERNA intact 有效模型掉率和为 100% (8 * 12.5%)，实测为 ${intactEffectiveSum}`);
+    assert.strictEqual(eterna.effectiveProbabilitySum, 100);
+
+    // 覆盖出处与推导字段
+    assert.ok(eterna.chanceOverride);
+    assert.strictEqual(eterna.chanceOverride.url, 'https://www.warframe.com/en/patch-notes/pc/42-0-0');
+    assert.strictEqual(eterna.chanceOverride.verifiedOn, '2026-11-26');
+    assert.ok(eterna.chanceOverride.quote.includes('only contains the 8 Requiem Mods'));
+    assert.ok(eterna.chanceOverride.derivation.includes('仅 8 项且等概率'));
+
+    // 其余非常规档全为 null
     for (const tier of ['exceptional', 'flawless', 'radiant']) {
       assert.ok(eterna.rewards.every(rew => rew.chances[tier] === null), `ETERNA ${tier} 必须全为 null`);
     }
+
+    // 断言其他遗物不套用覆盖（除 eterna 外无 chanceOverride）
+    const otherRelicsWithOverride = relics.filter(r => r.id !== 'requiem_eterna' && r.chanceOverride);
+    assert.strictEqual(otherRelicsWithOverride.length, 0, '除 requiem_eterna 外任何其他遗物严禁套用 chanceOverride');
   });
 
   it('断言 Lith A1 Braton Prime Barrel 的稀有度使用 DE 掉落表的 Uncommon', () => {

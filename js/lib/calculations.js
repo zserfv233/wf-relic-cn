@@ -6,6 +6,25 @@
 export const LOW_CONFIDENCE_MIN_SELLERS = 3;
 
 /**
+ * 判断价格条目在指定模式与门槛下是否属于低置信度
+ * @param {Object|null} entry 
+ * @param {string} priceType 'sellMin' | 'buyMax'
+ * @param {number} minSellers 门槛卖家数，默认 LOW_CONFIDENCE_MIN_SELLERS (3)
+ * @returns {boolean}
+ */
+export function isPriceEntryLowConfidence(entry, priceType = 'sellMin', minSellers = LOW_CONFIDENCE_MIN_SELLERS) {
+  if (!entry) return true;
+  if (priceType === 'buyMax') {
+    if (entry.buyMax === null || entry.buyMax === undefined) return true;
+    if (entry.buyerCountUnverified || typeof entry.uniqueBuyers !== 'number') return true;
+    return entry.uniqueBuyers < minSellers;
+  }
+  if (entry.sellMin === null || entry.sellMin === undefined) return true;
+  if (entry.sellerCountUnverified || typeof entry.uniqueSellers !== 'number') return true;
+  return entry.uniqueSellers < minSellers;
+}
+
+/**
  * 赋能满级合成所需 0 级数量
  * 公式：N(r) = (r + 1)(r + 2) / 2
  * 例如：Rank 5 -> 21 个，Rank 3 -> 10 个，Rank 0 -> 1 个
@@ -26,10 +45,9 @@ export function isUntradeableItem(item) {
   if (!item || typeof item !== 'object') return false;
   if (item.untradeable === true) return true;
   const slug = item.marketSlug ?? item.slug;
-  if (slug === null || slug === undefined) {
-    const name = item.baseName || item.itemName || item.name || '';
-    if (name.includes('Forma Blueprint')) return true;
-  }
+  if (slug === 'forma_blueprint') return true;
+  const name = item.baseName || item.itemName || item.name || '';
+  if (name.includes('Forma Blueprint')) return true;
   return false;
 }
 
@@ -44,7 +62,6 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
   if (!slug || typeof slug !== 'string' || !prices) return null;
 
   let key = slug;
-  let subtypeUnknown = false;
 
   // 1. 若请求了具体等级 (rank !== null)，严禁回退到基础 slug
   if (rank !== null && rank !== undefined) {
@@ -53,17 +70,21 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
       return null;
     }
   } else {
-    // 2. 无等级请求：优先查找 @unrevealed (紫卡 subtype)，其次查找基础 slug
-    const unrevealedKey = `${slug}@unrevealed`;
-    if (prices[unrevealedKey]) {
-      key = unrevealedKey;
-    } else if (prices[slug]) {
-      key = slug;
-      if (slug.includes('riven')) {
-        subtypeUnknown = true; // 旧缓存未区分子类型回退
+    // 2. 无等级请求：
+    // 紫卡契约（见 docs/wfm-subtype.md）：只认 ${slug}@unrevealed，旧键或无 subtype 键一律返回 null，彻底废除回退
+    if (slug.includes('riven')) {
+      const unrevealedKey = `${slug}@unrevealed`;
+      if (prices[unrevealedKey]) {
+        key = unrevealedKey;
+      } else {
+        return null;
       }
     } else {
-      return null;
+      if (prices[slug]) {
+        key = slug;
+      } else {
+        return null;
+      }
     }
   }
 
@@ -85,8 +106,19 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
     sellRobust = sellMin;
   }
 
-  // lowConfidence: sellCount < 3 (LOW_CONFIDENCE_MIN_SELLERS) 或 sellMin 为 null
-  const lowConfidence = sellCount < LOW_CONFIDENCE_MIN_SELLERS || sellMin === null;
+  // 低置信判定：判定用 uniqueSellers（按稳定用户 ID 去重）；
+  // 旧缓存没有 uniqueSellers 时标 sellerCountUnverified: true，不能凭 sellCount 认定达标（即视为低置信）。
+  // 买侧用 uniqueBuyers 独立判定。
+  const hasUniqueSellers = typeof rawItem.uniqueSellers === 'number';
+  const sellerCountUnverified = !hasUniqueSellers;
+  const uniqueSellers = hasUniqueSellers ? rawItem.uniqueSellers : null;
+
+  const hasUniqueBuyers = typeof rawItem.uniqueBuyers === 'number';
+  const buyerCountUnverified = !hasUniqueBuyers;
+  const uniqueBuyers = hasUniqueBuyers ? rawItem.uniqueBuyers : null;
+
+  const lowConfidence = sellMin === null || sellerCountUnverified || uniqueSellers < LOW_CONFIDENCE_MIN_SELLERS;
+  const buyLowConfidence = buyMax === null || buyerCountUnverified || uniqueBuyers < LOW_CONFIDENCE_MIN_SELLERS;
   const noBuyOrders = buyCount === 0 || buyMax === null;
 
   return {
@@ -96,11 +128,15 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
     buyMax,
     sellCount,
     buyCount,
+    uniqueSellers,
+    uniqueBuyers,
+    sellerCountUnverified,
+    buyerCountUnverified,
     sellRobust,
     robustUnavailable,
     lowConfidence,
-    noBuyOrders,
-    subtypeUnknown: rawItem.subtypeUnknown ?? subtypeUnknown
+    buyLowConfidence,
+    noBuyOrders
   };
 }
 
@@ -203,7 +239,12 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
       continue;
     }
 
-    const chance = Number(rawChance);
+    // ETERNA 等官方出处覆盖：若存在 effectiveChance，在 intact 档采用有效掉率计算 EV 与有效概率
+    let effectiveChanceVal = Number(rawChance);
+    if (refinement === 'intact' && typeof rew.effectiveChance === 'number' && Number.isFinite(rew.effectiveChance)) {
+      effectiveChanceVal = rew.effectiveChance;
+    }
+    const chance = effectiveChanceVal;
     const slug = rew.marketSlug || rew.slug;
 
     // 已确认不可交易 (如 Forma Blueprint) -> 明确记 0，归类 'untradeable'
@@ -234,10 +275,8 @@ export function calculateExpectedValue(rewards = [], prices = {}, { priceType = 
       const contribution = (chance / 100) * quantity * price;
       totalKnown += contribution;
 
-      // 评估低置信度
-      const isLowConf = priceType === 'buyMax'
-        ? (entry.buyCount < minSellers || entry.buyMax === null)
-        : (entry.sellCount < minSellers || entry.sellMin === null);
+      // 评估低置信度（按 uniqueSellers / uniqueBuyers）
+      const isLowConf = isPriceEntryLowConfidence(entry, priceType, minSellers);
 
       if (isLowConf) {
         lowConfidenceCount++;
@@ -330,7 +369,30 @@ export function calculateAllRefinementValues(rewards = [], prices = {}, { priceT
  * @param {Object} options 
  * @returns {Object}
  */
-export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin', minSellers = LOW_CONFIDENCE_MIN_SELLERS } = {}) {
+export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceType = 'sellMin', minSellers = LOW_CONFIDENCE_MIN_SELLERS, contaminated = false } = {}) {
+  if (contaminated || rewards?.contaminated) {
+    return {
+      expectedValue: null,
+      expectedValueRaw: null,
+      expectedValueConfident: null,
+      expectedValueConfidentRaw: null,
+      contaminated: true,
+      lowConfidenceCount: 0,
+      lowConfidenceProbability: 0,
+      incomplete: true,
+      pricedProbability: 0,
+      missingProbability: 0,
+      untradeableProbability: 0,
+      unknownChanceCount: 0,
+      pricedCount: 0,
+      confidentPricedCount: 0,
+      missingCount: 0,
+      untradeableCount: 0,
+      totalItems: rewards ? rewards.length : 0,
+      missingItems: []
+    };
+  }
+
   let totalKnown = 0;
   let totalConfidentKnown = 0;
   let pricedCount = 0;
@@ -343,6 +405,7 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
   let pricedProbability = 0;
   let missingProbability = 0;
   let untradeableProbability = 0;
+  const missingItems = [];
 
   for (const item of rewards) {
     const rawChance = item.chance;
@@ -382,9 +445,7 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
       const contribution = (chance / 100) * quantity * price;
       totalKnown += contribution;
 
-      const isLowConf = priceType === 'buyMax'
-        ? (entry.buyCount < minSellers || entry.buyMax === null)
-        : (entry.sellCount < minSellers || entry.sellMin === null);
+      const isLowConf = isPriceEntryLowConfidence(entry, priceType, minSellers);
 
       if (isLowConf) {
         lowConfidenceCount++;
@@ -396,6 +457,16 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
     } else {
       missingCount++;
       missingProbability += chance;
+      missingItems.push({
+        name: item.itemName || item.modName || item.name || '',
+        itemName: item.itemName || item.modName || item.name || '',
+        baseName: item.baseName || item.name || '',
+        zhName: item.itemZh || item.zhName || item.itemName || '',
+        quantity,
+        chance,
+        rarity: item.rarity || 'Common',
+        slug: item.slug || null
+      });
     }
   }
 
@@ -424,7 +495,8 @@ export function calculateSourceExpectedValue(rewards = [], prices = {}, { priceT
     confidentPricedCount,
     missingCount,
     untradeableCount,
-    totalItems: rewards.length
+    totalItems: rewards.length,
+    missingItems
   };
 }
 
@@ -454,6 +526,7 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
   let pricedProbability = 0;
   let missingProbability = 0;
   let untradeableProbability = 0;
+  const missingItems = [];
 
   for (const item of mods) {
     const rawChance = item.chance;
@@ -492,9 +565,7 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
       const contribution = (chance / 100) * quantity * price;
       subTotalKnown += contribution;
 
-      const isLowConf = priceType === 'buyMax'
-        ? (entry.buyCount < minSellers || entry.buyMax === null)
-        : (entry.sellCount < minSellers || entry.sellMin === null);
+      const isLowConf = isPriceEntryLowConfidence(entry, priceType, minSellers);
 
       if (isLowConf) {
         lowConfidenceCount++;
@@ -506,6 +577,16 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
     } else {
       missingCount++;
       missingProbability += chance;
+      missingItems.push({
+        name: item.modName || item.name || '',
+        itemName: item.modName || item.name || '',
+        baseName: item.baseName || item.name || '',
+        zhName: item.modZh || item.zhName || item.modName || '',
+        quantity,
+        chance,
+        rarity: item.rarity || 'Common',
+        slug: item.slug || null
+      });
     }
   }
 
@@ -535,6 +616,70 @@ export function calculateEnemyExpectedValue(enemyModDropChance, mods = [], price
     confidentPricedCount,
     missingCount,
     untradeableCount,
-    totalMods: mods.length
+    totalMods: mods.length,
+    missingItems
   };
+}
+
+/**
+ * AABC 四轮平均参考期望纯函数
+ * 公式：(2A + B + C) / 4
+ * 任一输入为 null 或无效数值时返回 null（严格传播 null）
+ * @param {number|null} a 轮次 A 未取整期望值
+ * @param {number|null} b 轮次 B 未取整期望值
+ * @param {number|null} c 轮次 C 未取整期望值
+ * @returns {number|null}
+ */
+export function aabcAverage(a, b, c) {
+  if (a === null || b === null || c === null || a === undefined || b === undefined || c === undefined) return null;
+  if (typeof a !== 'number' || typeof b !== 'number' || typeof c !== 'number') return null;
+  if (!Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(c)) return null;
+  return (2 * a + b + c) / 4;
+}
+
+/**
+ * 仲裁前 N 轮平均参考期望纯函数
+ * 仲裁发奖序列为 AABBCCCC...，前四轮后持续给 C 轮
+ * 公式：
+ *   N >= 4: [2A + 2B + (N - 4)C] / N
+ *   N < 4: 按前 N 轮 A, A, B, B 的前缀均值：
+ *     N = 1: A
+ *     N = 2: (A + A) / 2 = A
+ *     N = 3: (2A + B) / 3
+ * 任一所需输入为 null 或无效数值时返回 null（严格传播 null）
+ * @param {number|null} a 轮次 A 未取整期望值
+ * @param {number|null} b 轮次 B 未取整期望值
+ * @param {number|null} c 轮次 C 未取整期望值
+ * @param {number} n 发奖轮数 (正整数)
+ * @returns {number|null}
+ */
+export function arbitrationFirstNAverage(a, b, c, n) {
+  if (typeof n !== 'number' || !Number.isInteger(n) || n < 1) return null;
+  if (n === 1 || n === 2) {
+    if (a === null || a === undefined || typeof a !== 'number' || !Number.isFinite(a)) return null;
+    return a;
+  }
+  if (n === 3) {
+    if (a === null || b === null || a === undefined || b === undefined) return null;
+    if (typeof a !== 'number' || typeof b !== 'number' || !Number.isFinite(a) || !Number.isFinite(b)) return null;
+    return (2 * a + b) / 3;
+  }
+  // n >= 4: 需要 a, b, c 均已知
+  if (a === null || b === null || c === null || a === undefined || b === undefined || c === undefined) return null;
+  if (typeof a !== 'number' || typeof b !== 'number' || typeof c !== 'number') return null;
+  if (!Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(c)) return null;
+  return (2 * a + 2 * b + (n - 4) * c) / n;
+}
+
+/**
+ * 仲裁前八轮平均参考期望纯函数
+ * 公式：[2A + 2B + 4C] / 8
+ * 任一输入为 null 时返回 null
+ * @param {number|null} a 轮次 A 未取整期望值
+ * @param {number|null} b 轮次 B 未取整期望值
+ * @param {number|null} c 轮次 C 未取整期望值
+ * @returns {number|null}
+ */
+export function arbitrationFirst8(a, b, c) {
+  return arbitrationFirstNAverage(a, b, c, 8);
 }

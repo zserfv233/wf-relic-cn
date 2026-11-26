@@ -2,8 +2,8 @@
  * prices.js - 订单与价格数据解析纯函数（阶段 2 / M2 扩展）
  */
 
-// 常量：低置信度最小卖家数（建议参数，非游戏规则）
-export const LOW_CONFIDENCE_MIN_SELLERS = 3;
+import { LOW_CONFIDENCE_MIN_SELLERS } from './calculations.js';
+export { LOW_CONFIDENCE_MIN_SELLERS };
 
 /**
  * 解析 Warframe.Market v2 orders/top 响应数据
@@ -15,9 +15,10 @@ export const LOW_CONFIDENCE_MIN_SELLERS = 3;
  *   - subtype: 紫卡等子类型 (如 'unrevealed')
  * @returns {Object}
  */
-export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = null, slug = '', subtype = null } = {}) {
+export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = null, slug = '', subtype = null, targetSubtype = null } = {}) {
   const sellOrders = ordersData?.data?.sell ?? ordersData?.sell ?? [];
   const buyOrders = ordersData?.data?.buy ?? ordersData?.buy ?? [];
+  const effectiveSubtype = subtype || targetSubtype;
 
   // 1. 等级过滤（针对有等级的赋能与 Mod）
   const matchesRank = (order) => {
@@ -27,9 +28,12 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
   };
 
   const matchesSubtype = (order) => {
-    if (!subtype) return true;
-    if (!order.subtype) return true;
-    return order.subtype === subtype;
+    if (!effectiveSubtype) return true;
+    // 请求了 subtype 时只接受订单 subtype 字段存在且严格相等的订单；缺字段或不等一律排除
+    if (!order || typeof order !== 'object' || order.subtype === undefined || order.subtype === null) {
+      return false;
+    }
+    return order.subtype === effectiveSubtype;
   };
 
   const isOnline = (order) => {
@@ -54,13 +58,11 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     filteredBuy = rankFilteredBuy;
   }
 
-  const sellPrices = filteredSell
-    .map(o => o.platinum)
-    .filter(p => typeof p === 'number' && Number.isFinite(p) && p >= 0);
+  const validSellOrders = filteredSell.filter(o => typeof o.platinum === 'number' && Number.isFinite(o.platinum) && o.platinum >= 0);
+  const validBuyOrders = filteredBuy.filter(o => typeof o.platinum === 'number' && Number.isFinite(o.platinum) && o.platinum >= 0);
 
-  const buyPrices = filteredBuy
-    .map(o => o.platinum)
-    .filter(p => typeof p === 'number' && Number.isFinite(p) && p >= 0);
+  const sellPrices = validSellOrders.map(o => o.platinum);
+  const buyPrices = validBuyOrders.map(o => o.platinum);
 
   const sortedSellPrices = sellPrices.slice().sort((a, b) => a - b);
   const sortedBuyPrices = buyPrices.slice().sort((a, b) => b - a);
@@ -80,11 +82,21 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     sellRobust = lowest3[1];
   }
 
-  const uniqueSellers = new Set(filteredSell.map(o => o?.user?.ingameName || o?.user?.id).filter(Boolean)).size;
-  const uniqueBuyers = new Set(filteredBuy.map(o => o?.user?.ingameName || o?.user?.id).filter(Boolean)).size;
+  // 判定用 uniqueSellers（同 rank/subtype/在线、价格有效的订单优先按稳定用户 ID 去重）
+  const uniqueSellers = new Set(validSellOrders.map(o => o?.user?.id || o?.user?.ingameName).filter(Boolean)).size;
+  const uniqueBuyers = new Set(validBuyOrders.map(o => o?.user?.id || o?.user?.ingameName).filter(Boolean)).size;
 
   const perTrade = filteredSell[0]?.per_trade || filteredSell[0]?.perTrade || null;
-  const orderSubtype = subtype || filteredSell[0]?.subtype || ordersData?.subtype || null;
+
+  // 结果里的 subtype 写被接受订单的实际 subtype（不写请求值）
+  let orderSubtype = null;
+  const acceptedOrders = [...validSellOrders, ...validBuyOrders];
+  if (acceptedOrders.length > 0) {
+    const distinctSubtypes = new Set(acceptedOrders.map(o => o.subtype).filter(Boolean));
+    if (distinctSubtypes.size === 1) {
+      orderSubtype = Array.from(distinctSubtypes)[0];
+    }
+  }
 
   const sourceUrl = slug 
     ? (targetRank !== null ? `warframe.market v2 /orders/item/${slug}/top?rank=${targetRank}` : `warframe.market v2 /orders/item/${slug}/top`)
@@ -97,7 +109,10 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     buyCount: sortedBuyPrices.length,
     sellRobust,
     robustUnavailable: false,
-    lowConfidence: n < LOW_CONFIDENCE_MIN_SELLERS || sellMin === null,
+    lowConfidence: uniqueSellers < LOW_CONFIDENCE_MIN_SELLERS || sellMin === null,
+    buyLowConfidence: uniqueBuyers < LOW_CONFIDENCE_MIN_SELLERS || buyMax === null,
+    sellerCountUnverified: false,
+    buyerCountUnverified: false,
     noBuyOrders: sortedBuyPrices.length === 0 || buyMax === null,
     uniqueSellers,
     uniqueBuyers,
@@ -122,9 +137,11 @@ export function computeCategoryStats(targetKeys = [], priceItems = {}, { categor
   const uniqueKeys = Array.from(new Set(targetKeys));
   let priced = 0;
   for (const k of uniqueKeys) {
-    let item = priceItems[k];
-    if (!item && (category === 'rivens' || k.includes('riven'))) {
-      item = priceItems[`${k}@unrevealed`] || priceItems[k];
+    let item = null;
+    if (category === 'rivens' || k.includes('riven')) {
+      item = priceItems[`${k}@unrevealed`];
+    } else {
+      item = priceItems[k];
     }
     if (item && (item.sellMin !== null || item.buyMax !== null)) {
       priced++;

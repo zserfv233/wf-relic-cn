@@ -150,7 +150,7 @@
 
       <!-- Relic Price Disclaimer Bar -->
       <div id="price-disclaimer-callout" class="formula-banner view-control view-relics">
-        <span>💡 <strong>价格与期望值口径：</strong>价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。</span>
+        <span>💡 <strong>价格与期望值口径：</strong>价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。warframe.market /top 接口每侧最多返回 5 条在线订单，仅为样本，不代表全市场卖家数。</span>
       </div>
     </div>
 
@@ -197,7 +197,7 @@
           <p>• 价格更新时间: <span id="footer-price-time">-</span></p>
           <p>• 市场价格覆盖率: <span id="footer-price-coverage">-</span></p>
           <div id="footer-price-categories" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.25rem 0 0.5rem 0.75rem;"></div>
-          <p>• 价格口径说明: 价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。价格缺失物品显示“暂无挂单”，期望值显示“—”并提示缺价。</p>
+          <p>• 价格口径说明: 价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。warframe.market /top 接口每侧最多返回 5 条在线订单，仅为样本，不代表全市场卖家数。价格缺失物品显示“暂无挂单”，期望值显示“—”并提示缺价。</p>
         </div>
 
         <div class="footer-col">
