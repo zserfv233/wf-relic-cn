@@ -215,3 +215,21 @@
 - 中断记录：通道子进程 09:1x 被外部中断一次，按 PROGRESS 恢复，agy 进程未受影响。
 - 下一步：等待总管验收；汉化未开始（等总管单独安排）。
 - 阻塞/待 Codex 拍板：见 DONE.md 本轮记录。
+
+## 2026-11-26 10:11 AEDT — 汉化轮开始（feat/zh-localization，worktree /workspace/wf-relic-cn-zh，基于 0dc1f4a）
+- 资料：通道已下载 WFCD warframe-items（7fecf34）与 warframe-worldstate-data（e88c866）zh/en 到 /workspace/wf-relic-cn-raw（SOURCES-zh.md）。
+- 阻塞记录：灰机 wiki api.php 从 box 访问返回 HTTP 403（Cloudflare 质询），未绕过，本轮不用。
+- 下一步：agy 阶段 Z1（映射脚本、build-data 接入、简略名、remaining-english、测试）。
+
+## 2026-11-26 11:05 AEDT — wf-relic-cn 全站汉化完成 (feat/zh-localization)
+- 当前阶段：全站汉化交付完成（严格基于本地原始资料，绝未编造任何游戏译名，未联网，未触碰其它 worktree）。
+- 映射系统与构建实现：
+  1. 映射生成脚本 `scripts/build-zh-map.mjs`：严格从 `/workspace/wf-relic-cn-raw`（WFCD items/i18n_zh, warframe.market v2, worldstate solNodes/missionTypes/languages）读取官方数据，生成 `config/zh-map.json`（涵盖 28 星球、33 任务类型、435 节点、919 敌人、50 赏金段、53 特殊来源、2264 物品）。
+  2. 简略名系统性消除：系统性修正 451 条过于简略的部件名（如「手套」→「凯旋之爪 Prime 手套」），全部自动补齐父物品官方中文名并记录 `abbreviatedCorrections`。
+  3. 全量构建接入 `scripts/build-data.mjs`：为所有实体（relics, items, arcanes, rivens, mods, sources）统一写入 `nameZh`/`zhName` 与受控合法来源标记 `zhSource`（`wfcd_i18n:*`, `warframe_market:*`, `wfcd_worldstate:*`, `composed:*`, `traditional:*`, `en_as_is:*`, `en_fallback`）。
+  4. 剩余英文与覆盖率统计：新增 `scripts/build-remaining-english.mjs`，生成规范文档 `docs/remaining-english.md`，逐条归类统计已汉化、资料原样英文、无中文资料保留英文（总计 6269 实体，规范覆盖率 68.2%，物品/Mod/赋能/紫卡/遗物/星球/赏金均达到 98%~100%）。
+  5. 前端 UI 文本汉化：清理 `index.html` 与 `js/app.js` 残留英文（来源筛选、Mod 稀有度按钮、弹窗类型展示 `formatSourceType`、稀有度展示 `formatRarity` 等）。
+  6. 自动化测试套件 `test/localization.test.mjs`：覆盖非空名称、受控合法 zhSource、各类别覆盖率保守下限、原始资料严格一致防编造比对（CI 优雅 skip）、关键映射动态抽样比对、简略名消除断言、多维搜索索引命中验证（中文/英文/拼音全拼/拼音首字母命中同一实体）、临时目录重建持久化验证。
+- 测试与验证：
+  - `npm test`：12 个套件 69 个测试全部通过（69 pass, 0 fail）。
+  - `data/prices.json` 保持不变，未抓取实时价格，未 push，未改远程。

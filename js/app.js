@@ -134,6 +134,34 @@ function formatPlat(price, suffix = ' ☿') {
 }
 
 /**
+ * 格式化来源类型展示
+ */
+export function formatSourceType(type, isPvp = false) {
+  if (isPvp) return 'PvP';
+  switch (type) {
+    case 'mission': return '星图任务';
+    case 'enemy': return '敌人击杀';
+    case 'bounty': return '平原赏金';
+    case 'transient': return '特殊/密室';
+    case 'sortie': return '突击任务';
+    default: return type || '未知';
+  }
+}
+
+/**
+ * 格式化稀有度展示
+ */
+export function formatRarity(rarity) {
+  switch (rarity) {
+    case 'Common': return '常见';
+    case 'Uncommon': return '罕见';
+    case 'Rare': return '稀有';
+    case 'Legendary': return '传说';
+    default: return rarity || '未知';
+  }
+}
+
+/**
  * 初始化数据加载
  */
 async function init() {
@@ -682,7 +710,7 @@ function renderSourcesView() {
 
   elements.gridView.innerHTML = displayList.map(src => {
     const isEnemy = src.type === 'enemy';
-    const typeLabel = src.isPvp ? 'PvP' : (isEnemy ? '敌人击杀' : (src.type === 'mission' ? '星图任务' : (src.type === 'bounty' ? '平原赏金' : '特殊/密室')));
+    const typeLabel = formatSourceType(src.type, src.isPvp);
     const badgeClass = src.isPvp ? 'badge-pvp' : '';
     const badgeStyle = src.isPvp ? '' : 'background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);';
 
@@ -982,7 +1010,7 @@ export function openItemModal(itemKey) {
           ${r.unlisted ? '特殊来源' : (!r.vaulted ? '可获取' : '已入库')}
         </span>
       </td>
-      <td>${r.quantity > 1 ? `<span class="quantity-tag">×${r.quantity}</span>` : ''}${r.rarity}</td>
+      <td>${r.quantity > 1 ? `<span class="quantity-tag">×${r.quantity}</span>` : ''}${formatRarity(r.rarity)}</td>
       <td>${r.chances.intact}%</td>
       <td>${r.chances.radiant}%</td>
     </tr>
@@ -1059,7 +1087,7 @@ export function openArcaneModal(slug) {
     return `
       <tr>
         <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
-        <td>${s.sourceType}</td>
+        <td>${formatSourceType(s.sourceType)}</td>
         <td>${s.rotation ? `轮次 ${s.rotation}` : '-'}</td>
         <td style="color: var(--cyan-primary);">${s.quantity > 1 ? `<span class="quantity-tag">×${s.quantity}</span> ` : ''}${compChance}</td>
       </tr>
@@ -1132,7 +1160,7 @@ export function openRivenModal(slug) {
   const sourcesRows = riv.dropSources.map(s => `
     <tr>
       <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
-      <td>${s.sourceType}</td>
+      <td>${formatSourceType(s.sourceType)}</td>
       <td style="color: var(--cyan-primary);">${s.chance}%</td>
     </tr>
   `).join('');
@@ -1205,7 +1233,7 @@ export function openModModal(slug) {
     return `
       <tr>
         <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
-        <td>${s.sourceType}</td>
+        <td>${formatSourceType(s.sourceType)}</td>
         <td>${s.rotation ? `轮次 ${s.rotation}` : '-'}</td>
         <td style="color: var(--cyan-primary);">${s.quantity > 1 ? `<span class="quantity-tag">×${s.quantity}</span> ` : ''}${compChance}</td>
       </tr>
@@ -1305,7 +1333,7 @@ export function openSourceModal(sourceId) {
           <strong>${r.quantity > 1 ? `<span class="quantity-tag">×${r.quantity}</span>` : ''}${escapeHtml(r.itemZh || r.itemName)}</strong>
           <div style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(r.itemName)}</div>
         </td>
-        <td><span class="rarity-pill rarity-${r.rarity}">${r.rarity}</span></td>
+        <td><span class="rarity-pill rarity-${r.rarity}">${formatRarity(r.rarity)}</span></td>
         <td>${!isUnknownChance ? `${r.chance}%` : '- (未知)'}</td>
         <td style="color: var(--plat-color);">${priceDisplay}</td>
         <td style="font-weight: 600; color: var(--gold-light);">${contrib}</td>
@@ -1319,7 +1347,7 @@ export function openSourceModal(sourceId) {
       ${src.isPvp ? '<span class="badge badge-pvp">PvP</span>' : ''}
     </div>
     <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem;">
-      类型: ${src.type} · ${src.planetZh ? `星球: ${src.planetZh}` : ''} ${isEnemy ? `· Mod 基础掉率: ${src.enemyModDropChance}%` : ''}
+      类型: ${formatSourceType(src.type, src.isPvp)} · ${src.planetZh ? `星球: ${src.planetZh}` : ''} ${isEnemy ? `· Mod 基础掉率: ${src.enemyModDropChance}%` : ''}
     </div>
   `;
 

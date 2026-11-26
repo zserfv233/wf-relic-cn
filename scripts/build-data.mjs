@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/build-data.mjs
- * Warframe 遗物、赋能、紫卡、Mod 与掉落来源数据构建脚本（阶段 2）
+ * Warframe 遗物、赋能、紫卡、Mod 与掉落来源数据构建脚本（全站汉化版）
  * Node 24 原生 ESM，仅依赖 pinyin-pro（MIT）
  */
 
@@ -11,6 +11,8 @@ import { fileURLToPath } from 'node:url';
 import { pinyin } from 'pinyin-pro';
 import { calculatePriceCoverage } from '../js/lib/prices.js';
 import { isPvpSource } from '../js/lib/sources.js';
+import { buildZhMap } from './build-zh-map.mjs';
+import { generateRemainingEnglishDocs } from './build-remaining-english.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,7 +30,7 @@ const TIER_ZH_MAP = {
   Vanguard: '先锋'
 };
 
-// 星球中文对照表
+// 星球中文对照表（回退）
 const PLANET_ZH_MAP = {
   Mercury: '水星',
   Venus: '金星',
@@ -57,7 +59,7 @@ const PLANET_ZH_MAP = {
   Solaris: '福尔图娜'
 };
 
-// 任务模式常见对照
+// 任务模式常见对照（回退）
 const GAMEMODE_ZH_MAP = {
   Survival: '生存',
   Defense: '防御',
@@ -89,7 +91,7 @@ const REMOTE_URLS = {
 const GENERIC_COMPONENT_NAMES = new Set([
   '枪管', '枪机', '枪托', '握柄', '连接器', '锤头', '弓身', '弓弦', '弓臂',
   '上弓臂', '下弓臂', '刀刃', '刀身', '护手', '枪刃', '靴子', '系统', '机体',
-  '头部', '握把', '外壳', '饰物', '枪套', '剑刃', '短柄', '握套'
+  '头部', '握把', '外壳', '饰物', '枪套', '剑刃', '短柄', '握套', '手套', '爪刃', '拳套', '镖袋', '星镖', '链条'
 ]);
 
 // DE 掉落表未开紫卡名称与 WFM slug 规范对应表
@@ -119,6 +121,45 @@ export function parseQuantityAndName(rawName) {
   return {
     quantity: 1,
     baseName: rawName.trim()
+  };
+}
+
+/**
+ * 计算汉化覆盖率统计纯函数
+ */
+export function computeZhStats(list) {
+  const items = Array.isArray(list) ? list : Object.values(list || {});
+  const totalCount = items.length;
+  let translatedCount = 0;
+  let traditionalCount = 0;
+  let asIsCount = 0;
+  let fallbackCount = 0;
+
+  for (const it of items) {
+    const src = it.zhSource || '';
+    if (src.startsWith('traditional')) {
+      traditionalCount++;
+      translatedCount++;
+    } else if (src.startsWith('en_as_is') || it.isAsIs) {
+      asIsCount++;
+    } else if (src === 'en_fallback' || src.startsWith('en_fallback') || it.zhName === it.name) {
+      fallbackCount++;
+    } else {
+      translatedCount++;
+    }
+  }
+
+  const coverage = totalCount > 0 ? `${((translatedCount / totalCount) * 100).toFixed(1)}%` : '0.0%';
+  const effectiveCoverage = totalCount > 0 ? `${(((translatedCount + asIsCount) / totalCount) * 100).toFixed(1)}%` : '0.0%';
+
+  return {
+    totalCount,
+    translatedCount,
+    traditionalCount,
+    asIsCount,
+    fallbackCount,
+    coverage,
+    effectiveCoverage
   };
 }
 
@@ -240,8 +281,11 @@ function generateTokens(name, zhName) {
 /**
  * 主构建逻辑
  */
-async function build() {
-  const { rawDir, shouldDownload } = parseArgs();
+export async function build(customOptions = {}) {
+  const cliArgs = parseArgs();
+  const rawDir = customOptions.rawDir || cliArgs.rawDir;
+  const targetDataDir = customOptions.dataDir || DATA_DIR;
+  const shouldDownload = customOptions.shouldDownload !== undefined ? customOptions.shouldDownload : cliArgs.shouldDownload;
 
   if (shouldDownload) {
     await downloadFiles(rawDir);
@@ -271,6 +315,39 @@ async function build() {
     } catch (e) {
       console.warn('[build] 读取 status-overrides.json 出错:', e.message);
     }
+  }
+
+  // 加载或生成 config/zh-map.json
+  const zhMapPath = path.join(CONFIG_DIR, 'zh-map.json');
+  let zhMap = null;
+  if (fs.existsSync(zhMapPath)) {
+    try {
+      zhMap = JSON.parse(fs.readFileSync(zhMapPath, 'utf8'));
+      console.log(`[build] 已成功读取中文映射表 config/zh-map.json (物品数: ${Object.keys(zhMap.items || {}).length})`);
+    } catch (e) {
+      console.warn('[build] 读取 zh-map.json 出错，尝试重构:', e.message);
+    }
+  }
+
+  if (!zhMap && fs.existsSync(rawDir)) {
+    try {
+      zhMap = await buildZhMap(rawDir);
+    } catch (e) {
+      console.warn('[build] 自动生成 zh-map.json 失败:', e.message);
+    }
+  }
+
+  if (!zhMap) {
+    zhMap = { planets: {}, missionTypes: {}, nodes: {}, enemies: {}, bounties: {}, transientSources: {}, items: {}, abbreviatedCorrections: [] };
+  }
+
+  function lookupItem(baseName, rawItemName = null) {
+    if (!baseName) return { itemZh: '', zhSource: 'en_fallback' };
+    const m = zhMap.items?.[baseName] || (rawItemName ? zhMap.items?.[rawItemName] : null);
+    if (m) {
+      return { itemZh: m.nameZh, zhSource: m.zhSource };
+    }
+    return { itemZh: baseName, zhSource: 'en_fallback' };
   }
 
   // 构建 WFM 索引
@@ -419,10 +496,21 @@ async function build() {
   ]);
 
   for (const [planet, nodes] of Object.entries(mr)) {
-    const planetZh = PLANET_ZH_MAP[planet] || planet;
+    const planetMap = zhMap.planets?.[planet];
+    const planetZh = planetMap?.nameZh || PLANET_ZH_MAP[planet] || planet;
+    const planetZhSource = planetMap?.zhSource || 'composed:planet';
+
     for (const [node, nodeData] of Object.entries(nodes || {})) {
       const gameMode = nodeData.gameMode || '';
-      const modeZh = GAMEMODE_ZH_MAP[gameMode] || gameMode;
+      const modeMap = zhMap.missionTypes?.[gameMode];
+      const modeZh = modeMap?.nameZh || GAMEMODE_ZH_MAP[gameMode] || gameMode;
+      const modeZhSource = modeMap?.zhSource || 'en_fallback';
+
+      const nodeKey = `${planet}:${node}`;
+      const nodeMap = zhMap.nodes?.[nodeKey];
+      const nodeZh = nodeMap?.nameZh || `${node} (${planetZh})`;
+      const nodeZhSource = nodeMap?.zhSource || 'composed:node';
+
       const rews = nodeData.rewards;
 
       const processRewardList = (rawRewardList, rotation = null) => {
@@ -441,6 +529,7 @@ async function build() {
         const sourceId = registerUniqueSourceId(baseSourceId);
         const nameEn = `${planet} - ${node} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`;
         const nameZh = `${planetZh} - ${node} (${modeZh})${rotation ? ` [轮次 ${rotation}]` : ''}`;
+        const sourceZhSource = nodeMap?.zhSource || 'composed:mission_rewards';
         
         const processedRewards = [];
         for (const r of rewardList) {
@@ -449,14 +538,20 @@ async function build() {
 
           const matched = matchMarketItem(r.itemName);
           const { quantity, baseName } = parseQuantityAndName(r.itemName);
-          let itemZh = baseName;
+          const itemLookup = lookupItem(baseName, r.itemName);
+
+          let itemZh = itemLookup.itemZh;
+          let itemZhSource = itemLookup.zhSource;
           let slug = null;
           let category = 'other';
 
           if (matched) {
             slug = matched.slug;
             category = matched.category;
-            itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+            if (itemZhSource === 'en_fallback' && matched.item?.i18n?.['zh-hans']?.name) {
+              itemZh = matched.item.i18n['zh-hans'].name;
+              itemZhSource = `warframe_market:${matched.slug}`;
+            }
           } else {
             recordUnmatched(r.itemName, nameEn);
           }
@@ -466,6 +561,7 @@ async function build() {
             baseName,
             quantity,
             itemZh,
+            zhSource: itemZhSource,
             slug,
             category,
             chance: r.chance ?? null,
@@ -479,11 +575,16 @@ async function build() {
           type: 'mission',
           nameEn,
           nameZh,
+          zhSource: sourceZhSource,
           planet,
           planetZh,
+          planetZhSource,
           node,
+          nodeZh,
+          nodeZhSource,
           gameMode,
           gameModeZh: modeZh,
+          gameModeZhSource: modeZhSource,
           rotation,
           rewards: processedRewards
         };
@@ -520,8 +621,14 @@ async function build() {
       : (Number.isFinite(parseFloat(rawDropChance)) ? parseFloat(rawDropChance) : 0);
     const baseSourceId = `enemy_${enemyName.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`.replace(/^_+|_+$/g, '');
     const sourceId = registerUniqueSourceId(baseSourceId);
+
+    const enemyMapping = zhMap.enemies?.[enemyName];
+    const enemyZh = enemyMapping?.nameZh || enemyName;
+    const enemyZhSource = enemyMapping?.zhSource || 'en_fallback';
+
     const nameEn = `Enemy: ${enemyName}`;
-    const nameZh = `敌人: ${enemyName}`;
+    const nameZh = `敌人: ${enemyZh}`;
+    const sourceZhSource = enemyZhSource.startsWith('en_') ? enemyZhSource : `composed:enemy:${enemyZhSource}`;
 
     let modsList = em.mods || [];
     let dedupedRepeats = null;
@@ -537,14 +644,20 @@ async function build() {
     for (const m of modsList) {
       const matched = matchMarketItem(m.modName);
       const { quantity, baseName } = parseQuantityAndName(m.modName);
-      let itemZh = baseName;
+      const itemLookup = lookupItem(baseName, m.modName);
+
+      let itemZh = itemLookup.itemZh;
+      let itemZhSource = itemLookup.zhSource;
       let slug = null;
       let category = 'mod';
 
       if (matched) {
         slug = matched.slug;
         category = matched.category;
-        itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+        if (itemZhSource === 'en_fallback' && matched.item?.i18n?.['zh-hans']?.name) {
+          itemZh = matched.item.i18n['zh-hans'].name;
+          itemZhSource = `warframe_market:${matched.slug}`;
+        }
       } else {
         recordUnmatched(m.modName, nameEn);
       }
@@ -554,6 +667,7 @@ async function build() {
         baseName,
         quantity,
         itemZh,
+        zhSource: itemZhSource,
         slug,
         category,
         chance: m.chance ?? null,
@@ -566,7 +680,10 @@ async function build() {
       type: 'enemy',
       nameEn,
       nameZh,
+      zhSource: sourceZhSource,
       enemyName,
+      enemyNameZh: enemyZh,
+      enemyNameZhSource: enemyZhSource,
       enemyModDropChance: dropChanceNum,
       rewards: processedMods
     };
@@ -579,7 +696,7 @@ async function build() {
     sourcesResult.push(srcObj);
   }
 
-  // C. 扫描六类赏金 (cetusBountyRewards, solarisBountyRewards, deimosRewards, zarimanRewards, entratiLabRewards, hexRewards)
+  // C. 扫描六类赏金
   const bountyTableDefs = [
     { key: 'cetusBountyRewards', label: 'Cetus Bounty (希图斯赏金)' },
     { key: 'solarisBountyRewards', label: 'Solaris Bounty (福尔图娜赏金)' },
@@ -597,11 +714,14 @@ async function build() {
       const bountyLevel = bounty.bountyLevel || 'Unknown Bounty';
       const cleanLevel = bountyLevel.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
 
+      const bountyMapping = zhMap.bounties?.[bountyLevel];
+      const bountyZh = bountyMapping?.nameZh || bountyLevel;
+      const bountyZhSource = bountyMapping?.zhSource || 'composed:bounty_title';
+
       for (const rot of ['A', 'B', 'C']) {
         const rotRewards = bounty.rewards?.[rot];
         if (!Array.isArray(rotRewards) || rotRewards.length === 0) continue;
 
-        // 按 stage 分组保持原顺序
         const stageMap = new Map();
         for (const item of rotRewards) {
           const stage = item.stage || 'Stage 1';
@@ -611,11 +731,13 @@ async function build() {
 
         for (const [stage, stageItems] of stageMap.entries()) {
           const cleanStage = stage.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+          const stageZh = stage.replace(/Stage\s+(\d+)/i, '阶段 $1');
           const baseSourceId = `source_bounty_${cleanLevel}_${rot.toLowerCase()}_${cleanStage}`;
           const sourceId = registerUniqueSourceId(baseSourceId);
 
           const nameEn = `${bountyLevel} [Rot ${rot}] (${stage})`;
-          const nameZh = `${bountyLevel} [轮次 ${rot}] (${stage})`;
+          const nameZh = `${bountyZh} [轮次 ${rot}] (${stageZh})`;
+          const sourceZhSource = bountyZhSource;
 
           let itemsToProcess = stageItems;
           let dedupedRepeats = null;
@@ -637,14 +759,20 @@ async function build() {
 
             const matched = matchMarketItem(itemName);
             const { quantity, baseName } = parseQuantityAndName(itemName);
-            let itemZh = baseName;
+            const itemLookup = lookupItem(baseName, itemName);
+
+            let itemZh = itemLookup.itemZh;
+            let itemZhSource = itemLookup.zhSource;
             let slug = null;
             let category = 'other';
 
             if (matched) {
               slug = matched.slug;
               category = matched.category;
-              itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+              if (itemZhSource === 'en_fallback' && matched.item?.i18n?.['zh-hans']?.name) {
+                itemZh = matched.item.i18n['zh-hans'].name;
+                itemZhSource = `warframe_market:${matched.slug}`;
+              }
             } else {
               recordUnmatched(itemName, nameEn);
             }
@@ -654,6 +782,7 @@ async function build() {
               baseName,
               quantity,
               itemZh,
+              zhSource: itemZhSource,
               slug,
               category,
               chance: item.chance ?? null,
@@ -669,7 +798,10 @@ async function build() {
               type: 'bounty',
               nameEn,
               nameZh,
+              zhSource: sourceZhSource,
               bountyLevel,
+              bountyLevelZh: bountyZh,
+              bountyLevelZhSource: bountyZhSource,
               rotation: rot,
               stage,
               rewards: processed
@@ -685,23 +817,27 @@ async function build() {
     }
   }
 
-  // D. 扫描 transientRewards (特殊掉落/密室/仲裁/噩梦)
+  // D. 扫描 transientRewards
   for (const tr of dropsAll.transientRewards || []) {
     const objectiveName = tr.objectiveName || 'Transient Reward';
     const cleanObj = objectiveName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
     const rawRewards = Array.isArray(tr.rewards) ? tr.rewards : [];
     if (rawRewards.length === 0) continue;
 
+    const trMapping = zhMap.transientSources?.[objectiveName];
+    const objZh = trMapping?.nameZh || objectiveName;
+    const objZhSource = trMapping?.zhSource || 'en_fallback';
+
     const rots = Array.from(new Set(rawRewards.map(r => r.rotation).filter(Boolean)));
 
     if (rots.length > 0) {
-      // 按 rotation 拆成独立来源
       for (const rot of rots) {
         const rotRewards = rawRewards.filter(r => r.rotation === rot);
         const baseSourceId = `source_transient_${cleanObj}_${rot.toLowerCase()}`;
         const sourceId = registerUniqueSourceId(baseSourceId);
         const nameEn = `${objectiveName} [Rot ${rot}]`;
-        const nameZh = `${objectiveName} [轮次 ${rot}]`;
+        const nameZh = `${objZh} [轮次 ${rot}]`;
+        const sourceZhSource = objZhSource;
 
         let itemsToProcess = rotRewards;
         let dedupedRepeats = null;
@@ -723,14 +859,20 @@ async function build() {
 
           const matched = matchMarketItem(itemName);
           const { quantity, baseName } = parseQuantityAndName(itemName);
-          let itemZh = baseName;
+          const itemLookup = lookupItem(baseName, itemName);
+
+          let itemZh = itemLookup.itemZh;
+          let itemZhSource = itemLookup.zhSource;
           let slug = null;
           let category = 'other';
 
           if (matched) {
             slug = matched.slug;
             category = matched.category;
-            itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+            if (itemZhSource === 'en_fallback' && matched.item?.i18n?.['zh-hans']?.name) {
+              itemZh = matched.item.i18n['zh-hans'].name;
+              itemZhSource = `warframe_market:${matched.slug}`;
+            }
           } else {
             recordUnmatched(itemName, nameEn);
           }
@@ -740,6 +882,7 @@ async function build() {
             baseName,
             quantity,
             itemZh,
+            zhSource: itemZhSource,
             slug,
             category,
             chance: item.chance ?? null,
@@ -755,6 +898,7 @@ async function build() {
             type: 'transient',
             nameEn,
             nameZh,
+            zhSource: sourceZhSource,
             rotation: rot,
             rewards: processed
           };
@@ -770,11 +914,11 @@ async function build() {
         }
       }
     } else {
-      // 无轮次来源 (例如 Derelict Vault)
       const baseSourceId = `source_transient_${cleanObj}`;
       const sourceId = registerUniqueSourceId(baseSourceId);
       const nameEn = objectiveName;
-      const nameZh = objectiveName;
+      const nameZh = objZh;
+      const sourceZhSource = objZhSource;
 
       let itemsToProcess = rawRewards;
       let dedupedRepeats = null;
@@ -796,14 +940,20 @@ async function build() {
 
         const matched = matchMarketItem(itemName);
         const { quantity, baseName } = parseQuantityAndName(itemName);
-        let itemZh = baseName;
+        const itemLookup = lookupItem(baseName, itemName);
+
+        let itemZh = itemLookup.itemZh;
+        let itemZhSource = itemLookup.zhSource;
         let slug = null;
         let category = 'other';
 
         if (matched) {
           slug = matched.slug;
           category = matched.category;
-          itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+          if (itemZhSource === 'en_fallback' && matched.item?.i18n?.['zh-hans']?.name) {
+            itemZh = matched.item.i18n['zh-hans'].name;
+            itemZhSource = `warframe_market:${matched.slug}`;
+          }
         } else {
           recordUnmatched(itemName, nameEn);
         }
@@ -813,6 +963,7 @@ async function build() {
           baseName,
           quantity,
           itemZh,
+          zhSource: itemZhSource,
           slug,
           category,
           chance: item.chance ?? null,
@@ -828,6 +979,7 @@ async function build() {
           type: 'transient',
           nameEn,
           nameZh,
+          zhSource: sourceZhSource,
           rewards: processed
         };
         if (dedupedRepeats) {
@@ -845,6 +997,7 @@ async function build() {
     const sourceId = registerUniqueSourceId(baseSourceId);
     const nameEn = 'Sortie (突击任务)';
     const nameZh = 'Sortie (突击任务)';
+    const sourceZhSource = 'composed:sortie';
 
     const processed = [];
     for (const item of dropsAll.sortieRewards) {
@@ -856,14 +1009,20 @@ async function build() {
 
       const matched = matchMarketItem(itemName);
       const { quantity, baseName } = parseQuantityAndName(itemName);
-      let itemZh = baseName;
+      const itemLookup = lookupItem(baseName, itemName);
+
+      let itemZh = itemLookup.itemZh;
+      let itemZhSource = itemLookup.zhSource;
       let slug = null;
       let category = 'other';
 
       if (matched) {
         slug = matched.slug;
         category = matched.category;
-        itemZh = matched.item?.i18n?.['zh-hans']?.name || baseName;
+        if (itemZhSource === 'en_fallback' && matched.item?.i18n?.['zh-hans']?.name) {
+          itemZh = matched.item.i18n['zh-hans'].name;
+          itemZhSource = `warframe_market:${matched.slug}`;
+        }
       } else {
         recordUnmatched(itemName, nameEn);
       }
@@ -873,6 +1032,7 @@ async function build() {
         baseName,
         quantity,
         itemZh,
+        zhSource: itemZhSource,
         slug,
         category,
         chance: item.chance ?? null,
@@ -886,13 +1046,13 @@ async function build() {
         type: 'sortie',
         nameEn,
         nameZh,
+        zhSource: sourceZhSource,
         rewards: processed
       });
     }
   }
 
-  // 概率和核对 (probabilitySum 与 probabilityCheck: 'over' | 'under' | 'ok')
-  // 敌人来源用其内表概率和
+  // 概率和核对
   for (const src of sourcesResult) {
     const sum = Number((src.rewards || []).reduce((acc, r) => {
       const c = typeof r.chance === 'number' ? r.chance : (parseFloat(r.chance) || 0);
@@ -908,7 +1068,7 @@ async function build() {
     }
   }
 
-  // 标记每条来源的 isPvp 属性 (武形秘仪 / Conclave)
+  // 标记每条来源的 isPvp 属性
   for (const src of sourcesResult) {
     src.isPvp = isPvpSource(src);
   }
@@ -932,6 +1092,7 @@ async function build() {
           sourceType: src.type,
           nameEn: src.nameEn,
           nameZh: src.nameZh,
+          zhSource: src.zhSource,
           rotation: src.rotation || null,
           stage: src.stage || r.stage || null,
           bountyLevel: src.bountyLevel || null,
@@ -948,12 +1109,16 @@ async function build() {
   for (const [deName, slug] of Object.entries(VEILED_RIVEN_NAME_MAP)) {
     const wfmItem = wfmBySlug.get(slug);
     const dropSources = slugSourcesMap.get(slug) || [];
+    const rivenMapping = zhMap.items?.[wfmItem?.i18n?.en?.name] || zhMap.items?.[deName];
+    const rivenZh = rivenMapping?.nameZh || wfmItem?.i18n?.['zh-hans']?.name || deName;
+    const rivenZhSource = rivenMapping?.zhSource || (wfmItem?.i18n?.['zh-hans']?.name ? `warframe_market:${slug}` : 'en_fallback');
+
     rivensResult.push({
       id: slug,
       slug,
       name: wfmItem?.i18n?.en?.name || deName,
-      zhName: wfmItem?.i18n?.['zh-hans']?.name || deName,
-      zhSource: wfmItem?.i18n?.['zh-hans']?.name ? 'warframe_market' : 'de_name',
+      zhName: rivenZh,
+      zhSource: rivenZhSource,
       tags: wfmItem?.tags || ['mod', 'riven_mod', 'veiled_riven'],
       dropSources
     });
@@ -963,13 +1128,16 @@ async function build() {
   for (const item of wfmBySlug.values()) {
     if (item.tags?.includes('arcane_enhancement')) {
       const dropSources = slugSourcesMap.get(item.slug) || [];
-      // 包含在 DE 掉落表或全部赋能
+      const arcMapping = zhMap.items?.[item.i18n?.en?.name] || zhMap.items?.[item.slug];
+      const arcZh = arcMapping?.nameZh || item.i18n?.['zh-hans']?.name || item.slug;
+      const arcZhSource = arcMapping?.zhSource || (item.i18n?.['zh-hans']?.name ? `warframe_market:${item.slug}` : 'en_fallback');
+
       arcanesResult.push({
         id: item.slug,
         slug: item.slug,
         name: item.i18n?.en?.name || item.slug,
-        zhName: item.i18n?.['zh-hans']?.name || item.slug,
-        zhSource: item.i18n?.['zh-hans']?.name ? 'warframe_market' : 'en_fallback',
+        zhName: arcZh,
+        zhSource: arcZhSource,
         maxRank: item.maxRank ?? 5,
         tags: item.tags,
         dropSources
@@ -977,7 +1145,7 @@ async function build() {
     }
   }
 
-  // 整理 Mod (只录入有掉落来源且具备 market slug 的 Mod，严格排除任何未开紫卡 / 裂罅 Mod)
+  // 整理 Mod
   const rivenSlugSet = new Set(rivensResult.map(r => r.slug));
   for (const item of wfmBySlug.values()) {
     const isVeiledRiven = rivenSlugSet.has(item.slug) ||
@@ -988,12 +1156,16 @@ async function build() {
     if (item.tags?.includes('mod') && !item.tags?.includes('arcane_enhancement') && !isVeiledRiven) {
       const dropSources = slugSourcesMap.get(item.slug);
       if (dropSources && dropSources.length > 0) {
+        const modMapping = zhMap.items?.[item.i18n?.en?.name] || zhMap.items?.[item.slug];
+        const modZh = modMapping?.nameZh || item.i18n?.['zh-hans']?.name || item.slug;
+        const modZhSource = modMapping?.zhSource || (item.i18n?.['zh-hans']?.name ? `warframe_market:${item.slug}` : 'en_fallback');
+
         modsResult.push({
           id: item.slug,
           slug: item.slug,
           name: item.i18n?.en?.name || item.slug,
-          zhName: item.i18n?.['zh-hans']?.name || item.slug,
-          zhSource: item.i18n?.['zh-hans']?.name ? 'warframe_market' : 'en_fallback',
+          zhName: modZh,
+          zhSource: modZhSource,
           maxRank: item.maxRank ?? 3,
           tags: item.tags,
           dropSources
@@ -1002,7 +1174,7 @@ async function build() {
     }
   }
 
-  console.log(`[build] 整理赋能条目: ${arcanesResult.length} (其中含掉落来源: ${arcanesResult.filter(a => a.dropSources.length > 0).length})`);
+  console.log(`[build] 整理赋能条目: ${arcanesResult.length}`);
   console.log(`[build] 整理紫卡条目: ${rivensResult.length}`);
   console.log(`[build] 整理具掉落来源 Mod 条目: ${modsResult.length}`);
 
@@ -1070,7 +1242,7 @@ async function build() {
     if (override && override.status === 'unlisted') {
       status = 'unlisted';
       unlisted = true;
-      vaulted = false; // 机制上可获取，不属于已入库
+      vaulted = false;
       vaultedSource = override.source;
       statusReason = override.reason;
       statusSource = override.source;
@@ -1091,7 +1263,7 @@ async function build() {
     const wfcdMeta = relicsMetaMap.get(key);
     const wfcdVaulted = wfcdMeta ? wfcdMeta.wfcdVaulted : true;
     
-    // 冲突判定（排除已在 override 声明的特殊来源）
+    // 冲突判定
     const conflict = !unlisted && (vaulted !== wfcdVaulted);
     if (conflict) conflictCount++;
 
@@ -1103,12 +1275,13 @@ async function build() {
     }
 
     let zhName = null;
-    let zhSource = 'wfcd_i18n';
+    let zhSource = null;
     if (wfcdMeta?.uniqueName && zhJson[wfcdMeta.uniqueName]?.name) {
       zhName = zhJson[wfcdMeta.uniqueName].name.trim();
+      zhSource = `wfcd_i18n:${wfcdMeta.uniqueName}`;
     } else {
       zhName = `${tierZh} ${relicName} 遗物`;
-      zhSource = 'generated';
+      zhSource = 'composed:tier+relic';
     }
 
     const intactRewards = dropsRelic.states['intact'] || [];
@@ -1123,7 +1296,6 @@ async function build() {
       if (targetList[slotIdx] && targetList[slotIdx].itemName === itemName) {
         return targetList[slotIdx];
       }
-      // 回退：按在 intactRewards 中同名物品的出现次序匹配
       let occurrence = 0;
       for (let i = 0; i < slotIdx; i++) {
         if (intactRewards[i]?.itemName === itemName) occurrence++;
@@ -1138,7 +1310,6 @@ async function build() {
       const itemName = rew.itemName;
       const { quantity, baseName } = parseQuantityAndName(itemName);
 
-      // 按槽位对应配对四个精炼等级
       const excRew = getRewardForSlot(exceptionalRewards, itemName, slotIndex);
       const flaRew = getRewardForSlot(flawlessRewards, itemName, slotIndex);
       const radRew = getRewardForSlot(radiantRewards, itemName, slotIndex);
@@ -1150,10 +1321,8 @@ async function build() {
         radiant: radRew ? radRew.chance : null
       };
 
-      // 稀有度直接使用 DE 官方掉落表 (drops_all.json) 里的 rarity，不要覆盖
       const rarity = rew.rarity || 'Common';
 
-      // 匹配 WFCD item 元数据
       let wfcdItem = null;
       if (wfcdIntactRewards[slotIndex] && (wfcdIntactRewards[slotIndex].item?.name === itemName || wfcdIntactRewards[slotIndex].item?.name === baseName)) {
         wfcdItem = wfcdIntactRewards[slotIndex].item;
@@ -1178,22 +1347,28 @@ async function build() {
       let itemZhName = null;
       let itemZhSource = null;
 
-      const wfcdRawZh = uniqueName ? zhJson[uniqueName]?.name?.trim() : null;
-      const wfmItem = marketSlug ? wfmBySlug.get(marketSlug) : null;
-      const wfmZh = wfmItem?.i18n?.['zh-hans']?.name?.trim();
-
-      if (wfcdRawZh && !GENERIC_COMPONENT_NAMES.has(wfcdRawZh)) {
-        itemZhName = wfcdRawZh;
-        itemZhSource = 'wfcd_i18n';
-      } else if (wfmZh) {
-        itemZhName = wfmZh;
-        itemZhSource = 'warframe_market';
-      } else if (wfcdRawZh) {
-        itemZhName = wfcdRawZh;
-        itemZhSource = 'wfcd_i18n';
+      const itemLookup = lookupItem(baseName, itemName);
+      if (itemLookup && itemLookup.zhSource !== 'en_fallback') {
+        itemZhName = itemLookup.itemZh;
+        itemZhSource = itemLookup.zhSource;
       } else {
-        itemZhName = baseName;
-        itemZhSource = 'en_fallback';
+        const wfcdRawZh = uniqueName ? zhJson[uniqueName]?.name?.trim() : null;
+        const wfmItem = marketSlug ? wfmBySlug.get(marketSlug) : null;
+        const wfmZh = wfmItem?.i18n?.['zh-hans']?.name?.trim();
+
+        if (wfcdRawZh && !GENERIC_COMPONENT_NAMES.has(wfcdRawZh)) {
+          itemZhName = wfcdRawZh;
+          itemZhSource = uniqueName ? `wfcd_i18n:${uniqueName}` : 'wfcd_i18n';
+        } else if (wfmZh) {
+          itemZhName = wfmZh;
+          itemZhSource = marketSlug ? `warframe_market:${marketSlug}` : 'warframe_market';
+        } else if (wfcdRawZh) {
+          itemZhName = wfcdRawZh;
+          itemZhSource = uniqueName ? `wfcd_i18n:${uniqueName}` : 'wfcd_i18n';
+        } else {
+          itemZhName = baseName;
+          itemZhSource = 'en_fallback';
+        }
       }
 
       processedRewards.push({
@@ -1362,14 +1537,14 @@ async function build() {
     });
   }
 
-  // 7. 生成 unmatched.json (未匹配项，不要猜)
+  // 7. 生成 unmatched.json (未匹配项，保持原口径)
   const unmatchedList = Array.from(unmatchedSet.entries()).map(([name, samplePlaces]) => ({
     name,
     samplePlaces
   }));
   unmatchedList.sort((a, b) => a.name.localeCompare(b.name));
 
-  // 8. 生成 meta.json (使用与 fetch-prices 统一的 calculatePriceCoverage 函数)
+  // 8. 生成 meta.json
   let pricesMeta = {
     updatedAt: null,
     pricedCount: 0,
@@ -1383,11 +1558,11 @@ async function build() {
     }
   };
 
-  // 基于 data/prices.json 计算真实分类与全量覆盖率 (不得超过 100%)
-  const pricesPath = path.join(DATA_DIR, 'prices.json');
-  if (fs.existsSync(pricesPath)) {
+  const pricesPath = path.join(targetDataDir, 'prices.json');
+  const actualPricesPath = fs.existsSync(pricesPath) ? pricesPath : path.join(DATA_DIR, 'prices.json');
+  if (fs.existsSync(actualPricesPath)) {
     try {
-      const pc = JSON.parse(fs.readFileSync(pricesPath, 'utf8'));
+      const pc = JSON.parse(fs.readFileSync(actualPricesPath, 'utf8'));
       pricesMeta = calculatePriceCoverage(pc, {
         relics: relicsResult,
         rivens: rivensResult,
@@ -1397,6 +1572,44 @@ async function build() {
     } catch (err) {
       console.warn('[build] 计算价格覆盖率出错:', err.message);
     }
+  }
+
+  // 9. 写入基础数据产物文件
+  fs.mkdirSync(targetDataDir, { recursive: true });
+  fs.writeFileSync(path.join(targetDataDir, 'relics.json'), JSON.stringify({ relics: relicsResult, items: itemsResult }, null, 2));
+  fs.writeFileSync(path.join(targetDataDir, 'arcanes.json'), JSON.stringify(arcanesResult, null, 2));
+  fs.writeFileSync(path.join(targetDataDir, 'rivens.json'), JSON.stringify(rivensResult, null, 2));
+  fs.writeFileSync(path.join(targetDataDir, 'mods.json'), JSON.stringify(modsResult, null, 2));
+  fs.writeFileSync(path.join(targetDataDir, 'sources.json'), JSON.stringify(sourcesResult));
+  fs.writeFileSync(path.join(targetDataDir, 'unmatched.json'), JSON.stringify(unmatchedList, null, 2));
+  fs.writeFileSync(path.join(targetDataDir, 'search-index.json'), JSON.stringify(searchIndexData));
+
+  // 10. 自动生成剩余英文文档 docs/remaining-english.md 并对齐 localization 元数据
+  let localizationMeta = {
+    generatedAt: zhMap.meta?.generatedAt || new Date().toISOString(),
+    stats: {},
+    grandTotal: {},
+    abbreviatedCorrectionsCount: zhMap.abbreviatedCorrections?.length || 0
+  };
+
+  try {
+    const remainingReport = generateRemainingEnglishDocs({ dataDir: targetDataDir });
+    const locStats = {};
+    for (const cat of remainingReport.tableSummary) {
+      locStats[cat.id] = {
+        name: cat.category,
+        totalCount: cat.total,
+        translatedCount: cat.translated,
+        asIsCount: cat.asIs,
+        fallbackCount: cat.fallback,
+        coverage: cat.rate,
+        effectiveCoverage: cat.effectiveRate
+      };
+    }
+    localizationMeta.stats = locStats;
+    localizationMeta.grandTotal = remainingReport.grandSummary;
+  } catch (err) {
+    console.warn('[build] 生成 remaining-english.md 出错:', err.message);
   }
 
   const meta = {
@@ -1426,30 +1639,24 @@ async function build() {
       unmatchedCount: unmatchedList.length
     },
     pvpSources: pvpSourcesCount,
-    prices: pricesMeta
+    prices: pricesMeta,
+    localization: localizationMeta
   };
 
-  // 9. 写入所有产物文件
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(path.join(DATA_DIR, 'relics.json'), JSON.stringify({ relics: relicsResult, items: itemsResult }, null, 2));
-  fs.writeFileSync(path.join(DATA_DIR, 'arcanes.json'), JSON.stringify(arcanesResult, null, 2));
-  fs.writeFileSync(path.join(DATA_DIR, 'rivens.json'), JSON.stringify(rivensResult, null, 2));
-  fs.writeFileSync(path.join(DATA_DIR, 'mods.json'), JSON.stringify(modsResult, null, 2));
-  fs.writeFileSync(path.join(DATA_DIR, 'sources.json'), JSON.stringify(sourcesResult));
-  fs.writeFileSync(path.join(DATA_DIR, 'unmatched.json'), JSON.stringify(unmatchedList, null, 2));
-  fs.writeFileSync(path.join(DATA_DIR, 'search-index.json'), JSON.stringify(searchIndexData));
-  fs.writeFileSync(path.join(DATA_DIR, 'meta.json'), JSON.stringify(meta, null, 2));
+  fs.writeFileSync(path.join(targetDataDir, 'meta.json'), JSON.stringify(meta, null, 2));
 
   console.log('--------------------------------------------------');
-  console.log(`[build] 阶段 3 数据构建成功完成！`);
-  console.log(`- 遗物总数: ${relicsResult.length} (可获取: ${obtainableCount}, 入库: ${vaultedCount}, 特殊未列出: ${unlistedCount}, 冲突: ${conflictCount})`);
+  console.log(`[build] 全站汉化数据构建成功完成！`);
+  console.log(`- 遗物总数: ${relicsResult.length}`);
   console.log(`- 赋能总数: ${arcanesResult.length}`);
   console.log(`- 未开紫卡数: ${rivensResult.length}`);
   console.log(`- 掉落 Mod 数: ${modsResult.length}`);
   console.log(`- 统一掉落来源数: ${sourcesResult.length}`);
   console.log(`- 未匹配项数: ${unmatchedList.length}`);
   console.log(`- 预构建搜索条目数: ${searchIndexData.length}`);
-  console.log(`- 产物写入目录: ${DATA_DIR}`);
+  console.log(`- 物品汉化覆盖率: ${localizationMeta.stats.items.coverage} (规范覆盖率: ${localizationMeta.stats.items.effectiveCoverage})`);
+  console.log(`- 简略名修正数: ${localizationMeta.abbreviatedCorrectionsCount}`);
+  console.log(`- 产物写入目录: ${targetDataDir}`);
   console.log('--------------------------------------------------');
 }
 
