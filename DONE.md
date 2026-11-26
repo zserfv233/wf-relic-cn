@@ -1,3 +1,36 @@
+# DONE — fix/math-decisions（Codex 1126 六项决议，Antigravity 通道）
+
+- 状态：完成，通道独立复核通过（本地提交，未推送）。结束时间：2026-11-26 13:55 AEDT
+- 分支 fix/math-decisions（worktree /workspace/wf-relic-cn-decisions，基于 feat/zh-localization 8372999，未 rebase）
+- 实现提交：efb5988（agy Dec1，对话 11f2e78d-3041-4c5b-9adb-847529cc7029，4002 s，gemini-3.8-flash-high）
+- npm test：75/75 通过；check-invariants-with-mutated-prices.mjs --raw：全部通过；data/prices.json 与 .github/workflows 未改动；未抓价
+- flash-low 只读自检（13:5x）：结论 正常
+
+## 通道独立复核（脚本在 /workspace/wf-relic-cn-notes/verify/）
+1. Duviri：duviri_html.py 从 DE HTML 独立解析 Hard 表 11 项、99.99%，名称与掉率与 data/sources.json 逐项一致；boundaryFix {originalCount 62, keptCount 11}；rivens.json 中串入的 Duviri Hard 来源已移除。Normal Tier 1/3 各 150 项全为 0.67%（和 100.50%）标 roundingCompatible；其余 over 表 0 个被豁免。
+2. 平均视图：dec_repo_vs_indep.mjs 用仓库纯函数复算，与 decisions_indep.py 一致——Nightmare 卖 A/B/C 4.0439/2.4649/5.802，AABC 4.088675；买 B=null ⇒ AABC null。仲裁卖 A/B/C 0.67/0.65/0.715，前八轮 0.6875（各轮均 incomplete，界面标「不完整估值」）；买 B=null ⇒ null。通式 N=10 校验 2.4 一致；null 传播正确。
+3. 缺价资源：missingItems 掉率合计 = missingProbability（仲裁 A 9+9+9+7+44=78%），未设汇率、未写 0。
+4. 低置信：LOW_CONFIDENCE_MIN_SELLERS=3，prices.js 从 calculations.js 同一常量导出；同一 user.id 三单 ⇒ uniqueSellers 1、lowConfidence；旧缓存无 uniqueSellers ⇒ sellerCountUnverified:true。
+5. 紫卡：旧基础键（无 @unrevealed）getPriceEntry 返回 null；@unrevealed 键正常取价；matchesSubtype 排除缺 subtype 与 revealed 订单。当前缓存全部为旧键 ⇒ 紫卡全显示「暂无挂单」。
+6. ETERNA：仅 requiem_eterna 有 effectiveChance；rawChance 9.5 / effectiveChance 12.5；完整 EV 7.75（独立 Σsell 62 ×12.5%=7.75；9.5% 时 5.89）；其余精炼档 null。引文已在 warframe.com Update 42 补丁说明中逐字核对存在。
+
+## 截图（/workspace/wf-relic-cn-shots/ 与 docs-shots/）
+36 Duviri Hard 边界修正 · 37 Tier 1 舍入兼容 · 38 仲裁前八轮平均 · 39 缺价物品清单 · 40/40b ETERNA 引文与 EV · 41 Nightmare 低置信提示 · 42 紫卡无价 · 43 紫卡列表
+
+## 已知问题
+- 遗物表「完整」列仍显示 DE 原始 9.5%，EV 按 12.5%（横幅已说明）。
+- 来源弹窗的「不完整估值」提示只看卖侧；Nightmare A 买侧 incomplete（缺价 97.99%）仍显示 1.32 无提示。
+- 来源名重复后缀「(Hard) (Hard)」（汉化轮遗留拼接）。
+- npm test 会改写 meta.json builtAt 与 remaining-english.md 时间戳（已还原）。
+
+## 待 Codex 拍板
+- AABC 是否在界面对 Nightmare 等启用（目前只做纯函数，默认未启用）。
+- Recall Ten-Zero Week 1–5 表（51 项）是否作为独立来源收录。
+- 紫卡覆盖率降为 0（需按 @unrevealed 重新抓价，本轮不抓价）。
+- 仲裁前八轮平均在各轮 incomplete 时是否显示已知部分（目前显示并标「不完整估值」）。
+
+---
+
 # DONE — wf-relic-cn（Antigravity 通道）
 
 - 状态：完成，可验收（本地提交，未推送、未配置远程）。

@@ -311,3 +311,6 @@
   - `npm test`：12 个测试套件，75 个测试用例全部通过（75 passed, 0 failed）；
   - `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：变异价格不变量验证全部通过。
 
+
+## 2026-11-26 13:55 AEDT — 通道复核完成
+- Dec1 13:42 退出（SUCCESS，efb5988）；6 项独立复核通过，截图 36–43，详见 DONE.md 顶部。
