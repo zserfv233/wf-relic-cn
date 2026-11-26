@@ -554,3 +554,5 @@
 - `npm test`：133 tests 全部 PASS（133 passed, 0 failed）；
 - `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：全部不变量断言通过；
 - 按照硬性约束还原 `data/meta.json` 与 `docs/remaining-english.md` 时间戳。
+
+## 2026-11-26 20:27 AEDT — R5 复核通过（133/133，截图 72–75），写 DONE，提交
