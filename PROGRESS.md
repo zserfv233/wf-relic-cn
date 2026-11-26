@@ -361,3 +361,6 @@
   - `npm test`：13 个测试套件，82 个测试全部通过（82 passed, 0 failed）；
   - `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：价格变异不变量全部通过。
 
+
+## 2026-11-26 15:54 AEDT — R3a 通道复核完成
+- 详见 DONE.md 顶部；有 5 处问题并入 R3b 修正。

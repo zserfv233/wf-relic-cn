@@ -1,3 +1,30 @@
+# DONE — fix/round3 阶段 R3a（Codex 1126b 第 1–6 项，汉化）
+
+- 状态：agy R3a 完成（对话 53c8546e-c8f1-4681-b90c-e4d396a81eb3，5975 s，15:43 AEDT 退出），提交 38f64cf；通道复核发现 5 处问题，放入 R3b 一并修正（见下）。
+- npm test 82/82；check-invariants-with-mutated-prices 通过；prices.json、workflows 未改；未抓价、未推送。
+
+## 通道独立复核（/workspace/wf-relic-cn-notes/verify/）
+- 繁体：trad_detect.py（OpenCC t2s 仅作检测）生成数据繁体残留 2505 → 0（仅剩“尼蒐荚”的“蒐”，为上游原字，非表内词）；8 个任务类型均带 zhRaw + zhTransform。
+- 可追溯：zh_trace_r3.py 映射 3489 段中文，仅 7 段“无出处”且全是合法模板组合（希图斯/奥布山谷/魔胎之境/尸鬼 + 赏金、夜灵…（特殊））。
+- 节点：按 SolNode ID 对齐 179 条，其中 177 条英文名/星球与 DE en 记录完全一致，2 条仅大小写不同（Kala-Azar、StöFler）。另有 14 条“星球+英文名”与 DE 完全相同但没有 SolNode ID 关联（如 Vesper Relay、Höllvania 7 条），按规则未用。
+- Solaris→索拉里斯、Arbitrations→仲裁：带出处和派生规则。Eidolon 三条：规则 strip_suffix:可动模型，正确。
+
+## 复核发现的问题（R3b 修正）
+1. 来源显示名 nameZh 没有用上 DE 节点名：nodeZh 已是“阿波罗多罗斯撞击坑”，nameZh 仍是“水星 - Apollodorus (生存)”。
+2. 8 个 Executioner 敌人名派生成“行刑者 Zura 的”（多了所有格“的”）→ 先保守回退英文，待拍板。
+3. Carrier→“搬运者”：同键对应的是守护（Sentinel）Carrier，掉落表的 Carrier 是 Corpus 舰船（SwarmShipAvatar），不是同一实体 → 回退英文。
+4. Stalker→“追猎者”（取自“追猎者背景”）、Protector Stalker→“卫护追猎者”（取自“卫护追猎者玩偶”）：规则标的是 exact_match，实际是对物品名截词，违反第 5 项“不得推广” → 回退英文。
+5. agy 报告里有几处与数据不一致（写成“处决者”“议员”，实际是“行刑者”“委员”），以数据为准。
+
+## 待 Codex 拍板
+- Captain Vor：WFCD sortieData 作“Vor 上尉”，DE ExportFlavour 浮印作“沃尔上尉”，有歧义，暂时保留英文。
+- Executioner 浮印“X 的浮印”：能否按“去掉‘的浮印’”的规则派生（目前保留英文）。
+- Sanctuary Onslaught、The Circuit 等特殊来源没有可核实的单一中文名，保留英文。
+- 14 条“星球+英文名”与 DE 完全相同、但没有 SolNode ID 关联的节点，能否按完全相同的名字对齐（目前不用）。
+- Kubrow→库狛：出处是宠物 Kubrow 的语言键，掉落表里的是同一物种的野生库狛，暂时保留。
+
+---
+
 # DONE — fix/math-decisions（Codex 1126 六项决议，Antigravity 通道）
 
 - 状态：完成，通道独立复核通过（本地提交，未推送）。结束时间：2026-11-26 13:55 AEDT
