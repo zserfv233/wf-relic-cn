@@ -628,3 +628,22 @@
 - `data/meta.json` 与 `docs/remaining-english.md` 时间戳已还原检出，真实 `data/prices.json` 未受修改。
 
 ## 2026-11-26 22:28 AEDT — R6 / R6b 复核通过（有 raw 139/139；无 raw 129+10skip；新缓存场景 A/B/C 全过；check-invariants 通过），写 DONE，提交
+
+## 2026-11-26 22:53 AEDT — R7 开始：worktree /workspace/wf-relic-cn-r7 (fix/drop-tables, 自 cdabf6e)。run 45811008052 实际跑在 f088b4b（R6 合并之前）；失败在“Run tests”步，下载步骤成功。根因（在 cdabf6e 上用 /tmp 副本复现，6 个测试失败）：workflow 的 `build-data.mjs --download` 只下载 4 个文件（drops_all、Relics、zh、wfm_items_v2），但 build-data 还读取 de_droptables.html（Duviri 表头 + Recall: Ten-Zero 5 个历史来源），CI 没有它，Ten-Zero 来源整体消失，round3b/3c/round4 的 Ten-Zero/历史分组测试失败。DE droptables 页面从 box 可达（302 到 CDN，与本地文件前缀一致）。wfm_items_v2 从 box 访问 403（Cloudflare），记录，不绕过，模拟时复用本地已有的该文件。修法：只改 build-data.mjs 的下载清单，不需要改 workflow。
+
+## 2026-11-26 23:12 AEDT — R7 完成：
+- `scripts/build-data.mjs`：
+  - 抽取并导出 `REMOTE_FILES` 常量配置，加入 `de_droptables` (`https://www.warframe.com/droptables` -> `de_droptables.html`，`required: true`)。
+  - 导出 `REMOTE_URLS`（基于 `REMOTE_FILES` 派生，向后兼容）。
+  - `downloadFiles` 依据 `REMOTE_FILES` 映射显式文件名（保留 `Relics.json` 大小写特例），并执行必需性判定：`de_droptables.html` 等必需文件下载失败直接抛错退出（禁止静默降级），`wfm_items_v2.json` 保持可选降级。
+  - `meta.sources.deDropTableOfficial` 统一对齐引用 `REMOTE_URLS.de_droptables`。
+- 新增测试 `test/download_manifest.test.mjs`：
+  1. 不联网：断言 `REMOTE_FILES` 包含 `de_droptables.html` 且 `required === true`，`drops_all`/`relics`/`zh` 必需，`wfm_items_v2` 可降级；
+  2. 静态覆盖检查：源码正则匹配 `build-data.mjs` 中所有 `path.join(rawDir, '<文件>')`，断言全部被 `REMOTE_FILES` 覆盖且必需文件无漏项；并包含 `build-zh-map.mjs` 专用原始资料的显式白名单 (`ZH_MAP_RAW_WHITELIST`) 与清晰注释；
+  3. 隔离重建验证：在具备 raw 时，仅复制清单声明的 5 个文件（`drops_all.json`, `Relics.json`, `zh.json`, `wfm_items_v2.json`, `de_droptables.html`）至临时目录进行重建，断言 sources ID 完全一致（含 5 个 `event_recall_ten_zero_week_*`），relics/rivens/arcanes/mods 数量一致且不污染正式数据；无 raw 时优雅跳过。
+- 验证全部通过：
+  - `npm test`（有 raw）：142/142 全部通过；
+  - `WF_RAW_DIR=/nonexistent/xx npm test`：131 通过、11 跳过、0 失败；
+  - `node scripts/check-invariants-with-mutated-prices.mjs`：通过；
+  - 测试期间由重构触发的时间戳变动文件 `data/meta.json` 与 `docs/remaining-english.md` 已还原检出，未改动前端、未改动 `.github/workflows`、未抓价或改动 `data/prices.json`。
+

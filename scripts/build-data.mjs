@@ -79,13 +79,39 @@ const GAMEMODE_ZH_MAP = {
   Assassination: '刺杀'
 };
 
-// 远程数据源 URL
-const REMOTE_URLS = {
-  drops_all: 'https://drops.warframestat.us/data/all.json',
-  relics: 'https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Relics.json',
-  zh: 'https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/i18n/zh.json',
-  wfm_items_v2: 'https://api.warframe.market/v2/items'
+// 远程数据源文件清单（键 -> 文件名、下载地址、是否必需）
+export const REMOTE_FILES = {
+  drops_all: {
+    fileName: 'drops_all.json',
+    url: 'https://drops.warframestat.us/data/all.json',
+    required: true
+  },
+  relics: {
+    fileName: 'Relics.json',
+    url: 'https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Relics.json',
+    required: true
+  },
+  zh: {
+    fileName: 'zh.json',
+    url: 'https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/i18n/zh.json',
+    required: true
+  },
+  de_droptables: {
+    fileName: 'de_droptables.html',
+    url: 'https://www.warframe.com/droptables',
+    required: true
+  },
+  wfm_items_v2: {
+    fileName: 'wfm_items_v2.json',
+    url: 'https://api.warframe.market/v2/items',
+    required: false
+  }
 };
+
+// 远程数据源 URL 对照表（兼容历史引用）
+export const REMOTE_URLS = Object.fromEntries(
+  Object.entries(REMOTE_FILES).map(([key, item]) => [key, item.url])
+);
 
 // 通用部件单字列表
 const GENERIC_COMPONENT_NAMES = new Set([
@@ -205,14 +231,16 @@ async function downloadFiles(targetDir) {
   fs.mkdirSync(targetDir, { recursive: true });
   console.log(`[download] 正在从官方/开源源下载原始数据到 ${targetDir}...`);
 
-  for (const [key, url] of Object.entries(REMOTE_URLS)) {
-    const fileName = key === 'relics' ? 'Relics.json' : `${key}.json`;
+  for (const [key, item] of Object.entries(REMOTE_FILES)) {
+    const fileName = item.fileName || (key === 'relics' ? 'Relics.json' : `${key}.json`);
+    const url = item.url || REMOTE_URLS[key];
+    const isRequired = item.required !== false;
     const dest = path.join(targetDir, fileName);
     console.log(`[download] 下载 ${fileName} 来自 ${url}`);
     try {
       const res = await fetch(url, { headers: { 'User-Agent': 'wf-relic-cn (personal, non-commercial)' } });
       if (!res.ok) {
-        if (key === 'wfm_items_v2') {
+        if (!isRequired) {
           console.warn(`[download] 警告: 下载 ${fileName} 失败 (HTTP ${res.status})，将使用降级策略。`);
           continue;
         }
@@ -222,7 +250,7 @@ async function downloadFiles(targetDir) {
       fs.writeFileSync(dest, Buffer.from(data));
       console.log(`[download] 已保存 ${fileName} (${(data.byteLength / 1024 / 1024).toFixed(2)} MB)`);
     } catch (err) {
-      if (key === 'wfm_items_v2') {
+      if (!isRequired) {
         console.warn(`[download] 警告: 无法下载 ${fileName}: ${err.message}，将使用降级策略。`);
       } else {
         throw err;
@@ -1904,7 +1932,7 @@ export async function build(customOptions = {}) {
     builtAt: new Date().toISOString(),
     sources: {
       deDropData: REMOTE_URLS.drops_all,
-      deDropTableOfficial: 'https://www.warframe.com/droptables',
+      deDropTableOfficial: REMOTE_URLS.de_droptables || 'https://www.warframe.com/droptables',
       wfcdItemsRelics: REMOTE_URLS.relics,
       wfcdItemsZh: REMOTE_URLS.zh,
       wfmApi: 'https://api.warframe.market/v2'
