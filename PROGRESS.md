@@ -238,3 +238,27 @@
 - 自检 10:57（flash-low）报“卡住”为误报：当时工作区有持续改动，只是尚未提交。
 - 通道被外部中断（第 4 次，约 11:06），按 git/PROGRESS 恢复；agy 进程未受影响。
 - Z1 问题清单见 DONE.md；下一步 agy Z2（同一对话 f6aae698）。
+
+## 2026-11-26 12:25 AEDT — 阶段 Z2 完成（审核方问题修正与严格出处反编造强化）
+- 当前阶段：阶段 Z2 完成（修正无出处译名、错字、部件名规范及引用出处校准，强化逐段反编造单测）。
+- 修正项落实细节：
+  1. **问题 A（无出处中文清理与逐段 zhSegments 出处化）**：
+     - `Kuva Flood`、`Shadow Stalker`、`Nightmare Mode Rewards`、`Fomorian Sabotage`、`Kuva Siphon`、`Derelict Vault`、`Phorid Assassination`、`Void Storm (*)` 以及无资料赏金（`Arcana Isolation Vault`、`Entrati Lab Bounty`、`WF1999 Bounty`）全部严格整条回退为英文（`zhSource: en_fallback`）。
+     - 所有保留的 `composed:*` 组合译名全面写入 `zhSegments: [{text, source}]`，严格保证段落拼接与 `nameZh` 完全一致，且每一段中文都能在本地原始资料中逐字存在。
+     - 显式定义 `SITE_WORDS` 白名单（受控文案词：`等级`、`赏金`、`阶段`、`轮次`、`特殊`、`奖励`；以及 ASCII/格式符号），并在 `docs/remaining-english.md` 中立项说明。
+  2. **问题 B（错字纠正）**：
+     - `Sedna` 由「塞德娜」修正为官方资料「赛德娜」，出处严格来自 `wfcd_i18n:/Lotus/Types/Items/ShipDecos/PlanetTrophies/PlanetTrophySednaBronze`（「钢铁之路 — 赛德娜」）。
+  3. **问题 C（部件名规范）**：
+     - 彻底消除 44 条 `Neuroptics Blueprint` 拼成的「头部蓝图」，规范为官方标准名「头部神经光元 蓝图」（引用 `warframe_market:rhino_prime_neuroptics_blueprint` 等真实 WFM 词条）。
+     - `STANDARD_PART_SOURCES` 34 种通用部件全部绑定真实、有效、逐字包含的本地原始资料出处。
+  4. **问题 D（出处引用纠正）**：
+     - Höllvania/Hollvania 纠正出处为 `wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB`（「霍瓦尼亚沥青布碎片」），彻底替换原先错误的 `HexDogTagUncommon`。
+     - Solaris 因无独立官方中文词条回退为英文 `Solaris`（`en_fallback`），移除原先引用的 `ValentinesFortunaName`（「星日」）。
+     - Deimos / Zariman / Duviri / Cetus 移除原先不存在的 `SolNode700/601/603`，准确映射至合法键 `SolNode229`、`SolNode230`、`SolNode236` 与 `cetuswispitem`。
+     - 星图节点带后缀条目（如 `Mercury:Terminus (Caches)`）规范为 `composed:solNode+suffix`，段落清晰拆解为节点与后缀。
+  5. **问题 E（繁体规范）**：
+     - 任务类型与节点中的官方繁体保持 `traditional:` 标记，不做私自简繁替换，在文档中保留为「待 Codex 拍板事项」。
+- 测试与覆盖率：
+  - 新增测试：`出处一致性与逐段反编造断言：zh-map 与原始资料及 SITE_WORDS 严格一致（CI 优雅跳过）` 与 `审核方问题回归核验 (Z2 Review Regression Tests)`。全量核查 3782 条映射与 360 条组合规则，0 编造 0 错漏。
+  - `npm test`：12 套件 70 个测试全部通过（70 passed, 0 failed）。
+  - 覆盖率前后对比（详见交付报告）：总条目 6269，规范覆盖率 66.7%（纯中文汉化率 59.3%），无中文资料保留英文 2086 条。

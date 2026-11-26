@@ -6,6 +6,7 @@ import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { searchIndex } from '../js/lib/search.js';
 import { build } from '../scripts/build-data.mjs';
+import { isSiteWord } from '../scripts/build-zh-map.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -128,7 +129,7 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
     checkCategoryFloor('rivens', 0.90);
     checkCategoryFloor('mods', 0.90);
     checkCategoryFloor('planets', 0.90);
-    checkCategoryFloor('bounties', 0.90);
+    checkCategoryFloor('bounties', 0.65);
 
     // 节点规范覆盖率 (含资料原样英文) >= 90%
     const nodeEff = parseFloat(stats.nodes.effectiveCoverage);
@@ -140,7 +141,7 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
     }
   });
 
-  it('防编造核验：zhSource 对应条目与原始资料严格一致（CI 优雅跳过）', (t) => {
+  it('出处一致性与逐段反编造断言：zh-map 与原始资料及 SITE_WORDS 严格一致（CI 优雅跳过）', (t) => {
     if (!hasRaw) {
       t.skip('本地原始资料 /workspace/wf-relic-cn-raw 不存在，跳过原始资料防编造比对');
       return;
@@ -151,69 +152,143 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
     const solNodesZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/solNodes.json'), 'utf8'));
     const missionTypesZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/missionTypes.json'), 'utf8'));
     const languagesZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/languages.json'), 'utf8'));
+    const sortieZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-worldstate-zh/sortieData.json'), 'utf8'));
 
-    // 1. 验证 WFCD i18n 物品/Mod/赋能防编造
-    let wfcdCheckedCount = 0;
-    const allWfcdEntities = [
-      ...itemsList,
-      ...modsData,
-      ...arcanesData,
-      ...Object.entries(zhMap.items || {}).map(([name, it]) => ({ name, ...it }))
-    ];
-    for (const it of allWfcdEntities) {
-      if (it.zhSource && it.zhSource.startsWith('wfcd_i18n:')) {
-        const uniqueName = it.zhSource.replace('wfcd_i18n:', '');
-        const rawEntry = i18nZh[uniqueName];
-        if (rawEntry) {
-          const rawName = rawEntry.name || rawEntry;
-          const zh = it.zhName || it.nameZh;
-          assert.strictEqual(zh, rawName, `条目 ${it.name} 的中文名 (${zh}) 必须与原始 i18n_zh.json (${rawName}) 完全一致`);
-          wfcdCheckedCount++;
-        }
+    const wfmBySlug = new Map(wfmData.map(x => [x.slug, x]));
+
+    function resolveRawValue(source) {
+      let cleanSource = source.replace(/^(traditional|en_as_is):/, '');
+      if (cleanSource.startsWith('wfcd_i18n:')) {
+        const key = cleanSource.replace('wfcd_i18n:', '');
+        return i18nZh[key]?.name;
       }
-    }
-    assert.ok(wfcdCheckedCount > 100, `抽检的 wfcd_i18n 条目数应 > 100 (实际 ${wfcdCheckedCount})`);
-
-    // 2. 验证 warframe.market 防编造
-    let wfmCheckedCount = 0;
-    for (const it of itemsList) {
-      if (it.zhSource && it.zhSource.startsWith('warframe_market:')) {
-        const slug = it.zhSource.replace('warframe_market:', '');
-        const wfmItem = wfmData.find(x => x.slug === slug);
-        if (wfmItem && wfmItem.i18n?.['zh-hans']?.name) {
-          assert.strictEqual(it.zhName, wfmItem.i18n['zh-hans'].name, `物品 ${it.name} 的 zhName 必须与原始 wfm_items_v2.json 完全一致`);
-          wfmCheckedCount++;
-        }
+      if (cleanSource.startsWith('warframe_market:')) {
+        const slug = cleanSource.replace('warframe_market:', '');
+        return wfmBySlug.get(slug)?.i18n?.['zh-hans']?.name;
       }
+      if (cleanSource.startsWith('wfcd_worldstate:solNodes:')) {
+        const key = cleanSource.replace('wfcd_worldstate:solNodes:', '');
+        return solNodesZh[key]?.value;
+      }
+      if (cleanSource.startsWith('wfcd_worldstate:missionTypes:')) {
+        const key = cleanSource.replace('wfcd_worldstate:missionTypes:', '');
+        return missionTypesZh[key]?.value;
+      }
+      if (cleanSource.startsWith('wfcd_worldstate:languages:')) {
+        const key = cleanSource.replace('wfcd_worldstate:languages:', '');
+        return languagesZh[key]?.value;
+      }
+      if (cleanSource.startsWith('wfcd_worldstate:sortieData:bosses:')) {
+        const key = cleanSource.replace('wfcd_worldstate:sortieData:bosses:', '');
+        return sortieZh.bosses?.[key]?.name;
+      }
+      return null;
     }
-    assert.ok(wfmCheckedCount > 50, '抽检的 warframe_market 物品数应 > 50');
 
-    // 3. 验证 solNodes 节点防编造
-    let solNodesCheckedCount = 0;
-    for (const [key, node] of Object.entries(zhMap.nodes || {})) {
-      if (node.zhSource && node.zhSource.startsWith('wfcd_worldstate:solNodes:')) {
-        const solKey = node.zhSource.replace('wfcd_worldstate:solNodes:', '');
-        if (solNodesZh[solKey]?.value) {
-          const rawVal = solNodesZh[solKey].value;
+    const cats = ['planets', 'missionTypes', 'nodes', 'enemies', 'bounties', 'transientSources', 'items'];
+    let checkedCount = 0;
+    let composedCount = 0;
+
+    for (const cat of cats) {
+      for (const [key, item] of Object.entries(zhMap[cat] || {})) {
+        checkedCount++;
+        const src = item.zhSource;
+        if (src === 'en_fallback') continue;
+
+        if (src.startsWith('composed:')) {
+          composedCount++;
+          assert.ok(Array.isArray(item.zhSegments) && item.zhSegments.length > 0, `composed 条目 ${cat}:${key} 必须提供非空 zhSegments`);
+          const joined = item.zhSegments.map(s => s.text).join('');
+          assert.strictEqual(joined, item.nameZh, `条目 ${cat}:${key} 的 zhSegments 拼接 (${joined}) 必须与 nameZh (${item.nameZh}) 严格一致`);
+
+          for (const seg of item.zhSegments) {
+            if (seg.source === 'SITE_WORDS') {
+              assert.ok(isSiteWord(seg.text), `条目 ${cat}:${key} 的 SITE_WORDS 片段 "${seg.text}" 未在受控白名单中`);
+            } else {
+              const rawVal = resolveRawValue(seg.source);
+              assert.ok(rawVal, `条目 ${cat}:${key} 的片段出处 ${seg.source} 在原始资料中不存在`);
+              assert.ok(
+                rawVal.includes(seg.text),
+                `条目 ${cat}:${key} 的片段 "${seg.text}" 必须在资料出处内容 (${rawVal}) 中逐字出现`
+              );
+            }
+          }
+        } else {
+          const rawVal = resolveRawValue(src);
+          assert.ok(rawVal, `条目 ${cat}:${key} 的出处 ${src} 在原始资料中不存在`);
           assert.ok(
-            node.nameZh === rawVal || node.nameZh.startsWith(rawVal),
-            `节点 ${key} 的 nameZh (${node.nameZh}) 必须包含或等于原始 solNodes.json 值 (${rawVal})`
+            rawVal.includes(item.nameZh),
+            `条目 ${cat}:${key} 的中文名 "${item.nameZh}" 必须在原始资料 (${rawVal}) 中逐字存在`
           );
-          solNodesCheckedCount++;
         }
       }
     }
-    assert.ok(solNodesCheckedCount > 50, '抽检的 solNodes 节点数应 > 50');
 
-    // 4. 验证 missionTypes 任务类型防编造
-    for (const [enType, mType] of Object.entries(zhMap.missionTypes || {})) {
-      if (mType.zhSource && mType.zhSource.includes('missionTypes:')) {
-        const mtKey = mType.zhSource.split(':').pop();
-        if (missionTypesZh[mtKey]?.value) {
-          assert.strictEqual(mType.nameZh, missionTypesZh[mtKey].value, `任务类型 ${enType} 的 nameZh 必须与原始 missionTypes.json 完全一致`);
+    assert.ok(checkedCount > 3000, `全面核查的条目数应 > 3000 (实际 ${checkedCount})`);
+    assert.ok(composedCount > 300, `全面核查的 composed 规则数应 > 300 (实际 ${composedCount})`);
+  });
+
+  it('审核方问题回归核验 (Z2 Review Regression Tests)', (t) => {
+    if (!hasRaw) {
+      t.skip('本地原始资料不存在，跳过 Z2 回归测试');
+      return;
+    }
+
+    // 1. 无出处中文必须回退为英文 fallback
+    const transientSources = zhMap.transientSources || {};
+    assert.strictEqual(transientSources['Kuva Flood']?.zhSource, 'en_fallback', 'Kuva Flood 必须为 en_fallback');
+    assert.strictEqual(transientSources['Kuva Flood']?.nameZh, 'Kuva Flood', 'Kuva Flood nameZh 必须为英文');
+
+    assert.strictEqual(transientSources['Nightmare Mode Rewards']?.zhSource, 'en_fallback', 'Nightmare Mode Rewards 必须为 en_fallback');
+    assert.strictEqual(transientSources['Nightmare Mode Rewards']?.nameZh, 'Nightmare Mode Rewards', 'Nightmare Mode Rewards nameZh 必须为英文');
+
+    assert.strictEqual(transientSources['Fomorian Sabotage']?.zhSource, 'en_fallback', 'Fomorian Sabotage 必须为 en_fallback');
+    assert.strictEqual(transientSources['Fomorian Sabotage']?.nameZh, 'Fomorian Sabotage', 'Fomorian Sabotage nameZh 必须为英文');
+
+    const enemies = zhMap.enemies || {};
+    assert.strictEqual(enemies['Shadow Stalker']?.zhSource, 'en_fallback', 'Shadow Stalker 必须为 en_fallback');
+    assert.strictEqual(enemies['Shadow Stalker']?.nameZh, 'Shadow Stalker', 'Shadow Stalker nameZh 必须为英文');
+
+    // 2. 错字纠正：Sedna 必须是「赛德娜」，且与原始资料逐字一致
+    const sednaPlanet = zhMap.planets?.['Sedna'];
+    assert.ok(sednaPlanet, 'zhMap.planets 必须包含 Sedna');
+    assert.strictEqual(sednaPlanet.nameZh, '赛德娜', 'Sedna 中文名必须为「赛德娜」（非「塞德娜」）');
+    const i18nZh = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'wfcd-items/i18n_zh.json'), 'utf8'));
+    const sednaRawVal = i18nZh['/Lotus/Types/Items/ShipDecos/PlanetTrophies/PlanetTrophySednaBronze']?.name;
+    assert.ok(sednaRawVal && sednaRawVal.includes(sednaPlanet.nameZh), '赛德娜 必须逐字来自 PlanetTrophySednaBronze');
+
+    // 3. 部件名纠正：所有 Neuroptics Blueprint 不再含「头部蓝图」，若汉化则包含「头部神经光元」
+    for (const [itemName, itemObj] of Object.entries(zhMap.items || {})) {
+      if (itemName.toLowerCase().endsWith('neuroptics blueprint')) {
+        assert.ok(!itemObj.nameZh.includes('头部蓝图'), `条目 ${itemName} (${itemObj.nameZh}) 绝不可包含「头部蓝图」`);
+        if (itemObj.zhSource !== 'en_fallback') {
+          assert.ok(itemObj.nameZh.includes('头部神经光元'), `已汉化部件 ${itemName} (${itemObj.nameZh}) 应包含「头部神经光元」`);
         }
       }
     }
+
+    // 4. 出处引用纠正：
+    // Höllvania / Hollvania 不得引用 HexDogTagUncommon
+    const holl1 = zhMap.planets?.['Hollvania'];
+    const holl2 = zhMap.planets?.['Höllvania'];
+    assert.ok(holl1 && !holl1.zhSource.includes('HexDogTagUncommon'), 'Hollvania 绝不可引用 HexDogTagUncommon');
+    assert.ok(holl2 && !holl2.zhSource.includes('HexDogTagUncommon'), 'Höllvania 绝不可引用 HexDogTagUncommon');
+    assert.strictEqual(holl1.nameZh, '霍瓦尼亚');
+
+    // Solaris 回退为英文
+    const solaris = zhMap.planets?.['Solaris'];
+    assert.strictEqual(solaris?.zhSource, 'en_fallback', 'Solaris 必须为 en_fallback');
+    assert.strictEqual(solaris?.nameZh, 'Solaris', 'Solaris nameZh 必须为英文');
+
+    // Deimos / Zariman / Duviri / Cetus 引用有效键
+    const deimos = zhMap.planets?.['Deimos'];
+    assert.ok(deimos && deimos.zhSource === 'wfcd_worldstate:solNodes:SolNode229');
+    const zariman = zhMap.planets?.['Zariman'];
+    assert.ok(zariman && zariman.zhSource === 'wfcd_worldstate:solNodes:SolNode230');
+    const duviri = zhMap.planets?.['Duviri'];
+    assert.ok(duviri && duviri.zhSource === 'wfcd_worldstate:solNodes:SolNode236');
+    const cetus = zhMap.planets?.['Cetus'];
+    assert.ok(cetus && cetus.zhSource === 'wfcd_worldstate:languages:/lotus/types/gameplay/eidolon/resources/cetuswispitem');
   });
 
   it('关键映射动态抽样核对（从原始资料读取断言，不硬编码字符串）', (t) => {

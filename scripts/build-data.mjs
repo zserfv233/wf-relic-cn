@@ -44,7 +44,7 @@ const PLANET_ZH_MAP = {
   Uranus: '天王星',
   Neptune: '海王星',
   Pluto: '冥王星',
-  Sedna: '塞德娜',
+  Sedna: '赛德娜',
   Eris: '阋神星',
   Void: '虚空',
   Deimos: '火卫二',
@@ -56,7 +56,7 @@ const PLANET_ZH_MAP = {
   'Sanctum Anatomica': '解剖圣所',
   Hollvania: '霍瓦尼亚',
   Cetus: '希图斯',
-  Solaris: '福尔图娜'
+  Solaris: 'Solaris'
 };
 
 // 任务模式常见对照（回退）
@@ -345,7 +345,11 @@ export async function build(customOptions = {}) {
     if (!baseName) return { itemZh: '', zhSource: 'en_fallback' };
     const m = zhMap.items?.[baseName] || (rawItemName ? zhMap.items?.[rawItemName] : null);
     if (m) {
-      return { itemZh: m.nameZh, zhSource: m.zhSource };
+      return {
+        itemZh: m.nameZh,
+        zhSource: m.zhSource,
+        ...(m.zhSegments ? { zhSegments: m.zhSegments } : {})
+      };
     }
     return { itemZh: baseName, zhSource: 'en_fallback' };
   }
@@ -699,7 +703,7 @@ export async function build(customOptions = {}) {
   // C. 扫描六类赏金
   const bountyTableDefs = [
     { key: 'cetusBountyRewards', label: 'Cetus Bounty (希图斯赏金)' },
-    { key: 'solarisBountyRewards', label: 'Solaris Bounty (福尔图娜赏金)' },
+    { key: 'solarisBountyRewards', label: 'Solaris Bounty (索拉里斯/奥布山谷赏金)' },
     { key: 'deimosRewards', label: 'Deimos Bounty (火卫二赏金)' },
     { key: 'zarimanRewards', label: 'Zariman (扎里曼任务)' },
     { key: 'entratiLabRewards', label: 'Entrati Lab (阿尔布雷希特实验室)' },

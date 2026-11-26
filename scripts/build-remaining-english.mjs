@@ -179,14 +179,22 @@ export function generateRemainingEnglishDocs(options = {}) {
   }
 
   lines.push('');
-  lines.push('## 3. 待 Codex 拍板事项 (Pending Codex Decision)');
+  lines.push('## 3. 本站界面词与结构词白名单说明 (SITE_WORDS)');
+  lines.push('');
+  lines.push('在 `composed:*` 规则生成的组合译名中，所有中文游戏实体名称均严格来自本地原始资料（WFCD i18n、warframe.market 或 WFCD worldstate），每一段中文都在资料中逐字对应并在 `zhSegments` 中记录精确出处。');
+  lines.push('对于非专有名词的修饰成分与结构符号，脚本定义了显式受控白名单 `SITE_WORDS`：');
+  lines.push('- **受控文案词**：`等级`、`赏金`、`阶段`、`轮次`、`特殊`、`奖励`');
+  lines.push('- **结构与标点符号**：空格、横杠（` - `）、圆括号（`(`、`)`、`（`、`）`）、中括号（`[`、`]`）、数字、英文原名节点/模式/属性前缀（如 `Caches`、`Extra`、`Resource`、`Level`、`Dark Refractory, `）');
+  lines.push('- **无出处整条回退**：若某个组合规则中的任何中文段落在原始资料与 `SITE_WORDS` 中均无逐字出处（例如「赤毒洪流」「暗影追猎者」「噩梦模式」「巨人战舰破坏」「奥秘隔离库」「英择谛实验室」「WF1999 赏金」），一律严格整条回退为英文，绝不自行拼接或编造。');
+  lines.push('');
+  lines.push('## 4. 待 Codex 拍板事项 (Pending Codex Decision)');
   lines.push('');
   lines.push('1. **繁体任务类型保留**：上游 `wfcd-worldstate-zh/solNodes.json` 及 `missionTypes.json` 包含部分官方繁体条目（如「捕獲」「移動防禦」「刺殺」「防禦」「殲滅」「間諜」「破壞」「攔截」）。按硬性约束不做私自简繁替换，标记 `zhSource: traditional:...`。');
   lines.push('2. **星图节点英文名**：上游 `solNodes.json` 中节点名格式多为「Galatea (海王星)」，即英文节点名 + 中文星球。本站保留原样英文并计入「资料原样英文」。');
   lines.push('3. **特殊来源与未开紫卡模式**：如「Arbitrations」「Sanctuary Onslaught」「The Circuit」在原始资料任务类型与语言包中无单一对应模式名，按规则保留英文。');
 
   lines.push('');
-  lines.push('## 4. 剩余英文详细清单 (按类别列出每一条)');
+  lines.push('## 5. 剩余英文详细清单 (按类别列出每一条)');
   lines.push('');
   lines.push('| 序号 | 类别 | 英文名称 | 属性分类 | 原因 / 来源说明 |');
   lines.push('| :---: | :--- | :--- | :---: | :--- |');
