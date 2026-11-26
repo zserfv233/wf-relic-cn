@@ -91,29 +91,60 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
   const rawItem = prices[key];
   if (!rawItem || typeof rawItem !== 'object') return null;
 
-  const sellCount = typeof rawItem.sellCount === 'number' ? rawItem.sellCount : 0;
-  const buyCount = typeof rawItem.buyCount === 'number' ? rawItem.buyCount : 0;
-  const rawSellMin = (typeof rawItem.sellMin === 'number' && Number.isFinite(rawItem.sellMin) && rawItem.sellMin >= 0) ? rawItem.sellMin : null;
-  const rawBuyMax = (typeof rawItem.buyMax === 'number' && Number.isFinite(rawItem.buyMax) && rawItem.buyMax >= 0) ? rawItem.buyMax : null;
+  // 带版本号的缓存字段契约 (priceSchemaVersion: 2)
+  // 新格式优先读取明确存在的 raw 字段 (区分字段不存在与明确 null)
+  // 旧格式从原 sellMin/buyMax 派生
+  const isV2OrHasExplicitRaw = rawItem.priceSchemaVersion >= 2 
+    || Object.prototype.hasOwnProperty.call(rawItem, 'rawSellMin') 
+    || Object.prototype.hasOwnProperty.call(rawItem, 'rawBuyMax');
 
-  // 倒挂报价隔离 (Codex Decision 10)
-  // 同一完整缓存键（同物品、rank、subtype）若 sellMin 与 buyMax 都是有限数且 buyMax > sellMin，标 crossedMarket: true
-  // 两侧有效价都返回 null、计入缺价；原始 sellMin/buyMax/样本保留在明细中
+  let rawSellMin = null;
+  let rawBuyMax = null;
+
+  if (isV2OrHasExplicitRaw) {
+    rawSellMin = (typeof rawItem.rawSellMin === 'number' && Number.isFinite(rawItem.rawSellMin) && rawItem.rawSellMin >= 0) ? rawItem.rawSellMin : null;
+    rawBuyMax = (typeof rawItem.rawBuyMax === 'number' && Number.isFinite(rawItem.rawBuyMax) && rawItem.rawBuyMax >= 0) ? rawItem.rawBuyMax : null;
+  } else {
+    rawSellMin = (typeof rawItem.sellMin === 'number' && Number.isFinite(rawItem.sellMin) && rawItem.sellMin >= 0) ? rawItem.sellMin : null;
+    rawBuyMax = (typeof rawItem.buyMax === 'number' && Number.isFinite(rawItem.buyMax) && rawItem.buyMax >= 0) ? rawItem.buyMax : null;
+  }
+
+  const sellCount = typeof rawItem.sellCount === 'number' ? rawItem.sellCount : (Array.isArray(rawItem.sellSamples) ? rawItem.sellSamples.length : 0);
+  const buyCount = typeof rawItem.buyCount === 'number' ? rawItem.buyCount : (Array.isArray(rawItem.buySamples) ? rawItem.buySamples.length : 0);
+
+  // 倒挂报价隔离 (Codex 1126c 第 7 项)
+  // 严格 rawBuyMax > rawSellMin 才倒挂，相等不算
   const isCrossed = (rawSellMin !== null && rawBuyMax !== null && rawBuyMax > rawSellMin);
   const crossedMarket = isCrossed;
   const crossedMarketReason = isCrossed
     ? `报价倒挂：最高收购价 (${rawBuyMax} ☿) 高于最低卖价 (${rawSellMin} ☿)，两侧有效价格已隔离为缺价`
     : null;
 
-  const sellMin = crossedMarket ? null : rawSellMin;
-  const buyMax = crossedMarket ? null : rawBuyMax;
+  let sellMin = null;
+  let buyMax = null;
+  if (crossedMarket) {
+    sellMin = null;
+    buyMax = null;
+  } else {
+    if (isV2OrHasExplicitRaw) {
+      sellMin = (typeof rawItem.sellMin === 'number' && Number.isFinite(rawItem.sellMin) && rawItem.sellMin >= 0)
+        ? rawItem.sellMin
+        : (rawItem.singleSided === 'buy' ? null : rawSellMin);
+      buyMax = (typeof rawItem.buyMax === 'number' && Number.isFinite(rawItem.buyMax) && rawItem.buyMax >= 0)
+        ? rawItem.buyMax
+        : (rawItem.singleSided === 'sell' ? null : rawBuyMax);
+    } else {
+      sellMin = rawSellMin;
+      buyMax = rawBuyMax;
+    }
+  }
 
   // sellRobust: 最低 min(3, n) 个卖单价格的中位数（n<3 时等于现有逻辑 sellMin 但标低置信）
   let sellRobust = null;
   let robustUnavailable = false;
   if (crossedMarket) {
     sellRobust = null;
-  } else if (rawItem.sellRobust !== undefined) {
+  } else if (rawItem.sellRobust !== undefined && rawItem.sellRobust !== null) {
     sellRobust = rawItem.sellRobust;
   } else {
     robustUnavailable = true;
@@ -133,10 +164,12 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
 
   const lowConfidence = sellMin === null || sellerCountUnverified || uniqueSellers < LOW_CONFIDENCE_MIN_SELLERS;
   const buyLowConfidence = buyMax === null || buyerCountUnverified || uniqueBuyers < LOW_CONFIDENCE_MIN_SELLERS;
+  // noBuyOrders 不能由隔离后的 buyMax=null 推导，反映真实买单数量与 rawBuyMax 状态
   const noBuyOrders = buyCount === 0 || rawBuyMax === null;
 
   return {
     ...rawItem,
+    priceSchemaVersion: rawItem.priceSchemaVersion || 2,
     key,
     sellMin,
     buyMax,

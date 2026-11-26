@@ -62,45 +62,49 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
   });
 
   // --------------------------------------------------------------------------
-  // A2: Executioner ×8 全部回退英文 en_fallback，保留待拍板 candidate
+  // A2: Executioner ×8 派生结果去掉“的浮印”，Dhurnam 保留英文
   // --------------------------------------------------------------------------
-  it('A2: Executioner ×8 派生结果以“的”结尾全部回退英文，保留 candidate 且标 pendingDecision', () => {
+  it('A2: Executioner ×8 派生结果去掉“的浮印”，Dhurnam 保留英文，取消 pendingDecision', () => {
     // 8 个在 DE ExportFlavour 拥有“…的浮印”的 Executioner
     const executioners = [
-      'Executioner Zura',
-      'Executioner Garesh',
-      'Executioner Harkonar',
-      'Executioner Reth',
-      'Executioner Vay Molta',
-      'Executioner Dok Thul',
-      'Executioner Nok',
-      'Executioner Gorth'
+      { en: 'Executioner Zura', zh: '行刑者 Zura' },
+      { en: 'Executioner Garesh', zh: '行刑者加雷什' },
+      { en: 'Executioner Harkonar', zh: '行刑者哈库那' },
+      { en: 'Executioner Reth', zh: '行刑者莱斯' },
+      { en: 'Executioner Vay Molta', zh: '行刑者 Vay Molta' },
+      { en: 'Executioner Dok Thul', zh: '行刑者多克·图尔' },
+      { en: 'Executioner Nok', zh: '行刑者诺克' },
+      { en: 'Executioner Gorth', zh: '行刑者高斯' }
     ];
 
-    for (const name of executioners) {
-      const entry = zhMap.enemies?.[name];
-      assert.ok(entry, `zhMap.enemies 必须包含 ${name}`);
-      assert.strictEqual(entry.zhSource, 'en_fallback', `${name} 必须回退为 en_fallback`);
-      assert.strictEqual(entry.nameZh, name, `${name} nameZh 必须为英文`);
-      assert.strictEqual(entry.pendingDecision, true, `${name} 必须标为 pendingDecision`);
-      assert.ok(entry.candidate, `${name} 必须保留 candidate 信息`);
-      assert.ok(entry.candidate.zhCandidate.endsWith('的'), `${name} 候选词 (${entry.candidate.zhCandidate}) 必须以“的”结尾`);
-      assert.ok(entry.candidate.zhSource, `${name} 必须记录 candidate 出处键`);
+    for (const item of executioners) {
+      const entry = zhMap.enemies?.[item.en];
+      assert.ok(entry, `zhMap.enemies 必须包含 ${item.en}`);
+      assert.strictEqual(entry.nameZh, item.zh);
+      assert.strictEqual(entry.rule, 'strip_suffix:的浮印');
+      assert.strictEqual(Boolean(entry.pendingDecision), false);
+      assert.ok(entry.zhSource.startsWith('de_export:ExportFlavour_zh:'));
     }
+
+    // Dhurnam 无浮印，保留英文
+    const dhurnam = zhMap.enemies?.['Executioner Dhurnam'];
+    assert.ok(dhurnam, 'zhMap.enemies 必须包含 Executioner Dhurnam');
+    assert.strictEqual(dhurnam.nameZh, 'Executioner Dhurnam');
+    assert.strictEqual(dhurnam.zhSource, 'en_fallback');
   });
 
   // --------------------------------------------------------------------------
-  // A3: Carrier 回退英文，exact_match 增加实体类别核对，Kubrow 保留并标注
+  // A3: Carrier 映射为母舰 (huijiwiki)，exact_match 排除 sentinels/pets/powersuits/warframes，Kubrow 认定物种名
   // --------------------------------------------------------------------------
-  it('A3: Carrier 回退英文 (排除守护同名)，exact_match 排除 sentinels/pets/powersuits/warframes，Kubrow 标注“宠物同种”', () => {
-    // 1. Carrier 回退
+  it('A3: Carrier 映射为母舰 (排除守护同名)，exact_match 排除 sentinels/pets/powersuits/warframes，Kubrow 认定物种名', () => {
+    // 1. Carrier 映射母舰
     const carrier = zhMap.enemies?.['Carrier'];
     assert.ok(carrier, 'zhMap.enemies 必须包含 Carrier');
-    assert.strictEqual(carrier.zhSource, 'en_fallback', 'Carrier 必须回退为 en_fallback');
-    assert.strictEqual(carrier.nameZh, 'Carrier');
-    assert.strictEqual(carrier.rule, 'rejected_non_enemy_entity');
-    assert.strictEqual(carrier.pendingDecision, true);
-    assert.ok(carrier.candidate, 'Carrier 必须记录 candidate 信息');
+    assert.strictEqual(carrier.nameZh, '母舰');
+    assert.strictEqual(carrier.zhSource, 'huijiwiki');
+    assert.strictEqual(carrier.rule, 'community_wiki_search_evidence');
+    assert.strictEqual(Boolean(carrier.pendingDecision), false);
+    assert.ok(carrier.uniqueName.includes('SwarmShipAvatar'));
 
     // 2. 实体类型检查：没有敌人使用 sentinels, powersuits 等非敌人物品键
     for (const [enName, enemy] of Object.entries(zhMap.enemies || {})) {
@@ -115,32 +119,34 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
       }
     }
 
-    // 3. Kubrow 保留但标注
+    // 3. Kubrow 保留物种名
     const kubrow = zhMap.enemies?.['Kubrow'];
     assert.ok(kubrow, 'zhMap.enemies 必须包含 Kubrow');
     assert.strictEqual(kubrow.nameZh, '库狛');
-    assert.strictEqual(kubrow.annotation, '宠物同种');
-    assert.strictEqual(kubrow.pendingDecision, true);
+    assert.strictEqual(kubrow.zhSource, 'verified_species_name');
+    assert.strictEqual(kubrow.rule, 'verified_species_name');
+    assert.strictEqual(Boolean(kubrow.pendingDecision), false);
   });
 
   // --------------------------------------------------------------------------
-  // A4: Stalker / Protector Stalker 回退英文，全部敌人中文严格等于出处或合法去后缀
+  // A4: Stalker 为追猎者，Protector Stalker 为卫护追猎者
   // --------------------------------------------------------------------------
-  it('A4: Stalker 与 Protector Stalker 回退英文，全量敌人中文名严格等于出处原文或合法去后缀', () => {
-    // 1. Stalker 回退英文
+  it('A4: Stalker 为追猎者，Protector Stalker 为卫护追猎者，全量敌人中文名严格等于出处原文或合法去后缀', () => {
+    // 1. Stalker
     const stalker = zhMap.enemies?.['Stalker'];
     assert.ok(stalker, 'zhMap.enemies 必须包含 Stalker');
-    assert.strictEqual(stalker.zhSource, 'en_fallback');
-    assert.strictEqual(stalker.nameZh, 'Stalker');
-    assert.strictEqual(stalker.pendingDecision, true);
-    assert.ok(stalker.candidate);
+    assert.strictEqual(stalker.nameZh, '追猎者');
+    assert.strictEqual(stalker.zhSource, 'de_export:ExportGear_zh:/Lotus/Types/Restoratives/Consumable/AssassinBait');
+    assert.strictEqual(stalker.rule, 'verified_character_reference');
+    assert.strictEqual(Boolean(stalker.pendingDecision), false);
 
+    // Protector Stalker
     const protStalker = zhMap.enemies?.['Protector Stalker'];
     assert.ok(protStalker, 'zhMap.enemies 必须包含 Protector Stalker');
-    assert.strictEqual(protStalker.zhSource, 'en_fallback');
-    assert.strictEqual(protStalker.nameZh, 'Protector Stalker');
-    assert.strictEqual(protStalker.pendingDecision, true);
-    assert.ok(protStalker.candidate);
+    assert.strictEqual(protStalker.nameZh, '卫护追猎者');
+    assert.strictEqual(protStalker.zhSource, 'de_export:ExportResources_zh:/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker');
+    assert.strictEqual(protStalker.rule, 'strip_suffix:玩偶');
+    assert.strictEqual(Boolean(protStalker.pendingDecision), false);
 
     // 2. 全量敌人合法性断言
     for (const [enName, enemy] of Object.entries(zhMap.enemies || {})) {
@@ -157,11 +163,18 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
             sourceText,
             `敌人 ${enName} 标为 exact_match，但 nameZh (${enemy.nameZh}) 与出处原文 (${sourceText}) 不符`
           );
-        } else if (enemy.rule === 'strip_suffix:浮印') {
+        } else if (enemy.rule === 'strip_suffix:浮印' || enemy.rule === 'strip_suffix:的浮印') {
+          const raw = enemy.rawName || enemy.zhRaw;
           assert.strictEqual(
-            enemy.rawName.replace(/\s*浮印$/, '').trim(),
+            raw.replace(/\s*(的)?浮印$/, '').trim(),
             enemy.nameZh,
-            `敌人 ${enName} strip_suffix:浮印 rawName (${enemy.rawName}) 去掉后缀必须等于 nameZh (${enemy.nameZh})`
+            `敌人 ${enName} strip_suffix raw (${raw}) 去掉后缀必须等于 nameZh (${enemy.nameZh})`
+          );
+        } else if (enemy.rule === 'strip_suffix:玩偶') {
+          assert.strictEqual(
+            enemy.zhRaw.replace(/\s*玩偶$/, '').trim(),
+            enemy.nameZh,
+            `敌人 ${enName} strip_suffix:玩偶 zhRaw (${enemy.zhRaw}) 去掉玩偶必须等于 nameZh (${enemy.nameZh})`
           );
         } else if (enemy.rule === 'strip_suffix:可动模型') {
           assert.ok(
@@ -169,7 +182,7 @@ describe('Codex 1126b 修正 (A1–A4) 与第 7–11 项测试套件 (Round 3b T
             `strip_suffix:可动模型 仅限三个夜灵，但 ${enName} 使用了该规则`
           );
           assert.strictEqual(enemy.rawName.replace(/\s*可动模型$/, '').trim(), enemy.nameZh.replace('（特殊）', '').trim());
-        } else if (enemy.rule === 'sortieData' || enemy.rule === 'sortie_boss' || enemy.rule === 'sortie_boss:t2s' || enemy.zhTransform === 'traditional_to_simplified' || enemy.zhSegments) {
+        } else if (enemy.rule === 'sortieData' || enemy.rule === 'sortie_boss' || enemy.rule === 'sortie_boss:t2s' || enemy.zhTransform === 'traditional_to_simplified' || enemy.zhSegments || enemy.rule === 'verified_species_name' || enemy.rule === 'community_wiki_search_evidence' || enemy.rule === 'verified_character_reference') {
           // 已登记规则，允许
         } else {
           assert.fail(`敌人 ${enName} 具有未知规则: ${enemy.rule}`);

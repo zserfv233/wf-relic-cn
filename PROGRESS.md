@@ -461,3 +461,75 @@
 ## 2026-11-26 18:14 AEDT — 第三轮收尾
 - R3b 复核通过；4c466f1 修了 4 处界面问题；截图 44–58 已在 HEAD 重拍；npm test 102/102。
 - 本轮中断记录：14:51、15:41、16:32、17:22、18:12 共 5 次在等 agy 时被中断，外加本轮开始前 13:36 的 1 次，合计 6 次；每次都从 git 与 PROGRESS 状态续接，没有重复启动 agy。
+
+## 2026-11-26 18:27 AEDT — 第三轮后续开始（fix/round3-decisions，worktree /workspace/wf-relic-cn-r4，基于 de8948f）
+- 依据 /workspace/wf_decisions_1126c/decisions.md（8 项）。通道已把 Codex 证据复制到 /workspace/wf-relic-cn-raw（de-export 新增 13 类、de-web/1126c、community/）。agy R4 启动。
+
+- 19:16 中断后恢复：R4 仍是 18:27 启动的同一进程（pid 786110 与启动时一致，只有 cli-20261126_182726.log 一个日志，没有新会话）。ps 显示 24 分钟是因为 box 时钟跳变（进程启动时间按开机计时换算，之前也出现过）。按墙钟 18:27 计时，20:27 为 120 分钟上限。
+
+## 2026-11-26 19:56 AEDT — 第三轮决定全量实现完成 (fix/round3-decisions，R4 全部 8 项与执行清单)
+- 依据 Codex 决定文件 `/workspace/wf_decisions_1126c/decisions.md` 的全部 8 项与文末「给 Antigravity 的执行清单」，在当前 worktree `/workspace/wf-relic-cn-r4`（分支 `fix/round3-decisions`，基于 `de8948f`）内完成全部实现与自动化测试：
+
+### A. 8 项决定具体实现细节
+1. **第 1 项：Captain Vor → 沃尔上尉**：
+   - 在 `scripts/build-zh-map.mjs` 中接入 DE ExportFlavour `ImageGrineerCaptainVor`，应用 `strip_suffix:浮印`（`rawName: "沃尔上尉浮印"` → `nameZh: "沃尔上尉"`）；
+   - 记录 U39 官方简中正文（独立标题“沃尔上尉重制”）及 ExportCustoms、ExportResources、ExportWeapons、ExportKeys 等 5 处交叉佐证；
+   - 清除歧义阻断状态与 pendingDecision；在条目中保留 `aliases: [{ nameZh: "Vor 上尉", source: "wfcd_worldstate:sortieData:bosses:SORTIE_BOSS_VOR" }]`；
+   - `Corrupted Vor` 严格维持繁简转换“堕落 Vor”，不全局替换 Vor。
+2. **第 2 项：8 个 Executioner 精确去掉“的浮印”**：
+   - 建立 8 个处刑者白名单（`Executioner Zura`、`Garesh`、`Harkonar`、`Reth`、`Vay Molta`、`Dok Thul`、`Nok`、`Gorth`）；
+   - 断言英文名严格等于 `${name} Glyph`、中文以“的浮印”结尾后完整去掉终末“的浮印”（Zura、Vay Molta 保留英文名段，Gorth 原样采用“高斯”为 `行刑者高斯`）；
+   - 取消 8 项的 `pendingDecision`；未在此次浮印证据中的 `Executioner Dhurnam` 维持英文 fallback；非白名单敌人严禁使用该规则。
+3. **第 3 项：圣殿突袭 / 精英级圣殿突袭 / 无尽回廊**：
+   - `Sanctuary Onslaught`（圣殿突袭）与 `Elite Sanctuary Onslaught`（精英级圣殿突袭）依据 DE ExportSortieRewards 挑战描述映射，证据类型记录 `verified_term_in_parallel_description`；
+   - `The Circuit` 依据 DE ExportRegions SolNode238 映射为“无尽回廊”，记录 `same_uniqueName:SolNode238`；
+   - 同步至 `missionTypes`、`nodes`（`Sanctuary:Sanctuary Onslaught`、`Sanctuary:Elite Sanctuary Onslaught`、`Duviri:The Circuit`）、来源标题及搜索索引；`Duviri Circuit` 在 transientSources 中作为显式别名生效；
+   - Duviri 节点的 Tier/Hard/Repeated Rewards 等未核实英文片段继续保留英文。
+4. **第 4 项：14 个基础节点（+3 个变体共 17 条映射）二元组唯一精确对齐**：
+   - 在 `scripts/build-zh-map.mjs` 中构建 `deRegionsByTuple`（`systemName + "|" + name` 二元组），对列明的 14 个基础节点（Venus:Vesper Relay、Earth:Saya's Visions、Jupiter:Ganymede、Höllvania 7 节点、Dark Refractory, Deimos 4 节点）及 3 个 Extra/Caches 变体实现二元组唯一精确对齐；
+   - 保存 `matchMethod: 'exact_systemName_and_name'`、`deRegionId` 与 `wfcdSolNodeKey`；
+   - 每次生成均做零候选与多候选冲突检查，遇到冲突安全回退并输出冲突记录；
+   - `Ganymede` 记录 DE 原样英文（`nameZh: 'Ganymede'`, `isAsIs: true`），不计入中文率。
+5. **第 5 项：Kubrow 保留“库狛”，认定物种名**：
+   - `Kubrow` 保留“库狛”，规则规范为 `verified_species_name`（不再使用宠物键 exact_match）；
+   - 记录野生生物 Avatar（`/Lotus/Types/NeutralCreatures/Kubrow/KubrowAvatar`）与 DE 更新 39 正文证据（“野生库狛在试图恐吓附近玩家时眼睛不会再变红”）；
+   - 取消 `pendingDecision`。
+6. **第 6 项：Carrier 母舰、Stalker 追猎者与 Protector Stalker 卫护追猎者**：
+   - 掉落表 `Carrier`（敌方 `SwarmShipAvatar`）映射为“母舰”，`zhSource` 记为 `huijiwiki`，真实记录社区译名、官方译名未确认、直连 403 仅取检索正文等限制；严禁再将守护“搬运者”用于敌方舰船；
+   - `Stalker` 依据 DE ExportGear 追猎者信标及《死神的哀叹》映射为“追猎者”，规则记为 `verified_character_reference`；
+   - `Protector Stalker` 依据 DE ExportResources 玩偶及 Hotfix 36.0.4 映射为“卫护追猎者”，应用单项批准的 `strip_suffix:玩偶` 规则；取消 pendingDecision。
+7. **第 7 项：价格缓存读写契约、全边界隔离与复核队列**：
+   - 修复 `getPriceEntry` 往返 raw 字段丢失问题，定义契约 `priceSchemaVersion: 2`；
+   - 新格式优先读取明确存在的 `rawSellMin` / `rawBuyMax`，旧格式从 `sellMin` / `buyMax` 兼容派生，严格区分“字段不存在”与“明确为 null”；
+   - 解析（`parseOrdersTop`）→ JSON 存储（`prices.json` 结构）→ 读取（`getPriceEntry`）结果完全一致；`noBuyOrders` 严格基于买单实际存在性判定，不因倒挂隔离被误判；
+   - 严格倒挂条件：`rawBuyMax > rawSellMin` 才隔离，相等（10 === 10）不倒挂；新快照正常时整键替换，绝不残留旧 `crossedMarket`；
+   - 在 `scripts/fetch-prices.mjs` 中实现 `findCrossedKeys` 与针对 53 个倒挂键的强制复核队列机制，逐键记录 6 种复核状态（`success`、`still_crossed`、`single_sided`、`no_orders`、`failed`、`unexecuted`），失败或未执行严格保持有效价格为 `null` 的隔离状态；
+   - 遵循硬性约束：未抓取真实价格，未改动 `data/prices.json`。
+8. **第 8 项：Ten-Zero 历史标记与弹窗分组**：
+   - 修复 `scripts/build-data.mjs` 约 1309 行反向索引：`slugSourcesMap` 完整复制 `historicalEvent`、`eventGroup`、`officialNoticeUrl`、`isPvp`；
+   - 在 `js/lib/sources.js` 中实现纯函数 `renderDropSourcesGrouped` 并接入 `js/app.js` 的赋能、紫卡、Mod 弹窗；
+   - 弹窗掉落来源严格按 `sourceById` 分组：普通组标题为“掉落来源（N 处，排除历史活动）”；历史组为默认折叠的 `<details>`“历史活动来源（M 处）”，展开后包含“⚠️ 当前开放状态未确认”黄色提示横幅与每行 `<span class="badge badge-historical">历史活动</span>` 徽章；
+   - 仅有历史来源时严格显示“未收录非历史直接掉落来源；另有 M 处历史记录”（不显示“无来源”或“暂无直接掉落来源”）；未匹配主 sourceId 时标记“来源状态未确认”；
+   - 步枪紫卡（`rifle_riven_mod_veiled`）实测验证包含 6 处普通来源与 1 处历史来源（Recall: Ten-Zero Week 3 @ 0.95%）。
+
+### B. 覆盖率统计（双口径更新）
+- 依据更新构建后的 `data/meta.json` 与 `docs/remaining-english.md`：
+  - 遗物 (Relics): 800 / 800, 中文率 100.0%, 可追溯率 100.0%
+  - 物品 (Items): 2264 / 2264 (修正简略名 451 条), 中文率 98.5%, 可追溯率 98.5%
+  - 赋能 (Arcanes): 170 / 170, 中文率 100.0%, 可追溯率 100.0%
+  - 紫卡 (Rivens): 8 / 8, 中文率 100.0%, 可追溯率 100.0%
+  - Mod (Mods): 771 / 772, 中文率 99.9%, 可追溯率 99.9%
+  - 掉落来源 (Sources): 1283 / 2399 (中文 1283, 原样英文 6, fallback 1110), 中文率 53.5%, 可追溯率 53.7%
+  - 星球 (Planets): 28 / 28, 中文率 100.0%, 可追溯率 100.0%
+  - 任务类型 (Mission Types): 21 / 34 (中文 21, 原样英文 2, fallback 11), 中文率 61.8%, 可追溯率 67.6%
+  - 节点 (Nodes): 220 / 435 (DE 对齐 220, 原样英文 171, fallback 44), 中文率 50.6%, 可追溯率 89.9%
+  - 敌人 (Enemies): 38 / 919 (中文 38, 原样英文 6, fallback 875), 中文率 4.1%, 可追溯率 4.8%
+  - 赏金标题 (Bounties): 35 / 50 (中文 35, fallback 15), 中文率 70.0%, 可追溯率 70.0%
+  - 特殊来源 (Transient Sources): 3 / 53 (中文 3, fallback 50), 中文率 5.7%, 可追溯率 5.7%
+  - **全站总计 (Grand Total)**: 总条目 6275 项，已汉化 3975 项，原样英文 185 项，英文回退 2115 项；**中文率 63.3%，可追溯率 66.3%**。
+
+### C. 自动化测试与不变量复核
+- **全量测试通过**：`npm test` 包含 28 个测试套件，**129 个测试用例 100% 全部通过（129 passed, 0 failed）**；
+- **变异价格测试通过**：`node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw` 执行价格变异与临时数据重建，129 个测试全部 PASS；真实 `data/prices.json` 未受变动；
+- **路径泄漏排查**：`grep -rn "/workspace/" index.html js/ data/` 输出为空，确认无本机路径泄漏。
+

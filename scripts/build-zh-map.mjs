@@ -457,6 +457,43 @@ export async function buildZhMap(explicitRawDir = null) {
 
   for (const gm of allGameModes) {
     const gmLower = gm.toLowerCase().trim();
+
+    // Codex 1126c 第 3 项: Sanctuary Onslaught / Elite Sanctuary Onslaught / The Circuit
+    if (gmLower === 'sanctuary onslaught') {
+      missionTypesMap[gm] = {
+        nameZh: '圣殿突袭',
+        zhSource: 'de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/Weekly/SeasonWeeklySanctuaryOnslaught',
+        rule: 'verified_term_in_parallel_description',
+        isAsIs: false
+      };
+      missionTypesMap['Elite Sanctuary Onslaught'] = {
+        nameZh: '精英级圣殿突袭',
+        zhSource: 'de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught',
+        rule: 'verified_term_in_parallel_description',
+        isAsIs: false
+      };
+      continue;
+    }
+    if (gmLower === 'elite sanctuary onslaught') {
+      missionTypesMap[gm] = {
+        nameZh: '精英级圣殿突袭',
+        zhSource: 'de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught',
+        rule: 'verified_term_in_parallel_description',
+        isAsIs: false
+      };
+      continue;
+    }
+    if (gmLower === 'the circuit') {
+      missionTypesMap[gm] = {
+        nameZh: '无尽回廊',
+        zhSource: 'de_export:ExportRegions_zh:SolNode238',
+        rule: 'same_uniqueName:SolNode238',
+        uniqueName: 'SolNode238',
+        isAsIs: false
+      };
+      continue;
+    }
+
     let match = mtByEnValue.get(gmLower);
     if (!match && gmLower === 'exterminate') {
       match = mtByEnValue.get('extermination');
@@ -526,6 +563,35 @@ export async function buildZhMap(explicitRawDir = null) {
     }
   }
 
+  // 二元组索引：`${systemName}|${name}` -> Array of items (用于 14 个基础节点精确唯一对齐)
+  const deRegionsByTuple = new Map();
+  for (const enItem of deRegionsEnMap.values()) {
+    if (!enItem.name || !enItem.systemName) continue;
+    const tKey = `${enItem.systemName}|${enItem.name}`;
+    if (!deRegionsByTuple.has(tKey)) {
+      deRegionsByTuple.set(tKey, []);
+    }
+    deRegionsByTuple.get(tKey).push(enItem);
+  }
+
+  // Codex 1126c 第 4 项：14 个基础节点白名单
+  const APPROVED_TUPLE_BASE_NODES = new Map([
+    ['Venus:Vesper Relay', { wfcdSolNodeKey: 'VenusHUB' }],
+    ['Earth:Saya\'s Visions', { wfcdSolNodeKey: null }],
+    ['Jupiter:Ganymede', { wfcdSolNodeKey: 'EventNode33', isAsIs: true }],
+    ['Höllvania:Legacyte Harvest', { wfcdSolNodeKey: null }],
+    ['Höllvania:Hell-Scrub: Scaldra', { wfcdSolNodeKey: null }],
+    ['Höllvania:Hell-Scrub: Techrot', { wfcdSolNodeKey: null }],
+    ['Höllvania:Exterminate: Scaldra', { wfcdSolNodeKey: null }],
+    ['Höllvania:Exterminate: Techrot', { wfcdSolNodeKey: null }],
+    ['Höllvania:Assassinate: H-09 Tank', { wfcdSolNodeKey: null }],
+    ['Höllvania:Solstice Square', { wfcdSolNodeKey: null }],
+    ['Dark Refractory, Deimos:Recall: Hunhullus', { wfcdSolNodeKey: null }],
+    ['Dark Refractory, Deimos:Recall: Dactolyst', { wfcdSolNodeKey: null }],
+    ['Dark Refractory, Deimos:Recall: Vanguard', { wfcdSolNodeKey: null }],
+    ['Dark Refractory, Deimos:The Guilty', { wfcdSolNodeKey: null }]
+  ]);
+
   for (const [planet, planetNodes] of Object.entries(dropsAll.missionRewards || {})) {
     const planetZh = planetsMap[planet]?.nameZh || planet;
     for (const [node, nodeData] of Object.entries(planetNodes || {})) {
@@ -533,6 +599,41 @@ export async function buildZhMap(explicitRawDir = null) {
       const cleanNode = node.replace(/\s*\((Caches|Extra|Resource)\)\s*/i, '').trim();
       const suffixMatch = node.match(/\s*\((Caches|Extra|Resource)\)\s*/i);
       const suffix = suffixMatch ? suffixMatch[0].trim() : '';
+
+      // Codex 1126c 第 3 项: Sanctuary 节点映射
+      if (planet === 'Sanctuary') {
+        if (cleanNode === 'Sanctuary Onslaught') {
+          nodesMap[key] = {
+            nameZh: '圣殿突袭',
+            zhSource: 'de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/Weekly/SeasonWeeklySanctuaryOnslaught',
+            rule: 'verified_term_in_parallel_description',
+            evidence: {
+              export: 'ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/Weekly/SeasonWeeklySanctuaryOnslaught',
+              enParallel: 'Complete |COUNT| Zones of Sanctuary Onslaught.',
+              zhParallel: '完成 |COUNT| 个圣殿突袭的区域。'
+            },
+            solNodeKey: null,
+            isAsIs: false,
+            deAligned: true
+          };
+          continue;
+        } else if (cleanNode === 'Elite Sanctuary Onslaught') {
+          nodesMap[key] = {
+            nameZh: '精英级圣殿突袭',
+            zhSource: 'de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught',
+            rule: 'verified_term_in_parallel_description',
+            evidence: {
+              export: 'ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught',
+              enParallel: 'Complete |COUNT| Zones of Elite Sanctuary Onslaught.',
+              zhParallel: '完成 |COUNT| 个精英级圣殿突袭区域。'
+            },
+            solNodeKey: null,
+            isAsIs: false,
+            deAligned: true
+          };
+          continue;
+        }
+      }
 
       const lookupKey = `${planet.toLowerCase()}:${cleanNode.toLowerCase()}`;
       const solMatch = solNodesByPlanetNode.get(lookupKey) || solNodesByNodeName.get(cleanNode.toLowerCase());
@@ -552,6 +653,60 @@ export async function buildZhMap(explicitRawDir = null) {
           if (nameMatches && sysMatches) {
             deAligned = true;
           }
+        }
+      }
+
+      // Codex 1126c 第 4 项：14 个基础节点二元组唯一精确匹配
+      const baseKey = `${planet}:${cleanNode}`;
+      if (!deAligned && APPROVED_TUPLE_BASE_NODES.has(baseKey)) {
+        const approvedInfo = APPROVED_TUPLE_BASE_NODES.get(baseKey);
+        const tupleKey = `${planet}|${cleanNode}`;
+        const candidates = deRegionsByTuple.get(tupleKey) || [];
+
+        if (candidates.length === 1) {
+          const candEn = candidates[0];
+          const candZh = deRegionsZhMap.get(candEn.uniqueName);
+          if (candZh && candEn.systemName === planet && candEn.name === cleanNode) {
+            const deRegionId = candEn.uniqueName;
+            const baseZh = candZh.name;
+            const isAsIs = Boolean(approvedInfo.isAsIs);
+            const zhSource = `de_export:ExportRegions_zh:${deRegionId}`;
+
+            if (suffix) {
+              nodesMap[key] = {
+                nameZh: `${baseZh} ${suffix}`,
+                zhSource: `composed:solNode+suffix:${deRegionId}`,
+                zhSegments: [
+                  { text: baseZh, source: zhSource },
+                  { text: ` ${suffix}`, source: 'original_en' }
+                ],
+                solNodeKey: deRegionId,
+                deRegionId,
+                wfcdSolNodeKey: approvedInfo.wfcdSolNodeKey,
+                matchMethod: 'exact_systemName_and_name',
+                originalTuple: { systemName: planet, name: cleanNode },
+                isAsIs,
+                deAligned: true
+              };
+            } else {
+              nodesMap[key] = {
+                nameZh: baseZh,
+                zhSource,
+                solNodeKey: deRegionId,
+                deRegionId,
+                wfcdSolNodeKey: approvedInfo.wfcdSolNodeKey,
+                matchMethod: 'exact_systemName_and_name',
+                originalTuple: { systemName: planet, name: cleanNode },
+                isAsIs,
+                deAligned: true
+              };
+            }
+            continue;
+          } else {
+            console.warn(`[build-zh-map] 二元组匹配冲突 (ID 内容不一致): ${baseKey}`);
+          }
+        } else {
+          console.warn(`[build-zh-map] 二元组匹配候选数异常 (${candidates.length}): ${baseKey}`);
         }
       }
 
@@ -727,26 +882,47 @@ export async function buildZhMap(explicitRawDir = null) {
       ]
     },
     
-    // A4: Stalker 与 Protector Stalker 回退英文（原取自“追猎者背景”与“卫护追猎者玩偶”，违反第 5 项“不得推广”且 exact_match 不实）
+    // Codex 1126c 第 6 项: Carrier -> 母舰 (仅绑定敌方 SwarmShipAvatar，社区译名，官方译名未确认)
+    'carrier': {
+      zh: '母舰',
+      source: 'huijiwiki',
+      rule: 'community_wiki_search_evidence',
+      uniqueName: '/Lotus/Types/Enemies/SpaceBattles/Corpus/Ships/SwarmShipAvatar',
+      notes: '社区译名；官方译名未确认；直连 403 只取检索正文；与守护“搬运者”明确区分',
+      evidence: {
+        wikiSearchFile: 'community/wiki-search-evidence.json',
+        avatarUniqueName: '/Lotus/Types/Enemies/SpaceBattles/Corpus/Ships/SwarmShipAvatar',
+        avatarDescription: 'Launches several locust drones',
+        officialZhStatus: 'unconfirmed'
+      }
+    },
+
+    // Codex 1126c 第 6 项: Stalker -> 追猎者 (DE 追猎者信标描述 + 《死神的哀叹》正文)
     'stalker': {
-      zh: 'Stalker',
-      source: 'en_fallback',
-      pendingDecision: true,
-      candidate: {
-        rawName: '追猎者背景',
-        source: 'wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerBackDrop',
-        reason: '出处为物品“追猎者背景”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板'
+      zh: '追猎者',
+      source: 'de_export:ExportGear_zh:/Lotus/Types/Restoratives/Consumable/AssassinBait',
+      rule: 'verified_character_reference',
+      uniqueName: '/Lotus/Types/Restoratives/Consumable/AssassinBait',
+      evidence: {
+        beaconUniqueName: '/Lotus/Types/Restoratives/Consumable/AssassinBait',
+        beaconNameZh: '追猎者信标',
+        beaconDescZh: '吸引「追猎者」现身',
+        patchStoryZh: 'de-web/1126c/reapers-zh.txt (《死神的哀叹》发言者“追猎者”)'
       }
     },
     'shadow stalker': { zh: 'Shadow Stalker', source: 'en_fallback' },
+
+    // Codex 1126c 第 6 项: Protector Stalker -> 卫护追猎者 (唯一批准 strip_suffix:玩偶)
     'protector stalker': {
-      zh: 'Protector Stalker',
-      source: 'en_fallback',
-      pendingDecision: true,
-      candidate: {
-        rawName: '卫护追猎者玩偶',
-        source: 'wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerProtectorNoggle',
-        reason: '出处为物品“卫护追猎者玩偶”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板'
+      zh: '卫护追猎者',
+      source: 'de_export:ExportResources_zh:/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker',
+      rule: 'strip_suffix:玩偶',
+      nameEnRaw: 'Protector Stalker Floof',
+      zhRaw: '卫护追猎者玩偶',
+      uniqueName: '/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker',
+      evidence: {
+        itemUniqueName: '/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker',
+        hotfixNotice: 'de-web/1126c/patch36-0-4-en.txt'
       }
     },
 
@@ -774,8 +950,12 @@ export async function buildZhMap(explicitRawDir = null) {
         nameZh: spec.zh,
         zhSource: spec.source,
         ...(spec.rawName ? { rawName: spec.rawName } : {}),
+        ...(spec.nameEnRaw ? { nameEnRaw: spec.nameEnRaw } : {}),
+        ...(spec.zhRaw ? { zhRaw: spec.zhRaw } : {}),
         ...(spec.uniqueName ? { uniqueName: spec.uniqueName } : {}),
         ...(spec.rule ? { rule: spec.rule } : {}),
+        ...(spec.notes ? { notes: spec.notes } : {}),
+        ...(spec.evidence ? { evidence: spec.evidence } : {}),
         ...(spec.zhSegments ? { zhSegments: spec.zhSegments } : {}),
         ...(spec.pendingDecision ? { pendingDecision: true } : {}),
         ...(spec.candidate ? { candidate: spec.candidate } : {})
@@ -800,19 +980,30 @@ export async function buildZhMap(explicitRawDir = null) {
       continue;
     }
 
-    // 歧义核对：Captain Vor 在 Sortie 为 "Vor 上尉"，在 Flavour 浮印为 "沃尔上尉"
-    // 按 Codex 决定第 6 项：歧义（一个英文名对应多个不同中文）就不用，列入待拍板，保留英文
+    // Codex 1126c 第 1 项: Captain Vor 采用“沃尔上尉”，结束英文回退，Vor 上尉保留为有来源别名
     if (lower === 'captain vor') {
       enemiesMap[enemyName] = {
-        nameZh: enemyName,
-        zhSource: 'en_fallback',
-        ambiguity: {
-          candidates: [
-            { zh: 'Vor 上尉', source: 'wfcd_worldstate:sortieData:bosses:SORTIE_BOSS_VOR' },
-            { zh: '沃尔上尉', source: 'de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor' }
-          ],
-          reason: '存在多个不同中文译名（Vor 上尉 vs 沃尔上尉），按规范保守保留英文回退'
-        }
+        nameZh: '沃尔上尉',
+        zhSource: 'de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor',
+        rule: 'strip_suffix:浮印',
+        uniqueName: '/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor',
+        nameEnRaw: 'Captain Vor Glyph',
+        zhRaw: '沃尔上尉浮印',
+        descriptionZh: '沃尔上尉的浮印',
+        evidence: {
+          exportFlavour: '/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor',
+          officialPatchNotes: 'de-web/1126c/patch39-0-0-zh.txt (独立标题“沃尔上尉重制”)',
+          corroboratingExports: [
+            'ExportCustoms:/Lotus/Upgrades/Skins/Sigils/BossSigilCaptainVor',
+            'ExportCustoms:/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil',
+            'ExportResources:/Lotus/Types/Items/ShipDecos/VorBobbleHead',
+            'ExportWeapons:/Lotus/Weapons/Grineer/GrineerPistol/GrnScopedPistolPlayer',
+            'ExportKeys:/Lotus/Types/Keys/VorsPrize/VorsPrizeQuestKeyChain'
+          ]
+        },
+        aliases: [
+          { nameZh: 'Vor 上尉', source: 'wfcd_worldstate:sortieData:bosses:SORTIE_BOSS_VOR' }
+        ]
       };
       continue;
     }
@@ -841,25 +1032,56 @@ export async function buildZhMap(explicitRawDir = null) {
       }
     }
 
-    // DE ExportFlavour Glyphs (strip_suffix:浮印)
+    // DE ExportFlavour Glyphs (strip_suffix:浮印 / strip_suffix:的浮印)
     if (deFlavourGlyphs.has(lower)) {
       const glyphMatches = deFlavourGlyphs.get(lower);
       const cand = glyphMatches[0];
-      if (cand && /[\u4e00-\u9fa5]/.test(cand.zhCandidate)) {
-        // A2: 若派生结果以“的”结尾（如 8 个 Executioner），全部回退英文 en_fallback，保留 candidate 记录，标 pendingDecision
+      if (cand && /[\u4e00-\u9fa5]/.test(cand.zhGlyph)) {
+        // Codex 1126c 第 2 项: 8 个 Executioner 白名单，精确去掉“的浮印”
+        const EXECUTIONER_WHITELIST = new Map([
+          ['executioner zura', { expectedZh: '行刑者 Zura', uniqueNameSuffix: 'ImageGrineerChampionBeastMaster' }],
+          ['executioner garesh', { expectedZh: '行刑者加雷什', uniqueNameSuffix: 'ImageGrineerChampionCharger' }],
+          ['executioner harkonar', { expectedZh: '行刑者哈库那', uniqueNameSuffix: 'ImageGrineerChampionSniper' }],
+          ['executioner reth', { expectedZh: '行刑者莱斯', uniqueNameSuffix: 'ImageGrineerChampionEngineer' }],
+          ['executioner vay molta', { expectedZh: '行刑者 Vay Molta', uniqueNameSuffix: 'ImageGrineerChampionHellion' }],
+          ['executioner dok thul', { expectedZh: '行刑者多克·图尔', uniqueNameSuffix: 'ImageGrineerChampionHealer' }],
+          ['executioner nok', { expectedZh: '行刑者诺克', uniqueNameSuffix: 'ImageGrineerChampionGrunt' }],
+          ['executioner gorth', { expectedZh: '行刑者高斯', uniqueNameSuffix: 'ImageGrineerChampionTank' }]
+        ]);
+
+        if (EXECUTIONER_WHITELIST.has(lower)) {
+          const wl = EXECUTIONER_WHITELIST.get(lower);
+          const expectedEn = `${enemyName} Glyph`;
+          const isEnMatch = cand.enGlyph === expectedEn;
+          const isZhEndsWith = cand.zhGlyph.endsWith('的浮印');
+          const strippedZh = isZhEndsWith ? cand.zhGlyph.slice(0, -'的浮印'.length).trim() : '';
+
+          if (isEnMatch && isZhEndsWith && strippedZh.length > 0 && strippedZh === wl.expectedZh && cand.uniqueName.endsWith(wl.uniqueNameSuffix)) {
+            enemiesMap[enemyName] = {
+              nameZh: strippedZh,
+              zhSource: `de_export:ExportFlavour_zh:${cand.uniqueName}`,
+              rule: 'strip_suffix:的浮印',
+              zhRaw: cand.zhGlyph,
+              nameEnRaw: cand.enGlyph,
+              uniqueName: cand.uniqueName
+            };
+            continue;
+          } else {
+            console.warn(`[build-zh-map] Executioner 断言不满足，回退英文: ${enemyName}`);
+            enemiesMap[enemyName] = {
+              nameZh: enemyName,
+              zhSource: 'en_fallback',
+              evidenceChanged: true
+            };
+            continue;
+          }
+        }
+
+        // 非白名单若以“的”结尾（如 Executioner Dhurnam 或其他），回退英文
         if (cand.zhCandidate.endsWith('的')) {
           enemiesMap[enemyName] = {
             nameZh: enemyName,
-            zhSource: 'en_fallback',
-            pendingDecision: true,
-            candidate: {
-              rule: 'pending_strip_de_glyph',
-              zhCandidate: cand.zhCandidate,
-              rawName: cand.zhGlyph,
-              uniqueName: cand.uniqueName,
-              zhSource: `de_export:ExportFlavour_zh:${cand.uniqueName}`,
-              reason: '派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”'
-            }
+            zhSource: 'en_fallback'
           };
           continue;
         }
@@ -885,14 +1107,24 @@ export async function buildZhMap(explicitRawDir = null) {
 
       if (isNonEnemyPath) {
         if (lower === 'kubrow') {
-          // Kubrow 特例保留，标注“宠物同种”，列入待拍板
+          // Codex 1126c 第 5 项: Kubrow 保留“库狛”，规则改 verified_species_name，取消 pendingDecision
           enemiesMap[enemyName] = {
-            nameZh: lang.zh,
-            zhSource: `wfcd_worldstate:languages:${lang.key}`,
-            rule: 'exact_match:languages',
-            annotation: '宠物同种',
-            pendingDecision: true,
-            pendingDecisionReason: '出处键为宠物 Kubrow 语言条目，掉落表为同物种野生库狛，暂时保留，待 Codex 拍板'
+            nameZh: '库狛',
+            zhSource: 'verified_species_name',
+            rule: 'verified_species_name',
+            annotation: '野生库狛（物种名经 DE 更新 39 正文及宠物条目验证）',
+            evidence: {
+              speciesName: '库狛',
+              avatarUniqueName: '/Lotus/Types/NeutralCreatures/Kubrow/KubrowAvatar',
+              avatarDescription: 'Feral Kubrow',
+              petLanguageKey: lang.key,
+              petLanguageSource: `wfcd_worldstate:languages:${lang.key}`,
+              officialPatchNotes: {
+                zh: 'de-web/1126c/patch39-0-0-zh.txt (野生库狛在试图恐吓附近玩家时眼睛不会再变红)',
+                en: 'de-web/1126c/patch39-0-0-en.txt (Feral Kubrows)'
+              }
+            },
+            aliases: ['Kubrow']
           };
           continue;
         } else {
@@ -1074,7 +1306,16 @@ export async function buildZhMap(explicitRawDir = null) {
     'Razorback': { zh: '利刃豺狼', source: 'wfcd_worldstate:languages:/lotus/language/menu/corpusrazorbackproject' },
     'Kuva Siphon': { zh: 'Kuva Siphon', source: 'en_fallback' },
     'Kuva Flood': { zh: 'Kuva Flood', source: 'en_fallback' },
-    'Sortie (突击任务)': { zh: 'Sortie (突击任务)', source: 'en_fallback' }
+    'Sortie (突击任务)': { zh: 'Sortie (突击任务)', source: 'en_fallback' },
+    // Codex 1126c 第 3 项: Duviri Circuit 按 The Circuit 显式别名处理
+    'Duviri Circuit': {
+      zh: '无尽回廊',
+      source: 'de_export:ExportRegions_zh:SolNode238',
+      rule: 'same_uniqueName:SolNode238',
+      uniqueName: 'SolNode238',
+      aliasOf: 'The Circuit',
+      note: 'Duviri Circuit 显式别名映射至同一回廊实体'
+    }
   };
 
   for (const tr of dropsAll.transientRewards || []) {

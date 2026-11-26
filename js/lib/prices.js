@@ -16,8 +16,15 @@ export { LOW_CONFIDENCE_MIN_SELLERS };
  * @returns {Object}
  */
 export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = null, slug = '', subtype = null, targetSubtype = null } = {}) {
-  const sellOrders = ordersData?.data?.sell ?? ordersData?.sell ?? [];
-  const buyOrders = ordersData?.data?.buy ?? ordersData?.buy ?? [];
+  let sellOrders = [];
+  let buyOrders = [];
+  if (Array.isArray(ordersData)) {
+    sellOrders = ordersData.filter(o => o && (o.order_type === 'sell' || o.orderType === 'sell'));
+    buyOrders = ordersData.filter(o => o && (o.order_type === 'buy' || o.orderType === 'buy'));
+  } else {
+    sellOrders = ordersData?.data?.sell ?? ordersData?.sell ?? [];
+    buyOrders = ordersData?.data?.buy ?? ordersData?.buy ?? [];
+  }
   const effectiveSubtype = subtype || targetSubtype;
 
   // 1. 等级过滤（针对有等级的赋能与 Mod）
@@ -112,7 +119,11 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     ? (targetRank !== null ? `warframe.market v2 /orders/item/${slug}/top?rank=${targetRank}` : `warframe.market v2 /orders/item/${slug}/top`)
     : 'warframe.market v2 /orders/item/{slug}/top';
 
+  const singleSided = (n > 0 && sortedBuyPrices.length === 0) ? 'sell' : (n === 0 && sortedBuyPrices.length > 0 ? 'buy' : null);
+  const noOrders = n === 0 && sortedBuyPrices.length === 0;
+
   return {
+    priceSchemaVersion: 2,
     sellMin,
     buyMax,
     rawSellMin,
@@ -120,6 +131,8 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     rawSellRobust: (n === 0 ? null : (n < 3 ? rawSellMin : sortedSellPrices.slice(0, 3)[1])),
     crossedMarket,
     crossedMarketReason,
+    singleSided,
+    noOrders,
     sellCount: n,
     buyCount: sortedBuyPrices.length,
     sellRobust,

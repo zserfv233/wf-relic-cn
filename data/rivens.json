@@ -24,7 +24,11 @@
         "chance": 8.5,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "mission_duviri_endless_tier_7",
@@ -38,7 +42,11 @@
         "chance": 8.5,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
@@ -52,7 +60,11 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_crested_frozen_chests_a",
@@ -66,7 +78,11 @@
         "chance": 8.75,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_frozen_chests_a",
@@ -80,7 +96,11 @@
         "chance": 8.44,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "event_recall_ten_zero_week_3",
@@ -94,7 +114,11 @@
         "chance": 0.95,
         "quantity": 1,
         "rarity": "Legendary",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": true,
+        "eventGroup": "recall_ten_zero",
+        "officialNoticeUrl": "https://www.warframe.com/en/news/rappel-ten-zero",
+        "isPvp": false
       },
       {
         "sourceId": "source_sortie_sortie",
@@ -108,7 +132,11 @@
         "chance": 7,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   },
@@ -137,7 +165,11 @@
         "chance": 8.5,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "mission_duviri_endless_tier_7",
@@ -151,7 +183,11 @@
         "chance": 8.5,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
@@ -165,7 +201,11 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_crested_frozen_chests_a",
@@ -179,7 +219,11 @@
         "chance": 8.75,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_frozen_chests_a",
@@ -193,7 +237,11 @@
         "chance": 8.44,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "event_recall_ten_zero_week_2",
@@ -207,7 +255,11 @@
         "chance": 0.95,
         "quantity": 1,
         "rarity": "Legendary",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": true,
+        "eventGroup": "recall_ten_zero",
+        "officialNoticeUrl": "https://www.warframe.com/en/news/rappel-ten-zero",
+        "isPvp": false
       },
       {
         "sourceId": "source_sortie_sortie",
@@ -221,7 +273,11 @@
         "chance": 7,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   },
@@ -250,7 +306,11 @@
         "chance": 11.9,
         "quantity": 1,
         "rarity": "Uncommon",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "mission_duviri_endless_tier_7",
@@ -264,7 +324,11 @@
         "chance": 11.9,
         "quantity": 1,
         "rarity": "Uncommon",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
@@ -278,7 +342,11 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_crested_frozen_chests_a",
@@ -292,7 +360,11 @@
         "chance": 10.5,
         "quantity": 1,
         "rarity": "Uncommon",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_frozen_chests_a",
@@ -306,7 +378,11 @@
         "chance": 11.81,
         "quantity": 1,
         "rarity": "Uncommon",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "event_recall_ten_zero_week_1",
@@ -320,7 +396,11 @@
         "chance": 0.95,
         "quantity": 1,
         "rarity": "Legendary",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": true,
+        "eventGroup": "recall_ten_zero",
+        "officialNoticeUrl": "https://www.warframe.com/en/news/rappel-ten-zero",
+        "isPvp": false
       },
       {
         "sourceId": "source_sortie_sortie",
@@ -334,7 +414,11 @@
         "chance": 9.8,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   },
@@ -363,7 +447,11 @@
         "chance": 2.7,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "mission_duviri_endless_tier_7",
@@ -377,7 +465,11 @@
         "chance": 2.7,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
@@ -391,7 +483,11 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_crested_frozen_chests_a",
@@ -405,7 +501,11 @@
         "chance": 4.55,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_icebind_frozen_chests_a",
@@ -419,7 +519,11 @@
         "chance": 5.06,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "event_recall_ten_zero_week_4",
@@ -433,7 +537,11 @@
         "chance": 0.95,
         "quantity": 1,
         "rarity": "Legendary",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": true,
+        "eventGroup": "recall_ten_zero",
+        "officialNoticeUrl": "https://www.warframe.com/en/news/rappel-ten-zero",
+        "isPvp": false
       },
       {
         "sourceId": "source_sortie_sortie",
@@ -447,7 +555,11 @@
         "chance": 2.2,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   },
@@ -476,7 +588,11 @@
         "chance": 1.2,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "mission_duviri_endless_tier_7",
@@ -490,7 +606,11 @@
         "chance": 1.2,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
@@ -504,7 +624,11 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "event_recall_ten_zero_week_5",
@@ -518,7 +642,11 @@
         "chance": 0.95,
         "quantity": 1,
         "rarity": "Legendary",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": true,
+        "eventGroup": "recall_ten_zero",
+        "officialNoticeUrl": "https://www.warframe.com/en/news/rappel-ten-zero",
+        "isPvp": false
       },
       {
         "sourceId": "source_sortie_sortie",
@@ -532,7 +660,11 @@
         "chance": 1,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   },
@@ -561,7 +693,11 @@
         "chance": 1.2,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "mission_duviri_endless_tier_7",
@@ -575,7 +711,11 @@
         "chance": 1.2,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "source_transient_the_descendia_uncommon_rewards_steel_path",
@@ -589,7 +729,11 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       },
       {
         "sourceId": "event_recall_ten_zero_week_5",
@@ -603,7 +747,11 @@
         "chance": 0.95,
         "quantity": 1,
         "rarity": "Legendary",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": true,
+        "eventGroup": "recall_ten_zero",
+        "officialNoticeUrl": "https://www.warframe.com/en/news/rappel-ten-zero",
+        "isPvp": false
       },
       {
         "sourceId": "source_sortie_sortie",
@@ -617,7 +765,11 @@
         "chance": 1,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   },
@@ -646,7 +798,11 @@
         "chance": 1.22,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   },
@@ -673,7 +829,11 @@
         "chance": 1.22,
         "quantity": 1,
         "rarity": "Rare",
-        "enemyModDropChance": null
+        "enemyModDropChance": null,
+        "historicalEvent": false,
+        "eventGroup": null,
+        "officialNoticeUrl": null,
+        "isPvp": false
       }
     ]
   }

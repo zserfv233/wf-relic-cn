@@ -20,6 +20,26 @@ const API_BASE = 'https://api.warframe.market/v2';
 const USER_AGENT = 'wf-relic-cn (personal, non-commercial)';
 
 /**
+ * 查找缓存中所有倒挂键 (Codex 1126c 第 7 项)
+ */
+export function findCrossedKeys(items = {}) {
+  const targetItems = items.items || items;
+  const crossedKeys = [];
+  for (const [key, item] of Object.entries(targetItems)) {
+    if (!item || typeof item !== 'object') continue;
+    const isV2 = item.priceSchemaVersion >= 2 || Object.prototype.hasOwnProperty.call(item, 'rawSellMin') || Object.prototype.hasOwnProperty.call(item, 'rawBuyMax');
+    const rawSell = isV2 ? item.rawSellMin : item.sellMin;
+    const rawBuy = isV2 ? item.rawBuyMax : item.buyMax;
+    if (typeof rawSell === 'number' && typeof rawBuy === 'number' && rawBuy > rawSell) {
+      crossedKeys.push(key);
+    } else if (item.crossedMarket) {
+      crossedKeys.push(key);
+    }
+  }
+  return crossedKeys;
+}
+
+/**
  * 解析命令行参数
  */
 export function parseArgs(rawArgs = process.argv.slice(2)) {
@@ -78,6 +98,21 @@ async function main() {
       priceCache = JSON.parse(fs.readFileSync(readPath, 'utf8'));
       if (!priceCache.items) priceCache.items = {};
     } catch {}
+  }
+
+  // Codex 1126c 第 7 项: 当前倒挂键强制复核队列与逐键记录
+  const initialCrossedKeys = findCrossedKeys(priceCache.items);
+  const forcedRecheckSet = new Set(initialCrossedKeys);
+  const reverificationRecords = {};
+  for (const k of initialCrossedKeys) {
+    reverificationRecords[k] = {
+      status: 'unexecuted',
+      reason: '未被 --only 覆盖或因 --limit 限制未执行',
+      checkedAt: null
+    };
+  }
+  if (initialCrossedKeys.length > 0) {
+    console.log(`[prices] 发现当前缓存包含 ${initialCrossedKeys.length} 个倒挂键，已加入强制复核队列 (跳过 TTL 检查)`);
   }
 
   // 1. 抓取优先级类别定义：遗物奖励 → 未开紫卡 → 赋能 → 掉落 Mod
@@ -197,14 +232,15 @@ async function main() {
     // 过滤出需要更新的任务
     const pendingTasks = [];
     for (const task of allCatTasks) {
+      const isForced = forcedRecheckSet.has(task.cacheKey);
       const cached = priceCache.items[task.cacheKey];
-      if (cached && cached.fetchedAt) {
+      if (!isForced && cached && cached.fetchedAt) {
         const fetchedTime = new Date(cached.fetchedAt).getTime();
         if (now - fetchedTime < maxAgeMs) {
           continue; // 在有效期内，跳过
         }
       }
-      pendingTasks.push(task);
+      pendingTasks.push({ ...task, isForcedRecheck: isForced });
       if (pendingTasks.length >= remainingLimit) break;
     }
 
@@ -225,17 +261,38 @@ async function main() {
 
     for (let i = 0; i < pendingTasks.length; i++) {
       const task = pendingTasks[i];
-      const { slug, rank, cacheKey } = task;
+      const { slug, rank, cacheKey, isForcedRecheck } = task;
 
       if (fixturePath && fs.existsSync(fixturePath)) {
         // 使用 fixture 数据解析
         const fixtureJson = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
         const parsed = parseOrdersTop(fixtureJson, { targetRank: rank, slug, subtype: task.subtype });
+        // 新响应整键替换，不残留旧 crossedMarket
         priceCache.items[cacheKey] = {
           ...parsed,
           fetchedAt: new Date().toISOString()
         };
         successCount++;
+
+        if (isForcedRecheck) {
+          let revStatus = 'success';
+          if (parsed.crossedMarket) {
+            revStatus = 'still_crossed';
+          } else if (parsed.noOrders) {
+            revStatus = 'no_orders';
+          } else if (parsed.singleSided) {
+            revStatus = 'single_sided';
+          }
+          reverificationRecords[cacheKey] = {
+            status: revStatus,
+            checkedAt: new Date().toISOString(),
+            crossedMarket: parsed.crossedMarket,
+            sellMin: parsed.sellMin,
+            buyMax: parsed.buyMax,
+            rawSellMin: parsed.rawSellMin,
+            rawBuyMax: parsed.rawBuyMax
+          };
+        }
       } else {
         // 真实网络抓取
         const queryParams = [];
@@ -254,37 +311,101 @@ async function main() {
           });
 
           if (res.status === 404) {
-            priceCache.items[cacheKey] = {
-              sellMin: null,
-              buyMax: null,
-              sellCount: 0,
-              buyCount: 0,
-              rank,
-              subtype: task.subtype || null,
-              source: `warframe.market v2 /orders/item/${slug}/top${queryParam}`,
-              fetchedAt: new Date().toISOString()
-            };
+            if (isForcedRecheck) {
+              // 404 不能未经核实就当空双边抹掉旧倒挂证据，原隔离继续有效
+              priceCache.items[cacheKey] = {
+                ...priceCache.items[cacheKey],
+                lastAttemptAt: new Date().toISOString(),
+                lastAttemptError: 'HTTP 404 (未核实接口契约，保持原倒挂隔离)'
+              };
+              reverificationRecords[cacheKey] = {
+                status: 'failed',
+                reason: 'HTTP 404 (保持隔离)',
+                checkedAt: new Date().toISOString()
+              };
+            } else {
+              priceCache.items[cacheKey] = {
+                priceSchemaVersion: 2,
+                sellMin: null,
+                buyMax: null,
+                rawSellMin: null,
+                rawBuyMax: null,
+                noOrders: true,
+                sellCount: 0,
+                buyCount: 0,
+                rank,
+                subtype: task.subtype || null,
+                source: `warframe.market v2 /orders/item/${slug}/top${queryParam}`,
+                fetchedAt: new Date().toISOString()
+              };
+            }
             successCount++;
             consecutiveFail = 0;
           } else if (res.ok) {
             const json = await res.json();
             const parsed = parseOrdersTop(json, { targetRank: rank, slug, subtype: task.subtype });
-            // A2: 确保写 fetchedAt
+            // 新响应整键替换，不残留旧 crossedMarket
             priceCache.items[cacheKey] = {
               ...parsed,
               fetchedAt: new Date().toISOString()
             };
             successCount++;
             consecutiveFail = 0;
+
+            if (isForcedRecheck) {
+              let revStatus = 'success';
+              if (parsed.crossedMarket) {
+                revStatus = 'still_crossed';
+              } else if (parsed.noOrders) {
+                revStatus = 'no_orders';
+              } else if (parsed.singleSided) {
+                revStatus = 'single_sided';
+              }
+              reverificationRecords[cacheKey] = {
+                status: revStatus,
+                checkedAt: new Date().toISOString(),
+                crossedMarket: parsed.crossedMarket,
+                sellMin: parsed.sellMin,
+                buyMax: parsed.buyMax,
+                rawSellMin: parsed.rawSellMin,
+                rawBuyMax: parsed.rawBuyMax
+              };
+            }
           } else {
             console.warn(`[prices] [${i + 1}/${pendingTasks.length}] 请求 ${cacheKey} 失败 (HTTP ${res.status})`);
             failCount++;
             consecutiveFail++;
+
+            if (isForcedRecheck) {
+              priceCache.items[cacheKey] = {
+                ...priceCache.items[cacheKey],
+                lastAttemptAt: new Date().toISOString(),
+                lastAttemptError: `HTTP ${res.status}`
+              };
+              reverificationRecords[cacheKey] = {
+                status: 'failed',
+                reason: `HTTP ${res.status} (保持隔离)`,
+                checkedAt: new Date().toISOString()
+              };
+            }
           }
         } catch (err) {
           console.warn(`[prices] [${i + 1}/${pendingTasks.length}] 抓取 ${cacheKey} 异常: ${err.message}`);
           failCount++;
           consecutiveFail++;
+
+          if (isForcedRecheck) {
+            priceCache.items[cacheKey] = {
+              ...priceCache.items[cacheKey],
+              lastAttemptAt: new Date().toISOString(),
+              lastAttemptError: err.message
+            };
+            reverificationRecords[cacheKey] = {
+              status: 'failed',
+              reason: `${err.message} (保持隔离)`,
+              checkedAt: new Date().toISOString()
+            };
+          }
         }
       }
 
@@ -302,6 +423,14 @@ async function main() {
 
     // 每完成一个类别就写一次 data/prices.json（中途中断也不丢）
     priceCache.updatedAt = new Date().toISOString();
+    if (initialCrossedKeys.length > 0) {
+      priceCache.crossedReverification = {
+        checkedAt: new Date().toISOString(),
+        totalCrossedKeys: initialCrossedKeys.length,
+        executedCount: Object.values(reverificationRecords).filter(r => r.status !== 'unexecuted').length,
+        results: reverificationRecords
+      };
+    }
     if (outPath) {
       fs.writeFileSync(outPath, JSON.stringify(priceCache, null, 2));
       console.log(`[prices] [${cat.name}] 完成，已同步写入价格文件: ${outPath}`);

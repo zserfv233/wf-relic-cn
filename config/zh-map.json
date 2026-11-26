@@ -1,10 +1,10 @@
 {
   "meta": {
-    "generatedAt": "2026-11-26T06:15:29.470Z",
+    "generatedAt": "2026-11-26T08:31:40.696Z",
     "rawDir": "/workspace/wf-relic-cn-raw",
     "stats": {
       "planetsCount": 28,
-      "missionTypesCount": 33,
+      "missionTypesCount": 34,
       "nodesCount": 435,
       "enemiesCount": 919,
       "bountiesCount": 50,
@@ -284,8 +284,15 @@
       "isAsIs": false
     },
     "Sanctuary Onslaught": {
-      "nameZh": "Sanctuary Onslaught",
-      "zhSource": "en_fallback",
+      "nameZh": "圣殿突袭",
+      "zhSource": "de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/Weekly/SeasonWeeklySanctuaryOnslaught",
+      "rule": "verified_term_in_parallel_description",
+      "isAsIs": false
+    },
+    "Elite Sanctuary Onslaught": {
+      "nameZh": "精英级圣殿突袭",
+      "zhSource": "de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught",
+      "rule": "verified_term_in_parallel_description",
       "isAsIs": false
     },
     "Void Flood": {
@@ -304,8 +311,10 @@
       "isAsIs": false
     },
     "The Circuit": {
-      "nameZh": "The Circuit",
-      "zhSource": "en_fallback",
+      "nameZh": "无尽回廊",
+      "zhSource": "de_export:ExportRegions_zh:SolNode238",
+      "rule": "same_uniqueName:SolNode238",
+      "uniqueName": "SolNode238",
       "isAsIs": false
     },
     "Normal": {
@@ -761,28 +770,42 @@
       "deAligned": true
     },
     "Venus:Vesper Relay": {
-      "nameZh": "Vesper 中继站 (金星)",
-      "zhSource": "wfcd_worldstate:solNodes:VenusHUB",
-      "solNodeKey": "VenusHUB",
-      "isAsIs": true,
-      "deAligned": false
+      "nameZh": "Vesper 中继站",
+      "zhSource": "de_export:ExportRegions_zh:SolNode239",
+      "solNodeKey": "SolNode239",
+      "deRegionId": "SolNode239",
+      "wfcdSolNodeKey": "VenusHUB",
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Venus",
+        "name": "Vesper Relay"
+      },
+      "isAsIs": false,
+      "deAligned": true
     },
     "Venus:Vesper Relay (Extra)": {
-      "nameZh": "Vesper 中继站 (金星) (Extra)",
-      "zhSource": "composed:solNode+suffix:VenusHUB",
+      "nameZh": "Vesper 中继站 (Extra)",
+      "zhSource": "composed:solNode+suffix:SolNode239",
       "zhSegments": [
         {
-          "text": "Vesper 中继站 (金星)",
-          "source": "wfcd_worldstate:solNodes:VenusHUB"
+          "text": "Vesper 中继站",
+          "source": "de_export:ExportRegions_zh:SolNode239"
         },
         {
           "text": " (Extra)",
           "source": "original_en"
         }
       ],
-      "solNodeKey": "VenusHUB",
-      "isAsIs": true,
-      "deAligned": false
+      "solNodeKey": "SolNode239",
+      "deRegionId": "SolNode239",
+      "wfcdSolNodeKey": "VenusHUB",
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Venus",
+        "name": "Vesper Relay"
+      },
+      "isAsIs": false,
+      "deAligned": true
     },
     "Venus:Montes": {
       "nameZh": "Montes",
@@ -1084,26 +1107,18 @@
       "deAligned": false
     },
     "Earth:Saya's Visions": {
-      "nameZh": "Saya's Visions (地球)",
-      "zhSource": "composed:en_node+planet:Earth",
-      "zhSegments": [
-        {
-          "text": "Saya's Visions (",
-          "source": "original_en"
-        },
-        {
-          "text": "地球",
-          "source": "wfcd_worldstate:solNodes:SolNode15"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "萨娅的异象",
+      "zhSource": "de_export:ExportRegions_zh:SolNode451",
+      "solNodeKey": "SolNode451",
+      "deRegionId": "SolNode451",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Earth",
+        "name": "Saya's Visions"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Mars:Arcadia": {
       "nameZh": "Arcadia (火星)",
@@ -1221,11 +1236,18 @@
       "deAligned": true
     },
     "Jupiter:Ganymede": {
-      "nameZh": "Ganymede (木星)",
-      "zhSource": "wfcd_worldstate:solNodes:EventNode33",
-      "solNodeKey": "EventNode33",
+      "nameZh": "Ganymede",
+      "zhSource": "de_export:ExportRegions_zh:SolNode87",
+      "solNodeKey": "SolNode87",
+      "deRegionId": "SolNode87",
+      "wfcdSolNodeKey": "EventNode33",
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Jupiter",
+        "name": "Ganymede"
+      },
       "isAsIs": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Jupiter:Adrastea (Caches)": {
       "nameZh": "Adrastea (Caches)",
@@ -4281,48 +4303,30 @@
       "deAligned": true
     },
     "Sanctuary:Sanctuary Onslaught": {
-      "nameZh": "Sanctuary Onslaught (圣殿)",
-      "zhSource": "composed:en_node+planet:Sanctuary",
-      "zhSegments": [
-        {
-          "text": "Sanctuary Onslaught (",
-          "source": "original_en"
-        },
-        {
-          "text": "圣殿",
-          "source": "wfcd_worldstate:languages:/lotus/types/challenges/seasons/weekly/seasonweeklysimarisscan"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
+      "nameZh": "圣殿突袭",
+      "zhSource": "de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/Weekly/SeasonWeeklySanctuaryOnslaught",
+      "rule": "verified_term_in_parallel_description",
+      "evidence": {
+        "export": "ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/Weekly/SeasonWeeklySanctuaryOnslaught",
+        "enParallel": "Complete |COUNT| Zones of Sanctuary Onslaught.",
+        "zhParallel": "完成 |COUNT| 个圣殿突袭的区域。"
+      },
       "solNodeKey": null,
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Sanctuary:Elite Sanctuary Onslaught": {
-      "nameZh": "Elite Sanctuary Onslaught (圣殿)",
-      "zhSource": "composed:en_node+planet:Sanctuary",
-      "zhSegments": [
-        {
-          "text": "Elite Sanctuary Onslaught (",
-          "source": "original_en"
-        },
-        {
-          "text": "圣殿",
-          "source": "wfcd_worldstate:languages:/lotus/types/challenges/seasons/weekly/seasonweeklysimarisscan"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
+      "nameZh": "精英级圣殿突袭",
+      "zhSource": "de_export:ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught",
+      "rule": "verified_term_in_parallel_description",
+      "evidence": {
+        "export": "ExportSortieRewards_zh:/Lotus/Types/Challenges/Seasons/WeeklyHard/SeasonWeeklyHardEliteSanctuaryOnslaught",
+        "enParallel": "Complete |COUNT| Zones of Elite Sanctuary Onslaught.",
+        "zhParallel": "完成 |COUNT| 个精英级圣殿突袭区域。"
+      },
       "solNodeKey": null,
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Veil Proxima:Flexa": {
       "nameZh": "弗雷沙 (面纱)",
@@ -5132,202 +5136,150 @@
       "deAligned": false
     },
     "Höllvania:Legacyte Harvest": {
-      "nameZh": "Legacyte Harvest (霍瓦尼亚)",
-      "zhSource": "composed:en_node+planet:Höllvania",
-      "zhSegments": [
-        {
-          "text": "Legacyte Harvest (",
-          "source": "original_en"
-        },
-        {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "传承种收割",
+      "zhSource": "de_export:ExportRegions_zh:SolNode850",
+      "solNodeKey": "SolNode850",
+      "deRegionId": "SolNode850",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Legacyte Harvest"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Hell-Scrub: Scaldra": {
-      "nameZh": "Hell-Scrub: Scaldra (霍瓦尼亚)",
-      "zhSource": "composed:en_node+planet:Höllvania",
-      "zhSegments": [
-        {
-          "text": "Hell-Scrub: Scaldra (",
-          "source": "original_en"
-        },
-        {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "地狱净化：炽蛇军",
+      "zhSource": "de_export:ExportRegions_zh:SolNode851",
+      "solNodeKey": "SolNode851",
+      "deRegionId": "SolNode851",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Hell-Scrub: Scaldra"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Hell-Scrub: Techrot": {
-      "nameZh": "Hell-Scrub: Techrot (霍瓦尼亚)",
-      "zhSource": "composed:en_node+planet:Höllvania",
-      "zhSegments": [
-        {
-          "text": "Hell-Scrub: Techrot (",
-          "source": "original_en"
-        },
-        {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "地狱净化：科腐者",
+      "zhSource": "de_export:ExportRegions_zh:SolNode852",
+      "solNodeKey": "SolNode852",
+      "deRegionId": "SolNode852",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Hell-Scrub: Techrot"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Exterminate: Scaldra": {
-      "nameZh": "Exterminate: Scaldra (霍瓦尼亚)",
-      "zhSource": "composed:en_node+planet:Höllvania",
-      "zhSegments": [
-        {
-          "text": "Exterminate: Scaldra (",
-          "source": "original_en"
-        },
-        {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "歼灭：炽蛇军",
+      "zhSource": "de_export:ExportRegions_zh:SolNode853",
+      "solNodeKey": "SolNode853",
+      "deRegionId": "SolNode853",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Exterminate: Scaldra"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Exterminate: Scaldra (Caches)": {
-      "nameZh": "Exterminate: Scaldra (霍瓦尼亚) (Caches)",
-      "zhSource": "composed:en_node+planet:Höllvania",
+      "nameZh": "歼灭：炽蛇军 (Caches)",
+      "zhSource": "composed:solNode+suffix:SolNode853",
       "zhSegments": [
         {
-          "text": "Exterminate: Scaldra (",
-          "source": "original_en"
+          "text": "歼灭：炽蛇军",
+          "source": "de_export:ExportRegions_zh:SolNode853"
         },
         {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ") (Caches)",
+          "text": " (Caches)",
           "source": "original_en"
         }
       ],
-      "solNodeKey": null,
+      "solNodeKey": "SolNode853",
+      "deRegionId": "SolNode853",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Exterminate: Scaldra"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Exterminate: Techrot": {
-      "nameZh": "Exterminate: Techrot (霍瓦尼亚)",
-      "zhSource": "composed:en_node+planet:Höllvania",
-      "zhSegments": [
-        {
-          "text": "Exterminate: Techrot (",
-          "source": "original_en"
-        },
-        {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "歼灭：科腐者",
+      "zhSource": "de_export:ExportRegions_zh:SolNode854",
+      "solNodeKey": "SolNode854",
+      "deRegionId": "SolNode854",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Exterminate: Techrot"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Exterminate: Techrot (Caches)": {
-      "nameZh": "Exterminate: Techrot (霍瓦尼亚) (Caches)",
-      "zhSource": "composed:en_node+planet:Höllvania",
+      "nameZh": "歼灭：科腐者 (Caches)",
+      "zhSource": "composed:solNode+suffix:SolNode854",
       "zhSegments": [
         {
-          "text": "Exterminate: Techrot (",
-          "source": "original_en"
+          "text": "歼灭：科腐者",
+          "source": "de_export:ExportRegions_zh:SolNode854"
         },
         {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ") (Caches)",
+          "text": " (Caches)",
           "source": "original_en"
         }
       ],
-      "solNodeKey": null,
+      "solNodeKey": "SolNode854",
+      "deRegionId": "SolNode854",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Exterminate: Techrot"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Assassinate: H-09 Tank": {
-      "nameZh": "Assassinate: H-09 Tank (霍瓦尼亚)",
-      "zhSource": "composed:en_node+planet:Höllvania",
-      "zhSegments": [
-        {
-          "text": "Assassinate: H-09 Tank (",
-          "source": "original_en"
-        },
-        {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "刺杀：H-09 坦克",
+      "zhSource": "de_export:ExportRegions_zh:SolNode856",
+      "solNodeKey": "SolNode856",
+      "deRegionId": "SolNode856",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Assassinate: H-09 Tank"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Solstice Square": {
-      "nameZh": "Solstice Square (霍瓦尼亚)",
-      "zhSource": "composed:en_node+planet:Höllvania",
-      "zhSegments": [
-        {
-          "text": "Solstice Square (",
-          "source": "original_en"
-        },
-        {
-          "text": "霍瓦尼亚",
-          "source": "wfcd_i18n:/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "至日广场",
+      "zhSource": "de_export:ExportRegions_zh:SolNode858",
+      "solNodeKey": "SolNode858",
+      "deRegionId": "SolNode858",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Höllvania",
+        "name": "Solstice Square"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Höllvania:Antivirus Bounty": {
       "nameZh": "Antivirus Bounty (霍瓦尼亚)",
@@ -5374,108 +5326,60 @@
       "deAligned": false
     },
     "Dark Refractory, Deimos:Recall: Hunhullus": {
-      "nameZh": "Recall: Hunhullus (Dark Refractory, 火卫二)",
-      "zhSource": "composed:en_node+planet:Dark Refractory, Deimos",
-      "zhSegments": [
-        {
-          "text": "Recall: Hunhullus (",
-          "source": "original_en"
-        },
-        {
-          "text": "Dark Refractory, ",
-          "source": "original_en"
-        },
-        {
-          "text": "火卫二",
-          "source": "wfcd_worldstate:solNodes:SolNode229"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "回忆：英魂统使",
+      "zhSource": "de_export:ExportRegions_zh:SolNode250",
+      "solNodeKey": "SolNode250",
+      "deRegionId": "SolNode250",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Dark Refractory, Deimos",
+        "name": "Recall: Hunhullus"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Dark Refractory, Deimos:Recall: Dactolyst": {
-      "nameZh": "Recall: Dactolyst (Dark Refractory, 火卫二)",
-      "zhSource": "composed:en_node+planet:Dark Refractory, Deimos",
-      "zhSegments": [
-        {
-          "text": "Recall: Dactolyst (",
-          "source": "original_en"
-        },
-        {
-          "text": "Dark Refractory, ",
-          "source": "original_en"
-        },
-        {
-          "text": "火卫二",
-          "source": "wfcd_worldstate:solNodes:SolNode229"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "回忆：指节使",
+      "zhSource": "de_export:ExportRegions_zh:SolNode251",
+      "solNodeKey": "SolNode251",
+      "deRegionId": "SolNode251",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Dark Refractory, Deimos",
+        "name": "Recall: Dactolyst"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Dark Refractory, Deimos:Recall: Vanguard": {
-      "nameZh": "Recall: Vanguard (Dark Refractory, 火卫二)",
-      "zhSource": "composed:en_node+planet:Dark Refractory, Deimos",
-      "zhSegments": [
-        {
-          "text": "Recall: Vanguard (",
-          "source": "original_en"
-        },
-        {
-          "text": "Dark Refractory, ",
-          "source": "original_en"
-        },
-        {
-          "text": "火卫二",
-          "source": "wfcd_worldstate:solNodes:SolNode229"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "回忆：先锋",
+      "zhSource": "de_export:ExportRegions_zh:SolNode252",
+      "solNodeKey": "SolNode252",
+      "deRegionId": "SolNode252",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Dark Refractory, Deimos",
+        "name": "Recall: Vanguard"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     },
     "Dark Refractory, Deimos:The Guilty": {
-      "nameZh": "The Guilty (Dark Refractory, 火卫二)",
-      "zhSource": "composed:en_node+planet:Dark Refractory, Deimos",
-      "zhSegments": [
-        {
-          "text": "The Guilty (",
-          "source": "original_en"
-        },
-        {
-          "text": "Dark Refractory, ",
-          "source": "original_en"
-        },
-        {
-          "text": "火卫二",
-          "source": "wfcd_worldstate:solNodes:SolNode229"
-        },
-        {
-          "text": ")",
-          "source": "original_en"
-        }
-      ],
-      "solNodeKey": null,
+      "nameZh": "有罪之人",
+      "zhSource": "de_export:ExportRegions_zh:SolNode257",
+      "solNodeKey": "SolNode257",
+      "deRegionId": "SolNode257",
+      "wfcdSolNodeKey": null,
+      "matchMethod": "exact_systemName_and_name",
+      "originalTuple": {
+        "systemName": "Dark Refractory, Deimos",
+        "name": "The Guilty"
+      },
       "isAsIs": false,
-      "fallback": true,
-      "deAligned": false
+      "deAligned": true
     }
   },
   "enemies": {
@@ -5568,112 +5472,72 @@
       "zhSource": "en_fallback"
     },
     "Executioner Zura": {
-      "nameZh": "Executioner Zura",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者 Zura 的",
-        "rawName": "行刑者 Zura 的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者 Zura",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者 Zura 的浮印",
+      "nameEnRaw": "Executioner Zura Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster"
     },
     "Executioner Garesh": {
-      "nameZh": "Executioner Garesh",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者加雷什的",
-        "rawName": "行刑者加雷什的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者加雷什",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者加雷什的浮印",
+      "nameEnRaw": "Executioner Garesh Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger"
     },
     "Executioner Harkonar": {
-      "nameZh": "Executioner Harkonar",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者哈库那的",
-        "rawName": "行刑者哈库那的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者哈库那",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者哈库那的浮印",
+      "nameEnRaw": "Executioner Harkonar Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper"
     },
     "Executioner Reth": {
-      "nameZh": "Executioner Reth",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者莱斯的",
-        "rawName": "行刑者莱斯的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者莱斯",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者莱斯的浮印",
+      "nameEnRaw": "Executioner Reth Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer"
     },
     "Executioner Dhurnam": {
       "nameZh": "Executioner Dhurnam",
       "zhSource": "en_fallback"
     },
     "Executioner Vay Molta": {
-      "nameZh": "Executioner Vay Molta",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者 Vay Molta 的",
-        "rawName": "行刑者 Vay Molta 的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者 Vay Molta",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者 Vay Molta 的浮印",
+      "nameEnRaw": "Executioner Vay Molta Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion"
     },
     "Executioner Dok Thul": {
-      "nameZh": "Executioner Dok Thul",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者多克·图尔的",
-        "rawName": "行刑者多克·图尔的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者多克·图尔",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者多克·图尔的浮印",
+      "nameEnRaw": "Executioner Dok Thul Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer"
     },
     "Executioner Nok": {
-      "nameZh": "Executioner Nok",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者诺克的",
-        "rawName": "行刑者诺克的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者诺克",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者诺克的浮印",
+      "nameEnRaw": "Executioner Nok Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt"
     },
     "Executioner Gorth": {
-      "nameZh": "Executioner Gorth",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "pending_strip_de_glyph",
-        "zhCandidate": "行刑者高斯的",
-        "rawName": "行刑者高斯的浮印",
-        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank",
-        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank",
-        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
-      }
+      "nameZh": "行刑者高斯",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank",
+      "rule": "strip_suffix:的浮印",
+      "zhRaw": "行刑者高斯的浮印",
+      "nameEnRaw": "Executioner Gorth Glyph",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank"
     },
     "Amalgam Moa": {
       "nameZh": "Amalgam Moa",
@@ -6790,21 +6654,30 @@
       ]
     },
     "Captain Vor": {
-      "nameZh": "Captain Vor",
-      "zhSource": "en_fallback",
-      "ambiguity": {
-        "candidates": [
-          {
-            "zh": "Vor 上尉",
-            "source": "wfcd_worldstate:sortieData:bosses:SORTIE_BOSS_VOR"
-          },
-          {
-            "zh": "沃尔上尉",
-            "source": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor"
-          }
-        ],
-        "reason": "存在多个不同中文译名（Vor 上尉 vs 沃尔上尉），按规范保守保留英文回退"
-      }
+      "nameZh": "沃尔上尉",
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor",
+      "rule": "strip_suffix:浮印",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor",
+      "nameEnRaw": "Captain Vor Glyph",
+      "zhRaw": "沃尔上尉浮印",
+      "descriptionZh": "沃尔上尉的浮印",
+      "evidence": {
+        "exportFlavour": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor",
+        "officialPatchNotes": "de-web/1126c/patch39-0-0-zh.txt (独立标题“沃尔上尉重制”)",
+        "corroboratingExports": [
+          "ExportCustoms:/Lotus/Upgrades/Skins/Sigils/BossSigilCaptainVor",
+          "ExportCustoms:/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil",
+          "ExportResources:/Lotus/Types/Items/ShipDecos/VorBobbleHead",
+          "ExportWeapons:/Lotus/Weapons/Grineer/GrineerPistol/GrnScopedPistolPlayer",
+          "ExportKeys:/Lotus/Types/Keys/VorsPrize/VorsPrizeQuestKeyChain"
+        ]
+      },
+      "aliases": [
+        {
+          "nameZh": "Vor 上尉",
+          "source": "wfcd_worldstate:sortieData:bosses:SORTIE_BOSS_VOR"
+        }
+      ]
     },
     "Mutalist Osprey Carrier": {
       "nameZh": "Mutalist Osprey Carrier",
@@ -6882,15 +6755,16 @@
       "zhSource": "en_fallback"
     },
     "Carrier": {
-      "nameZh": "Carrier",
-      "zhSource": "en_fallback",
-      "rule": "rejected_non_enemy_entity",
-      "pendingDecision": true,
-      "candidate": {
-        "rule": "rejected_non_enemy_entity",
-        "zhCandidate": "搬运者",
-        "zhSource": "wfcd_worldstate:languages:/lotus/storeitems/types/sentinels/sentinelpowersuits/carrierpowersuit",
-        "reason": "语言键路径 (/lotus/storeitems/types/sentinels/sentinelpowersuits/carrierpowersuit) 属于非敌人类别，与掉落表实体不一致，保守回退英文"
+      "nameZh": "母舰",
+      "zhSource": "huijiwiki",
+      "uniqueName": "/Lotus/Types/Enemies/SpaceBattles/Corpus/Ships/SwarmShipAvatar",
+      "rule": "community_wiki_search_evidence",
+      "notes": "社区译名；官方译名未确认；直连 403 只取检索正文；与守护“搬运者”明确区分",
+      "evidence": {
+        "wikiSearchFile": "community/wiki-search-evidence.json",
+        "avatarUniqueName": "/Lotus/Types/Enemies/SpaceBattles/Corpus/Ships/SwarmShipAvatar",
+        "avatarDescription": "Launches several locust drones",
+        "officialZhStatus": "unconfirmed"
       }
     },
     "Corrupted Ancient": {
@@ -6975,11 +6849,23 @@
     },
     "Kubrow": {
       "nameZh": "库狛",
-      "zhSource": "wfcd_worldstate:languages:/lotus/storeitems/types/game/kubrowpet/kubrowpetpowersuit",
-      "rule": "exact_match:languages",
-      "annotation": "宠物同种",
-      "pendingDecision": true,
-      "pendingDecisionReason": "出处键为宠物 Kubrow 语言条目，掉落表为同物种野生库狛，暂时保留，待 Codex 拍板"
+      "zhSource": "verified_species_name",
+      "rule": "verified_species_name",
+      "annotation": "野生库狛（物种名经 DE 更新 39 正文及宠物条目验证）",
+      "evidence": {
+        "speciesName": "库狛",
+        "avatarUniqueName": "/Lotus/Types/NeutralCreatures/Kubrow/KubrowAvatar",
+        "avatarDescription": "Feral Kubrow",
+        "petLanguageKey": "/lotus/storeitems/types/game/kubrowpet/kubrowpetpowersuit",
+        "petLanguageSource": "wfcd_worldstate:languages:/lotus/storeitems/types/game/kubrowpet/kubrowpetpowersuit",
+        "officialPatchNotes": {
+          "zh": "de-web/1126c/patch39-0-0-zh.txt (野生库狛在试图恐吓附近玩家时眼睛不会再变红)",
+          "en": "de-web/1126c/patch39-0-0-en.txt (Feral Kubrows)"
+        }
+      },
+      "aliases": [
+        "Kubrow"
+      ]
     },
     "Kuva Elite Lancer": {
       "nameZh": "Kuva Elite Lancer",
@@ -7515,7 +7401,10 @@
     },
     "Kela De Thaym": {
       "nameZh": "Kela De Thaym",
-      "zhSource": "en_fallback"
+      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerKelaDeThaym",
+      "rule": "strip_suffix:浮印",
+      "rawName": "Kela De Thaym浮印",
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerKelaDeThaym"
     },
     "Moa": {
       "nameZh": "恐鸟",
@@ -7795,13 +7684,15 @@
       "zhSource": "en_fallback"
     },
     "Stalker": {
-      "nameZh": "Stalker",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rawName": "追猎者背景",
-        "source": "wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerBackDrop",
-        "reason": "出处为物品“追猎者背景”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板"
+      "nameZh": "追猎者",
+      "zhSource": "de_export:ExportGear_zh:/Lotus/Types/Restoratives/Consumable/AssassinBait",
+      "uniqueName": "/Lotus/Types/Restoratives/Consumable/AssassinBait",
+      "rule": "verified_character_reference",
+      "evidence": {
+        "beaconUniqueName": "/Lotus/Types/Restoratives/Consumable/AssassinBait",
+        "beaconNameZh": "追猎者信标",
+        "beaconDescZh": "吸引「追猎者」现身",
+        "patchStoryZh": "de-web/1126c/reapers-zh.txt (《死神的哀叹》发言者“追猎者”)"
       }
     },
     "Shadow Stalker": {
@@ -7992,13 +7883,15 @@
       "zhSource": "en_fallback"
     },
     "Protector Stalker": {
-      "nameZh": "Protector Stalker",
-      "zhSource": "en_fallback",
-      "pendingDecision": true,
-      "candidate": {
-        "rawName": "卫护追猎者玩偶",
-        "source": "wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerProtectorNoggle",
-        "reason": "出处为物品“卫护追猎者玩偶”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板"
+      "nameZh": "卫护追猎者",
+      "zhSource": "de_export:ExportResources_zh:/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker",
+      "nameEnRaw": "Protector Stalker Floof",
+      "zhRaw": "卫护追猎者玩偶",
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker",
+      "rule": "strip_suffix:玩偶",
+      "evidence": {
+        "itemUniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker",
+        "hotfixNotice": "de-web/1126c/patch36-0-4-en.txt"
       }
     },
     "Jarka Lar": {
@@ -10197,8 +10090,9 @@
       "zhSource": "en_fallback"
     },
     "Duviri Circuit": {
-      "nameZh": "Duviri Circuit",
-      "zhSource": "en_fallback"
+      "nameZh": "无尽回廊",
+      "zhSource": "de_export:ExportRegions_zh:SolNode238",
+      "rule": "same_uniqueName:SolNode238"
     },
     "Duviri Static Undercroft Portal": {
       "nameZh": "Duviri Static Undercroft Portal",

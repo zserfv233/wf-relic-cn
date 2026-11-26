@@ -129,7 +129,7 @@ describe('Codex 1126b 第 1–6 项汉化规范与不变量测试 (Localization 
     assert.strictEqual(deAlignedCount + asIsCount + fallbackCount, allNodes.length, '节点分类之和必须严格等于节点总数');
     assert.ok(deAlignedCount >= 200, `DE 对齐节点数应 >= 200 (实际 ${deAlignedCount})`);
     assert.ok(asIsCount >= 150, `上游原样英文节点数应 >= 150 (实际 ${asIsCount})`);
-    assert.ok(fallbackCount >= 50, `本站回退英文节点数应 >= 50 (实际 ${fallbackCount})`);
+    assert.ok(fallbackCount >= 40, `本站回退英文节点数应 >= 40 (实际 ${fallbackCount})`);
 
     // 3. 校验 DE 对齐的双重一致性（英文 name/systemName 必须与掉落表一致）
     const deRegionsZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportRegions_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
@@ -256,11 +256,12 @@ describe('Codex 1126b 第 1–6 项汉化规范与不变量测试 (Localization 
     const deFlavourZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportFlavour_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
     const deFlavourZhMap = new Map((deFlavourZhRaw.ExportFlavour || deFlavourZhRaw).map(f => [f.uniqueName, f]));
 
-    // 1. Captain Vor 歧义断言：必须保留英文 en_fallback
+    // 1. Captain Vor 拍板断言：沃尔上尉，保留 Vor 上尉 为有来源别名
     const captainVor = enemiesMap['Captain Vor'];
     assert.ok(captainVor, 'zhMap.enemies 必须包含 Captain Vor');
-    assert.strictEqual(captainVor.zhSource, 'en_fallback', 'Captain Vor 存在 Sortie "Vor 上尉" 与 Flavour "沃尔上尉" 歧义，必须为 en_fallback');
-    assert.strictEqual(captainVor.nameZh, 'Captain Vor');
+    assert.strictEqual(captainVor.nameZh, '沃尔上尉');
+    assert.strictEqual(captainVor.zhSource, 'de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerCaptainVor');
+    assert.ok(captainVor.aliases && captainVor.aliases.some(a => (typeof a === 'string' ? a : a.nameZh) === 'Vor 上尉'), 'Captain Vor 必须保留 Vor 上尉 为有来源别名');
 
     // 2. 所有中文敌人必须带出处与规则（A2-A4 回退 11 个敌人后，规范汉化敌人为 26 个）
     const chineseEnemies = Object.entries(enemiesMap).filter(([, v]) => v.nameZh && /[\u4e00-\u9fa5]/.test(v.nameZh));

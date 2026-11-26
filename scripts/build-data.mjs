@@ -1317,7 +1317,11 @@ export async function build(customOptions = {}) {
           chance: r.chance,
           quantity: r.quantity || 1,
           rarity: r.rarity,
-          enemyModDropChance: src.enemyModDropChance ?? null
+          enemyModDropChance: src.enemyModDropChance ?? null,
+          historicalEvent: Boolean(src.historicalEvent),
+          eventGroup: src.eventGroup || null,
+          officialNoticeUrl: src.officialNoticeUrl || null,
+          isPvp: Boolean(src.isPvp)
         });
       }
     }

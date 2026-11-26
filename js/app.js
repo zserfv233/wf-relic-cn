@@ -18,7 +18,7 @@ import {
   formatPriceDisplay
 } from './lib/calculations.js';
 import { searchIndex } from './lib/search.js';
-import { filterSources, toggleHistoricalFilter, togglePvpFilter } from './lib/sources.js';
+import { filterSources, toggleHistoricalFilter, togglePvpFilter, renderDropSourcesGrouped } from './lib/sources.js';
 
 // 应用全局状态
 const state = {
@@ -1100,6 +1100,9 @@ export function openItemModal(itemKey) {
   elements.detailModal.classList.add('active');
 }
 
+// renderDropSourcesGrouped 统一在 lib/sources.js 中实现并导出
+export { renderDropSourcesGrouped };
+
 /**
  * 打开赋能弹窗
  */
@@ -1120,22 +1123,11 @@ export function openArcaneModal(slug) {
   const perR0Sell = (N !== null && pMaxSell !== null) ? Number((pMaxSell / N).toFixed(2)) : null;
   const perR0Buy = (N !== null && pMaxBuy !== null) ? Number((pMaxBuy / N).toFixed(2)) : null;
 
-  const sourcesRows = arc.dropSources.map(s => {
-    let compChance = `${s.chance}%`;
-    if (s.enemyModDropChance) {
-      const comp = ((s.enemyModDropChance / 100) * (s.chance / 100) * 100).toFixed(4);
-      compChance = `${s.chance}% × ${s.enemyModDropChance}% = <strong>${comp}%</strong>`;
-    }
-
-    return `
-      <tr>
-        <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
-        <td>${formatSourceType(s.sourceType)}</td>
-        <td>${s.rotation ? `轮次 ${s.rotation}` : '-'}</td>
-        <td style="color: var(--cyan-primary);">${s.quantity > 1 ? `<span class="quantity-tag">×${s.quantity}</span> ` : ''}${compChance}</td>
-      </tr>
-    `;
-  }).join('');
+  const dropSourcesHtml = renderDropSourcesGrouped(arc.dropSources, {
+    itemType: 'arcane',
+    showRotation: true,
+    emptyNormalText: 'DE 掉落表中未收录该赋能的直接掉落（可能源自商城、活动或商人兑换）'
+  });
 
   elements.modalHeaderContent.innerHTML = `
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
@@ -1163,25 +1155,16 @@ export function openArcaneModal(slug) {
       <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">与直接卖 0 级是两种策略，未计凑齐成本与价差。</div>
     </div>
 
-    <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1rem 0 0.5rem 0;">
-      🎯 掉落来源 (${arc.dropSources.length} 处)
-    </h4>
-    <div style="overflow-x: auto;">
-      <table class="rewards-table">
-        <thead>
-          <tr>
-            <th>来源名称</th>
-            <th>类型</th>
-            <th>轮次</th>
-            <th>掉落概率 (综合)</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${sourcesRows || '<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">DE 掉落表中未收录该赋能的直接掉落（可能源自商城、活动或商人兑换）</td></tr>'}
-        </tbody>
-      </table>
-    </div>
+    ${dropSourcesHtml}
   `;
+
+  elements.modalBodyContent.querySelectorAll('.source-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sId = link.getAttribute('data-source-id');
+      if (sId) openSourceModal(sId);
+    });
+  });
 
   elements.detailModal.classList.add('active');
 }
@@ -1199,13 +1182,11 @@ export function openRivenModal(slug) {
   const rivenEntry = getPriceEntry(slug, null, state.prices);
   const price = rivenEntry ? rivenEntry[state.currentPriceType] : null;
 
-  const sourcesRows = riv.dropSources.map(s => `
-    <tr>
-      <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
-      <td>${formatSourceType(s.sourceType)}</td>
-      <td style="color: var(--cyan-primary);">${s.chance}%</td>
-    </tr>
-  `).join('');
+  const dropSourcesHtml = renderDropSourcesGrouped(riv.dropSources, {
+    itemType: 'riven',
+    showRotation: false,
+    emptyNormalText: '暂无掉落来源'
+  });
 
   elements.modalHeaderContent.innerHTML = `
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
@@ -1225,24 +1206,16 @@ export function openRivenModal(slug) {
       </div>
     </div>
 
-    <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1rem 0 0.5rem 0;">
-      🎯 掉落来源 (${riv.dropSources.length} 处)
-    </h4>
-    <div style="overflow-x: auto;">
-      <table class="rewards-table">
-        <thead>
-          <tr>
-            <th>来源名称</th>
-            <th>类型</th>
-            <th>掉落概率</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${sourcesRows || '<tr><td colspan="3" style="text-align: center;">暂无掉落来源</td></tr>'}
-        </tbody>
-      </table>
-    </div>
+    ${dropSourcesHtml}
   `;
+
+  elements.modalBodyContent.querySelectorAll('.source-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sId = link.getAttribute('data-source-id');
+      if (sId) openSourceModal(sId);
+    });
+  });
 
   elements.detailModal.classList.add('active');
 }
@@ -1262,22 +1235,12 @@ export function openModModal(slug) {
   const p0 = getItemPrice(slug, 0, state.prices, state.currentPriceType);
   const pMax = getItemPrice(slug, mod.maxRank, state.prices, state.currentPriceType);
 
-  const sourcesRows = mod.dropSources.slice(0, 50).map(s => {
-    let compChance = `${s.chance}%`;
-    if (s.enemyModDropChance) {
-      const comp = ((s.enemyModDropChance / 100) * (s.chance / 100) * 100).toFixed(4);
-      compChance = `${s.chance}% × ${s.enemyModDropChance}% = <strong>${comp}%</strong>`;
-    }
-
-    return `
-      <tr>
-        <td><strong>${escapeHtml(s.nameZh || s.nameEn)}</strong></td>
-        <td>${formatSourceType(s.sourceType)}</td>
-        <td>${s.rotation ? `轮次 ${s.rotation}` : '-'}</td>
-        <td style="color: var(--cyan-primary);">${s.quantity > 1 ? `<span class="quantity-tag">×${s.quantity}</span> ` : ''}${compChance}</td>
-      </tr>
-    `;
-  }).join('');
+  const dropSourcesHtml = renderDropSourcesGrouped(mod.dropSources, {
+    itemType: 'mod',
+    showRotation: true,
+    emptyNormalText: '暂无掉落来源',
+    limitNormal: 50
+  });
 
   elements.modalHeaderContent.innerHTML = `
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
@@ -1301,25 +1264,16 @@ export function openModModal(slug) {
       </div>
     </div>
 
-    <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1rem 0 0.5rem 0;">
-      🎯 掉落来源 (${mod.dropSources.length} 处)
-    </h4>
-    <div style="overflow-x: auto; max-height: 400px;">
-      <table class="rewards-table">
-        <thead>
-          <tr>
-            <th>来源名称</th>
-            <th>类型</th>
-            <th>轮次</th>
-            <th>掉落概率 (综合)</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${sourcesRows}
-        </tbody>
-      </table>
-    </div>
+    ${dropSourcesHtml}
   `;
+
+  elements.modalBodyContent.querySelectorAll('.source-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sId = link.getAttribute('data-source-id');
+      if (sId) openSourceModal(sId);
+    });
+  });
 
   elements.detailModal.classList.add('active');
 }

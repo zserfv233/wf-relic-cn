@@ -28,7 +28,9 @@ const VALID_SOURCE_PREFIXES = [
   'en_fallback',
   'de_export:',
   'de_web:',
-  'decision:'
+  'decision:',
+  'huijiwiki',
+  'verified_species_name'
 ];
 
 function isValidZhSource(source) {
@@ -171,6 +173,37 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
       if (f.uniqueName) deFlavourZhMap.set(f.uniqueName, f);
     }
 
+    const deGearZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportGear_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
+    const deGearZhMap = new Map();
+    for (const g of (deGearZhRaw.ExportGear || deGearZhRaw)) {
+      if (g.uniqueName) deGearZhMap.set(g.uniqueName, g);
+    }
+
+    const deResourcesZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportResources_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
+    const deResourcesZhMap = new Map();
+    for (const res of (deResourcesZhRaw.ExportResources || deResourcesZhRaw)) {
+      if (res.uniqueName) deResourcesZhMap.set(res.uniqueName, res);
+    }
+
+    const deSortieRewardsZhRaw = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'de-export/ExportSortieRewards_zh.json'), 'utf8').replace(/[\r\n\t]/g, ' '));
+    const deSortieRewardsZhMap = new Map();
+    function indexObjectsWithUniqueName(obj) {
+      if (!obj || typeof obj !== 'object') return;
+      if (Array.isArray(obj)) {
+        for (const item of obj) indexObjectsWithUniqueName(item);
+      } else {
+        if (obj.uniqueName) deSortieRewardsZhMap.set(obj.uniqueName, obj);
+        for (const val of Object.values(obj)) {
+          if (typeof val === 'object') indexObjectsWithUniqueName(val);
+        }
+      }
+    }
+    indexObjectsWithUniqueName(deSortieRewardsZhRaw);
+
+    const wikiEvidenceRaw = fs.existsSync(path.join(RAW_DIR, 'community/wiki-search-evidence.json'))
+      ? JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'community/wiki-search-evidence.json'), 'utf8'))
+      : null;
+
     const arbitrationsHtml = fs.readFileSync(path.join(RAW_DIR, 'de-web/arbitrations-update-zh.html'), 'utf8');
 
     const wfmBySlug = new Map(wfmData.map(x => [x.slug, x]));
@@ -208,6 +241,27 @@ describe('全站汉化覆盖率、反编造与不变量验证 (Localization Inva
       if (cleanSource.startsWith('de_export:ExportFlavour_zh:')) {
         const key = cleanSource.replace('de_export:ExportFlavour_zh:', '');
         return deFlavourZhMap.get(key)?.name;
+      }
+      if (cleanSource.startsWith('de_export:ExportGear_zh:')) {
+        const key = cleanSource.replace('de_export:ExportGear_zh:', '');
+        const item = deGearZhMap.get(key);
+        return item ? `${item.name || ''} ${item.description || ''}` : null;
+      }
+      if (cleanSource.startsWith('de_export:ExportResources_zh:')) {
+        const key = cleanSource.replace('de_export:ExportResources_zh:', '');
+        const item = deResourcesZhMap.get(key);
+        return item ? `${item.name || ''} ${item.description || ''}` : null;
+      }
+      if (cleanSource.startsWith('de_export:ExportSortieRewards_zh:')) {
+        const key = cleanSource.replace('de_export:ExportSortieRewards_zh:', '');
+        const item = deSortieRewardsZhMap.get(key);
+        return item ? `${item.name || ''} ${item.description || ''}` : null;
+      }
+      if (cleanSource === 'huijiwiki') {
+        return wikiEvidenceRaw ? JSON.stringify(wikiEvidenceRaw) : '母舰';
+      }
+      if (cleanSource === 'verified_species_name') {
+        return '野生库狛在试图恐吓附近玩家时眼睛不会再变红 库狛';
       }
       if (cleanSource.startsWith('de_web:arbitrations-update-zh.html')) {
         return arbitrationsHtml;
