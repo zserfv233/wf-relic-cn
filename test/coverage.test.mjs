@@ -12,7 +12,8 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 
 // 覆盖率基准下限，保证数据质量不严重恶化
-const COVERAGE_FLOOR = 0.90;
+// 依据 Decision 10：倒挂报价隔离 (buyMax > sellMin) 导致 53 个倒挂键有效价置 null 计入缺价（其中 35 个为赋能），赋能覆盖率约为 87.4%
+const COVERAGE_FLOOR = 0.85;
 
 describe('价格覆盖率与统计口径 (Price Coverage & Meta - Invariants)', () => {
   const pricesPath = path.join(DATA_DIR, 'prices.json');

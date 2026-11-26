@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-11-26T04:34:04.442Z",
+    "generatedAt": "2026-11-26T06:15:29.470Z",
     "rawDir": "/workspace/wf-relic-cn-raw",
     "stats": {
       "planetsCount": 28,
@@ -5568,64 +5568,112 @@
       "zhSource": "en_fallback"
     },
     "Executioner Zura": {
-      "nameZh": "行刑者 Zura 的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者 Zura 的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster"
+      "nameZh": "Executioner Zura",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者 Zura 的",
+        "rawName": "行刑者 Zura 的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionBeastMaster",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Executioner Garesh": {
-      "nameZh": "行刑者加雷什的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者加雷什的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger"
+      "nameZh": "Executioner Garesh",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者加雷什的",
+        "rawName": "行刑者加雷什的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionCharger",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Executioner Harkonar": {
-      "nameZh": "行刑者哈库那的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者哈库那的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper"
+      "nameZh": "Executioner Harkonar",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者哈库那的",
+        "rawName": "行刑者哈库那的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionSniper",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Executioner Reth": {
-      "nameZh": "行刑者莱斯的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者莱斯的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer"
+      "nameZh": "Executioner Reth",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者莱斯的",
+        "rawName": "行刑者莱斯的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionEngineer",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Executioner Dhurnam": {
       "nameZh": "Executioner Dhurnam",
       "zhSource": "en_fallback"
     },
     "Executioner Vay Molta": {
-      "nameZh": "行刑者 Vay Molta 的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者 Vay Molta 的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion"
+      "nameZh": "Executioner Vay Molta",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者 Vay Molta 的",
+        "rawName": "行刑者 Vay Molta 的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHellion",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Executioner Dok Thul": {
-      "nameZh": "行刑者多克·图尔的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者多克·图尔的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer"
+      "nameZh": "Executioner Dok Thul",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者多克·图尔的",
+        "rawName": "行刑者多克·图尔的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionHealer",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Executioner Nok": {
-      "nameZh": "行刑者诺克的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者诺克的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt"
+      "nameZh": "Executioner Nok",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者诺克的",
+        "rawName": "行刑者诺克的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionGrunt",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Executioner Gorth": {
-      "nameZh": "行刑者高斯的",
-      "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank",
-      "rule": "strip_suffix:浮印",
-      "rawName": "行刑者高斯的浮印",
-      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank"
+      "nameZh": "Executioner Gorth",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "pending_strip_de_glyph",
+        "zhCandidate": "行刑者高斯的",
+        "rawName": "行刑者高斯的浮印",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank",
+        "zhSource": "de_export:ExportFlavour_zh:/Lotus/Types/StoreItems/AvatarImages/ImageGrineerChampionTank",
+        "reason": "派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”"
+      }
     },
     "Amalgam Moa": {
       "nameZh": "Amalgam Moa",
@@ -6834,9 +6882,16 @@
       "zhSource": "en_fallback"
     },
     "Carrier": {
-      "nameZh": "搬运者",
-      "zhSource": "wfcd_worldstate:languages:/lotus/storeitems/types/sentinels/sentinelpowersuits/carrierpowersuit",
-      "rule": "exact_match:languages"
+      "nameZh": "Carrier",
+      "zhSource": "en_fallback",
+      "rule": "rejected_non_enemy_entity",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "rejected_non_enemy_entity",
+        "zhCandidate": "搬运者",
+        "zhSource": "wfcd_worldstate:languages:/lotus/storeitems/types/sentinels/sentinelpowersuits/carrierpowersuit",
+        "reason": "语言键路径 (/lotus/storeitems/types/sentinels/sentinelpowersuits/carrierpowersuit) 属于非敌人类别，与掉落表实体不一致，保守回退英文"
+      }
     },
     "Corrupted Ancient": {
       "nameZh": "远古堕落者",
@@ -6921,7 +6976,10 @@
     "Kubrow": {
       "nameZh": "库狛",
       "zhSource": "wfcd_worldstate:languages:/lotus/storeitems/types/game/kubrowpet/kubrowpetpowersuit",
-      "rule": "exact_match:languages"
+      "rule": "exact_match:languages",
+      "annotation": "宠物同种",
+      "pendingDecision": true,
+      "pendingDecisionReason": "出处键为宠物 Kubrow 语言条目，掉落表为同物种野生库狛，暂时保留，待 Codex 拍板"
     },
     "Kuva Elite Lancer": {
       "nameZh": "Kuva Elite Lancer",
@@ -7737,9 +7795,14 @@
       "zhSource": "en_fallback"
     },
     "Stalker": {
-      "nameZh": "追猎者",
-      "zhSource": "wfcd_i18n:/Lotus/Interface/Graphics/CustomUI/Backgrounds/StalkerBackground",
-      "rule": "exact_match:i18n"
+      "nameZh": "Stalker",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rawName": "追猎者背景",
+        "source": "wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerBackDrop",
+        "reason": "出处为物品“追猎者背景”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板"
+      }
     },
     "Shadow Stalker": {
       "nameZh": "Shadow Stalker",
@@ -7929,9 +7992,14 @@
       "zhSource": "en_fallback"
     },
     "Protector Stalker": {
-      "nameZh": "卫护追猎者",
-      "zhSource": "wfcd_i18n:/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker",
-      "rule": "exact_match:i18n"
+      "nameZh": "Protector Stalker",
+      "zhSource": "en_fallback",
+      "pendingDecision": true,
+      "candidate": {
+        "rawName": "卫护追猎者玩偶",
+        "source": "wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerProtectorNoggle",
+        "reason": "出处为物品“卫护追猎者玩偶”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板"
+      }
     },
     "Jarka Lar": {
       "nameZh": "Jarka Lar",
@@ -9147,8 +9215,15 @@
     },
     "Chroma": {
       "nameZh": "Chroma",
-      "zhSource": "en_as_is:wfcd_worldstate:languages:/lotus/powersuits/dragon/dragon",
-      "isAsIs": true
+      "zhSource": "en_fallback",
+      "rule": "rejected_non_enemy_entity",
+      "pendingDecision": true,
+      "candidate": {
+        "rule": "rejected_non_enemy_entity",
+        "zhCandidate": "Chroma",
+        "zhSource": "wfcd_worldstate:languages:/lotus/powersuits/dragon/dragon",
+        "reason": "语言键路径 (/lotus/powersuits/dragon/dragon) 属于非敌人类别，与掉落表实体不一致，保守回退英文"
+      }
     },
     "Anarch Grineer Lancer": {
       "nameZh": "Anarch Grineer Lancer",

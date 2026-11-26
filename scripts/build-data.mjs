@@ -306,9 +306,10 @@ export async function build(customOptions = {}) {
   const relicsJson = JSON.parse(fs.readFileSync(relicsPath, 'utf8'));
   const zhJson = JSON.parse(fs.readFileSync(zhPath, 'utf8'));
 
-  // 读取 de_droptables.html 并解析 Duviri 钢铁重复奖励表头
+  // 读取 de_droptables.html 并解析 Duviri 钢铁重复奖励表头与 Recall: Ten-Zero 历史活动组 (Item 8)
   const htmlPath = path.join(rawDir, 'de_droptables.html');
   let duviriHtmlSteelRepeated = null;
+  const recallTenZeroTables = [];
   if (fs.existsSync(htmlPath)) {
     try {
       const htmlContent = fs.readFileSync(htmlPath, 'utf8');
@@ -331,6 +332,34 @@ export async function build(customOptions = {}) {
           });
         }
         duviriHtmlSteelRepeated = { header: headerText, items };
+      }
+
+      // 解析 Recall: Ten-Zero Week 1..5 独立表 (Item 8)
+      const recallRegex = /<tr><th[^>]*>\s*(Recall:\s*Ten-Zero\s*Week\s*(\d+))\s*<\/th><\/tr>/gi;
+      let rMatch;
+      while ((rMatch = recallRegex.exec(htmlContent)) !== null) {
+        const headerText = rMatch[1].trim();
+        const weekNum = parseInt(rMatch[2], 10);
+        const afterHeader = htmlContent.slice(rMatch.index + rMatch[0].length);
+        const endMatch = /<tr class="blank-row">|<th[^>]*>|<\/table>/i.exec(afterHeader);
+        const tableSlice = endMatch ? afterHeader.slice(0, endMatch.index) : afterHeader;
+        const rowRegex = /<tr>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(?:(.*?)\s*\(([\d.]+)%\)|([\d.]+)%)\s*<\/td>\s*<\/tr>/gi;
+        const items = [];
+        let rowMatch;
+        while ((rowMatch = rowRegex.exec(tableSlice)) !== null) {
+          items.push({
+            name: rowMatch[1].trim(),
+            rarity: (rowMatch[2] || '').trim(),
+            chance: parseFloat(rowMatch[3] || rowMatch[4])
+          });
+        }
+        const chanceSum = Number(items.reduce((acc, it) => acc + (it.chance || 0), 0).toFixed(4));
+        recallTenZeroTables.push({
+          header: headerText,
+          weekNum,
+          items,
+          chanceSum
+        });
       }
     } catch (err) {
       console.warn('[build] 解析 de_droptables.html 失败:', err.message);
@@ -597,8 +626,27 @@ export async function build(customOptions = {}) {
 
         const baseSourceId = `mission_${planet.toLowerCase()}_${node.toLowerCase()}${rotation ? `_${rotation.toLowerCase()}` : ''}`.replace(/[^a-z0-9_]+/g, '_');
         const sourceId = registerUniqueSourceId(baseSourceId);
-        const nameEn = `${planet} - ${node} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`;
-        const nameZh = `${planetZh} - ${node} (${modeZh})${rotation ? ` [轮次 ${rotation}]` : ''}`;
+
+        // A1 & B11: 拆分节点基础显示名与难度字段（不做全局字符串替换，保留原 node 键和来源 id 不变）
+        const hasHardSuffix = /\s*\(Hard\)$/i.test(node);
+        const isGameModeHard = /^Hard$/i.test((gameMode || '').trim());
+        const isHardDuplicate = hasHardSuffix && isGameModeHard;
+        const nodeBaseEn = isHardDuplicate ? node.replace(/\s*\(Hard\)$/i, '').trim() : node;
+
+        const nameEn = isHardDuplicate
+          ? `${planet} - ${nodeBaseEn} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`
+          : `${planet} - ${node} (${gameMode})${rotation ? ` [Rot ${rotation}]` : ''}`;
+
+        // A1: nodeZh 已是 DE 名时，nameZh 使用 nodeZh（如 水星 - 阿波罗多罗斯撞击坑 (生存) [轮次 A]）；未对齐节点保持原样
+        const isDeAligned = Boolean(nodeMap?.deAligned || (nodeMap?.zhSource && nodeMap.zhSource.startsWith('de_export:ExportRegions_zh')));
+        let nodeDisplayZh = node;
+        if (isDeAligned && nodeMap?.nameZh) {
+          nodeDisplayZh = nodeMap.nameZh;
+        } else if (isHardDuplicate) {
+          nodeDisplayZh = nodeBaseEn;
+        }
+
+        const nameZh = `${planetZh} - ${nodeDisplayZh} (${modeZh})${rotation ? ` [轮次 ${rotation}]` : ''}`;
         const sourceZhSource = nodeMap?.zhSource || 'composed:mission_rewards';
         
         const processedRewards = [];
@@ -671,9 +719,7 @@ export async function build(customOptions = {}) {
           srcObj.expectedValueConfidentRaw = null;
         }
 
-        if (rotation && ENDLESS_GAME_MODES.has(gameMode)) {
-          srcObj.rotationPattern = '常见 AABC（仅供参考，未做聚合）';
-        }
+
         if (dedupedRepeats) {
           srcObj.dedupedRepeats = dedupedRepeats;
           srcObj.dedupeNote = dedupeNote;
@@ -1071,6 +1117,79 @@ export async function build(customOptions = {}) {
         }
         sourcesResult.push(srcObj);
       }
+    }
+  }
+
+  // E. 收录 Recall: Ten-Zero 历史活动组（共 5 周独立来源，Codex Decision 8）
+  for (const tbl of recallTenZeroTables) {
+    const baseSourceId = `event_recall_ten_zero_week_${tbl.weekNum}`;
+    const sourceId = registerUniqueSourceId(baseSourceId);
+    const nameEn = tbl.header;
+    const nameZh = tbl.header;
+    const sourceZhSource = 'en_fallback';
+
+    const processed = [];
+    for (const item of tbl.items) {
+      checkRelicItem(item.name);
+      addDirectDrop(item.name, { place: nameEn, rotation: null, chance: item.chance, rarity: item.rarity });
+
+      const matched = matchMarketItem(item.name);
+      const { quantity, baseName } = parseQuantityAndName(item.name);
+      const itemLookup = lookupItem(baseName, item.name);
+
+      let itemZh = itemLookup.itemZh;
+      let itemZhSource = itemLookup.zhSource;
+      let slug = null;
+      let category = 'other';
+
+      if (matched) {
+        slug = matched.slug;
+        category = matched.category;
+        if (itemZhSource === 'en_fallback' && matched.item?.i18n?.['zh-hans']?.name) {
+          itemZh = matched.item.i18n['zh-hans'].name;
+          itemZhSource = `warframe_market:${matched.slug}`;
+        }
+      } else {
+        recordUnmatched(item.name, nameEn);
+      }
+
+      processed.push({
+        itemName: item.name,
+        baseName,
+        quantity,
+        itemZh,
+        zhSource: itemZhSource,
+        slug,
+        category,
+        chance: item.chance ?? null,
+        rarity: item.rarity || 'Common',
+        rotation: null,
+        stage: null
+      });
+    }
+
+    if (processed.length > 0) {
+      const srcObj = {
+        id: sourceId,
+        type: 'transient',
+        historicalEvent: true,
+        eventGroup: 'recall_ten_zero',
+        eventGroupName: 'Recall: Ten-Zero',
+        eventGroupNameZh: 'Recall: Ten-Zero',
+        officialNoticeUrl: 'https://www.warframe.com/en/news/rappel-ten-zero',
+        officialArchiveLocal: '/workspace/wf-relic-cn-raw/de-web/rappel-ten-zero-en.html',
+        officialNoticeQuote: 'The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero! ... leading up to TennoCon 2023 on August 26 ... only the third Mission in each weekly sequence will grant a new Reward',
+        nameEn,
+        nameZh,
+        zhSource: sourceZhSource,
+        fingerprint: {
+          header: tbl.header,
+          rowCount: tbl.items.length,
+          probabilitySum: tbl.chanceSum
+        },
+        rewards: processed
+      };
+      sourcesResult.push(srcObj);
     }
   }
 
@@ -1655,6 +1774,21 @@ export async function build(customOptions = {}) {
       zhName: m.zhName,
       marketSlug: m.slug,
       maxRank: m.maxRank,
+      tokens: Array.from(new Set(tokens))
+    });
+  }
+
+  // 掉落来源 (Drop Sources) - 保证英文搜索可搜到 (如 Apollodorus)
+  for (const src of sourcesResult) {
+    const tokens = generateTokens(src.nameEn, src.nameZh);
+    if (src.node) tokens.push(src.node.toLowerCase());
+    if (src.planet) tokens.push(src.planet.toLowerCase());
+    if (src.gameMode) tokens.push(src.gameMode.toLowerCase());
+    searchIndexData.push({
+      id: src.id,
+      type: 'source',
+      name: src.nameEn,
+      zhName: src.nameZh,
       tokens: Array.from(new Set(tokens))
     });
   }

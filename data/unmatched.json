@@ -41,7 +41,7 @@
     "name": "1000 Endo",
     "samplePlaces": [
       "Venus - Vesper Relay (Follie's Hunt) [Rot A]",
-      "Duviri - Endless: Repeated Rewards (Hard) (Hard)",
+      "Duviri - Endless: Repeated Rewards (Hard)",
       "Höllvania - Hell-Scrub: Scaldra (Survival) [Rot B]",
       "Höllvania - Hell-Scrub: Techrot (Survival) [Rot B]",
       "Level 40 - 60 Cambion Drift Bounty [Rot A] (Stage 1)"
@@ -903,9 +903,9 @@
   {
     "name": "250X Aggristone",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
@@ -926,9 +926,9 @@
   {
     "name": "250X Saggen Pearl",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
@@ -949,7 +949,7 @@
   {
     "name": "25X Steel Essence",
     "samplePlaces": [
-      "Duviri - Endless: Tier 9 (Hard) (Hard)",
+      "Duviri - Endless: Tier 9 (Hard)",
       "The Descendia: Steel Essence Rewards (Steel Path)"
     ]
   },
@@ -1190,7 +1190,7 @@
   {
     "name": "3 Day Affinity Booster",
     "samplePlaces": [
-      "Duviri - Endless: Tier 6 (Hard) (Hard)",
+      "Duviri - Endless: Tier 6 (Hard)",
       "Duviri - Endless: Tier 7 (Hard)",
       "The Descendia: Uncommon Rewards (Steel Path)",
       "The Icebind: Frozen Chests [Rot A]"
@@ -1205,7 +1205,7 @@
   {
     "name": "3 Day Mod Drop Chance Booster",
     "samplePlaces": [
-      "Duviri - Endless: Tier 6 (Hard) (Hard)",
+      "Duviri - Endless: Tier 6 (Hard)",
       "Duviri - Endless: Tier 7 (Hard)",
       "The Descendia: Uncommon Rewards (Steel Path)"
     ]
@@ -1219,7 +1219,7 @@
   {
     "name": "3 Day Resource Drop Chance Booster",
     "samplePlaces": [
-      "Duviri - Endless: Tier 6 (Hard) (Hard)",
+      "Duviri - Endless: Tier 6 (Hard)",
       "Duviri - Endless: Tier 7 (Hard)",
       "The Descendia: Uncommon Rewards (Steel Path)",
       "The Icebind: Frozen Chests [Rot A]"
@@ -1776,7 +1776,7 @@
     "name": "50,000 Credits Cache",
     "samplePlaces": [
       "Duviri - Endless: Tier 6 (Normal)",
-      "Duviri - Endless: Repeated Rewards (Hard) (Hard)"
+      "Duviri - Endless: Repeated Rewards (Hard)"
     ]
   },
   {
@@ -1787,6 +1787,16 @@
       "Höllvania - Exterminate: Scaldra (Exterminate)",
       "Höllvania - Exterminate: Techrot (Exterminate)",
       "Höllvania - Antivirus Bounty (Exterminate)"
+    ]
+  },
+  {
+    "name": "500X Kuva",
+    "samplePlaces": [
+      "Recall: Ten-Zero Week 1",
+      "Recall: Ten-Zero Week 2",
+      "Recall: Ten-Zero Week 3",
+      "Recall: Ten-Zero Week 4",
+      "Recall: Ten-Zero Week 5"
     ]
   },
   {
@@ -2012,17 +2022,17 @@
   {
     "name": "6000 Endo",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
     "name": "6000X Kuva",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)",
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)",
       "Sortie (突击任务)"
     ]
   },
@@ -2049,33 +2059,33 @@
   {
     "name": "60X Connla Sprout",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
     "name": "60X Dracroot",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
     "name": "60X Eevani",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
     "name": "60X Kovnik",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
@@ -2090,17 +2100,17 @@
   {
     "name": "60X Ueymag",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
     "name": "60X Yao Shrub",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
@@ -3057,17 +3067,17 @@
   {
     "name": "Exilus Warframe Adapter Blueprint",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
     "name": "Exilus Weapon Adapter Blueprint",
     "samplePlaces": [
-      "Duviri - Endless: Tier 1 (Hard) (Hard)",
-      "Duviri - Endless: Tier 3 (Hard) (Hard)",
-      "Duviri - Endless: Tier 4 (Hard) (Hard)"
+      "Duviri - Endless: Tier 1 (Hard)",
+      "Duviri - Endless: Tier 3 (Hard)",
+      "Duviri - Endless: Tier 4 (Hard)"
     ]
   },
   {
@@ -4572,7 +4582,11 @@
   {
     "name": "Primary Arcane Adapter",
     "samplePlaces": [
-      "The Descendia: Uncommon Rewards (Steel Path)"
+      "The Descendia: Uncommon Rewards (Steel Path)",
+      "Recall: Ten-Zero Week 1",
+      "Recall: Ten-Zero Week 2",
+      "Recall: Ten-Zero Week 3",
+      "Recall: Ten-Zero Week 4"
     ]
   },
   {
@@ -4918,7 +4932,11 @@
   {
     "name": "Secondary Arcane Adapter",
     "samplePlaces": [
-      "The Descendia: Uncommon Rewards (Steel Path)"
+      "The Descendia: Uncommon Rewards (Steel Path)",
+      "Recall: Ten-Zero Week 1",
+      "Recall: Ten-Zero Week 2",
+      "Recall: Ten-Zero Week 3",
+      "Recall: Ten-Zero Week 4"
     ]
   },
   {

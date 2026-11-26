@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "phase": 4,
-  "builtAt": "2026-11-26T04:34:06.248Z",
+  "builtAt": "2026-11-26T06:18:25.230Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -19,42 +19,42 @@
     "totalArcanes": 170,
     "totalRivens": 8,
     "totalMods": 772,
-    "totalSources": 2394,
+    "totalSources": 2399,
     "bountySources": 299,
     "pvpSources": 45,
-    "unmatchedCount": 753
+    "unmatchedCount": 754
   },
   "pvpSources": 45,
   "prices": {
     "updatedAt": "2026-11-25T23:26:59.166Z",
-    "pricedCount": 2452,
+    "pricedCount": 2399,
     "totalCount": 2495,
-    "coverage": "98.3%",
+    "coverage": "96.2%",
     "categories": {
       "relics": {
-        "pricedCount": 603,
+        "pricedCount": 588,
         "totalCount": 603,
-        "coverage": "100.0%"
+        "coverage": "97.5%"
       },
       "rivens": {
-        "pricedCount": 8,
+        "pricedCount": 7,
         "totalCount": 8,
-        "coverage": "100.0%"
+        "coverage": "87.5%"
       },
       "arcanes": {
-        "pricedCount": 332,
+        "pricedCount": 297,
         "totalCount": 340,
-        "coverage": "97.6%"
+        "coverage": "87.4%"
       },
       "mods": {
-        "pricedCount": 1509,
+        "pricedCount": 1507,
         "totalCount": 1544,
-        "coverage": "97.7%"
+        "coverage": "97.6%"
       }
     }
   },
   "localization": {
-    "generatedAt": "2026-11-26T04:34:04.442Z",
+    "generatedAt": "2026-11-26T06:15:29.470Z",
     "stats": {
       "relics": {
         "name": "遗物 (Relics)",
@@ -103,12 +103,12 @@
       },
       "sources": {
         "name": "掉落来源 (Sources)",
-        "totalCount": 2394,
-        "translatedCount": 1280,
-        "asIsCount": 7,
-        "fallbackCount": 1107,
-        "coverage": "53.5%",
-        "effectiveCoverage": "53.8%"
+        "totalCount": 2399,
+        "translatedCount": 1269,
+        "asIsCount": 6,
+        "fallbackCount": 1124,
+        "coverage": "52.9%",
+        "effectiveCoverage": "53.1%"
       },
       "planets": {
         "name": "星球 (Planets)",
@@ -140,11 +140,11 @@
       "enemies": {
         "name": "敌人 (Enemies)",
         "totalCount": 919,
-        "translatedCount": 37,
-        "asIsCount": 7,
-        "fallbackCount": 875,
-        "coverage": "4.0%",
-        "effectiveCoverage": "4.8%"
+        "translatedCount": 26,
+        "asIsCount": 6,
+        "fallbackCount": 887,
+        "coverage": "2.8%",
+        "effectiveCoverage": "3.5%"
       },
       "bounties": {
         "name": "赏金标题 (Bounties)",
@@ -166,12 +166,12 @@
       }
     },
     "grandTotal": {
-      "total": 6269,
-      "translated": 3948,
-      "asIs": 190,
-      "fallback": 2131,
-      "rate": "63.0%",
-      "effectiveRate": "66.0%"
+      "total": 6274,
+      "translated": 3926,
+      "asIs": 188,
+      "fallback": 2160,
+      "rate": "62.6%",
+      "effectiveRate": "65.6%"
     },
     "abbreviatedCorrectionsCount": 451
   }

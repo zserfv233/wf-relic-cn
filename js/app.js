@@ -13,7 +13,8 @@ import {
   getPriceEntry,
   arcaneCopiesForRank,
   isUntradeableItem,
-  arbitrationFirst8
+  arbitrationFirst8,
+  arbitrationFirst8PricedPortion
 } from './lib/calculations.js';
 import { searchIndex } from './lib/search.js';
 import { filterSources } from './lib/sources.js';
@@ -49,6 +50,7 @@ const state = {
   currentSourceType: 'all',
   currentSourceSort: 'exp_desc',
   sourcePvpOnly: false,
+  sourceHistoricalOnly: false,
   
   // 价格基准模式
   currentPriceType: 'sellMin', // 'sellMin' | 'buyMax'
@@ -90,6 +92,9 @@ const elements = {
   sourcePvpCallout: document.getElementById('source-pvp-callout'),
   sourcePvpCalloutText: document.getElementById('source-pvp-callout-text'),
   pvpFilterBtn: document.getElementById('pvp-filter-btn'),
+  sourceHistoricalCallout: document.getElementById('source-historical-callout'),
+  sourceHistoricalCalloutText: document.getElementById('source-historical-callout-text'),
+  historicalFilterBtn: document.getElementById('historical-filter-btn'),
   
   // Content Grid
   gridView: document.getElementById('grid-view'),
@@ -658,11 +663,12 @@ function renderModsView() {
 function renderSourcesView() {
   const priceType = state.currentPriceType;
 
-  // 使用纯函数统一进行类型、奖励分类以及 PvP 模式过滤
+  // 使用纯函数统一进行类型、奖励分类以及 PvP/历史活动模式过滤
   let list = filterSources(state.sources, {
     type: state.currentSourceType,
     category: state.currentSourceCat,
-    pvpOnly: state.sourcePvpOnly
+    pvpOnly: state.sourcePvpOnly,
+    historicalOnly: state.sourceHistoricalOnly
   });
 
   // 更新 PvP 提示横幅
@@ -670,9 +676,22 @@ function renderSourcesView() {
     if (state.sourcePvpOnly) {
       elements.sourcePvpCalloutText.innerHTML = '⚔️ <strong>提示：</strong>当前仅显示 PvP（武形秘仪 / Conclave）来源，可再次点击「PvP」按钮返回常规掉落。';
       elements.sourcePvpCallout.classList.add('pvp-active-banner');
+      elements.sourcePvpCallout.style.display = 'block';
     } else {
       elements.sourcePvpCalloutText.innerHTML = '💡 <strong>提示：</strong>当前页面不包含 PvP 来源，可点击「PvP」按钮查看。';
       elements.sourcePvpCallout.classList.remove('pvp-active-banner');
+    }
+  }
+
+  // 更新历史活动提示横幅 (Decision 8)
+  if (elements.sourceHistoricalCallout && elements.sourceHistoricalCalloutText) {
+    if (state.sourceHistoricalOnly) {
+      elements.sourceHistoricalCalloutText.innerHTML = '📜 <strong>历史活动；当前开放状态未确认</strong><br>官方公告信息：<a href="https://www.warframe.com/en/news/rappel-ten-zero" target="_blank" rel="noopener" style="color: var(--cyan-primary); text-decoration: underline;">Recall: Ten-Zero 官方公告</a>（原文：“The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero!”、“leading up to TennoCon 2023 on August 26”、“only the third Mission in each weekly sequence will grant a new Reward”；页面存档：/workspace/wf-relic-cn-raw/de-web/rappel-ten-zero-en.html）。';
+      elements.sourceHistoricalCallout.style.display = 'block';
+      if (elements.historicalFilterBtn) elements.historicalFilterBtn.classList.add('active');
+    } else {
+      elements.sourceHistoricalCallout.style.display = 'none';
+      if (elements.historicalFilterBtn) elements.historicalFilterBtn.classList.remove('active');
     }
   }
 
@@ -1315,6 +1334,7 @@ export function openSourceModal(sourceId) {
 
   const rows = src.rewards.map(r => {
     const isUntrad = isUntradeableItem(r);
+    const priceEntry = r.slug ? getPriceEntry(r.slug, 0, state.prices) : null;
     const price = isUntrad ? 0 : getItemPrice(r.slug, 0, state.prices, priceType);
     const q = r.quantity || 1;
     let contrib = '—';
@@ -1331,9 +1351,14 @@ export function openSourceModal(sourceId) {
       }
     }
 
-    const priceDisplay = isUntrad 
-      ? '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>' 
-      : formatPlat(price);
+    let priceDisplay;
+    if (isUntrad) {
+      priceDisplay = '<span style="color: var(--text-muted);">不可交易 (0 ☿)</span>';
+    } else if (priceEntry?.crossedMarket) {
+      priceDisplay = `<span style="color: #fbbf24; font-size: 0.85em;" title="${escapeHtml(priceEntry.crossedMarketReason || '买价高于卖价，报价倒挂隔离')}">⚠️ 倒挂隔离 (卖 ${priceEntry.rawSellMin} / 买 ${priceEntry.rawBuyMax})</span>`;
+    } else {
+      priceDisplay = formatPlat(price);
+    }
 
     return `
       <tr>
@@ -1383,8 +1408,8 @@ export function openSourceModal(sourceId) {
     ? `<div style="margin-top: 0.25rem; color: var(--cyan-primary); font-size: 0.8rem;">ℹ️ <strong>表头边界修正：</strong>依据 ${escapeHtml(src.boundaryFix.source)} 表头 "${escapeHtml(src.boundaryFix.header)}" 校验，已从原始 ${src.boundaryFix.originalCount} 项中截取所属 ${src.boundaryFix.keptCount} 项。</div>`
     : '';
 
-  const incompleteNotice = expData.incomplete
-    ? `<div style="margin-top: 0.35rem; color: #fbbf24; font-size: 0.8rem;">⚠️ 「不完整估值」已计价概率合计 ${expData.pricedProbability}%${expData.unknownChanceCount > 0 ? ` · 存在 ${expData.unknownChanceCount} 项未知掉率` : ''}${expData.missingCount > 0 ? ` · 存在 ${expData.missingCount} 项缺价物品` : ''}</div>`
+  const incompleteNotice = (expSell.incomplete || expBuy.incomplete)
+    ? `<div style="margin-top: 0.35rem; color: #fbbf24; font-size: 0.8rem;">⚠️ <strong>完整性提示：</strong>卖侧已计价 ${expSell.pricedProbability}%${expSell.incomplete ? ' (不完整)' : ' (完整)'} · 买侧已计价 ${expBuy.pricedProbability}%${expBuy.incomplete ? ' (不完整)' : ' (完整)'}</div>`
     : '';
 
   const rotationPatternNotice = src.rotationPattern
@@ -1395,7 +1420,18 @@ export function openSourceModal(sourceId) {
     ? `<div style="margin-top: 0.25rem; color: var(--cyan-primary);">ℹ️ 去重说明：${escapeHtml(src.dedupeNote)}</div>`
     : '';
 
-  // 仲裁前八轮平均参考 (Decision 2)
+  const historicalNotice = src.historicalEvent
+    ? `<div style="background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.3); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+        <div style="font-weight: 600; color: #facc15; font-size: 0.95rem; margin-bottom: 0.3rem;">📜 历史活动；当前开放状态未确认</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
+          官方公告信息：<a href="${escapeHtml(src.officialNoticeUrl || 'https://www.warframe.com/en/news/rappel-ten-zero')}" target="_blank" rel="noopener" style="color: var(--cyan-primary); text-decoration: underline;">Recall: Ten-Zero 官方公告</a><br>
+          原文：“The next phase of our 10-Year Anniversary begins July 19 with Recall: Ten-Zero!”、“leading up to TennoCon 2023 on August 26”、“only the third Mission in each weekly sequence will grant a new Reward”<br>
+          页面存档：/workspace/wf-relic-cn-raw/de-web/rappel-ten-zero-en.html
+        </div>
+      </div>`
+    : '';
+
+  // 仲裁前八轮已计价部分平均 (Codex Decision 9)
   let arbitrationBanner = '';
   if (src.id.includes('arbitrations_') || (src.nameEn && src.nameEn.startsWith('Arbitrations'))) {
     const arbA = state.sources.find(s => s.id === 'source_transient_arbitrations_a');
@@ -1410,58 +1446,99 @@ export function openSourceModal(sourceId) {
       const eBBuy = calculateSourceExpectedValue(arbB.rewards, state.prices, { priceType: 'buyMax' });
       const eCBuy = calculateSourceExpectedValue(arbC.rewards, state.prices, { priceType: 'buyMax' });
 
-      const avg8Sell = arbitrationFirst8(eASell.expectedValueRaw, eBSell.expectedValueRaw, eCSell.expectedValueRaw);
-      const avg8Buy = arbitrationFirst8(eABuy.expectedValueRaw, eBBuy.expectedValueRaw, eCBuy.expectedValueRaw);
-      const avg8Conf = arbitrationFirst8(eASell.expectedValueConfidentRaw, eBSell.expectedValueConfidentRaw, eCSell.expectedValueConfidentRaw);
+      const portionSell = arbitrationFirst8PricedPortion(eASell, eBSell, eCSell);
+      const portionBuy = arbitrationFirst8PricedPortion(eABuy, eBBuy, eCBuy);
 
-      const isIncomplete = eASell.incomplete || eBSell.incomplete || eCSell.incomplete;
+      if (portionSell.structuralDataInsufficient || portionBuy.structuralDataInsufficient) {
+        arbitrationBanner = `
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+            <div style="font-weight: 600; color: #f87171; font-size: 0.95rem;">⚖️ 仲裁前八轮已计价部分平均（发奖序列 AABBCCCC…）</div>
+            <div style="font-size: 0.8rem; color: #fca5a5; margin-top: 0.25rem;">⚠️ 结构数据不足（某轮表缺失、数据受污染或掉落概率未知），停止显示有效平均。</div>
+          </div>
+        `;
+      } else {
+        const sellAvgText = portionSell.knownContribution !== null ? `${portionSell.knownContribution.toFixed(2)} ☿` : '—';
+        const buyAvgText = portionBuy.knownContribution !== null ? `${portionBuy.knownContribution.toFixed(2)} ☿` : '—';
+        const sellConfText = portionSell.knownConfidentContribution !== null && portionSell.knownConfidentContribution !== portionSell.knownContribution
+          ? `<span style="font-size: 0.8rem; color: var(--cyan-primary);">(高置信: ${portionSell.knownConfidentContribution.toFixed(2)} ☿)</span>`
+          : '';
 
-      arbitrationBanner = `
-        <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap;">
-            <span style="font-weight: 600; color: #c084fc; font-size: 0.95rem;">⚖️ 仲裁前八轮平均参考（发奖序列 AABBCCCC…）</span>
-            ${isIncomplete ? '<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.72rem;">不完整估值</span>' : ''}
+        arbitrationBanner = `
+          <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+              <span style="font-weight: 600; color: #c084fc; font-size: 0.95rem;">⚖️ 仲裁前八轮已计价部分平均（发奖序列 AABBCCCC…）</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 0.5rem;">
+              <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 4px; padding: 0.4rem 0.6rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.8rem; color: #34d399; font-weight: 600;">卖单已计价平均: <strong>${sellAvgText}</strong> ${sellConfText}</span>
+                  ${portionSell.incomplete ? '<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.7rem;">不完整</span>' : '<span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 0.7rem;">完整</span>'}
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
+                  已计价 ${portionSell.pricedProbability}% · 缺价 ${portionSell.missingProbability}% · 不可交易 ${portionSell.untradeableProbability}%
+                </div>
+              </div>
+              <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 4px; padding: 0.4rem 0.6rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.8rem; color: #60a5fa; font-weight: 600;">买单已计价平均: <strong>${buyAvgText}</strong></span>
+                  ${portionBuy.incomplete ? '<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.7rem;">不完整</span>' : '<span class="badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 0.7rem;">完整</span>'}
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
+                  已计价 ${portionBuy.pricedProbability}% · 缺价 ${portionBuy.missingProbability}% · 不可交易 ${portionBuy.untradeableProbability}%
+                </div>
+              </div>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
+              说明：按 <code>(2A+2B+4C)/8</code> 加权各轮已定价项贡献；若任一轮缺价，完整期望值保留为 null（不以 0 充数）。仲裁第 4 轮后持续给 C 轮奖励；发奖轮数 N≥4 通式为 <code>[2A+2B+(N−4)C]/N</code>。
+            </div>
           </div>
-          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.4rem;">
-            <div>卖单均值: <strong style="color: var(--gold-light);">${avg8Sell !== null ? `${avg8Sell.toFixed(2)} ☿` : '—'}</strong> ${avg8Conf !== null ? `<span style="font-size: 0.8rem; color: var(--cyan-primary);">(高置信: ${avg8Conf.toFixed(2)} ☿)</span>` : ''}</div>
-            <div>买单均值: <strong style="color: var(--text-primary);">${avg8Buy !== null ? `${avg8Buy.toFixed(2)} ☿` : '—'}</strong></div>
-          </div>
-          <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
-            单位：<strong>每次发奖平均白金</strong>（注：不代表每分钟收益）。仲裁第 4 轮后持续给 C 轮奖励；发奖轮数 N≥4 通式为 <code>[2A+2B+(N−4)C]/N</code>。
-          </div>
-        </div>
-      `;
+        `;
+      }
     }
   }
 
-  // 缺价物品清单 (Decision 3)
+  // 缺价物品清单 (Decision 3 & 11 两侧独立)
   let missingItemsSection = '';
-  if (expData.missingItems && expData.missingItems.length > 0) {
+  const currentMissing = priceType === 'buyMax' ? expBuy.missingItems : expSell.missingItems;
+  const otherMissing = priceType === 'buyMax' ? expSell.missingItems : expBuy.missingItems;
+  const currentSideName = priceType === 'buyMax' ? '买单' : '卖单';
+  const otherSideName = priceType === 'buyMax' ? '卖单' : '买单';
+  const currentMissingProb = priceType === 'buyMax' ? expBuy.missingProbability : expSell.missingProbability;
+
+  if ((expSell.missingItems && expSell.missingItems.length > 0) || (expBuy.missingItems && expBuy.missingItems.length > 0)) {
     missingItemsSection = `
-      <div style="margin-top: 1rem; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 6px; padding: 0.75rem 1rem;">
-        <div style="font-weight: 600; color: #fbbf24; font-size: 0.9rem; margin-bottom: 0.4rem;">
-          ⚠️ 缺价/未估值物品清单（共 ${expData.missingItems.length} 项，缺价概率合计 ${expData.missingProbability}%）
+      <div id="missing-items-section" style="margin-top: 1rem; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 6px; padding: 0.75rem 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap;">
+          <span style="font-weight: 600; color: #fbbf24; font-size: 0.9rem;">
+            ⚠️ 缺价/未估值物品清单（${currentSideName}侧缺 ${currentMissing.length} 项，缺价掉率合计 ${currentMissingProb}%；${otherSideName}侧缺 ${otherMissing.length} 项）
+          </span>
         </div>
         <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          说明：Endo、现金包、赤毒等无直接市价资源不设默认白金汇率，保持未估值状态，不代表无用途或价值为 0 ☿。
+          说明：Endo、现金包、赤毒、倒挂隔离报价等无有效市价项目保持未估值状态，不代表无用途或价值为 0 ☿。
         </div>
-        <div style="max-height: 160px; overflow-y: auto;">
+        <div style="max-height: 180px; overflow-y: auto;">
           <table style="width: 100%; font-size: 0.8rem; border-collapse: collapse;">
             <thead>
               <tr style="color: var(--text-muted); text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
                 <th style="padding: 0.25rem 0.5rem;">物品名称</th>
                 <th style="padding: 0.25rem 0.5rem;">数量</th>
                 <th style="padding: 0.25rem 0.5rem;">掉落几率</th>
+                <th style="padding: 0.25rem 0.5rem;">缺价侧别</th>
               </tr>
             </thead>
             <tbody>
-              ${expData.missingItems.map(m => `
+              ${currentMissing.map(m => {
+                const missingInOther = otherMissing.some(o => o.name === m.name);
+                const sideTag = missingInOther ? '卖/买两侧皆缺' : `仅${currentSideName}侧缺`;
+                return `
                 <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
                   <td style="padding: 0.25rem 0.5rem; color: var(--text-primary);">${escapeHtml(m.zhName || m.name)} <span style="font-size: 0.72rem; color: var(--text-muted);">(${escapeHtml(m.name)})</span></td>
                   <td style="padding: 0.25rem 0.5rem; color: var(--text-secondary);">${m.quantity > 1 ? `×${m.quantity}` : '1'}</td>
                   <td style="padding: 0.25rem 0.5rem; color: var(--cyan-primary);">${m.chance}%</td>
+                  <td style="padding: 0.25rem 0.5rem; color: #fbbf24; font-size: 0.75rem;">${sideTag}</td>
                 </tr>
-              `).join('')}
+                `;
+              }).join('')}
             </tbody>
           </table>
         </div>
@@ -1470,24 +1547,51 @@ export function openSourceModal(sourceId) {
   }
 
   elements.modalBodyContent.innerHTML = `
+    ${historicalNotice}
     ${arbitrationBanner}
     <div class="expected-dashboard" style="margin-top: 0;">
       <div style="font-size: 0.85rem; font-weight: 600; color: var(--gold-light); margin-bottom: 0.6rem;">${modalTitle}</div>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-        <div style="flex: 1; min-width: 200px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 6px; padding: 0.6rem 0.8rem;">
-          <div style="font-size: 0.8rem; color: #34d399; font-weight: 600;">卖单参考收益</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: var(--gold-light);">
+        <div style="flex: 1; min-width: 220px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 6px; padding: 0.6rem 0.8rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 0.8rem; color: #34d399; font-weight: 600;">卖单参考收益</div>
+            ${expSell.incomplete ? '<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.7rem;">不完整估值</span>' : '<span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 0.7rem;">完整估值</span>'}
+          </div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--gold-light); margin-top: 0.2rem;">
             ${expSell.expectedValue !== null ? `${expSell.expectedValue} ☿` : '—'}
             ${expSell.lowConfidenceCount > 0 && expSell.expectedValueConfident !== null ? `<span style="font-size: 0.8rem; color: var(--cyan-primary); font-weight: normal; margin-left: 0.35rem;" title="排除稀疏卖单后的高置信估值">(高置信: ${expSell.expectedValueConfident} ☿)</span>` : ''}
           </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">
+            ${expSell.incomplete
+              ? `已计价覆盖率 ${expSell.pricedProbability}% · 缺价 ${expSell.missingProbability}% (${expSell.missingCount} 项)`
+              : '已计价覆盖率 100%'}
+          </div>
         </div>
-        <div style="flex: 1; min-width: 200px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 6px; padding: 0.6rem 0.8rem;">
-          <div style="font-size: 0.8rem; color: #60a5fa; font-weight: 600;">买单即时变现收益</div>
-          <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
+        <div style="flex: 1; min-width: 220px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 6px; padding: 0.6rem 0.8rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 0.8rem; color: #60a5fa; font-weight: 600;">买单即时变现收益</div>
+            ${expBuy.incomplete ? '<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.7rem;">不完整估值</span>' : '<span class="badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 0.7rem;">完整估值</span>'}
+          </div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-top: 0.2rem;">
             ${expBuy.expectedValue !== null ? `${expBuy.expectedValue} ☿` : '—'}
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">
+            ${expBuy.incomplete
+              ? `已计价覆盖率 ${expBuy.pricedProbability}% · 缺价 ${expBuy.missingProbability}% (${expBuy.missingCount} 项)`
+              : '已计价覆盖率 100%'}
           </div>
         </div>
       </div>
+      <div style="font-size: 0.8rem; color: var(--text-muted);">
+        公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
+        ${rotationPatternNotice}
+        ${dedupeNotice}
+        ${boundaryFixNotice}
+        ${probNotice}
+        ${incompleteNotice}
+        ${expSell.lowConfidenceCount > 0 ? `<div style="margin-top: 0.25rem; color: #fbbf24;">⚠️ 卖单中包含 ${expSell.lowConfidenceCount} 项低置信挂单（有效去重卖家少于 3 人），高置信收益估算为 ${expSell.expectedValueConfident !== null ? `${expSell.expectedValueConfident} ☿` : '—'}。</div>` : ''}
+      </div>
+    </div>
       <div style="font-size: 0.8rem; color: var(--text-muted);">
         公式：${isEnemy ? `Mod掉率(${src.enemyModDropChance}%) × Σ(几率% × 数量 × 单价)` : `Σ(几率% × 数量 × 单价)`}。赋能与 Mod 按 0 级掉落价格计入。
         ${rotationPatternNotice}

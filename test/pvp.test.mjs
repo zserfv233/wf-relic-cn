@@ -100,10 +100,11 @@ describe('刷取来源 PvP 标记与筛选 (PvP / Conclave Filter - Invariants)'
 
   it('前端筛选纯函数 filterSources: 默认列表排除 isPvp，PvP 模式仅包含 isPvp 来源', () => {
     const pvpSourcesCount = sources.filter(s => s.isPvp).length;
+    const historicalSourcesCount = sources.filter(s => s.historicalEvent).length;
 
-    // 默认模式 (pvpOnly: false)
+    // 默认模式 (pvpOnly: false, 默认亦排除历史活动)
     const defaultList = filterSources(sources, { pvpOnly: false });
-    assert.strictEqual(defaultList.length, sources.length - pvpSourcesCount);
+    assert.strictEqual(defaultList.length, sources.length - pvpSourcesCount - historicalSourcesCount);
     assert.ok(defaultList.every(s => s.isPvp === false), '默认列表中不能包含任何 isPvp 来源');
 
     // PvP 模式 (pvpOnly: true)

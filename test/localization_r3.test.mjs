@@ -262,9 +262,9 @@ describe('Codex 1126b 第 1–6 项汉化规范与不变量测试 (Localization 
     assert.strictEqual(captainVor.zhSource, 'en_fallback', 'Captain Vor 存在 Sortie "Vor 上尉" 与 Flavour "沃尔上尉" 歧义，必须为 en_fallback');
     assert.strictEqual(captainVor.nameZh, 'Captain Vor');
 
-    // 2. 所有中文敌人必须带出处与规则
+    // 2. 所有中文敌人必须带出处与规则（A2-A4 回退 11 个敌人后，规范汉化敌人为 26 个）
     const chineseEnemies = Object.entries(enemiesMap).filter(([, v]) => v.nameZh && /[\u4e00-\u9fa5]/.test(v.nameZh));
-    assert.ok(chineseEnemies.length >= 35, `汉化敌人总数应 >= 35 (实际 ${chineseEnemies.length})`);
+    assert.ok(chineseEnemies.length >= 25, `汉化敌人总数应 >= 25 (实际 ${chineseEnemies.length})`);
 
     for (const [enName, item] of chineseEnemies) {
       assert.ok(item.zhSource, `敌人 ${enName} 必须有 zhSource`);
@@ -273,7 +273,7 @@ describe('Codex 1126b 第 1–6 项汉化规范与不变量测试 (Localization 
 
     // 3. 随机动态抽样核查 (至少 5 个中文敌人，验证中文存在于对应源文件)
     const sampled = chineseEnemies.filter(([, v]) => v.zhSource.startsWith('de_export:ExportFlavour_zh:'));
-    assert.ok(sampled.length >= 10, 'DE Flavour 抽取的敌人应 >= 10');
+    assert.ok(sampled.length >= 5, `DE Flavour 抽取的敌人应 >= 5 (实际 ${sampled.length})`);
 
     for (const [enName, item] of sampled.slice(0, 5)) {
       const uniqueName = item.zhSource.replace('de_export:ExportFlavour_zh:', '');

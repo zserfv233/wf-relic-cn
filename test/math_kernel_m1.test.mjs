@@ -161,10 +161,10 @@ describe('数学内核修复 (Math Kernel - Phase M1 - Invariants)', () => {
     assert.strictEqual(arbB.rotationPattern, expectedArbPattern);
     assert.strictEqual(arbC.rotationPattern, expectedArbPattern);
 
-    // 普通无限任务 (如生存、防御) rotationPattern 断言
+    // 普通无限任务 (如生存、防御) rotationPattern 断言 (第 7 项：撤掉未核实模式的泛化 AABC 提示)
     const apolloA = sources.find(s => s.id === 'mission_mercury_apollodorus_a');
     assert.ok(apolloA);
-    assert.strictEqual(apolloA.rotationPattern, '常见 AABC（仅供参考，未做聚合）');
+    assert.strictEqual(apolloA.rotationPattern, undefined);
   });
 
   it('4. 概率和核对：写入 probabilitySum 与 probabilityCheck 字段，不自动归一化', () => {

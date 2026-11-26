@@ -102754,19 +102754,19 @@
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 1 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 1 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 3 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 3 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 4 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 4 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
@@ -102788,6 +102788,36 @@
           "rotation": null,
           "chance": 7.14,
           "rarity": "Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 1",
+          "rotation": null,
+          "chance": 1.59,
+          "rarity": "Ultra Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 2",
+          "rotation": null,
+          "chance": 1.59,
+          "rarity": "Ultra Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 3",
+          "rotation": null,
+          "chance": 1.59,
+          "rarity": "Ultra Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 4",
+          "rotation": null,
+          "chance": 1.59,
+          "rarity": "Ultra Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 5",
+          "rotation": null,
+          "chance": 1.59,
+          "rarity": "Ultra Rare"
         }
       ]
     },
@@ -186165,19 +186195,19 @@
       ],
       "directDrops": [
         {
-          "place": "Duviri - Endless: Tier 1 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 1 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 3 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 3 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 4 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 4 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
@@ -186288,19 +186318,19 @@
           "rarity": "Common"
         },
         {
-          "place": "Duviri - Endless: Tier 1 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 1 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 3 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 3 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 4 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 4 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
@@ -186645,6 +186675,36 @@
           "rarity": "Rare"
         },
         {
+          "place": "Recall: Ten-Zero Week 1",
+          "rotation": null,
+          "chance": 17.26,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 2",
+          "rotation": null,
+          "chance": 17.26,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 3",
+          "rotation": null,
+          "chance": 17.26,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 4",
+          "rotation": null,
+          "chance": 17.26,
+          "rarity": "Uncommon"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 5",
+          "rotation": null,
+          "chance": 17.26,
+          "rarity": "Uncommon"
+        },
+        {
           "place": "Sortie (突击任务)",
           "rotation": null,
           "chance": 12,
@@ -186960,6 +187020,36 @@
           "stage": "Final stage",
           "chance": 20.34,
           "rarity": "Uncommon"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 1",
+          "rotation": null,
+          "chance": 9.52,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 2",
+          "rotation": null,
+          "chance": 9.52,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 3",
+          "rotation": null,
+          "chance": 9.52,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 4",
+          "rotation": null,
+          "chance": 9.52,
+          "rarity": "Rare"
+        },
+        {
+          "place": "Recall: Ten-Zero Week 5",
+          "rotation": null,
+          "chance": 9.52,
+          "rarity": "Rare"
         }
       ]
     },
@@ -187265,19 +187355,19 @@
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 1 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 1 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 3 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 3 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"
         },
         {
-          "place": "Duviri - Endless: Tier 4 (Hard) (Hard)",
+          "place": "Duviri - Endless: Tier 4 (Hard)",
           "rotation": null,
           "chance": 4.43,
           "rarity": "Rare"

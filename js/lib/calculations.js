@@ -93,13 +93,27 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
 
   const sellCount = typeof rawItem.sellCount === 'number' ? rawItem.sellCount : 0;
   const buyCount = typeof rawItem.buyCount === 'number' ? rawItem.buyCount : 0;
-  const sellMin = (typeof rawItem.sellMin === 'number' && Number.isFinite(rawItem.sellMin) && rawItem.sellMin >= 0) ? rawItem.sellMin : null;
-  const buyMax = (typeof rawItem.buyMax === 'number' && Number.isFinite(rawItem.buyMax) && rawItem.buyMax >= 0) ? rawItem.buyMax : null;
+  const rawSellMin = (typeof rawItem.sellMin === 'number' && Number.isFinite(rawItem.sellMin) && rawItem.sellMin >= 0) ? rawItem.sellMin : null;
+  const rawBuyMax = (typeof rawItem.buyMax === 'number' && Number.isFinite(rawItem.buyMax) && rawItem.buyMax >= 0) ? rawItem.buyMax : null;
+
+  // 倒挂报价隔离 (Codex Decision 10)
+  // 同一完整缓存键（同物品、rank、subtype）若 sellMin 与 buyMax 都是有限数且 buyMax > sellMin，标 crossedMarket: true
+  // 两侧有效价都返回 null、计入缺价；原始 sellMin/buyMax/样本保留在明细中
+  const isCrossed = (rawSellMin !== null && rawBuyMax !== null && rawBuyMax > rawSellMin);
+  const crossedMarket = isCrossed;
+  const crossedMarketReason = isCrossed
+    ? `报价倒挂：最高收购价 (${rawBuyMax} ☿) 高于最低卖价 (${rawSellMin} ☿)，两侧有效价格已隔离为缺价`
+    : null;
+
+  const sellMin = crossedMarket ? null : rawSellMin;
+  const buyMax = crossedMarket ? null : rawBuyMax;
 
   // sellRobust: 最低 min(3, n) 个卖单价格的中位数（n<3 时等于现有逻辑 sellMin 但标低置信）
   let sellRobust = null;
   let robustUnavailable = false;
-  if (rawItem.sellRobust !== undefined) {
+  if (crossedMarket) {
+    sellRobust = null;
+  } else if (rawItem.sellRobust !== undefined) {
     sellRobust = rawItem.sellRobust;
   } else {
     robustUnavailable = true;
@@ -126,6 +140,10 @@ export function getPriceEntry(slug, rank = null, prices = {}) {
     key,
     sellMin,
     buyMax,
+    rawSellMin,
+    rawBuyMax,
+    crossedMarket,
+    crossedMarketReason,
     sellCount,
     buyCount,
     uniqueSellers,
@@ -682,4 +700,68 @@ export function arbitrationFirstNAverage(a, b, c, n) {
  */
 export function arbitrationFirst8(a, b, c) {
   return arbitrationFirstNAverage(a, b, c, 8);
+}
+
+/**
+ * 仲裁前八轮已计价部分平均与覆盖率纯函数 (Decision 9)
+ * 权重按 (2A + 2B + 4C) / 8 计算各轮已定价项贡献
+ * 若某轮表缺失、污染或存在未知几率，标 structuralDataInsufficient: true，停止显示有效平均
+ * 完整 EV (arbitrationFirst8) 仅在任一轮缺价时返回 null
+ * @param {Object} expA calculateSourceExpectedValue 返回对象
+ * @param {Object} expB calculateSourceExpectedValue 返回对象
+ * @param {Object} expC calculateSourceExpectedValue 返回对象
+ * @returns {Object}
+ */
+export function arbitrationFirst8PricedPortion(expA, expB, expC) {
+  if (!expA || !expB || !expC ||
+      expA.contaminated || expB.contaminated || expC.contaminated ||
+      (expA.unknownChanceCount > 0) || (expB.unknownChanceCount > 0) || (expC.unknownChanceCount > 0) ||
+      !Array.isArray(expA.missingItems) || !Array.isArray(expB.missingItems) || !Array.isArray(expC.missingItems)) {
+    return {
+      structuralDataInsufficient: true,
+      reason: '结构数据不足（某轮表缺失、数据受污染或掉落概率未知）',
+      knownContribution: null,
+      knownContributionRaw: null,
+      knownConfidentContribution: null,
+      knownConfidentContributionRaw: null,
+      completeExpectedValue: null,
+      pricedProbability: 0,
+      missingProbability: 0,
+      untradeableProbability: 0,
+      incomplete: true
+    };
+  }
+
+  const knownA = expA.expectedValueRaw ?? 0;
+  const knownB = expB.expectedValueRaw ?? 0;
+  const knownC = expC.expectedValueRaw ?? 0;
+  const knownRaw = (2 * knownA + 2 * knownB + 4 * knownC) / 8;
+
+  const confA = expA.expectedValueConfidentRaw ?? 0;
+  const confB = expB.expectedValueConfidentRaw ?? 0;
+  const confC = expC.expectedValueConfidentRaw ?? 0;
+  const confRaw = (2 * confA + 2 * confB + 4 * confC) / 8;
+
+  const pricedProb = (2 * (expA.pricedProbability || 0) + 2 * (expB.pricedProbability || 0) + 4 * (expC.pricedProbability || 0)) / 8;
+  const missingProb = (2 * (expA.missingProbability || 0) + 2 * (expB.missingProbability || 0) + 4 * (expC.missingProbability || 0)) / 8;
+  const untradeableProb = (2 * (expA.untradeableProbability || 0) + 2 * (expB.untradeableProbability || 0) + 4 * (expC.untradeableProbability || 0)) / 8;
+
+  const incomplete = Boolean(expA.incomplete || expB.incomplete || expC.incomplete);
+
+  // 完整 EV：任一轮缺价 (incomplete === true) 时仍为 null，绝不能用 ?? 0 冒充
+  const completeExpectedValue = incomplete ? null : arbitrationFirst8(expA.expectedValueRaw, expB.expectedValueRaw, expC.expectedValueRaw);
+
+  return {
+    structuralDataInsufficient: false,
+    reason: null,
+    knownContribution: Number(knownRaw.toFixed(5)),
+    knownContributionRaw: knownRaw,
+    knownConfidentContribution: Number(confRaw.toFixed(5)),
+    knownConfidentContributionRaw: confRaw,
+    completeExpectedValue,
+    pricedProbability: Number(pricedProb.toFixed(3)),
+    missingProbability: Number(missingProb.toFixed(3)),
+    untradeableProbability: Number(untradeableProb.toFixed(3)),
+    incomplete
+  };
 }

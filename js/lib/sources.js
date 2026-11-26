@@ -32,12 +32,20 @@ export function isPvpSource(src) {
  * @param {string} [options.type='all'] - 来源类型 ('all' | 'mission' | 'enemy' | 'bounty' | 'transient')
  * @param {string} [options.category='all'] - 奖励类别 ('all' | 'relic' | 'arcane' | 'riven' | 'mod')
  * @param {boolean} [options.pvpOnly=false] - 是否仅显示 PvP 来源 (默认 false，排除 PvP 来源；true 时仅保留 PvP 来源)
+ * @param {boolean} [options.historicalOnly=false] - 是否仅显示历史活动来源 (默认 false，排除历史活动；true 时仅保留历史活动)
  * @returns {Array<Object>}
  */
-export function filterSources(sources, { type = 'all', category = 'all', pvpOnly = false } = {}) {
+export function filterSources(sources, { type = 'all', category = 'all', pvpOnly = false, historicalOnly = false } = {}) {
   if (!Array.isArray(sources)) return [];
 
   return sources.filter(s => {
+    // 历史活动过滤 (Decision 8): 默认 (historicalOnly === false) 排除所有历史活动；开启时仅保留历史活动
+    if (historicalOnly) {
+      if (!s.historicalEvent) return false;
+    } else {
+      if (s.historicalEvent) return false;
+    }
+
     // PvP 模式过滤：默认 (pvpOnly === false) 排除所有 PvP 来源；开启时仅保留 PvP 来源
     if (pvpOnly) {
       if (!s.isPvp) return false;

@@ -124,6 +124,7 @@
           <button class="tier-btn" data-stype="bounty">平原赏金</button>
           <button class="tier-btn" data-stype="transient">特殊来源</button>
           <button class="tier-btn pvp-toggle-btn" id="pvp-filter-btn" type="button" title="点击切换查看武形秘仪 PvP 掉落">⚔️ PvP</button>
+          <button class="tier-btn historical-toggle-btn" id="historical-filter-btn" type="button" title="点击切换查看历史活动掉落">📜 历史活动</button>
         </div>
 
         <!-- Mod Rarity Filter -->
@@ -146,6 +147,11 @@
       <!-- Sources PvP Notice Bar -->
       <div id="source-pvp-callout" class="formula-banner view-control view-sources" style="display: none; margin-top: 0.5rem;">
         <span id="source-pvp-callout-text">💡 <strong>提示：</strong>当前页面不包含 PvP 来源，可点击「PvP」按钮查看。</span>
+      </div>
+
+      <!-- Sources Historical Event Notice Bar (Decision 8) -->
+      <div id="source-historical-callout" class="formula-banner view-control view-sources" style="display: none; margin-top: 0.5rem;">
+        <span id="source-historical-callout-text">💡 <strong>提示：</strong>当前页面默认隐藏历史活动来源，可点击「📜 历史活动」按钮查看。</span>
       </div>
 
       <!-- Relic Price Disclaimer Bar -->

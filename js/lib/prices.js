@@ -67,12 +67,22 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
   const sortedSellPrices = sellPrices.slice().sort((a, b) => a - b);
   const sortedBuyPrices = buyPrices.slice().sort((a, b) => b - a);
 
-  const sellMin = sortedSellPrices.length > 0 ? sortedSellPrices[0] : null;
-  const buyMax = sortedBuyPrices.length > 0 ? sortedBuyPrices[0] : null;
+  const rawSellMin = sortedSellPrices.length > 0 ? sortedSellPrices[0] : null;
+  const rawBuyMax = sortedBuyPrices.length > 0 ? sortedBuyPrices[0] : null;
+
+  // 倒挂报价隔离 (Codex Decision 10)
+  const isCrossed = (rawSellMin !== null && rawBuyMax !== null && rawBuyMax > rawSellMin);
+  const crossedMarket = isCrossed;
+  const crossedMarketReason = isCrossed
+    ? `报价倒挂：最高收购价 (${rawBuyMax} ☿) 高于最低卖价 (${rawSellMin} ☿)，两侧有效价格已隔离为缺价`
+    : null;
+
+  const sellMin = crossedMarket ? null : rawSellMin;
+  const buyMax = crossedMarket ? null : rawBuyMax;
 
   const n = sortedSellPrices.length;
   let sellRobust = null;
-  if (n === 0) {
+  if (crossedMarket || n === 0) {
     sellRobust = null;
   } else if (n < 3) {
     sellRobust = sellMin;
@@ -105,6 +115,11 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
   return {
     sellMin,
     buyMax,
+    rawSellMin,
+    rawBuyMax,
+    rawSellRobust: (n === 0 ? null : (n < 3 ? rawSellMin : sortedSellPrices.slice(0, 3)[1])),
+    crossedMarket,
+    crossedMarketReason,
     sellCount: n,
     buyCount: sortedBuyPrices.length,
     sellRobust,
@@ -143,8 +158,13 @@ export function computeCategoryStats(targetKeys = [], priceItems = {}, { categor
     } else {
       item = priceItems[k];
     }
-    if (item && (item.sellMin !== null || item.buyMax !== null)) {
-      priced++;
+    if (item) {
+      const sell = item.sellMin;
+      const buy = item.buyMax;
+      const isCrossed = (typeof sell === 'number' && Number.isFinite(sell) && typeof buy === 'number' && Number.isFinite(buy) && buy > sell);
+      if (!isCrossed && (sell !== null || buy !== null)) {
+        priced++;
+      }
     }
   }
   const total = uniqueKeys.length;

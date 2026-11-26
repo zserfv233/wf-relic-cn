@@ -15,8 +15,8 @@
       {
         "sourceId": "mission_duviri_endless_tier_6_hard",
         "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard)",
         "zhSource": "composed:en_node+planet:Duviri",
         "rotation": null,
         "stage": null,
@@ -80,6 +80,20 @@
         "chance": 8.44,
         "quantity": 1,
         "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "event_recall_ten_zero_week_3",
+        "sourceType": "transient",
+        "nameEn": "Recall: Ten-Zero Week 3",
+        "nameZh": "Recall: Ten-Zero Week 3",
+        "zhSource": "en_fallback",
+        "rotation": null,
+        "stage": null,
+        "bountyLevel": null,
+        "chance": 0.95,
+        "quantity": 1,
+        "rarity": "Legendary",
         "enemyModDropChance": null
       },
       {
@@ -114,8 +128,8 @@
       {
         "sourceId": "mission_duviri_endless_tier_6_hard",
         "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard)",
         "zhSource": "composed:en_node+planet:Duviri",
         "rotation": null,
         "stage": null,
@@ -182,6 +196,20 @@
         "enemyModDropChance": null
       },
       {
+        "sourceId": "event_recall_ten_zero_week_2",
+        "sourceType": "transient",
+        "nameEn": "Recall: Ten-Zero Week 2",
+        "nameZh": "Recall: Ten-Zero Week 2",
+        "zhSource": "en_fallback",
+        "rotation": null,
+        "stage": null,
+        "bountyLevel": null,
+        "chance": 0.95,
+        "quantity": 1,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
         "sourceId": "source_sortie_sortie",
         "sourceType": "sortie",
         "nameEn": "Sortie (突击任务)",
@@ -213,8 +241,8 @@
       {
         "sourceId": "mission_duviri_endless_tier_6_hard",
         "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard)",
         "zhSource": "composed:en_node+planet:Duviri",
         "rotation": null,
         "stage": null,
@@ -281,6 +309,20 @@
         "enemyModDropChance": null
       },
       {
+        "sourceId": "event_recall_ten_zero_week_1",
+        "sourceType": "transient",
+        "nameEn": "Recall: Ten-Zero Week 1",
+        "nameZh": "Recall: Ten-Zero Week 1",
+        "zhSource": "en_fallback",
+        "rotation": null,
+        "stage": null,
+        "bountyLevel": null,
+        "chance": 0.95,
+        "quantity": 1,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
         "sourceId": "source_sortie_sortie",
         "sourceType": "sortie",
         "nameEn": "Sortie (突击任务)",
@@ -312,8 +354,8 @@
       {
         "sourceId": "mission_duviri_endless_tier_6_hard",
         "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard)",
         "zhSource": "composed:en_node+planet:Duviri",
         "rotation": null,
         "stage": null,
@@ -380,6 +422,20 @@
         "enemyModDropChance": null
       },
       {
+        "sourceId": "event_recall_ten_zero_week_4",
+        "sourceType": "transient",
+        "nameEn": "Recall: Ten-Zero Week 4",
+        "nameZh": "Recall: Ten-Zero Week 4",
+        "zhSource": "en_fallback",
+        "rotation": null,
+        "stage": null,
+        "bountyLevel": null,
+        "chance": 0.95,
+        "quantity": 1,
+        "rarity": "Legendary",
+        "enemyModDropChance": null
+      },
+      {
         "sourceId": "source_sortie_sortie",
         "sourceType": "sortie",
         "nameEn": "Sortie (突击任务)",
@@ -411,8 +467,8 @@
       {
         "sourceId": "mission_duviri_endless_tier_6_hard",
         "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard)",
         "zhSource": "composed:en_node+planet:Duviri",
         "rotation": null,
         "stage": null,
@@ -448,6 +504,20 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "event_recall_ten_zero_week_5",
+        "sourceType": "transient",
+        "nameEn": "Recall: Ten-Zero Week 5",
+        "nameZh": "Recall: Ten-Zero Week 5",
+        "zhSource": "en_fallback",
+        "rotation": null,
+        "stage": null,
+        "bountyLevel": null,
+        "chance": 0.95,
+        "quantity": 1,
+        "rarity": "Legendary",
         "enemyModDropChance": null
       },
       {
@@ -482,8 +552,8 @@
       {
         "sourceId": "mission_duviri_endless_tier_6_hard",
         "sourceType": "mission",
-        "nameEn": "Duviri - Endless: Tier 6 (Hard) (Hard)",
-        "nameZh": "双衍王境 - Endless: Tier 6 (Hard) (Hard)",
+        "nameEn": "Duviri - Endless: Tier 6 (Hard)",
+        "nameZh": "双衍王境 - Endless: Tier 6 (Hard)",
         "zhSource": "composed:en_node+planet:Duviri",
         "rotation": null,
         "stage": null,
@@ -519,6 +589,20 @@
         "chance": 7.14,
         "quantity": 1,
         "rarity": "Rare",
+        "enemyModDropChance": null
+      },
+      {
+        "sourceId": "event_recall_ten_zero_week_5",
+        "sourceType": "transient",
+        "nameEn": "Recall: Ten-Zero Week 5",
+        "nameZh": "Recall: Ten-Zero Week 5",
+        "zhSource": "en_fallback",
+        "rotation": null,
+        "stage": null,
+        "bountyLevel": null,
+        "chance": 0.95,
+        "quantity": 1,
+        "rarity": "Legendary",
         "enemyModDropChance": null
       },
       {

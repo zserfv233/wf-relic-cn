@@ -727,9 +727,28 @@ export async function buildZhMap(explicitRawDir = null) {
       ]
     },
     
-    'stalker': { zh: '追猎者', source: 'wfcd_i18n:/Lotus/Interface/Graphics/CustomUI/Backgrounds/StalkerBackground', rule: 'exact_match:i18n' },
+    // A4: Stalker 与 Protector Stalker 回退英文（原取自“追猎者背景”与“卫护追猎者玩偶”，违反第 5 项“不得推广”且 exact_match 不实）
+    'stalker': {
+      zh: 'Stalker',
+      source: 'en_fallback',
+      pendingDecision: true,
+      candidate: {
+        rawName: '追猎者背景',
+        source: 'wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerBackDrop',
+        reason: '出处为物品“追猎者背景”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板'
+      }
+    },
     'shadow stalker': { zh: 'Shadow Stalker', source: 'en_fallback' },
-    'protector stalker': { zh: '卫护追猎者', source: 'wfcd_i18n:/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker', rule: 'exact_match:i18n' },
+    'protector stalker': {
+      zh: 'Protector Stalker',
+      source: 'en_fallback',
+      pendingDecision: true,
+      candidate: {
+        rawName: '卫护追猎者玩偶',
+        source: 'wfcd_i18n:/Lotus/Types/StoreItems/AvatarImages/ImageStalkerProtectorNoggle',
+        reason: '出处为物品“卫护追猎者玩偶”，违反不得推广物品名截词规则，保守回退英文，待 Codex 拍板'
+      }
+    },
 
     'profit-taker': { zh: '利润收割者', source: 'wfcd_worldstate:languages:/lotus/types/challenges/seasons/weeklyhard/seasonweeklyhardfriendsprofittaker', rule: 'exact_match:languages' }
   };
@@ -757,7 +776,9 @@ export async function buildZhMap(explicitRawDir = null) {
         ...(spec.rawName ? { rawName: spec.rawName } : {}),
         ...(spec.uniqueName ? { uniqueName: spec.uniqueName } : {}),
         ...(spec.rule ? { rule: spec.rule } : {}),
-        ...(spec.zhSegments ? { zhSegments: spec.zhSegments } : {})
+        ...(spec.zhSegments ? { zhSegments: spec.zhSegments } : {}),
+        ...(spec.pendingDecision ? { pendingDecision: true } : {}),
+        ...(spec.candidate ? { candidate: spec.candidate } : {})
       };
       continue;
     }
@@ -825,6 +846,24 @@ export async function buildZhMap(explicitRawDir = null) {
       const glyphMatches = deFlavourGlyphs.get(lower);
       const cand = glyphMatches[0];
       if (cand && /[\u4e00-\u9fa5]/.test(cand.zhCandidate)) {
+        // A2: 若派生结果以“的”结尾（如 8 个 Executioner），全部回退英文 en_fallback，保留 candidate 记录，标 pendingDecision
+        if (cand.zhCandidate.endsWith('的')) {
+          enemiesMap[enemyName] = {
+            nameZh: enemyName,
+            zhSource: 'en_fallback',
+            pendingDecision: true,
+            candidate: {
+              rule: 'pending_strip_de_glyph',
+              zhCandidate: cand.zhCandidate,
+              rawName: cand.zhGlyph,
+              uniqueName: cand.uniqueName,
+              zhSource: `de_export:ExportFlavour_zh:${cand.uniqueName}`,
+              reason: '派生结果以“的”结尾（源自“…的浮印”），按要求保守回退英文 en_fallback，待 Codex 拍板能否去掉“的”'
+            }
+          };
+          continue;
+        }
+
         enemiesMap[enemyName] = {
           nameZh: cand.zhCandidate,
           zhSource: `de_export:ExportFlavour_zh:${cand.uniqueName}`,
@@ -839,6 +878,41 @@ export async function buildZhMap(explicitRawDir = null) {
     if (languagesByEnValue.has(lower)) {
       const lang = languagesByEnValue.get(lower);
       const isAsIs = lang.zh.toLowerCase() === lang.en.toLowerCase();
+
+      // A3: 实体类型核对：语言键路径属于 sentinels/pets/powersuits/warframes 等非敌人类别时不采用
+      const nonEnemyPathRegex = /\/(sentinels|pets?|powersuits|warframes|kubrowpet)\b/i;
+      const isNonEnemyPath = nonEnemyPathRegex.test(lang.key);
+
+      if (isNonEnemyPath) {
+        if (lower === 'kubrow') {
+          // Kubrow 特例保留，标注“宠物同种”，列入待拍板
+          enemiesMap[enemyName] = {
+            nameZh: lang.zh,
+            zhSource: `wfcd_worldstate:languages:${lang.key}`,
+            rule: 'exact_match:languages',
+            annotation: '宠物同种',
+            pendingDecision: true,
+            pendingDecisionReason: '出处键为宠物 Kubrow 语言条目，掉落表为同物种野生库狛，暂时保留，待 Codex 拍板'
+          };
+          continue;
+        } else {
+          // Carrier 等非敌人类别（守护/战甲等）回退英文
+          enemiesMap[enemyName] = {
+            nameZh: enemyName,
+            zhSource: 'en_fallback',
+            rule: 'rejected_non_enemy_entity',
+            pendingDecision: true,
+            candidate: {
+              rule: 'rejected_non_enemy_entity',
+              zhCandidate: lang.zh,
+              zhSource: `wfcd_worldstate:languages:${lang.key}`,
+              reason: `语言键路径 (${lang.key}) 属于非敌人类别，与掉落表实体不一致，保守回退英文`
+            }
+          };
+          continue;
+        }
+      }
+
       if (!isAsIs && /[\u4e00-\u9fa5]/.test(lang.zh)) {
         enemiesMap[enemyName] = {
           nameZh: lang.zh,

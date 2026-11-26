@@ -364,3 +364,72 @@
 
 ## 2026-11-26 15:54 AEDT — R3a 通道复核完成
 - 详见 DONE.md 顶部；有 5 处问题并入 R3b 修正。
+
+## 2026-11-26 15:55 AEDT — R3b 开始（A 修正 4 项 + 第 7–11 项）
+
+## 2026-11-26 17:18 AEDT — R3b 修正与第 7–11 项全部完成
+- 依据 Codex 拍板文件 `/workspace/wf_decisions_1126b/decisions.md` 及通道复核意见，完成全部 A1–A4 修正与第 7–11 项开发工作：
+
+### A. 修正项（复核发现的问题）
+1. **A1. 来源显示名使用 DE 节点名**：
+   - 在 `scripts/build-data.mjs` 中，来源显示名 `nameZh` 优先使用已对齐的 DE 官方节点名 `nodeZh`（例如：`水星 - 阿波罗多罗斯撞击坑 (生存) [轮次 A]`）；未对齐或上游原样英文节点保持原样英文；
+   - 英文搜索能力完整保留：`search-index.json` 中保留原英文节点名 `node`、`planet` 及 `gameMode`，双语及全拼/缩写均能精准命中。
+2. **A2. Executioner ×8 回退英文并保留待拍板记录**：
+   - 在 `scripts/build-zh-map.mjs` 中，8 个在 DE ExportFlavour 中以“的”结尾的派生敌人（`Executioner Zura`、`Garesh`、`Harkonar`、`Reth`、`Vay Molta`、`Dok Thul`、`Nok`、`Gorth`）全部回退为英文 `en_fallback`；
+   - 条目中保留 `candidate` 记录（包含 `zhCandidate`、`rawName` 如“行刑者 Zura 的浮印”、出处键及原因），并标注 `pendingDecision: true`；严禁私自截去“的”。
+3. **A3. Carrier 实体回退英文与实体类型核对**：
+   - 掉落表中的 `Carrier` 为 Corpus 舰船（`SwarmShipAvatar`），出处键为守护（sentinel），非同一实体，已彻底回退为英文 `en_fallback`，标记 `rule: 'rejected_non_enemy_entity'` 与 `pendingDecision: true`；
+   - 全量 `exact_match:languages` 规则引入实体路径核对：排除 `sentinels`、`pets`、`powersuits`、`warframes` 等非敌人物品键；
+   - `Kubrow` 作为特例保留中文「库狛」，标注 `annotation: '宠物同种'` 与 `pendingDecision: true`。
+4. **A4. Stalker / Protector Stalker 回退与敌人中文严格核查**：
+   - `Stalker`（原取自“追猎者背景”）与 `Protector Stalker`（原取自“卫护追猎者玩偶”）属于物品名截词，违反不得推广规则且 exact_match 不实，全部回退为英文 `en_fallback` 并保留 candidate 记录与 `pendingDecision: true`；
+   - 全量 919 个敌人实体中，汉化敌人总数调整为 26 个，全部通过严格校验：每个敌人中文名要么严格等于出处原文值（`exact_match`），要么等于出处原文去掉规则声明后缀（`strip_suffix:浮印` / 仅限三个夜灵的 `strip_suffix:可动模型`），或为已登记规则（`sortie_boss`、`sortie_boss:t2s`、`composed:acolyte`）。
+
+### B. 第 7–11 项功能落地
+7. **第 7 项. AABC 默认不显示与泛化提示撤除**：
+   - 页面默认仅展示单奖励表/单轮次数据；
+   - 撤销 `scripts/build-data.mjs` 中普通任务的泛化提示 `rotationPattern: '常见 AABC...'`；仲裁任务保留专属 `rotationPattern: '仲裁轮次通常为 AABBCCCC…（不套用 AABC）'`；
+   - 界面同步移除泛化“轮次规律”提示，Nightmare 模式不启用 AABC；
+   - 保留 `aabcAverage(a, b, c)` 纯函数；本轮不新增任何未核实 AABC 来源。
+8. **第 8 项. Recall: Ten-Zero 独立来源与历史活动分组**：
+   - 从 `de_droptables.html` 按表头独立解析出 5 个独立来源（`Recall: Ten-Zero Week 1` 至 `Week 5`），各表行数分别为 `10 / 10 / 10 / 10 / 11` 行（总计 51 项），各表概率和严格为 100%；
+   - 每条来源记录来源指纹（`header`、`rowCount`、`probabilitySum`），标明 `historicalEvent: true` 与 `eventGroup: 'recall_ten_zero'`；
+   - 默认不进入常规刷取列表和收益排序（`filterSources` 默认排除）；
+   - 前端新增「📜 历史活动」专属筛选按钮、独立提示横幅，并附带官方公告引用与链接（https://www.warframe.com/en/news/rappel-ten-zero ）。
+9. **第 9 项. 仲裁前八轮已计价部分平均**：
+   - 前端横幅标题规范为「⚖️ 仲裁前八轮已计价部分平均（发奖序列 AABBCCCC…）」；
+   - 纯函数 `arbitrationFirst8PricedPortion(expA, expB, expC)`：卖、买两侧各自按 `(2A + 2B + 4C) / 8` 对各轮已定价项加权；
+   - 分别计算加权已计价概率、加权缺价概率、加权不可交易概率，各自标记「不完整估值」；
+   - 完整 EV 在任一轮缺价时严格返回 `null`，前端严禁使用 `?? 0` 冒充；某轮结构数据不足（表缺失、数据受污染或掉落概率未知）时，停止显示有效平均并提示「⚠️ 结构数据不足」；
+   - 当前缓存复算实际值报告（结合第 10 项倒挂隔离）：
+     - 卖侧实际值：已知贡献为 **0.84375 ☿**（rounds to 0.84 ☿），已计价概率 **22.375%**，缺价概率 **74.625%**，不可交易概率 **3.0%**；完整 EV 为 `null`；
+     - 买侧实际值：已知贡献为 **0.00 ☿**，已计价概率 **0.00%**，缺价概率 **97.00%**，不可交易概率 **3.0%**；完整 EV 为 `null`；
+     - *（注：Codex 报告的卖侧 0.95625 ☿ / 26.125% 与买侧 0.15 ☿ / 3.75% 是在未应用第 10 项倒挂隔离时计入了 `arcane_pistoleer` 算出的数字；第 10 项将买 4 > 卖 3 的倒挂项隔离后，贡献与已计价概率相应排除）*。
+10. **第 10 项. 倒挂报价隔离（buyMax > sellMin）**：
+    - 同一完整价格缓存键（同物品、rank、subtype）若 `sellMin` 与 `buyMax` 均为有限数且 `buyMax > sellMin`，标记 `crossedMarket: true`，记录倒挂原因；
+    - 两侧有效价格（`sellMin`、`buyMax`、`sellRobust`）全部置为 `null`，计入缺价；原始报价与订单样本完整保留在明细中；
+    - 在 `getPriceEntry`、`parseOrdersTop`、`computeCategoryStats` 统一贯彻，遗物、来源、物品列表与价格覆盖率统计全部一致遵循；
+    - 当前缓存统计：全库共检测出 **53 个倒挂键，涉及 52 个基础 slug**（其中 15 个遗物、1 个紫卡 `shotgun_riven_mod_veiled@unrevealed`、35 个赋能、2 个 Mod）；典型条目 `arcane_reaper@r0`（最低卖价 15 ☿，最高买价 72 ☿）。
+11. **第 11 项. 买卖双卡片独立提示与 (Hard) (Hard) 去重**：
+    - 来源详情弹窗中，卖侧与买侧两张数值卡片分别独立展示该侧的完整性（不完整估值提示）、已计价覆盖率和缺价清单入口；仲裁横幅两侧分别判断，彻底消除“卖侧完整导致买侧不提示”的问题；
+    - 修复重复 Hard：在 `scripts/build-data.mjs` 中拆分节点基础显示名与难度字段，当前全量来源中重复 `(Hard) (Hard)` 剩余数为 **0**；原 6 个 Duviri Endless Hard 来源成功规范（如 `Duviri - Endless: Tier 1 (Hard)`），保留原 `node` 键与来源 id 不变，含 `(Caches)` 等正常后缀的来源不受影响；
+    - 紫卡 subtype 严格匹配不回退：确认 `getPriceEntry` 严格依据 `@unrevealed` 匹配，废除回退。
+
+### C. 覆盖率统计（双口径更新）
+- 依据 `data/meta.json` 与 `docs/remaining-english.md`：
+  - 物品规范覆盖率：98.5%（简略名修正数 451 条）；
+  - 全站条目总计：6274 项，中文率 62.6%，可追溯率 65.6%；
+  - 价格覆盖率：总计 2495 项，已计价 2399 项（96.2%）；各分类：遗物 97.5%、紫卡 87.5%、赋能 87.4%、Mod 97.6%（覆盖率受 53 个倒挂键隔离为缺价影响，真实反映可信报价）。
+
+### D. 待 Codex 拍板事项
+1. **Executioner 8 敌人中文名派生**：8 个在 DE ExportFlavour 中为“…的浮印”的条目（如 `行刑者 Zura 的浮印`），派生后以“的”结尾（`行刑者 Zura 的`），能否批准规则 `strip_suffix:的浮印` 去掉“的”（目前按要求保守回退英文 `en_fallback`，保留 candidate 记录）。
+2. **Carrier 实体区分**：掉落表中 Carrier 为 Corpus 舰船（`SwarmShipAvatar`），WFCD 语言键为守护 Carrier，确认是否永久保留英文。
+3. **Kubrow 野生与宠物同种**：出处键为宠物条目，掉落表为野生生物，目前保留中文「库狛」并标注“宠物同种”，待 Codex 拍板是否确认。
+4. **Stalker / Protector Stalker 物品截词**：出处为物品“追猎者背景”与“卫护追猎者玩偶”，违反不得推广物品截词规则，已回退英文，待 Codex 拍板。
+5. **倒挂报价（53 键 / 52 基础 slug）**：如 `arcane_reaper@r0`（卖 15 ☿ / 买 72 ☿），目前全站严格隔离为缺价，待后续市场抓取刷新。
+6. **未核实 AABC 来源**：本轮未新增任何未核实 AABC 来源，待后续提供可核实机制。
+
+### E. 测试与验证
+- `npm test`：14 个测试套件，92 个测试全部通过（92 passed, 0 failed）；
+- `node scripts/check-invariants-with-mutated-prices.mjs --raw /workspace/wf-relic-cn-raw`：变异价格不变量复核全部通过。
+
