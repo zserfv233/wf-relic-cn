@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { RateLimiter, fetchWithRetry } from '../js/lib/rate-limiter.js';
-import { parseOrdersTop, calculatePriceCoverage, computeCategoryStats } from '../js/lib/prices.js';
+import { parseOrdersTop, calculatePriceCoverage, computeCategoryStats, PRICE_SCHEMA_VERSION } from '../js/lib/prices.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -56,6 +56,12 @@ export function buildMetaPrices(priceCache, dataDir = DATA_DIR) {
     arcanes: arcanesData,
     mods: modsData
   });
+}
+
+export function isFreshPrice(cached, now, maxAgeMs) {
+  // 旧缓存缺少逐单 perTrade，无法安全倒算，必须通过真实响应重抓。
+  return cached?.priceSchemaVersion === PRICE_SCHEMA_VERSION && cached.fetchedAt &&
+    now - new Date(cached.fetchedAt).getTime() < maxAgeMs;
 }
 
 /**
@@ -254,12 +260,7 @@ async function main() {
     for (const task of allCatTasks) {
       const isForced = forcedRecheckSet.has(task.cacheKey);
       const cached = priceCache.items[task.cacheKey];
-      if (!isForced && cached && cached.fetchedAt) {
-        const fetchedTime = new Date(cached.fetchedAt).getTime();
-        if (now - fetchedTime < maxAgeMs) {
-          continue; // 在有效期内，跳过
-        }
-      }
+      if (!isForced && isFreshPrice(cached, now, maxAgeMs)) continue;
       pendingTasks.push({ ...task, isForcedRecheck: isForced });
       if (pendingTasks.length >= remainingLimit) break;
     }
@@ -345,7 +346,9 @@ async function main() {
               };
             } else {
               priceCache.items[cacheKey] = {
-                priceSchemaVersion: 2,
+                priceSchemaVersion: PRICE_SCHEMA_VERSION,
+                priceUnit: 'platinum/item',
+                httpStatus: 404,
                 sellMin: null,
                 buyMax: null,
                 rawSellMin: null,
@@ -440,6 +443,18 @@ async function main() {
     }
 
     remainingLimit -= pendingTasks.length;
+
+    // 失败运行也在日志中保留逐键缺价原因，不能只记录 HTTP 成功数。
+    for (const { cacheKey } of allCatTasks) {
+      const entry = priceCache.items[cacheKey];
+      if (!entry || (entry.sellMin == null && entry.buyMax == null)) {
+        console.log(`[prices] 缺价 ${cacheKey}: ${JSON.stringify({
+          reason: entry?.crossedMarket ? 'crossed_market' : entry?.httpStatus === 404 ? 'http_404' : entry?.noOrders ? 'no_orders' : 'missing',
+          rawSellMin: entry?.rawSellMin ?? null,
+          rawBuyMax: entry?.rawBuyMax ?? null
+        })}`);
+      }
+    }
 
     // 每完成一个类别就写一次 data/prices.json（中途中断也不丢）
     priceCache.updatedAt = new Date().toISOString();
