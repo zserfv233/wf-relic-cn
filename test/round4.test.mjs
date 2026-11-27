@@ -327,13 +327,13 @@ describe('Codex 1126c Round 4 决定实现全量验证套件 (Round 4 Tests)', (
   // 第 7 项: 价格缓存读写契约、全边界与复核队列
   // ==========================================================================
   describe('第 7 项: 价格缓存契约、倒挂隔离全边界与复核队列验证', () => {
-    it('parseOrdersTop 输出带 priceSchemaVersion: 2 且保留明确 raw 字段', () => {
+    it('parseOrdersTop 输出带 priceSchemaVersion: 3 且保留明确 raw 字段', () => {
       const mockOrders = [
         { order_type: 'sell', user: { status: 'ingame' }, platinum: 10, quantity: 1 },
         { order_type: 'buy', user: { status: 'ingame' }, platinum: 20, quantity: 1 }
       ];
       const parsed = parseOrdersTop(mockOrders, { rank: 0 });
-      assert.strictEqual(parsed.priceSchemaVersion, 2);
+      assert.strictEqual(parsed.priceSchemaVersion, 3);
       assert.strictEqual(parsed.rawSellMin, 10);
       assert.strictEqual(parsed.rawBuyMax, 20);
       assert.strictEqual(parsed.sellMin, null, '倒挂时有效 sellMin 必须为 null');
@@ -354,7 +354,7 @@ describe('Codex 1126c Round 4 决定实现全量验证套件 (Round 4 Tests)', (
       const deserialized = JSON.parse(serialized);
 
       const entry = getPriceEntry('test_slug', 0, deserialized);
-      assert.strictEqual(entry.priceSchemaVersion, 2);
+      assert.strictEqual(entry.priceSchemaVersion, 3);
       assert.strictEqual(entry.rawSellMin, 12);
       assert.strictEqual(entry.rawBuyMax, 50);
       assert.strictEqual(entry.sellMin, null);

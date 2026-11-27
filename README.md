@@ -64,6 +64,8 @@ node scripts/build-data.mjs --download
 > **注意**：部分网络环境下直接访问 `api.warframe.market` 可能会受到 Cloudflare 质询拦截。价格抓取脚本应在可正常直连 API 的环境中执行。
 > 价格取 warframe.market /v2/orders/item/{slug}/top 返回订单中的最低卖价/最高收购价，仅代表抓取时刻；遗物期望值不含 Forma 等不可交易物。
 
+订单先按各自的 `platinum / perTrade` 换算为单件白金，再计算最低卖价、最高收购价、中位卖价与倒挂隔离；`quantity` 是库存，不参与折算。缺省 `perTrade` 按 1 处理。v3 价格缓存保留逐单总价、每笔数量和单价，旧版缓存即使尚未过期也会重新抓取，不能用旧缓存中单个 `perTrade` 字段倒算所有订单。字段依据见 [Warframe.Market 官方 Order 模型](https://docs.warframe.market/docs/data-models/#order)。
+
 ```bash
 # 抓取未缓存或已过期的物品价格（默认跳过 24 小时内抓取项，限速 ≤ 3 req/s）
 node scripts/fetch-prices.mjs

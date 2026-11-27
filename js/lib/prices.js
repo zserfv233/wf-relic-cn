@@ -5,6 +5,16 @@
 import { LOW_CONFIDENCE_MIN_SELLERS } from './calculations.js';
 export { LOW_CONFIDENCE_MIN_SELLERS };
 
+// v3: 所有价格与样本均为单件白金；v2 混用了不同 perTrade 的交易总价。
+export const PRICE_SCHEMA_VERSION = 3;
+
+function orderUnitPrice(order) {
+  const perTrade = order.perTrade ?? order.per_trade ?? 1;
+  if (!Number.isInteger(perTrade) || perTrade < 1 || perTrade > 6) return null;
+  if (typeof order.platinum !== 'number' || !Number.isFinite(order.platinum) || order.platinum < 0) return null;
+  return order.platinum / perTrade;
+}
+
 /**
  * 解析 Warframe.Market v2 orders/top 响应数据
  * @param {Object} ordersData API 返回的原始数据或 fixture
@@ -65,11 +75,13 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
     filteredBuy = rankFilteredBuy;
   }
 
-  const validSellOrders = filteredSell.filter(o => typeof o.platinum === 'number' && Number.isFinite(o.platinum) && o.platinum >= 0);
-  const validBuyOrders = filteredBuy.filter(o => typeof o.platinum === 'number' && Number.isFinite(o.platinum) && o.platinum >= 0);
+  const validSellOrders = filteredSell.filter(o => orderUnitPrice(o) !== null);
+  const validBuyOrders = filteredBuy.filter(o => orderUnitPrice(o) !== null);
 
-  const sellPrices = validSellOrders.map(o => o.platinum);
-  const buyPrices = validBuyOrders.map(o => o.platinum);
+  // platinum 是交易总价，quantity 是库存；只能按每一单自己的 perTrade 折算。
+  // https://docs.warframe.market/docs/data-models/#order
+  const sellPrices = validSellOrders.map(orderUnitPrice);
+  const buyPrices = validBuyOrders.map(orderUnitPrice);
 
   const sortedSellPrices = sellPrices.slice().sort((a, b) => a - b);
   const sortedBuyPrices = buyPrices.slice().sort((a, b) => b - a);
@@ -123,7 +135,18 @@ export function parseOrdersTop(ordersData, { onlineOnly = true, targetRank = nul
   const noOrders = n === 0 && sortedBuyPrices.length === 0;
 
   return {
-    priceSchemaVersion: 2,
+    priceSchemaVersion: PRICE_SCHEMA_VERSION,
+    priceUnit: 'platinum/item',
+    // 保留每单总价和数量，避免只存排序后的价格而无法审计批量报价倒挂。
+    rawOrderSamples: Object.fromEntries([
+      ['sell', validSellOrders], ['buy', validBuyOrders]
+    ].map(([side, orders]) => [side, orders.map(o => ({
+      platinum: o.platinum,
+      perTrade: o.perTrade ?? o.per_trade ?? 1,
+      unitPrice: orderUnitPrice(o),
+      rank: o.rank ?? null,
+      subtype: o.subtype ?? null
+    }))])),
     sellMin,
     buyMax,
     rawSellMin,
