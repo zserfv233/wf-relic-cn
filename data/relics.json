@@ -70831,9 +70831,9 @@
       "vaultedSource": "de_droptables",
       "statusReason": null,
       "statusSource": null,
-      "wfcdVaulted": true,
-      "conflict": true,
-      "conflictNote": "DE当前掉落表现存该遗物，但WFCD标记为已入库",
+      "wfcdVaulted": false,
+      "conflict": false,
+      "conflictNote": null,
       "dataConflict": false,
       "dataConflictNote": null,
       "rewards": [
@@ -92269,7 +92269,7 @@
           "status": "obtainable",
           "vaulted": false,
           "unlisted": false,
-          "conflict": true,
+          "conflict": false,
           "rarity": "Uncommon",
           "quantity": 1,
           "chances": {
@@ -117864,7 +117864,7 @@
           "status": "obtainable",
           "vaulted": false,
           "unlisted": false,
-          "conflict": true,
+          "conflict": false,
           "rarity": "Uncommon",
           "quantity": 1,
           "chances": {
@@ -131088,7 +131088,7 @@
           "status": "obtainable",
           "vaulted": false,
           "unlisted": false,
-          "conflict": true,
+          "conflict": false,
           "rarity": "Rare",
           "quantity": 1,
           "chances": {
@@ -131174,7 +131174,7 @@
           "status": "obtainable",
           "vaulted": false,
           "unlisted": false,
-          "conflict": true,
+          "conflict": false,
           "rarity": "Uncommon",
           "quantity": 1,
           "chances": {
@@ -131830,7 +131830,7 @@
           "status": "obtainable",
           "vaulted": false,
           "unlisted": false,
-          "conflict": true,
+          "conflict": false,
           "rarity": "Uncommon",
           "quantity": 1,
           "chances": {
@@ -131916,7 +131916,7 @@
           "status": "obtainable",
           "vaulted": false,
           "unlisted": false,
-          "conflict": true,
+          "conflict": false,
           "rarity": "Uncommon",
           "quantity": 1,
           "chances": {

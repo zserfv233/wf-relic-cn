@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "phase": 4,
-  "builtAt": "2026-11-27T11:25:40.558Z",
+  "builtAt": "2026-11-28T10:53:12.392Z",
   "sources": {
     "deDropData": "https://drops.warframestat.us/data/all.json",
     "deDropTableOfficial": "https://www.warframe.com/droptables",
@@ -14,7 +14,7 @@
     "obtainableRelics": 40,
     "vaultedRelics": 760,
     "unlistedRelics": 4,
-    "conflictRelics": 2,
+    "conflictRelics": 1,
     "totalRewardItems": 607,
     "totalArcanes": 170,
     "totalRivens": 8,
